@@ -53,7 +53,7 @@ body {
 }
 
 .nav-link {
-    color: var(--text-color);
+    color: #4682B4;
     text-decoration: none;
     font-size: 1.2em;
     position: relative;
@@ -61,7 +61,7 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--hover-color);
+    color: #5F9EA0;
 }
 
 .nav-link::after {
@@ -106,7 +106,7 @@ body {
     font-size: 3.5em;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: var(--text-color);
+    color: #2C3E50;
     text-transform: uppercase;
     position: relative;
     margin: 0;
@@ -138,7 +138,7 @@ body {
     margin-top: 30px;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #4A5D6B;
+    color: #1A2634;
     text-transform: uppercase;
     letter-spacing: 2px;
     padding: 0 40px;
@@ -191,7 +191,7 @@ h2 {
     text-align: center;
     padding: 0 40px;
     white-space: nowrap;
-    color: #E74C3C;
+    color: #2C3E50;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 500;
     text-transform: uppercase;
@@ -278,7 +278,8 @@ body::after {
 .conclusion {
     text-align: right;
     font-weight: bold;
-    color: var(--accent-pink);
+    color: #9d4edd;
+    font-style: normal;
 }
 
 @keyframes fadeInUp {
@@ -510,28 +511,27 @@ body::after {
 .about-content p {
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
-    color: var(--text-color);
+    color: #FFFFFF;
     font-style: normal;
     font-family: 'Space Grotesk', sans-serif;
     line-height: 1.6;
     text-align: justify;
 }
 
-.about-content .intro {
+.about-content .intro,
+.about-content .description {
     font-size: 1.1rem;
     font-weight: 300;
     letter-spacing: 0.5px;
-}
-
-.about-content .description {
+    color: #FFFFFF;
     font-style: normal;
-    color: rgba(255, 255, 255, 0.9);
 }
 
 .about-content .conclusion {
     text-align: right;
-    font-weight: 500;
-    color: var(--accent-pink);
+    font-weight: bold;
+    color: #9d4edd;
+    font-style: normal;
 }
 
 .about-content .conclusion {
