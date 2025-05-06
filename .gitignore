@@ -22,7 +22,10 @@ Thumbs.db
 *.log
 
 node_modules/
-*.mp4
 *.mov
 *.mp3
-Terminal.mov 
+Terminal.mov
+
+# Exceptions pour certains fichiers MP4
+!effondrement.mp4
+!incendie.mp4 
