@@ -3,7 +3,7 @@
     --text-color: #2C3E50;
     --accent-color: #9F7AEA;
     --title-color: #2C3E50;
-    --section-bg: rgba(248, 250, 252, 0.95);
+    --section-bg: rgba(230, 235, 240, 0.95);
     --hover-color: #805AD5;
     --border-color: rgba(226, 232, 240, 0.8);
     --teal-dark: #2D4A53;
@@ -11,8 +11,8 @@
     --accent-blue: #63B3ED;
     --accent-purple: #9F7AEA;
     --accent-teal: #4FD1C5;
-    --gradient-start: #F8FAFC;
-    --gradient-end: #F1F5F9;
+    --gradient-start: #EDF0F5;
+    --gradient-end: #EDF0F5;
 }
 
 * {
@@ -311,15 +311,54 @@ body::after {
     backdrop-filter: blur(10px);
 }
 
+.project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .project-description {
     text-align: left;
     font-size: 1.1rem;
     margin: 1.5rem 0;
     color: var(--text-color);
     font-style: normal;
-    max-width: 800px;
-    margin-left: 2rem;
     line-height: 1.6;
+    max-width: 50%;
+}
+
+.media-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.media-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.media-grid .project-video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.media-grid .project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.media-grid .project-image:hover {
+    transform: scale(1.02);
 }
 
 .voice-grid {
@@ -601,14 +640,24 @@ body::after {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: #9F7AEA;
-    transform: scaleX(0);
+    background: linear-gradient(90deg, 
+        #9F7AEA 0%,
+        #805AD5 20%,
+        rgba(159, 122, 234, 0.8) 40%,
+        rgba(159, 122, 234, 0.4) 60%,
+        rgba(159, 122, 234, 0.1) 80%,
+        transparent 100%
+    );
+    transform: scaleX(1);
     transform-origin: left;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    opacity: 0.3;
+    box-shadow: 0 0 8px rgba(159, 122, 234, 0.2);
 }
 
 .project-item:hover h3::after {
-    transform: scaleX(1);
+    opacity: 0.6;
+    box-shadow: 0 0 12px rgba(159, 122, 234, 0.4);
 }
 
 .language-selector {
@@ -722,12 +771,6 @@ body::after {
     max-width: 800px;
     margin-left: 2rem;
     line-height: 1.6;
-}
-
-.media-container {
-    display: flex;
-    gap: 20px;
-    align-items: center;
 }
 
 .audio-player {
@@ -1087,4 +1130,89 @@ body::after {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.media-grid .project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.media-grid .project-image:hover {
+    transform: scale(1.02);
+}
+
+.media-grid .project-video {
+    grid-column: span 2;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .media-grid .project-video {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 1024px) {
+    .project-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .media-container {
+        margin-top: 30px;
+    }
+}
+
+/* Styles pour la symphonie du déclin */
+.symphonie-declin .project-content {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.symphonie-declin .left-content {
+    flex: 1;
+}
+
+.symphonie-declin .media-container {
+    flex: 1;
+}
+
+.symphonie-declin .media-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.symphonie-declin .project-description {
+    max-width: 1000px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .symphonie-declin .project-content {
+        flex-direction: column;
+    }
 } 

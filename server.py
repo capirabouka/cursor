@@ -41,7 +41,7 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
                 return
         return super().do_GET()
 
-def run(server_class=HTTPServer, handler_class=CORSRequestHandler, port=8080):
+def run(server_class=HTTPServer, handler_class=CORSRequestHandler, port=8000):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f"Serveur démarré sur le port {port}")
