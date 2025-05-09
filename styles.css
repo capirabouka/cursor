@@ -22,8 +22,8 @@
 }
 
 body {
-    background: linear-gradient(225deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    color: var(--text-color);
+    background: #ffffff;
+    color: #000000;
     font-family: 'Space Grotesk', sans-serif;
     overflow-x: hidden;
     transition: background-color 1s ease, color 1s ease;
@@ -1319,7 +1319,7 @@ body::after {
     text-transform: uppercase;
 }
 
-/* Mode sombre */
+/* Mode sombre - désactivé par défaut */
 body.dark-mode {
     background: #000000 !important;
     color: #ffffff !important;

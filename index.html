@@ -14,7 +14,10 @@
     <div class="explosion-effect"></div>
     <div class="particles"></div>
     <div class="alarm-effect"></div>
-    <audio id="alarmSound" src="alarme.mp3" preload="auto"></audio>
+    <audio id="alarmSound" controls>
+        <source src="alarme.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'élément audio.
+    </audio>
     
     <nav class="main-nav">
         <div class="nav-links">
@@ -87,7 +90,7 @@
                         </div>
                         <div class="audio-container">
                             <audio class="audio-player" controlsList="nodownload">
-                                <source src="./symphonie de la fin du monde.mp3" type="audio/mpeg">
+                                <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
                                 Votre navigateur ne supporte pas l'élément audio.
                             </audio>
                             <div class="audio-controls">

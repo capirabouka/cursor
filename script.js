@@ -138,37 +138,47 @@ function changeLanguage(lang) {
 
 // Initialisation du lecteur audio
 function initAudioPlayer() {
-    const audioPlayer = document.querySelector('.audio-player');
-    const playPauseBtn = document.querySelector('.play-pause-btn');
-    const progressBar = document.querySelector('.progress-bar');
-    const timeDisplay = document.querySelector('.time-display');
-    const audio = document.querySelector('audio');
-
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = Math.floor(seconds % 60);
-        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-
-    function updateTimeDisplay() {
-        timeDisplay.innerHTML = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-        progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
-    }
-
-    playPauseBtn.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-            playPauseBtn.querySelector('.play-icon').style.display = 'none';
-            playPauseBtn.querySelector('.pause-icon').style.display = 'inline';
-        } else {
-            audio.pause();
-            playPauseBtn.querySelector('.play-icon').style.display = 'inline';
-            playPauseBtn.querySelector('.pause-icon').style.display = 'none';
-        }
+    const audioPlayers = document.querySelectorAll('.audio-player');
+    
+    audioPlayers.forEach(player => {
+        const playPauseBtn = player.parentElement.querySelector('.play-pause-btn');
+        const playIcon = playPauseBtn.querySelector('.play-icon');
+        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+        const progressBar = player.parentElement.querySelector('.progress-bar');
+        const currentTime = player.parentElement.querySelector('.time-display span:first-child');
+        const duration = player.parentElement.querySelector('.time-display span:last-child');
+        
+        // Mettre à jour la durée totale
+        player.addEventListener('loadedmetadata', () => {
+            duration.textContent = formatTime(player.duration);
+        });
+        
+        // Mettre à jour le temps actuel
+        player.addEventListener('timeupdate', () => {
+            currentTime.textContent = formatTime(player.currentTime);
+            const progress = (player.currentTime / player.duration) * 100;
+            progressBar.style.width = progress + '%';
+        });
+        
+        // Gérer le bouton play/pause
+        playPauseBtn.addEventListener('click', () => {
+            if (player.paused) {
+                player.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline';
+            } else {
+                player.pause();
+                playIcon.style.display = 'inline';
+                pauseIcon.style.display = 'none';
+            }
+        });
     });
+}
 
-    audio.addEventListener('timeupdate', updateTimeDisplay);
-    audio.addEventListener('loadedmetadata', updateTimeDisplay);
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    seconds = Math.floor(seconds % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
 // Initialisation
@@ -191,23 +201,10 @@ window.addEventListener('resize', () => {
 document.addEventListener('DOMContentLoaded', function() {
     const apocalypseButton = document.getElementById('apocalypseButton');
     
-    // Vérifier si le mode sombre était déjà activé
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-        apocalypseButton.querySelector('.button-text').textContent = 'DÉSACTIVER L\'APOCALYPSE';
-    }
-
+    // Forcer le mode clair au démarrage
+    document.body.classList.remove('dark-mode');
+    
     apocalypseButton.addEventListener('click', function() {
         document.body.classList.toggle('dark-mode');
-        
-        // Sauvegarder la préférence
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        
-        // Changer le texte du bouton
-        if (document.body.classList.contains('dark-mode')) {
-            this.querySelector('.button-text').textContent = 'DÉSACTIVER L\'APOCALYPSE';
-        } else {
-            this.querySelector('.button-text').textContent = 'ACTIVER L\'APOCALYPSE';
-        }
     });
 }); 
