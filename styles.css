@@ -1230,6 +1230,79 @@ body::after {
 }
 
 /* Bouton PUSH */
+.apocalypse-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin: 40px 0;
+}
+
+.apocalypse-text {
+    flex: 1;
+    max-width: 50%;
+}
+
+.apocalypse-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 40px auto;
+}
+
+.matrix-text {
+    font-family: 'Space Grotesk', monospace;
+    color: #00ff00;
+    font-size: 1.1rem;
+    opacity: 0;
+    white-space: normal;
+    overflow: hidden;
+    border-right: 2px solid #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    line-height: 1.6;
+    display: none;
+    animation: textGlow 2s ease-in-out infinite alternate;
+    max-width: 50%;
+    margin: 20px auto;
+    text-align: left;
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px #00ff00,
+                     0 0 20px #00ff00;
+    }
+    to {
+        text-shadow: 0 0 20px #00ff00,
+                     0 0 40px #00ff00;
+    }
+}
+
+body.dark-mode .matrix-text {
+    display: block;
+    animation: typing 4s steps(100, end) forwards,
+               blink-caret 0.75s step-end infinite,
+               textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes typing {
+    from { 
+        width: 0;
+        opacity: 1;
+    }
+    to { 
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #00ff00 }
+}
+
 .apocalypse-button {
     background-color: #ff0000;
     color: #000000;
@@ -1257,56 +1330,28 @@ body::after {
 }
 
 .apocalypse-button.active {
-    color: #ffffff;
-}
-
-/* Effet d'alarme */
-.alarm-effect {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    color: #ffffff !important;
     background-color: #ff0000;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 9998;
+    border-color: #ffffff;
+    box-shadow: 
+        0 8px 0 #ffffff,
+        0 15px 20px rgba(255, 255, 255, 0.3);
 }
 
-.alarm-effect.active {
-    animation: alarmFlash 12s ease-in-out forwards;
+body.dark-mode .apocalypse-button {
+    border-color: #ffffff !important;
+    box-shadow: 
+        0 8px 0 #ffffff,
+        0 15px 20px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes alarmFlash {
-    0% { opacity: 0; }
-    5% { opacity: 0.8; }
-    10% { opacity: 0; }
-    30% { opacity: 0; }
-    35% { opacity: 0.8; }
-    40% { opacity: 0; }
-    60% { opacity: 0; }
-    65% { opacity: 0.8; }
-    70% { opacity: 0; }
-    90% { opacity: 0; }
-    95% { opacity: 0.8; }
-    100% { opacity: 0; }
-}
-
-.apocalypse-button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 40px auto;
-    position: relative;
-}
-
-.apocalypse-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2em;
-    color: #000000;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+body.dark-mode .apocalypse-button.active {
+    color: #ffffff !important;
+    background-color: #ff0000;
+    border-color: #ffffff;
+    box-shadow: 
+        0 8px 0 #ffffff,
+        0 15px 20px rgba(255, 255, 255, 0.3);
 }
 
 .apocalypse-warning {
@@ -1319,7 +1364,72 @@ body::after {
     text-transform: uppercase;
 }
 
-/* Mode sombre - désactivé par défaut */
+.apocalypse-progress-container {
+    position: absolute;
+    right: -400px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.05);
+    border: 1px solid #00ff00;
+    padding: 2px;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+.apocalypse-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #00ff00;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 2px #00ff00;
+    animation: glow 3s ease-in-out infinite alternate;
+    position: relative;
+}
+
+@keyframes borderGlow {
+    from {
+        box-shadow: 0 0 2px #00ff00,
+                    inset 0 0 2px #00ff00;
+        border-color: #00ff00;
+    }
+    to {
+        box-shadow: 0 0 4px #00ff00,
+                    inset 0 0 4px #00ff00;
+        border-color: #00ff00;
+    }
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 2px #00ff00;
+    }
+    to {
+        box-shadow: 0 0 4px #00ff00;
+    }
+}
+
+.apocalypse-button-container.active .apocalypse-progress-container {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out, borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* Mode sombre */
 body.dark-mode {
     background: #000000 !important;
     color: #ffffff !important;
@@ -1361,4 +1471,36 @@ body.dark-mode .apocalypse-button {
     box-shadow: 
         0 8px 0 #ffffff,
         0 15px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Effet d'alarme */
+.alarm-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff0000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.alarm-effect.active {
+    animation: alarmFlash 12s ease-in-out forwards;
+}
+
+@keyframes alarmFlash {
+    0% { opacity: 0; }
+    5% { opacity: 0.8; }
+    10% { opacity: 0; }
+    30% { opacity: 0; }
+    35% { opacity: 0.8; }
+    40% { opacity: 0; }
+    60% { opacity: 0; }
+    65% { opacity: 0.8; }
+    70% { opacity: 0; }
+    90% { opacity: 0; }
+    95% { opacity: 0.8; }
+    100% { opacity: 0; }
 } 

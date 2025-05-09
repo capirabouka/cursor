@@ -14,7 +14,7 @@
     <div class="explosion-effect"></div>
     <div class="particles"></div>
     <div class="alarm-effect"></div>
-    <audio id="alarmSound" controls>
+    <audio id="alarmSound" preload="auto">
         <source src="alarme.mp3" type="audio/mpeg">
         Votre navigateur ne supporte pas l'élément audio.
     </audio>
@@ -154,6 +154,9 @@
                     <div class="apocalypse-button-container">
                         <button id="apocalypseButton" class="apocalypse-button">PUSH</button>
                         <p class="apocalypse-warning">NE PAS APPUYER</p>
+                        <div class="apocalypse-progress-container">
+                            <div class="apocalypse-progress-bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
