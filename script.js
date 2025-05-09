@@ -185,4 +185,29 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Gestion du mode sombre
+document.addEventListener('DOMContentLoaded', function() {
+    const apocalypseButton = document.getElementById('apocalypseButton');
+    
+    // Vérifier si le mode sombre était déjà activé
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        apocalypseButton.querySelector('.button-text').textContent = 'DÉSACTIVER L\'APOCALYPSE';
+    }
+
+    apocalypseButton.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        
+        // Sauvegarder la préférence
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        
+        // Changer le texte du bouton
+        if (document.body.classList.contains('dark-mode')) {
+            this.querySelector('.button-text').textContent = 'DÉSACTIVER L\'APOCALYPSE';
+        } else {
+            this.querySelector('.button-text').textContent = 'ACTIVER L\'APOCALYPSE';
+        }
+    });
 }); 
