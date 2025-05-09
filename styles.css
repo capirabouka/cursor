@@ -1290,4 +1290,75 @@ body::after {
     90% { opacity: 0; }
     95% { opacity: 0.8; }
     100% { opacity: 0; }
+}
+
+.apocalypse-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto;
+    position: relative;
+}
+
+.apocalypse-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2em;
+    color: #000000;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.apocalypse-warning {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2em;
+    color: #ff0000;
+    margin-top: 20px;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Mode sombre */
+body.dark-mode {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .fullscreen-section {
+    background: #000000 !important;
+}
+
+body.dark-mode .section,
+body.dark-mode .project-item,
+body.dark-mode .about-content,
+body.dark-mode .contact-item {
+    background: #000000 !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode .nav-link,
+body.dark-mode .project-description,
+body.dark-mode .about-text,
+body.dark-mode .contact-item a,
+body.dark-mode .glitch-text,
+body.dark-mode .subtitle {
+    color: #ffffff !important;
+}
+
+body.dark-mode .main-nav {
+    background: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+body.dark-mode .apocalypse-button {
+    border-color: #ffffff !important;
+    box-shadow: 
+        0 8px 0 #ffffff,
+        0 15px 20px rgba(255, 255, 255, 0.3);
 } 

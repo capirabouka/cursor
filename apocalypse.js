@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Changer la couleur du texte
             apocalypseButton.classList.toggle('active');
             
-            // Jouer/Arrêter le son
+            // Jouer/Arrêter le son et activer/désactiver le mode sombre
             if (apocalypseButton.classList.contains('active')) {
                 console.log('Activation');
                 alarmSound.currentTime = 0;
@@ -30,11 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 alarmEffect.classList.add('active');
+                document.body.classList.add('dark-mode');
             } else {
                 console.log('Désactivation');
                 alarmSound.pause();
                 alarmSound.currentTime = 0;
                 alarmEffect.classList.remove('active');
+                document.body.classList.remove('dark-mode');
             }
         });
     }
