@@ -318,6 +318,56 @@ body::after {
     gap: 30px;
 }
 
+/* Style spécifique pour le contenu du projet L'auréole du monde */
+.project-item:has(.matrix-text) .project-content {
+    position: relative;
+    min-height: 200px;
+}
+
+.matrix-text {
+    display: none;
+    font-family: 'Courier New', monospace;
+    color: #0f0;
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    white-space: pre-wrap;
+    text-shadow: 0 0 5px #0f0;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    max-width: 30%;
+    padding-right: 40px;
+}
+
+.matrix-text.visible {
+    display: block;
+    opacity: 1;
+}
+
+.matrix-text .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.1s ease, transform 0.1s ease;
+}
+
+.matrix-text .char.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.apocalypse-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 40px auto;
+}
+
 .project-description {
     text-align: left;
     font-size: 1.1rem;
@@ -1244,65 +1294,6 @@ body::after {
     max-width: 50%;
 }
 
-.apocalypse-button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    margin: 40px auto;
-}
-
-.matrix-text {
-    font-family: 'Space Grotesk', monospace;
-    color: #00ff00;
-    font-size: 1.1rem;
-    opacity: 0;
-    white-space: normal;
-    overflow: hidden;
-    border-right: 2px solid #00ff00;
-    text-shadow: 0 0 10px #00ff00;
-    line-height: 1.6;
-    display: none;
-    animation: textGlow 2s ease-in-out infinite alternate;
-    max-width: 50%;
-    margin: 20px auto;
-    text-align: left;
-}
-
-@keyframes textGlow {
-    from {
-        text-shadow: 0 0 10px #00ff00,
-                     0 0 20px #00ff00;
-    }
-    to {
-        text-shadow: 0 0 20px #00ff00,
-                     0 0 40px #00ff00;
-    }
-}
-
-body.dark-mode .matrix-text {
-    display: block;
-    animation: typing 4s steps(100, end) forwards,
-               blink-caret 0.75s step-end infinite,
-               textGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes typing {
-    from { 
-        width: 0;
-        opacity: 1;
-    }
-    to { 
-        width: 100%;
-        opacity: 1;
-    }
-}
-
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #00ff00 }
-}
-
 .apocalypse-button {
     background-color: #ff0000;
     color: #000000;
@@ -1336,6 +1327,29 @@ body.dark-mode .matrix-text {
     box-shadow: 
         0 8px 0 #ffffff,
         0 15px 20px rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode .matrix-text {
+    display: block;
+    animation: typing 4s steps(100, end) forwards,
+               blink-caret 0.75s step-end infinite,
+               textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes typing {
+    from { 
+        width: 0;
+        opacity: 1;
+    }
+    to { 
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #00ff00 }
 }
 
 body.dark-mode .apocalypse-button {
