@@ -341,23 +341,97 @@ body::after {
     width: 300px;
     max-width: 30%;
     padding-right: 40px;
+    overflow: hidden;
 }
 
 .matrix-text.visible {
     display: block;
     opacity: 1;
+    animation: glitch 0.3s infinite;
 }
 
 .matrix-text .char {
     display: inline-block;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.1s ease, transform 0.1s ease;
+    transform: translateY(-100px);
+    transition: all 0.1s ease;
+    position: relative;
 }
 
 .matrix-text .char.visible {
     opacity: 1;
     transform: translateY(0);
+    animation: charGlitch 0.2s infinite;
+}
+
+.matrix-text .char.corrupted {
+    color: #ff0000;
+    text-shadow: 0 0 5px #ff0000;
+    animation: corruption 0.1s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                     0.025em 0.04em 0 #fffc00;
+    }
+    15% {
+        text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                     0.025em 0.04em 0 #fffc00;
+    }
+    16% {
+        text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                     -0.05em -0.05em 0 #fffc00;
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                     -0.05em -0.05em 0 #fffc00;
+    }
+    50% {
+        text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                     0 -0.04em 0 #fffc00;
+    }
+    99% {
+        text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                     0 -0.04em 0 #fffc00;
+    }
+    100% {
+        text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                     -0.04em -0.025em 0 #fffc00;
+    }
+}
+
+@keyframes charGlitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes corruption {
+    0% {
+        filter: blur(0);
+    }
+    50% {
+        filter: blur(1px);
+    }
+    100% {
+        filter: blur(0);
+    }
 }
 
 .apocalypse-button-container {
@@ -846,7 +920,7 @@ body::after {
     background: transparent;
     padding: 10px;
     width: 100%;
-    max-width: 300px;
+    max-width: 500px;
 }
 
 .play-pause-btn {
@@ -868,6 +942,32 @@ body::after {
 .play-pause-btn:hover {
     background: rgba(96, 165, 250, 0.1);
     transform: scale(1.1);
+}
+
+.play-icon {
+    display: block;
+}
+
+.pause-icon {
+    display: none;
+}
+
+.pause-icon::before,
+.pause-icon::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 16px;
+    background-color: var(--accent-blue);
+    border-radius: 2px;
+}
+
+.pause-icon::before {
+    left: 0;
+}
+
+.pause-icon::after {
+    right: 0;
 }
 
 .audio-progress {
@@ -1518,3 +1618,7 @@ body.dark-mode .apocalypse-button {
     95% { opacity: 0.8; }
     100% { opacity: 0; }
 } 
+
+.symphonie-declin .audio-container {
+    margin-top: 4rem;
+}

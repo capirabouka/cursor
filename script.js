@@ -138,47 +138,66 @@ function changeLanguage(lang) {
 
 // Initialisation du lecteur audio
 function initAudioPlayer() {
-    const audioPlayers = document.querySelectorAll('.audio-player');
-    
-    audioPlayers.forEach(player => {
-        const playPauseBtn = player.parentElement.querySelector('.play-pause-btn');
-        const playIcon = playPauseBtn.querySelector('.play-icon');
-        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
-        const progressBar = player.parentElement.querySelector('.progress-bar');
-        const currentTime = player.parentElement.querySelector('.time-display span:first-child');
-        const duration = player.parentElement.querySelector('.time-display span:last-child');
-        
-        // Mettre à jour la durée totale
-        player.addEventListener('loadedmetadata', () => {
-            duration.textContent = formatTime(player.duration);
+    const audioPlayer = document.querySelector('.audio-player');
+    const progressBar = document.querySelector('.progress-bar');
+    const audioProgress = document.querySelector('.audio-progress');
+    const playPauseBtn = document.querySelector('.play-pause-btn');
+    const playIcon = document.querySelector('.play-icon');
+    const pauseIcon = document.querySelector('.pause-icon');
+    const timeDisplay = document.querySelector('.time-display');
+
+    if (audioPlayer && progressBar && audioProgress && playPauseBtn) {
+        // Fonction pour mettre à jour la barre de progression
+        function updateProgress() {
+            const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progressBar.style.width = percent + '%';
+            
+            // Mise à jour de l'affichage du temps
+            const currentMinutes = Math.floor(audioPlayer.currentTime / 60);
+            const currentSeconds = Math.floor(audioPlayer.currentTime % 60);
+            const durationMinutes = Math.floor(audioPlayer.duration / 60);
+            const durationSeconds = Math.floor(audioPlayer.duration % 60);
+            
+            timeDisplay.innerHTML = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')} / ${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Gestion du clic sur la barre de progression
+        audioProgress.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = pos * audioPlayer.duration;
         });
-        
-        // Mettre à jour le temps actuel
-        player.addEventListener('timeupdate', () => {
-            currentTime.textContent = formatTime(player.currentTime);
-            const progress = (player.currentTime / player.duration) * 100;
-            progressBar.style.width = progress + '%';
-        });
-        
-        // Gérer le bouton play/pause
-        playPauseBtn.addEventListener('click', () => {
-            if (player.paused) {
-                player.play();
+
+        // Gestion du bouton play/pause
+        playPauseBtn.addEventListener('click', function() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
                 playIcon.style.display = 'none';
-                pauseIcon.style.display = 'inline';
+                pauseIcon.style.display = 'block';
             } else {
-                player.pause();
-                playIcon.style.display = 'inline';
+                audioPlayer.pause();
+                playIcon.style.display = 'block';
                 pauseIcon.style.display = 'none';
             }
         });
-    });
-}
 
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        // Mise à jour de la barre de progression pendant la lecture
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+
+        // Réinitialisation de la barre de progression à la fin
+        audioPlayer.addEventListener('ended', function() {
+            progressBar.style.width = '0%';
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        });
+
+        // Mise à jour initiale de l'affichage du temps
+        audioPlayer.addEventListener('loadedmetadata', function() {
+            const durationMinutes = Math.floor(audioPlayer.duration / 60);
+            const durationSeconds = Math.floor(audioPlayer.duration % 60);
+            timeDisplay.innerHTML = `0:00 / ${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`;
+        });
+    }
 }
 
 // Initialisation
