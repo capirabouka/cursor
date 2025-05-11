@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonContainer = document.querySelector('.apocalypse-button-container');
     const matrixText = document.querySelector('.matrix-text');
     
-    // Stocker le texte original
-    const originalText = "L'auréole du monde s'effondre...";
+    // Stocker le texte original du HTML
+    const originalText = matrixText.innerHTML;
     
     // Vider le contenu initial du texte Matrix
     matrixText.textContent = '';
@@ -19,21 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
         matrixText.style.display = 'block';
         matrixText.style.opacity = '1';
         
-        let delay = 0;
-        const chars = originalText.split('');
+        // Restaurer le texte original
+        matrixText.innerHTML = originalText;
         
-        chars.forEach((char) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.className = 'char';
-            span.style.opacity = '0';
-            matrixText.appendChild(span);
-            
+        // Ajouter la classe pour l'animation
+        const chars = matrixText.querySelectorAll('.char');
+        chars.forEach((char, index) => {
             setTimeout(() => {
-                span.style.opacity = '1';
-            }, delay);
-            
-            delay += 100;
+                char.style.opacity = '1';
+            }, index * 100);
         });
     }
 
