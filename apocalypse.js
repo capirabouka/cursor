@@ -4,6 +4,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const alarmSound = document.getElementById('alarmSound');
     const progressBar = document.querySelector('.apocalypse-progress-bar');
     const buttonContainer = document.querySelector('.apocalypse-button-container');
+    const matrixText = document.querySelector('.matrix-text');
+    const originalText = matrixText.textContent;
+    
+    // Vider le contenu initial du texte Matrix
+    matrixText.textContent = '';
+    matrixText.style.display = 'none';
+    matrixText.style.opacity = '0';
+
+    // Fonction pour animer le texte Matrix
+    function animateText() {
+        matrixText.style.display = 'block';
+        matrixText.style.opacity = '1';
+        
+        let delay = 0;
+        const chars = originalText.split('');
+        
+        chars.forEach((char) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.className = 'char';
+            span.style.opacity = '0';
+            matrixText.appendChild(span);
+            
+            setTimeout(() => {
+                span.style.opacity = '1';
+            }, delay);
+            
+            delay += 100;
+        });
+    }
+
+    // Fonction pour réinitialiser le texte Matrix
+    function resetText() {
+        matrixText.style.display = 'none';
+        matrixText.style.opacity = '0';
+        matrixText.innerHTML = '';
+    }
     
     console.log('Bouton:', apocalypseButton);
     console.log('Effet:', alarmEffect);
@@ -33,6 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 alarmEffect.classList.add('active');
                 document.body.classList.add('dark-mode');
+                resetText();
+                animateText();
             } else {
                 console.log('Désactivation');
                 alarmSound.pause();
@@ -40,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alarmEffect.classList.remove('active');
                 document.body.classList.remove('dark-mode');
                 progressBar.style.width = '0%';
+                resetText();
             }
         });
     }
