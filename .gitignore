@@ -33,9 +33,10 @@ node_modules/
 *.mp3
 Terminal.mov
 
-# Exceptions pour certains fichiers MP4
+# Exceptions pour certains fichiers MP4 et MP3
 !effondrement.mp4
 !incendie.mp4
+!alarme.mp3
 
 # Dependencies
 npm-debug.log
