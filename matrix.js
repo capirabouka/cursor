@@ -1,71 +1,64 @@
 document.addEventListener('DOMContentLoaded', function() {
     const matrixText = document.querySelector('.matrix-text');
-    const text = matrixText.textContent;
-    matrixText.textContent = '';
+    const originalText = matrixText.textContent;
+    const apocalypseButton = document.getElementById('apocalypseButton');
     
+    // Vider le contenu initial
+    matrixText.textContent = '';
+    matrixText.style.display = 'none';
+    matrixText.style.opacity = '0';
+
+    // Fonction pour animer le texte
+    function animateText() {
+        matrixText.style.display = 'block';
+        matrixText.style.opacity = '1';
+        
+        let delay = 0;
+        const chars = originalText.split('');
+        
+        chars.forEach((char) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.className = 'char';
+            span.style.opacity = '0';
+            matrixText.appendChild(span);
+            
+            setTimeout(() => {
+                span.style.opacity = '1';
+            }, delay);
+            
+            delay += 100;
+        });
+    }
+
+    // Fonction pour réinitialiser le texte
+    function resetText() {
+        matrixText.style.display = 'none';
+        matrixText.style.opacity = '0';
+        matrixText.innerHTML = '';
+    }
+
     // Observer pour le mode sombre
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
-            if (mutation.attributeName === 'data-theme') {
-                if (document.documentElement.getAttribute('data-theme') === 'dark') {
-                    animateText();
-                } else {
+            if (mutation.attributeName === 'class') {
+                if (!document.body.classList.contains('dark-mode')) {
                     resetText();
                 }
             }
         });
     });
 
-    observer.observe(document.documentElement, {
+    observer.observe(document.body, {
         attributes: true,
-        attributeFilter: ['data-theme']
+        attributeFilter: ['class']
     });
 
-    function animateText() {
-        matrixText.classList.add('visible');
-        let delay = 0;
-        const chars = text.split('');
-        
-        chars.forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.className = 'char';
-            matrixText.appendChild(span);
-            
-            // Ajouter un délai aléatoire pour chaque caractère
-            delay += Math.random() * 50;
-            
-            setTimeout(() => {
-                span.classList.add('visible');
-                
-                // Ajouter un effet de corruption aléatoire
-                if (Math.random() < 0.1) {
-                    span.classList.add('corrupted');
-                    setTimeout(() => {
-                        span.classList.remove('corrupted');
-                    }, Math.random() * 1000 + 500);
-                }
-                
-                // Ajouter des glitches aléatoires
-                if (Math.random() < 0.05) {
-                    const originalText = span.textContent;
-                    const glitchChars = '!@#$%^&*()_+{}:"<>?|';
-                    const glitchInterval = setInterval(() => {
-                        span.textContent = glitchChars[Math.floor(Math.random() * glitchChars.length)];
-                    }, 50);
-                    
-                    setTimeout(() => {
-                        clearInterval(glitchInterval);
-                        span.textContent = originalText;
-                    }, Math.random() * 200 + 100);
-                }
-            }, delay);
-        });
-    }
-
-    function resetText() {
-        matrixText.classList.remove('visible');
-        matrixText.innerHTML = '';
-        matrixText.textContent = text;
-    }
+    // Écouter le clic sur le bouton PUSH
+    apocalypseButton.addEventListener('click', function() {
+        if (document.body.classList.contains('dark-mode')) {
+            resetText();
+            animateText();
+        }
+    });
 }); 
