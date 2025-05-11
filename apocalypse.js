@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressBar = document.querySelector('.apocalypse-progress-bar');
     const buttonContainer = document.querySelector('.apocalypse-button-container');
     const matrixText = document.querySelector('.matrix-text');
-    const originalText = matrixText.textContent;
+    
+    // Stocker le texte original
+    const originalText = "L'auréole du monde s'effondre...";
     
     // Vider le contenu initial du texte Matrix
     matrixText.textContent = '';
