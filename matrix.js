@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const originalText = matrixText.textContent;
     const apocalypseButton = document.getElementById('apocalypseButton');
     
+    // Créer l'élément audio pour l'alarme
+    const alarmSound = new Audio('alarme.mp3');
+    alarmSound.loop = true;
+    
     // Vider le contenu initial
     matrixText.textContent = '';
     matrixText.style.display = 'none';
@@ -44,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mutation.attributeName === 'class') {
                 if (!document.body.classList.contains('dark-mode')) {
                     resetText();
+                    alarmSound.pause();
+                    alarmSound.currentTime = 0;
                 }
             }
         });
@@ -59,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (document.body.classList.contains('dark-mode')) {
             resetText();
             animateText();
+            // Jouer la musique d'alarme
+            alarmSound.play().catch(error => {
+                console.error('Erreur lors de la lecture de la musique:', error);
+            });
         }
     });
 }); 
