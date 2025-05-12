@@ -118,30 +118,30 @@
         };
 
         // Écran gauche (image)
-        const leftImageTexture = new THREE.TextureLoader().load('left-image.jpg');
+        const leftImageTexture = new THREE.TextureLoader().load('ftau.jpg');
         const leftMaterial = new THREE.MeshBasicMaterial({
             map: leftImageTexture,
             side: THREE.DoubleSide
         });
         const leftScreen = new THREE.Mesh(
-            new THREE.PlaneGeometry(screenSize, screenSize * 9/16),
+            new THREE.PlaneGeometry(screenSize * 1.5, screenSize * 1.5 * 9/16),
             leftMaterial
         );
-        leftScreen.position.x = -screenDistance;
+        leftScreen.position.x = -screenDistance * 1.5;
         leftScreen.rotation.y = Math.PI/2;
         scene.add(leftScreen);
 
         // Écran droit (image)
-        const rightImageTexture = new THREE.TextureLoader().load('right-image.jpg');
+        const rightImageTexture = new THREE.TextureLoader().load('foto.jpg');
         const rightMaterial = new THREE.MeshBasicMaterial({
             map: rightImageTexture,
             side: THREE.DoubleSide
         });
         const rightScreen = new THREE.Mesh(
-            new THREE.PlaneGeometry(screenSize, screenSize * 9/16),
+            new THREE.PlaneGeometry(screenSize * 1.5, screenSize * 1.5 * 9/16),
             rightMaterial
         );
-        rightScreen.position.x = screenDistance;
+        rightScreen.position.x = screenDistance * 1.5;
         rightScreen.rotation.y = -Math.PI/2;
         scene.add(rightScreen);
 
