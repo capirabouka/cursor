@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 span.style.opacity = '0';
                 p.appendChild(span);
                 
-                // Calculer le délai pour chaque caractère
-                const delay = (pIndex * 1000) + (cIndex * 50);
+                // Calculer le délai pour chaque caractère (augmenté à 100ms par caractère)
+                const delay = (pIndex * 2000) + (cIndex * 100);
                 
                 setTimeout(() => {
                     span.style.opacity = '1';
                     // Ajouter un effet de glitch aléatoire
                     if (Math.random() > 0.9) {
-                        span.style.textShadow = '0 0 5px #0f0';
+                        span.style.textShadow = '0 0 5px #00cc00';
                         setTimeout(() => {
                             span.style.textShadow = 'none';
                         }, 100);
