@@ -1,7 +1,7 @@
 .matrix-text {
     font-family: 'Courier New', monospace;
-    color: #0f0;
-    text-shadow: 0 0 5px #0f0;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
     line-height: 1.6;
     margin: 20px 0;
     opacity: 0;
@@ -23,25 +23,25 @@
 }
 
 .matrix-char:hover {
-    text-shadow: 0 0 10px #0f0;
+    text-shadow: 0 0 10px #00ff00;
 }
 
 /* Effet de glitch */
 @keyframes glitch {
     0% {
-        text-shadow: 0 0 5px #0f0;
+        text-shadow: 0 0 5px #00ff00;
     }
     25% {
-        text-shadow: 2px 0 5px #f00;
+        text-shadow: 2px 0 5px #ff0000;
     }
     50% {
-        text-shadow: -2px 0 5px #0f0;
+        text-shadow: -2px 0 5px #00ff00;
     }
     75% {
-        text-shadow: 2px 0 5px #f00;
+        text-shadow: 2px 0 5px #ff0000;
     }
     100% {
-        text-shadow: 0 0 5px #0f0;
+        text-shadow: 0 0 5px #00ff00;
     }
 }
 
