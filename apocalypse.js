@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttonContainer = document.querySelector('.apocalypse-button-container');
     const matrixText = document.querySelector('.matrix-text');
     
-    // Stocker le texte original du HTML
+    // Stocker le texte original
     const originalText = matrixText.innerHTML;
     
     // Vider le contenu initial du texte Matrix
@@ -19,15 +19,43 @@ document.addEventListener('DOMContentLoaded', function() {
         matrixText.style.display = 'block';
         matrixText.style.opacity = '1';
         
-        // Restaurer le texte original
-        matrixText.innerHTML = originalText;
+        // Créer un conteneur pour le texte
+        const textContainer = document.createElement('div');
+        textContainer.className = 'matrix-text-container';
+        matrixText.appendChild(textContainer);
         
-        // Ajouter la classe pour l'animation
-        const chars = matrixText.querySelectorAll('.char');
-        chars.forEach((char, index) => {
-            setTimeout(() => {
-                char.style.opacity = '1';
-            }, index * 100);
+        // Diviser le texte en paragraphes
+        const paragraphs = originalText.split('\n\n');
+        
+        paragraphs.forEach((paragraph, pIndex) => {
+            const p = document.createElement('p');
+            p.className = 'matrix-paragraph';
+            textContainer.appendChild(p);
+            
+            // Diviser le paragraphe en caractères
+            const chars = paragraph.split('');
+            
+            chars.forEach((char, cIndex) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'matrix-char';
+                span.style.opacity = '0';
+                p.appendChild(span);
+                
+                // Calculer le délai pour chaque caractère
+                const delay = (pIndex * 1000) + (cIndex * 50);
+                
+                setTimeout(() => {
+                    span.style.opacity = '1';
+                    // Ajouter un effet de glitch aléatoire
+                    if (Math.random() > 0.9) {
+                        span.style.textShadow = '0 0 5px #0f0';
+                        setTimeout(() => {
+                            span.style.textShadow = 'none';
+                        }, 100);
+                    }
+                }, delay);
+            });
         });
     }
 
