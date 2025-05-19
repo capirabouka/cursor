@@ -56,4 +56,23 @@ build/
 *.mp4
 *.mov
 *.avi
-*.mkv 
+*.mkv
+
+# Fichiers média
+*.mp3
+*.mp4
+*.mov
+*.wav
+*.avi
+*.mkv
+
+# Images
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+
+# Fichiers système
+.DS_Store
+Thumbs.db 
