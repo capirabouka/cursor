@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - Anouche Lelong</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        #video-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        #progress {
+            width: 0%;
+            height: 100%;
+            background: #ffd700;
+            border-radius: 2px;
+            position: relative;
+        }
+        #time {
+            color: white;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-controls">
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <div id="time">00:00 / 00:00</div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
+    <script>
+        const progress = document.getElementById('progress');
+        const timeDisplay = document.getElementById('time');
+        
+        // Initialisation de la scène
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+
+        // Création de la caméra
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 0);
+
+        // Création du renderer
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('canvas'),
+            antialias: true
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Création des écrans
+        const screenSize = 5;
+        const screenDistance = 3;
+
+        // Écran central (vidéo)
+        const video = document.createElement('video');
+        video.src = 'Termina-l.mp4';
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = false;
+        video.playsInline = true;
+        
+        // Mise à jour de la barre de progression
+        video.addEventListener('timeupdate', () => {
+            const progressPercent = (video.currentTime / video.duration) * 100;
+            progress.style.width = progressPercent + '%';
+            
+            // Formatage du temps
+            const formatTime = (time) => {
+                const minutes = Math.floor(time / 60);
+                const seconds = Math.floor(time % 60);
+                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            };
+            
+            timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        });
+
+        // Ajout de la fonctionnalité de clic sur la barre de progression
+        const progressBar = document.getElementById('progress-bar');
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pos * video.duration;
+        });
+
+        video.onloadeddata = () => {
+            const videoTexture = new THREE.VideoTexture(video);
+            const videoMaterial = new THREE.MeshBasicMaterial({
+                map: videoTexture,
+                side: THREE.DoubleSide
+            });
+            const videoScreen = new THREE.Mesh(
+                new THREE.PlaneGeometry(screenSize, screenSize * 9/16),
+                videoMaterial
+            );
+            videoScreen.position.z = -screenDistance;
+            scene.add(videoScreen);
+            video.play();
+        };
+
+        // Écran gauche (image)
+        const leftImageTexture = new THREE.TextureLoader().load('ftau.jpg');
+        const leftMaterial = new THREE.MeshBasicMaterial({
+            map: leftImageTexture,
+            side: THREE.DoubleSide
+        });
+        const leftScreen = new THREE.Mesh(
+            new THREE.PlaneGeometry(screenSize * 2, screenSize * 2 * 9/16),
+            leftMaterial
+        );
+        leftScreen.position.x = -screenDistance * 2.5;
+        leftScreen.rotation.y = Math.PI/2;
+        scene.add(leftScreen);
+
+        // Écran droit (image)
+        const rightImageTexture = new THREE.TextureLoader().load('foto.jpg');
+        const rightMaterial = new THREE.MeshBasicMaterial({
+            map: rightImageTexture,
+            side: THREE.DoubleSide
+        });
+        const rightScreen = new THREE.Mesh(
+            new THREE.PlaneGeometry(screenSize * 2, screenSize * 2 * 9/16),
+            rightMaterial
+        );
+        rightScreen.position.x = screenDistance * 2.5;
+        rightScreen.rotation.y = -Math.PI/2;
+        scene.add(rightScreen);
+
+        // Contrôles de la caméra (rotation horizontale)
+        let isDragging = false;
+        let previousMousePosition = { x: 0 };
+        const maxRotation = Math.PI; // 180 degrés
+
+        document.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX };
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const deltaMove = {
+                x: e.clientX - previousMousePosition.x
+            };
+
+            // Rotation plus fluide avec une limite de 180 degrés
+            camera.rotation.y = Math.max(-maxRotation, Math.min(maxRotation, 
+                camera.rotation.y - deltaMove.x * 0.005));
+
+            previousMousePosition = { x: e.clientX };
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        // Gestion du redimensionnement
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html> 

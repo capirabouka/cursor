@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnement virtuel
+venv/
+env/
+.env/
+
+# Fichiers système
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Fichiers d'IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+node_modules/
+*.mov
+*.mp3
+Terminal.mov
+
+# Exceptions pour certains fichiers MP4 et MP3
+!effondrement.mp4
+!incendie.mp4
+!alarme.mp3
+
+# Dependencies
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build files
+dist/
+build/
+
+# Fichiers vidéo
+*.mp4
+*.mov
+*.avi
+*.mkv 

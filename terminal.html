@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal - Anouche Lelong</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        canvas {
+            display: block;
+        }
+        .passport-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .passport-modal.active {
+            display: block;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="scene"></canvas>
+    
+    <!-- Modal pour les passeports -->
+    <div class="passport-modal" id="passportModal">
+        <button class="close-modal">&times;</button>
+        <div class="modal-content">
+            <h3 id="passportTitle"></h3>
+            <p id="passportText"></p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="terminal.js"></script>
+</body>
+</html> 

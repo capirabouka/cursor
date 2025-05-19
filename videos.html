@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Voice of the Edge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%);
+            overflow: hidden;
+            font-family: "Space Grotesk", sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,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');
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .title {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 32px;
+            font-weight: 300;
+            color: #000;
+            z-index: 10000;
+            background: none;
+            padding: 10px 15px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .camera {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-link {
+            position: absolute;
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 300;
+            padding: 4px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .video-link:hover {
+            color: #000;
+            transform: scale(1.1);
+            font-weight: 400;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            width: 60vw;
+            max-width: 1000px;
+        }
+
+        .video-container.active {
+            display: block;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            display: block;
+            background: #000;
+        }
+
+        .close-button {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            color: #fff;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 2001;
+        }
+
+        .close-button:hover {
+            color: #ccc;
+        }
+
+        .line {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0) 100%);
+            height: 1px;
+            transform-origin: left center;
+            opacity: 0.15;
+            pointer-events: none;
+            filter: blur(0.5px);
+        }
+
+        .side-image {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: auto;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-image:hover {
+            opacity: 1;
+        }
+
+        .side-image.left {
+            left: 20px;
+        }
+
+        .side-image.right {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">The Voice of the Edge</div>
+    <div class="scene">
+        <div class="camera" id="camera"></div>
+    </div>
+    <div class="video-container" id="videoContainer">
+        <button class="close-button" id="closeButton">&times;</button>
+        <video id="videoPlayer" controls></video>
+    </div>
+
+    <script>
+        const videos = [
+            "videos-/Martina.mp4",
+            "videos-/Michael-Atasoonts.mp4",
+            "videos-/Nathalie-Karibian.mp4",
+            "videos-/Patti-Smith.mp4",
+            "videos-/Rita-Salnikova.mp4",
+            "videos-/Samar.mp4",
+            "videos-/Stella-Grigoryan.mp4",
+            "videos-/Tathev-Taryan.mp4",
+            "videos-/Stéphane Karibian.mp4",
+            "videos-/Silva Chobanyan.mp4",
+            "videos-/Sébastien Karibian.mp4",
+            "videos-/Masha Pospevola.mp4",
+            "videos-/Camille.mp4",
+            "videos-/Bogdan Zubov.mp4",
+            "videos-/Betty Karibian.mp4",
+            "videos-/Bela Poghosyan.mp4",
+            "videos-/Aram Zurabyan.mp4",
+            "videos-/Anton Adrienko.mp4",
+            "videos-/Anna Gordeeva.mp4",
+            "videos-/Ani Khitapszyan.mp4",
+            "videos-/Angie Stifler.mp4",
+            "videos-/Amir Zakariazadeh.mp4",
+            "videos-/Achode Karibian.mp4",
+            "videos-/Hakob Balayan.mp4",
+            "videos-/Liza Drudi.mp4",
+            "videos-/Jean.mp4",
+            "videos-/Leon Gaskin.mp4",
+            "videos-/Luna Sybil.mp4",
+            "videos-/Mariana.mp4",
+            "videos-/Joana Millet.mp4",
+            "videos-/Kolay Shatalov.mp4",
+            "videos-/Marie-Aïda Karibian.mp4"
+        ];
+
+        const camera = document.getElementById('camera');
+        const videoContainer = document.getElementById('videoContainer');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const closeButton = document.getElementById('closeButton');
+
+        function createVideoSpace() {
+            const verticalSpacing = 30;
+            const halfVideos = Math.ceil(videos.length / 2);
+            const leftMargin = 30;
+            const rightMargin = window.innerWidth - 200;
+
+            // Créer deux colonnes
+            videos.forEach((video, i) => {
+                const isLeftColumn = i < halfVideos;
+                const x = isLeftColumn ? leftMargin : (window.innerWidth - 200);
+                const y = (i % halfVideos) * verticalSpacing + 100;
+
+                // Créer le lien
+                const link = document.createElement('a');
+                link.href = '#';
+                link.className = 'video-link';
+                link.textContent = video.split('/').pop().replace('.mp4', '');
+                link.style.left = `${x}px`;
+                link.style.top = `${y}px`;
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    videoPlayer.src = video;
+                    videoContainer.classList.add('active');
+                    videoPlayer.play();
+                });
+                camera.appendChild(link);
+
+                // Créer la ligne de connexion si ce n'est pas le dernier élément de la colonne
+                if (i < videos.length - 1 && (i + 1) % halfVideos !== 0) {
+                    const nextY = ((i + 1) % halfVideos) * verticalSpacing + 100;
+                    const line = document.createElement('div');
+                    line.className = 'line';
+                    line.style.width = `${verticalSpacing}px`;
+                    line.style.left = `${x}px`;
+                    line.style.top = `${y}px`;
+                    line.style.transform = `rotate(90deg)`;
+                    camera.appendChild(line);
+                }
+            });
+        }
+
+        closeButton.addEventListener('click', () => {
+            videoContainer.classList.remove('active');
+            videoPlayer.pause();
+            videoPlayer.src = '';
+        });
+
+        createVideoSpace();
+    </script>
+</body>
+</html> 
