@@ -144,7 +144,10 @@
         // Effacer le canvas quand on clique sur la page
         document.getElementById('landing').addEventListener('click', function() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            window.location.href = 'index.html';
+            // Attendre un court instant avant la redirection pour que l'effet de clic soit visible
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
         });
     </script>
 </body>
