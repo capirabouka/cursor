@@ -78,7 +78,7 @@
             50% { opacity: 0.3; }
             100% { opacity: 0.7; }
         }
-        #trail-canvas {
+        #particles-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -90,7 +90,7 @@
 </head>
 <body>
     <div class="landing-section" id="landing">
-        <canvas id="trail-canvas"></canvas>
+        <canvas id="particles-canvas"></canvas>
         <div class="landing-content">
             <h1>Chambre d'Echo</h1>
             <p class="subtitle">Anouche Lelong</p>
@@ -99,7 +99,94 @@
         <div class="click-instruction">Cliquez pour entrer</div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // Configuration de Three.js pour les effets visuels
+        let scene, camera, renderer, particles;
+        const particleCount = 500;
+
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('particles-canvas'),
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Création des particules
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 10;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+
+                // Attribution aléatoire des couleurs
+                const colorType = Math.floor(Math.random() * 3);
+                if (colorType === 0) {
+                    // Noir
+                    colors[i * 3] = 0;
+                    colors[i * 3 + 1] = 0;
+                    colors[i * 3 + 2] = 0;
+                } else if (colorType === 1) {
+                    // Violet
+                    colors[i * 3] = 0.5;
+                    colors[i * 3 + 1] = 0;
+                    colors[i * 3 + 2] = 0.5;
+                } else {
+                    // Bleu ciel
+                    colors[i * 3] = 0.5;
+                    colors[i * 3 + 1] = 0.7;
+                    colors[i * 3 + 2] = 1;
+                }
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.05,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            camera.position.z = 5;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotation des particules
+            if (particles) {
+                particles.rotation.x += 0.001;
+                particles.rotation.y += 0.001;
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        // Initialisation et démarrage de l'animation
+        initThreeJS();
+        animate();
+
+        // Gestion du redimensionnement
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Redirection vers la page principale au clic
+        document.getElementById('landing').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
         const canvas = document.getElementById('trail-canvas');
         const ctx = canvas.getContext('2d');
         let mouseX = 0;
