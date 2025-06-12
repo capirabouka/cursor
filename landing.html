@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chambre d'Echo - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="explosion-effect"></div>
+    <div class="particles"></div>
+    <div class="alarm-effect"></div>
+    <audio id="alarmSound" preload="auto">
+        <source src="alarme.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'élément audio.
+    </audio>
+    
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="#projects" class="nav-link">Projets</a>
+            <a href="#musique" class="nav-link">Musique</a>
+            <a href="#engagement" class="nav-link">Engagement</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="about" class="section">
+            <h2>À propos</h2>
+            <div class="about-content">
+                <p id="about-intro" class="intro about-text">Cet espace présente l'essentiel de mon travail artistique, à travers une sélection de projets, une réflexion sur ma démarche, et des fragments en constante évolution.</p>
+                
+                <p id="about-description1" class="description about-text">Artiste pluridisciplinaire, je travaille à partir du son, de la matière et du vide. Mes installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil, tout en laissant une place essentielle à la perception libre du spectateur.</p>
+                
+                <p id="about-description2" class="description about-text">Ce site fonctionne comme une chambre d'écho de mes recherches : un lieu de tension, d'expérimentation et d'inscription dans le réel. Il accueille des projets passés, en cours, et à venir.</p>
+                
+                <p id="about-conclusion" class="conclusion about-text">Ici, les choses vibrent avant de s'effondrer, ou peut-être malgré tout.</p>
+            </div>
+        </section>
+
+        <div class="section" id="projects">
+            <h2>Projets</h2>
+            <h3 class="project-group-title">Résonances Disloquées</h3>
+            <p class="group-description">J'ai toujours eu peur de la fin du monde. À travers mon travail, je questionne ce qui déclenche une fin, ce qui l'annonce, ce qu'elle laisse derrière elle. J'imagine ses formes, ses bruits, ses échos. Je cherche à comprendre non pas comment tout s'effondre, mais comment nous l'entendons, le percevons, parfois même le mettons en scène.</p>
+            <div class="project-item">
+                <h3>The Voice of the Edge</h3>
+                <div class="project-content">
+                    <p class="project-description">Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots — avec des sons.</p>
+                    <p class="project-description">Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde, fragile et chaotique, qui rassemble ces visions personnelles du déclin.</p>
+                    <p class="project-description">L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce cosmique à laquelle on assiste, un peu bête, un peu ému·e.</p>
+                    <div class="media-container">
+                        <a href="videos.html" class="immersive-button">Entrer dans l'expérience</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item symphonie-declin">
+                <h3>La symphonie du Déclin</h3>
+                <div class="project-content">
+                    <div class="left-content">
+                        <div class="project-description">
+                            <p>Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots — avec des sons.</p>
+                            <p>Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde, fragile et chaotique, qui rassemble ces visions personnelles du déclin.</p>
+                            <p>L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce cosmique à laquelle on assiste, un peu bête, un peu ému·e.</p>
+                        </div>
+                        <div class="audio-container">
+                            <audio class="audio-player" controlsList="nodownload">
+                                <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
+                                Votre navigateur ne supporte pas l'élément audio.
+                            </audio>
+                            <div class="audio-controls">
+                                <button class="play-pause-btn">
+                                    <span class="play-icon">▶</span>
+                                    <span class="pause-icon" style="display: none;">❚❚</span>
+                                </button>
+                                <div class="audio-progress">
+                                    <div class="progress-bar"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span>0:00</span> / <span>0:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-container">
+                        <div class="media-grid">
+                            <img src="bom.JPG" alt="Symphonie du déclin" class="project-image">
+                            <img src="bombom.JPG" alt="Symphonie du déclin" class="project-image">
+                            <video class="project-video" controls>
+                                <source src="symph.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas l'élément vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h3>Chambre d'écho</h3>
+                <div class="project-content">
+                    <p class="project-description">Chambre d'écho est une installation sonore immersive qui explore les résonances de la mémoire collective. À travers une série de dispositifs acoustiques, le public est invité à interagir avec des fragments sonores qui se transforment et se déforment au fil des échos.</p>
+                    <div class="media-container">
+                        <a href="echo-chamber.html" class="immersive-button">Entrer dans l'expérience</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h3>Le bruit de la chute</h3>
+                <div class="project-content">
+                    <p class="project-description">Le bruit de la chute met en scène deux effondrements — une maison en feu, une montagne qui s'écroule — dont les sons, pourtant, sont fabriqués à la main, hors champ. En dévoilant la construction de l'illusion, je m'inscris dans une tradition critique de l'image : celle qui ne montre pas seulement, mais interroge ce qu'elle fait croire. Depuis les premières projections d'ombres jusqu'aux flux numériques, nous ne cessons de confondre ce que nous voyons avec ce que nous savons. Ce projet travaille cette faille-là.</p>
+                    <div class="media-container">
+                        <div class="fall-videos">
+                            <video class="project-video" controls>
+                                <source src="incendie.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas l'élément vidéo.
+                            </video>
+                            <video class="project-video" controls>
+                                <source src="effondrement.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas l'élément vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h3>L'auréole du monde</h3>
+                <div class="project-content">
+                    <div class="matrix-text">
+                        Son pour installation sonore, lors du festival/exposition 2023 "Exhibition" au NPAK.
+
+                        Thème : 
+
+                        Au milieu de la perte de nos caractéristiques humaines, nous essayons d'échapper à la réalité en personnifiant ou en créant des figures anthropomorphes. À travers votre art, comment pouvez-vous attribuer des émotions, des attitudes, des états mentaux, des visages et des valeurs à des choses non humaines et vous refléter ?
+                    </div>
+                    <div class="apocalypse-button-container">
+                        <button id="apocalypseButton" class="apocalypse-button">PUSH</button>
+                        <p class="apocalypse-warning">NE PAS APPUYER</p>
+                        <div class="apocalypse-progress-container">
+                            <div class="apocalypse-progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="symphonie" class="project-section">
+            </section>
+
+            <h3 class="project-group-title">Frontières et Identités</h3>
+            <div class="project-item">
+                <h3>Terminal</h3>
+                <div class="project-content">
+                    <p class="project-description">Deux passeports — l'un français, l'autre russe — imprimés à l'échelle monumentale et affichés dans des espaces publics, naturels ou frontaliers, racontent l'histoire d'un couple séparé non par le lien mais par l'architecture invisible du pouvoir. Ce projet interroge la violence tranquille des bureaucraties migratoires : comment l'amour, pourtant apolitique dans son essence, devient entravé par des documents d'État, symboles d'appartenance, de privilège ou d'exclusion. En déplaçant ces objets administratifs hors de leur contexte — à l'aéroport, dans la rue, en pleine nature — l'œuvre confronte le regard public à l'arbitraire des frontières et à la matérialité des inégalités globales. Elle révèle le passeport non comme un simple outil d'identification, mais comme une technologie politique du tri, une preuve silencieuse que le droit de circuler, de s'aimer ou de vivre ensemble reste un privilège géopolitique, non un droit universel.</p>
+                    <div class="media-container">
+                        <a href="gallery.html" class="immersive-button">Entrer dans l'expérience</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="musique" class="section">
+            <h2>Musique</h2>
+            <div class="audio-player">
+                <!-- Le lecteur audio sera ajouté ici -->
+            </div>
+        </section>
+
+        <section id="engagement" class="section">
+            <h2>Engagement</h2>
+            <div class="text-content">
+                <!-- Le contenu d'engagement sera ajouté ici -->
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>Email</span>
+                    <a href="mailto:anouche.lng@gmail.com">anouche.lng@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>Telegram</span>
+                    <a href="https://t.me/anoushlng" target="_blank">@anoushlng</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="partners">
+            <div class="partners-grid">
+                <span class="partner-text">En partenariat avec NPAK - Centre d'Art Contemporain</span>
+                <div class="partner-logo-container">
+                    <a href="#" class="partner-logo">
+                        <img src="logo npak.jpg" alt="Logo NPAK">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    <script src="animation.js"></script>
+    <script src="apocalypse.js"></script>
+</body>
+</html> 

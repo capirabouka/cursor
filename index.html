@@ -1,4 +1,161 @@
-// Redirection vers la page principale au clic
-document.getElementById('landing').addEventListener('click', () => {
-    window.location.href = 'main.html';
-}); 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chambre d'Echo - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .landing-section {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        .landing-content {
+            text-align: center;
+            z-index: 2;
+            transition: transform 0.3s ease;
+            color: var(--text-color);
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+        .landing-content:hover {
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+        .landing-content h1 {
+            color: var(--text-color);
+            font-size: 2.8em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: normal;
+            letter-spacing: 0.05em;
+        }
+        .subtitle {
+            font-size: 1em;
+            margin: 0.3rem 0;
+            opacity: 0.9;
+        }
+        .click-instruction {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-section" id="landing">
+        <canvas id="particles-canvas"></canvas>
+        <div class="landing-content">
+            <h1>Chambre d'Echo</h1>
+            <p class="subtitle">Anouche Lelong</p>
+            <p class="subtitle">Installations • Musique • Engagement</p>
+        </div>
+        <div class="click-instruction">Cliquez pour entrer</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Configuration de Three.js pour les effets visuels
+        let scene, camera, renderer, particles;
+        const particleCount = 500;
+
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('particles-canvas'),
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // Création des particules
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 10;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+
+                // Attribution aléatoire des couleurs
+                const colorType = Math.floor(Math.random() * 3);
+                if (colorType === 0) {
+                    // Noir
+                    colors[i * 3] = 0;
+                    colors[i * 3 + 1] = 0;
+                    colors[i * 3 + 2] = 0;
+                } else if (colorType === 1) {
+                    // Violet
+                    colors[i * 3] = 0.5;
+                    colors[i * 3 + 1] = 0;
+                    colors[i * 3 + 2] = 0.5;
+                } else {
+                    // Bleu ciel
+                    colors[i * 3] = 0.5;
+                    colors[i * 3 + 1] = 0.7;
+                    colors[i * 3 + 2] = 1;
+                }
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.05,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            camera.position.z = 5;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotation des particules
+            if (particles) {
+                particles.rotation.x += 0.001;
+                particles.rotation.y += 0.001;
+            }
+            
+            renderer.render(scene, camera);
+        }
+
+        // Initialisation et démarrage de l'animation
+        initThreeJS();
+        animate();
+
+        // Gestion du redimensionnement
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Redirection vers la page principale au clic
+        document.getElementById('landing').addEventListener('click', () => {
+            window.location.href = 'landing.html';
+        });
+    </script>
+</body>
+</html> 
