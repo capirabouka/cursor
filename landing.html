@@ -8,6 +8,141 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--text-color);
+            opacity: 0.5;
+        }
+
+        .about-text {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: justify;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-text.intro {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .about-text.conclusion {
+            font-style: italic;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .about-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.05) 100%);
+            z-index: -1;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .video-item {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Ratio 16:9 */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-item video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .immersive-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: var(--text-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .immersive-button:hover {
+            transform: translateY(-2px);
+            background: var(--accent-color);
+        }
+    </style>
 </head>
 <body>
     <div class="noise-overlay"></div>
@@ -38,9 +173,10 @@
     </nav>
 
     <main>
-        <section id="about" class="section">
-            <h2>À propos</h2>
+        <section id="about" class="section about-section">
+            <div class="about-background"></div>
             <div class="about-content">
+                <h2>À propos</h2>
                 <p id="about-intro" class="intro about-text">Cet espace présente l'essentiel de mon travail artistique, à travers une sélection de projets, une réflexion sur ma démarche, et des fragments en constante évolution.</p>
                 
                 <p id="about-description1" class="description about-text">Artiste pluridisciplinaire, je travaille à partir du son, de la matière et du vide. Mes installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil, tout en laissant une place essentielle à la perception libre du spectateur.</p>
@@ -62,7 +198,51 @@
                     <p class="project-description">Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde, fragile et chaotique, qui rassemble ces visions personnelles du déclin.</p>
                     <p class="project-description">L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce cosmique à laquelle on assiste, un peu bête, un peu ému·e.</p>
                     <div class="media-container">
-                        <a href="videos.html" class="immersive-button">Entrer dans l'expérience</a>
+                        <div class="video-grid">
+                            <div class="video-item">
+                                <video class="project-video" controls>
+                                    <source src="videos/Samar.mov" type="video/quicktime">
+                                    Votre navigateur ne supporte pas l'élément vidéo.
+                                </video>
+                                <p class="video-caption">Samar</p>
+                            </div>
+                            <div class="video-item">
+                                <video class="project-video" controls>
+                                    <source src="videos/Patti Smith.mov" type="video/quicktime">
+                                    Votre navigateur ne supporte pas l'élément vidéo.
+                                </video>
+                                <p class="video-caption">Patti Smith</p>
+                            </div>
+                            <div class="video-item">
+                                <video class="project-video" controls>
+                                    <source src="videos/Ani Khitapszyan.mov" type="video/quicktime">
+                                    Votre navigateur ne supporte pas l'élément vidéo.
+                                </video>
+                                <p class="video-caption">Ani Khitapszyan</p>
+                            </div>
+                            <div class="video-item">
+                                <video class="project-video" controls>
+                                    <source src="videos/Sébastien Karibian.mov" type="video/quicktime">
+                                    Votre navigateur ne supporte pas l'élément vidéo.
+                                </video>
+                                <p class="video-caption">Sébastien Karibian</p>
+                            </div>
+                            <div class="video-item">
+                                <video class="project-video" controls>
+                                    <source src="videos/Achode Karibian.mov" type="video/quicktime">
+                                    Votre navigateur ne supporte pas l'élément vidéo.
+                                </video>
+                                <p class="video-caption">Achode Karibian</p>
+                            </div>
+                            <div class="video-item">
+                                <video class="project-video" controls>
+                                    <source src="videos/Angie Stifler.mov" type="video/quicktime">
+                                    Votre navigateur ne supporte pas l'élément vidéo.
+                                </video>
+                                <p class="video-caption">Angie Stifler</p>
+                            </div>
+                        </div>
+                        <a href="videos.html" class="immersive-button">Voir toutes les vidéos</a>
                     </div>
                 </div>
             </div>
@@ -124,12 +304,12 @@
                     <p class="project-description">Le bruit de la chute met en scène deux effondrements — une maison en feu, une montagne qui s'écroule — dont les sons, pourtant, sont fabriqués à la main, hors champ. En dévoilant la construction de l'illusion, je m'inscris dans une tradition critique de l'image : celle qui ne montre pas seulement, mais interroge ce qu'elle fait croire. Depuis les premières projections d'ombres jusqu'aux flux numériques, nous ne cessons de confondre ce que nous voyons avec ce que nous savons. Ce projet travaille cette faille-là.</p>
                     <div class="media-container">
                         <div class="fall-videos">
-                            <video class="project-video" controls>
-                                <source src="incendie.mp4" type="video/mp4">
+                            <video class="project-video" controls preload="metadata" playsinline>
+                                <source src="./incendiel.mp4" type="video/mp4">
                                 Votre navigateur ne supporte pas l'élément vidéo.
                             </video>
-                            <video class="project-video" controls>
-                                <source src="effondrement.mp4" type="video/mp4">
+                            <video class="project-video" controls preload="metadata" playsinline>
+                                <source src="./effondrement.mp4" type="video/mp4">
                                 Votre navigateur ne supporte pas l'élément vidéo.
                             </video>
                         </div>
@@ -216,5 +396,33 @@
     <script src="script.js"></script>
     <script src="animation.js"></script>
     <script src="apocalypse.js"></script>
+    <script>
+        // Animation d'apparition des éléments
+        function handleScroll() {
+            const aboutContent = document.querySelector('.about-content');
+            const aboutTexts = document.querySelectorAll('.about-text');
+            
+            if (aboutContent) {
+                const rect = aboutContent.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8);
+                
+                if (isVisible) {
+                    aboutContent.classList.add('visible');
+                    
+                    // Animation séquentielle des paragraphes
+                    aboutTexts.forEach((text, index) => {
+                        setTimeout(() => {
+                            text.classList.add('visible');
+                        }, 200 * index);
+                    });
+                }
+            }
+        }
+
+        // Ajouter l'écouteur d'événement de défilement
+        window.addEventListener('scroll', handleScroll);
+        // Déclencher une première fois pour les éléments déjà visibles
+        handleScroll();
+    </script>
 </body>
 </html> 
