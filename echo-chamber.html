@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chambre d'écho</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .title {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 32px;
+            font-weight: 400;
+            z-index: 2;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .logo-container {
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .logo {
+            width: 60vw;
+            height: 60vh;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            object-fit: contain;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .description {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 18px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .video-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video {
+            width: 100%;
+            max-width: 1200px;
+            transition: all 0.3s ease;
+        }
+
+        .video.small {
+            max-width: 800px;
+        }
+
+        .arrow {
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .arrow:hover {
+            opacity: 1;
+        }
+
+        .gallery {
+            margin-top: 300px;
+            overflow: hidden;
+            position: relative;
+            height: 400px;
+            margin-bottom: 100px;
+        }
+
+        .gallery-container {
+            display: flex;
+            position: absolute;
+            animation: slide 240s linear infinite;
+            gap: 200px;
+        }
+
+        .gallery img {
+            height: 400px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-100% - 200px));
+            }
+        }
+
+        .credits {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Chambre d'écho</div>
+
+    <div class="logo-container">
+        <img src="chambre/assiette.jpg" alt="Logo" class="logo" id="audioToggle">
+    </div>
+
+    <div class="main-content">
+        <div class="description">
+            <p>Installation sonore en métal, file de guitare éléctrique, glace, chaine</p>
+        </div>
+
+        <div class="content">
+            <div class="video-container">
+                <video id="currentVideo" class="video" controls>
+                    <source src="chambre/vid-b.mp4" type="video/mp4">
+                </video>
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWFycm93LXJpZ2h0Ij48bGluZSB4MT0iNSIgeTE9IjEyIiB4Mj0iMTkiIHkyPSIxMiI+PC9saW5lPjxwb2x5bGluZSBwb2ludHM9IjEyIDUgMTkgMTIgMTIgMTkiPjwvcG9seWxpbmU+PC9zdmc+" alt="Flèche" class="arrow" id="nextVideo">
+            </div>
+        </div>
+
+        <div class="credits">
+            DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux
+        </div>
+
+        <div class="gallery">
+            <div class="gallery-container">
+                <img src="chambre/ima.JPG" alt="Image 1">
+                <img src="chambre/imb.JPG" alt="Image 2">
+                <img src="chambre/imc.JPG" alt="Image 3">
+                <img src="chambre/ima.JPG" alt="Image 1">
+                <img src="chambre/imb.JPG" alt="Image 2">
+                <img src="chambre/imc.JPG" alt="Image 3">
+                <img src="chambre/ima.JPG" alt="Image 1">
+                <img src="chambre/imb.JPG" alt="Image 2">
+                <img src="chambre/imc.JPG" alt="Image 3">
+            </div>
+        </div>
+    </div>
+
+    <audio id="backgroundAudio" loop>
+        <source src="chambre/goute.wav" type="audio/wav">
+    </audio>
+
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" src="" alt="Image agrandie">
+    </div>
+
+    <script>
+        const audioToggle = document.getElementById('audioToggle');
+        const backgroundAudio = document.getElementById('backgroundAudio');
+        const currentVideo = document.getElementById('currentVideo');
+        const nextVideo = document.getElementById('nextVideo');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.querySelector('.close-modal');
+        let isAudioPlaying = false;
+        let currentVideoIndex = 0;
+        const videos = ['chambre/vid-b.mp4', 'chambre/vid-c.mp4'];
+
+        // Gestion des images de la galerie
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'flex';
+                modalImg.src = this.src;
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Gestion de l'audio
+        audioToggle.addEventListener('click', () => {
+            if (isAudioPlaying) {
+                backgroundAudio.pause();
+                audioToggle.style.opacity = '0.7';
+            } else {
+                backgroundAudio.play();
+                audioToggle.style.opacity = '1';
+            }
+            isAudioPlaying = !isAudioPlaying;
+        });
+
+        // Gestion des vidéos
+        nextVideo.addEventListener('click', () => {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            currentVideo.src = videos[currentVideoIndex];
+            currentVideo.load();
+            if (currentVideoIndex === 1) {
+                currentVideo.classList.add('small');
+            } else {
+                currentVideo.classList.remove('small');
+            }
+            currentVideo.play();
+        });
+    </script>
+</body>
+</html> 

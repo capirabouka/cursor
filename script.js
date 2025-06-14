@@ -147,6 +147,21 @@ function initAudioPlayer() {
     const timeDisplay = document.querySelector('.time-display');
 
     if (audioPlayer && progressBar && audioProgress && playPauseBtn) {
+        // Forcer le chargement du fichier audio
+        audioPlayer.load();
+
+        // Ajouter des écouteurs d'événements pour le débogage
+        audioPlayer.addEventListener('error', (e) => {
+            console.error('Erreur de chargement audio:', e);
+            console.error('Code d\'erreur:', audioPlayer.error.code);
+            console.error('Message d\'erreur:', audioPlayer.error.message);
+        });
+
+        audioPlayer.addEventListener('loadeddata', () => {
+            console.log('Fichier audio chargé avec succès');
+            console.log('Durée:', audioPlayer.duration);
+        });
+
         // Fonction pour mettre à jour la barre de progression
         function updateProgress() {
             const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
@@ -169,15 +184,33 @@ function initAudioPlayer() {
         });
 
         // Gestion du bouton play/pause
-        playPauseBtn.addEventListener('click', function() {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'block';
-            } else {
-                audioPlayer.pause();
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
+        playPauseBtn.addEventListener('click', async function() {
+            try {
+                if (audioPlayer.paused) {
+                    // S'assurer que le fichier est chargé
+                    if (audioPlayer.readyState < 2) {
+                        await audioPlayer.load();
+                    }
+                    
+                    // Démarrer la lecture
+                    const playPromise = audioPlayer.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log('Lecture démarrée');
+                            playIcon.style.display = 'none';
+                            pauseIcon.style.display = 'block';
+                        }).catch(error => {
+                            console.error('Erreur lors de la lecture:', error);
+                        });
+                    }
+                } else {
+                    audioPlayer.pause();
+                    console.log('Lecture en pause');
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Erreur lors de la lecture:', error);
             }
         });
 
