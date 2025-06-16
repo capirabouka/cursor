@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chambre d'Echo - Anouche Lelong</title>
+    <title data-i18n="about.title">Chambre d'Echo - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
     <style>
         .about-section {
             min-height: 100vh;
@@ -171,15 +173,15 @@
     <div class="alarm-effect"></div>
     <audio id="alarmSound" preload="auto">
         <source src="alarme.mp3" type="audio/mpeg">
-        Votre navigateur ne supporte pas l'élément audio.
+        <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
     </audio>
     
     <nav class="main-nav">
         <div class="nav-links">
-            <a href="landing.html" class="nav-link">Projets</a>
-            <a href="musique.html" class="nav-link">Musique</a>
-            <a href="engagement.html" class="nav-link">Engagement</a>
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musique</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="language-selector">
             <button class="language-button">FR</button>
@@ -196,44 +198,44 @@
         <section id="about" class="section about-section">
             <div class="about-background"></div>
             <div class="about-content">
-                <h2>À propos</h2>
-                <p id="about-intro" class="intro about-text">Cet espace présente l'essentiel de mon travail artistique, à travers une sélection de projets, une réflexion sur ma démarche, et des fragments en constante évolution.</p>
+                <h2 data-i18n="about.title">À propos</h2>
+                <p id="about-intro" class="intro about-text" data-i18n="about.intro">Cet espace présente l'essentiel de mon travail artistique, à travers une sélection de projets, une réflexion sur ma démarche, et des fragments en constante évolution.</p>
                 
-                <p id="about-description1" class="description about-text">Artiste pluridisciplinaire, je travaille à partir du son, de la matière et du vide. Mes installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil, tout en laissant une place essentielle à la perception libre du spectateur.</p>
+                <p id="about-description1" class="description about-text" data-i18n="about.description1">Artiste pluridisciplinaire, je travaille à partir du son, de la matière et du vide. Mes installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil, tout en laissant une place essentielle à la perception libre du spectateur.</p>
                 
-                <p id="about-description2" class="description about-text">Ce site fonctionne comme une chambre d'écho de mes recherches : un lieu de tension, d'expérimentation et d'inscription dans le réel. Il accueille des projets passés, en cours, et à venir.</p>
+                <p id="about-description2" class="description about-text" data-i18n="about.description2">Ce site fonctionne comme une chambre d'écho de mes recherches : un lieu de tension, d'expérimentation et d'inscription dans le réel. Il accueille des projets passés, en cours, et à venir.</p>
                 
-                <p id="about-conclusion" class="conclusion about-text">Ici, les choses vibrent avant de s'effondrer, ou peut-être malgré tout.</p>
+                <p id="about-conclusion" class="conclusion about-text" data-i18n="about.conclusion">Ici, les choses vibrent avant de s'effondrer, ou peut-être malgré tout.</p>
             </div>
         </section>
 
         <div class="section" id="projects">
-            <h2>Projets</h2>
-            <h3 class="project-group-title">Résonances Disloquées</h3>
-            <p class="group-description">J'ai toujours eu peur de la fin du monde. À travers mon travail, je questionne ce qui déclenche une fin, ce qui l'annonce, ce qu'elle laisse derrière elle. J'imagine ses formes, ses bruits, ses échos. Je cherche à comprendre non pas comment tout s'effondre, mais comment nous l'entendons, le percevons, parfois même le mettons en scène.</p>
+            <h2 data-i18n="projects.title">Projets</h2>
+            <h3 class="project-group-title" data-i18n="projects.resonances">Résonances Disloquées</h3>
+            <p class="group-description" data-i18n="projects.resonances.description">J'ai toujours eu peur de la fin du monde. À travers mon travail, je questionne ce qui déclenche une fin, ce qui l'annonce, ce qu'elle laisse derrière elle. J'imagine ses formes, ses bruits, ses échos. Je cherche à comprendre non pas comment tout s'effondre, mais comment nous l'entendons, le percevons, parfois même le mettons en scène.</p>
             <div class="project-item">
-                <h3>The Voice of the Edge</h3>
+                <h3 data-i18n="voice.title">The Voice of the Edge</h3>
                 <div class="project-content">
-                    <p class="project-description">Projet sonore réalisé dans le cadre d'un mémoire de recherche sur la fin du monde, "The Voice of the Edge" est un recueil de voix enregistrées à l'international, rassemblant des récits personnels en réponse à une même question posée à chacun : quel est ton scénario de fin du monde. Chaque voix témoigne d'une vision singulière, intime, poétique ou politique, et dessine peu à peu une cartographie vocale de nos imaginaires de la fin. Le projet propose une écoute lente, fragmentaire et immersive, où les récits se superposent, se confrontent ou se répondent, révélant autant de seuils que de manières de disparaître. Il s'agit d'un espace d'archivage sensible, une tentative de donner forme à l'effondrement à travers les mots, les timbres et les silences de ceux qui l'imaginent.</p>
+                    <p class="project-description" data-i18n="voice.description">Projet sonore réalisé dans le cadre d'un mémoire de recherche sur la fin du monde, "The Voice of the Edge" est un recueil de voix enregistrées à l'international, rassemblant des récits personnels en réponse à une même question posée à chacun : quel est ton scénario de fin du monde. Chaque voix témoigne d'une vision singulière, intime, poétique ou politique, et dessine peu à peu une cartographie vocale de nos imaginaires de la fin. Le projet propose une écoute lente, fragmentaire et immersive, où les récits se superposent, se confrontent ou se répondent, révélant autant de seuils que de manières de disparaître. Il s'agit d'un espace d'archivage sensible, une tentative de donner forme à l'effondrement à travers les mots, les timbres et les silences de ceux qui l'imaginent.</p>
                     <div class="media-container">
-                        <a href="videos.html" class="immersive-button">Entrer dans l'expérience</a>
+                        <a href="videos.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
                     </div>
                 </div>
             </div>
 
             <div class="project-item symphonie-declin">
-                <h3>La symphonie du Déclin</h3>
+                <h3 data-i18n="symphony.title">La symphonie du Déclin</h3>
                 <div class="project-content">
                     <div class="left-content">
                         <div class="project-description">
-                            <p>Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
-                            <p>Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
-                            <p>L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
+                            <p data-i18n="symphony.description1">Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
+                            <p data-i18n="symphony.description2">Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
+                            <p data-i18n="symphony.description3">L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
                         </div>
                         <div class="audio-container">
                             <audio class="audio-player" controlsList="nodownload" preload="auto">
                                 <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
-                                Votre navigateur ne supporte pas l'élément audio.
+                                <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
                             </audio>
                             <div class="audio-controls">
                                 <button class="play-pause-btn">
@@ -255,7 +257,7 @@
                             <img src="bombom.JPG" alt="Symphonie du déclin" class="project-image">
                             <video class="project-video" controls>
                                 <source src="perf-symph.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas l'élément vidéo.
+                                <span data-i18n="video.not_supported">Votre navigateur ne supporte pas l'élément vidéo.</span>
                             </video>
                         </div>
                     </div>
@@ -263,30 +265,21 @@
             </div>
 
             <div class="project-item">
-                <h3>Chambre d'écho</h3>
+                <h3 data-i18n="echo.title">Chambre d'écho</h3>
                 <div class="project-content">
-                    <p class="project-description">Installation sonore composée de cinq structures en métal construites pour résonner, chacune suspend une plaque métallique traversée par des cordes de guitare électrique, au-dessus une chaîne descend du plafond maintenant un bloc de glace qui fond lentement, les gouttes tombent sur les plaques et chaque impact est capté par un micro piezzo, révélant des sons uniques selon la taille et la tension de chaque structure. L'ensemble forme une composition évolutive qui commence dans une quasi-absence de son puis devient de plus en plus dense et rythmée au fil de la fonte. Ce travail s'inscrit dans une recherche autour du son de la fin du monde, un son que j'ai cru entendre un jour en montagne face à un glacier en train de craquer, une vibration profonde et sourde qui a traversé toute la vallée et que j'ai depuis tenté de retrouver non par reproduction mais en laissant le temps, la matière et le hasard générer leur propre effondrement sonore.</p>
+                    <p class="project-description" data-i18n="echo.description">Installation sonore composée de cinq structures en métal construites pour résonner, chacune suspend une plaque métallique traversée par des cordes de guitare électrique, au-dessus une chaîne descend du plafond maintenant un bloc de glace qui fond lentement, les gouttes tombent sur les plaques et chaque impact est capté par un micro piezzo, révélant des sons uniques selon la taille et la tension de chaque structure. L'ensemble forme une composition évolutive qui commence dans une quasi-absence de son puis devient de plus en plus dense et rythmée au fil de la fonte. Ce travail s'inscrit dans une recherche autour du son de la fin du monde, un son que j'ai cru entendre un jour en montagne face à un glacier en train de craquer, une vibration profonde et sourde qui a traversé toute la vallée et que j'ai depuis tenté de retrouver non par reproduction mais en laissant le temps, la matière et le hasard générer leur propre effondrement sonore.</p>
                     <div class="media-container">
-                        <a href="echo-chamber.html" class="immersive-button">Entrer dans l'expérience</a>
+                        <a href="echo-chamber.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
                     </div>
                 </div>
             </div>
 
             <div class="project-item">
-                <h3>Le bruit de la chute</h3>
+                <h3 data-i18n="fall.title">Le bruit de la chute</h3>
                 <div class="project-content">
                     <p class="project-description">Le bruit de la chute rejoue deux scènes d'effondrement dont les sons, fabriqués à la main hors champ, déjouent l'illusion de réalisme. En dévoilant les ficelles de la mise en scène, le projet questionne notre consommation passive d'images, et explore la manière dont le visible s'impose souvent comme vérité sans qu'on en interroge la fabrication.</p>
                     <div class="media-container">
-                        <div class="fall-videos">
-                            <video class="project-video" controls preload="metadata" playsinline>
-                                <source src="./incendiel.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas l'élément vidéo.
-                            </video>
-                            <video class="project-video" controls preload="metadata" playsinline>
-                                <source src="./effondrement.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas l'élément vidéo.
-                            </video>
-                        </div>
+                        <a href="fall.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
                     </div>
                 </div>
             </div>
