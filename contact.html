@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-content {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 4rem;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text-color), transparent);
+        }
+
+        .contact-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text-color), transparent);
+        }
+
+        .contact-title {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .contact-link {
+            font-size: 1.6rem;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 1rem 0;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            font-size: 1.6rem;
+            opacity: 0.7;
+        }
+
+        .contact-link:hover .contact-icon {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .contact-content {
+                padding: 2.5rem;
+            }
+
+            .contact-link {
+                font-size: 1.3rem;
+            }
+
+            .contact-icon {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="landing.html" class="nav-link">Projets</a>
+            <a href="musique.html" class="nav-link">Musique</a>
+            <a href="engagement.html" class="nav-link">Engagement</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="contact-section">
+        <div class="contact-content">
+            <h2 class="contact-title">Pour toute collaboration</h2>
+            <div class="contact-links">
+                <div>
+                    <div class="contact-label">Mail</div>
+                    <a href="mailto:anouche.lng@gmail.com" class="contact-link">
+                        <span class="contact-icon">→</span>
+                        anouche.lng@gmail.com
+                    </a>
+                </div>
+                <div>
+                    <div class="contact-label">Telegram</div>
+                    <a href="https://t.me/anoushlng" target="_blank" class="contact-link">
+                        <span class="contact-icon">→</span>
+                        @anoushlng
+                    </a>
+                </div>
+                <div>
+                    <div class="contact-label">WhatsApp</div>
+                    <a href="https://wa.me/33787585137" target="_blank" class="contact-link">
+                        <span class="contact-icon">→</span>
+                        +337 87 58 51 37
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 

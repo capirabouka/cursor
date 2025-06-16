@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musique - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .music-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .music-item {
+            background: var(--bg-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .music-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .music-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .music-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .play-pause-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--text-color);
+            border-radius: 2px;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="landing.html" class="nav-link">Projets</a>
+            <a href="musique.html" class="nav-link">Musique</a>
+            <a href="engagement.html" class="nav-link">Engagement</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="music-section">
+        <h1>Musique</h1>
+        <p class="intro">Une sélection de compositions sonores et d'expérimentations musicales.</p>
+
+        <div class="music-grid">
+            <div class="music-item">
+                <h2 class="music-title">Symphonie du Déclin</h2>
+                <p class="music-description">Une composition collective qui rassemble des visions personnelles de la fin du monde, exprimées à travers le son.</p>
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l'élément audio.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="music-item">
+                <h2 class="music-title">Chambre d'Écho</h2>
+                <p class="music-description">Installation sonore composée de structures métalliques résonantes, créant une composition évolutive basée sur la fonte de la glace.</p>
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="chambre/goute.wav" type="audio/wav">
+                        Votre navigateur ne supporte pas l'élément audio.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="music-item">
+                <h2 class="music-title">L'Auréole du Monde</h2>
+                <p class="music-description">Composition sonore explorant la personnification des objets non-humains et la projection de nos émotions sur le monde qui nous entoure.</p>
+                <div class="audio-player">
+                    <audio controls>
+                        <source src="aureole.mp3" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l'élément audio.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 

@@ -142,6 +142,26 @@
             transform: translateY(-2px);
             background: #f0f0f0;
         }
+
+        .npak-link {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .npak-link:hover {
+            transform: scale(1.05);
+        }
+
+        .npak-logo {
+            width: 100px;
+            height: auto;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .npak-link:hover .npak-logo {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -156,10 +176,10 @@
     
     <nav class="main-nav">
         <div class="nav-links">
-            <a href="#projects" class="nav-link">Projets</a>
-            <a href="#musique" class="nav-link">Musique</a>
-            <a href="#engagement" class="nav-link">Engagement</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="landing.html" class="nav-link">Projets</a>
+            <a href="musique.html" class="nav-link">Musique</a>
+            <a href="engagement.html" class="nav-link">Engagement</a>
+            <a href="contact.html" class="nav-link">Contact</a>
         </div>
         <div class="language-selector">
             <button class="language-button">FR</button>
@@ -255,7 +275,7 @@
             <div class="project-item">
                 <h3>Le bruit de la chute</h3>
                 <div class="project-content">
-                    <p class="project-description">Le bruit de la chute met en scène deux effondrements — une maison en feu, une montagne qui s'écroule — dont les sons, pourtant, sont fabriqués à la main, hors champ. En dévoilant la construction de l'illusion, je m'inscris dans une tradition critique de l'image : celle qui ne montre pas seulement, mais interroge ce qu'elle fait croire. Depuis les premières projections d'ombres jusqu'aux flux numériques, nous ne cessons de confondre ce que nous voyons avec ce que nous savons. Ce projet travaille cette faille-là.</p>
+                    <p class="project-description">Le bruit de la chute rejoue deux scènes d'effondrement dont les sons, fabriqués à la main hors champ, déjouent l'illusion de réalisme. En dévoilant les ficelles de la mise en scène, le projet questionne notre consommation passive d'images, et explore la manière dont le visible s'impose souvent comme vérité sans qu'on en interroge la fabrication.</p>
                     <div class="media-container">
                         <div class="fall-videos">
                             <video class="project-video" controls preload="metadata" playsinline>
@@ -306,40 +326,12 @@
             </div>
         </div>
 
-        <section id="musique" class="section">
-            <h2>Musique</h2>
-            <div class="audio-player">
-                <!-- Le lecteur audio sera ajouté ici -->
-            </div>
-        </section>
-
-        <section id="engagement" class="section">
-            <h2>Engagement</h2>
-            <div class="text-content">
-                <!-- Le contenu d'engagement sera ajouté ici -->
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <h2>Contact</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span>Email</span>
-                    <a href="mailto:anouche.lng@gmail.com">anouche.lng@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <span>Telegram</span>
-                    <a href="https://t.me/anoushlng" target="_blank">@anoushlng</a>
-                </div>
-            </div>
-        </section>
-
         <section id="partners">
             <div class="partners-grid">
                 <span class="partner-text">En partenariat avec NPAK - Centre d'Art Contemporain</span>
                 <div class="partner-logo-container">
-                    <a href="#" class="partner-logo">
-                        <img src="logo npak.jpg" alt="Logo NPAK">
+                    <a href="https://www.accea.info/" target="_blank" class="npak-link">
+                        <img src="logo npak.jpg" alt="Logo NPAK" class="npak-logo">
                     </a>
                 </div>
             </div>
