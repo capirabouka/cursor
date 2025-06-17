@@ -175,10 +175,31 @@
             font-size: 16px;
             color: #333;
         }
+
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+            background: none;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #000;
+            cursor: pointer;
+            padding: 5px 10px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .language-selector:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <div class="title">Chambre d'écho</div>
+    <div class="title" data-i18n="echo_chamber.title">Chambre d'écho</div>
+    <button class="language-selector" onclick="toggleLanguage()">FR</button>
 
     <div class="logo-container">
         <img src="chambre/assiette.jpg" alt="Logo" class="logo" id="audioToggle">
@@ -186,7 +207,7 @@
 
     <div class="main-content">
         <div class="description">
-            <p>Installation sonore combinant métal, cordes de guitare électrique, glace et chaînes suspendues.</p>
+            <p data-i18n="echo_chamber.description">Installation sonore combinant métal, cordes de guitare électrique, glace et chaînes suspendues.</p>
         </div>
 
         <div class="content">
@@ -199,7 +220,7 @@
         </div>
 
         <div class="credits">
-            DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux
+            <span data-i18n="echo_chamber.diploma">DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024</span> – <span data-i18n="echo_chamber.school">École supérieure des Beaux-Arts de Bordeaux</span>
         </div>
 
         <div class="gallery">
@@ -226,7 +247,13 @@
         <img id="modalImage" src="" alt="Image agrandie">
     </div>
 
+    <script src="translations.js"></script>
     <script>
+        // Vérification que translations.js est bien chargé
+        if (typeof translations === 'undefined') {
+            console.error('translations.js n\'est pas chargé correctement');
+        }
+
         const audioToggle = document.getElementById('audioToggle');
         const backgroundAudio = document.getElementById('backgroundAudio');
         const currentVideo = document.getElementById('currentVideo');
@@ -237,6 +264,28 @@
         let isAudioPlaying = false;
         let currentVideoIndex = 0;
         const videos = ['chambre/vid-b.mp4', 'chambre/vid-c.mp4'];
+        let currentLanguage = 'fr';
+
+        // Fonction pour changer la langue
+        window.toggleLanguage = function() {
+            const languages = ['fr', 'en', 'es', 'ru'];
+            const languageNames = {
+                'fr': 'FR',
+                'en': 'EN',
+                'es': 'ES',
+                'ru': 'RU'
+            };
+            const currentIndex = languages.indexOf(currentLanguage);
+            currentLanguage = languages[(currentIndex + 1) % languages.length];
+            document.querySelector('.language-selector').textContent = languageNames[currentLanguage];
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[currentLanguage] && translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+        };
 
         // Gestion des images de la galerie
         document.querySelectorAll('.gallery img').forEach(img => {

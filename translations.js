@@ -33,7 +33,11 @@ const translations = {
         "echo.title": "Chambre d'écho",
         "echo.description": "Installation sonore composée de cinq structures en métal construites pour résonner, chacune suspend une plaque métallique traversée par des cordes de guitare électrique, au-dessus une chaîne descend du plafond maintenant un bloc de glace qui fond lentement, les gouttes tombent sur les plaques et chaque impact est capté par un micro piezzo, révélant des sons uniques selon la taille et la tension de chaque structure. L'ensemble forme une composition évolutive qui commence dans une quasi-absence de son puis devient de plus en plus dense et rythmée au fil de la fonte. Ce travail s'inscrit dans une recherche autour du son de la fin du monde, un son que j'ai cru entendre un jour en montagne face à un glacier en train de craquer, une vibration profonde et sourde qui a traversé toute la vallée et que j'ai depuis tenté de retrouver non par reproduction mais en laissant le temps, la matière et le hasard générer leur propre effondrement sonore.",
         "echo.short_description": "Installation sonore combinant métal, cordes de guitare électrique, glace et chaînes suspendues.",
-        "echo.credits": "DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux",
+        "echo.credits": "DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024",
+        "echo_chamber.title": "Chambre d'écho",
+        "echo_chamber.description": "Installation sonore combinant métal, cordes de guitare électrique, glace et chaînes suspendues.",
+        "echo_chamber.diploma": "DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024",
+        "echo_chamber.school": "École supérieure des Beaux-Arts de Bordeaux",
 
         // Terminal
         "terminal.title": "Terminal",
@@ -98,7 +102,11 @@ const translations = {
         "echo.title": "Echo Chamber",
         "echo.description": "Sound installation composed of five metal structures built to resonate, each suspending a metal plate crossed by electric guitar strings, above which a chain descends from the ceiling holding a block of ice that slowly melts, the drops fall on the plates and each impact is captured by a piezo microphone, revealing unique sounds according to the size and tension of each structure. The whole forms an evolving composition that begins in an almost absence of sound then becomes increasingly dense and rhythmic as the ice melts. This work is part of a research around the sound of the end of the world, a sound I thought I heard one day in the mountains facing a cracking glacier, a deep and muffled vibration that crossed the entire valley and that I have since tried to find not by reproduction but by letting time, matter and chance generate their own sonic collapse.",
         "echo.short_description": "Sound installation combining metal, electric guitar strings, ice and suspended chains.",
-        "echo.credits": "DNSEP (National Higher Diploma in Visual Arts), June 2024 – École supérieure des Beaux-Arts de Bordeaux",
+        "echo.credits": "DNSEP (National Higher Diploma in Visual Arts), June 2024",
+        "echo_chamber.title": "Echo Chamber",
+        "echo_chamber.description": "Sound installation combining metal, electric guitar strings, ice and suspended chains.",
+        "echo_chamber.diploma": "DNSEP (National Higher Diploma in Visual Arts), June 2024",
+        "echo_chamber.school": "École supérieure des Beaux-Arts de Bordeaux",
 
         // Terminal
         "terminal.title": "Terminal",
@@ -163,7 +171,11 @@ const translations = {
         "echo.title": "Cámara de eco",
         "echo.description": "Instalación sonora compuesta por cinco estructuras metálicas construidas para resonar, cada una suspende una placa metálica atravesada por cuerdas de guitarra eléctrica, encima una cadena desciende del techo sosteniendo un bloque de hielo que se derrite lentamente, las gotas caen sobre las placas y cada impacto es capturado por un micrófono piezo, revelando sonidos únicos según el tamaño y la tensión de cada estructura. El conjunto forma una composición evolutiva que comienza en una casi ausencia de sonido y luego se vuelve cada vez más densa y rítmica a medida que el hielo se derrite. Este trabajo se inscribe en una investigación alrededor del sonido del fin del mundo, un sonido que creí escuchar un día en la montaña frente a un glaciar que se resquebrajaba, una vibración profunda y sorda que atravesó todo el valle y que desde entonces he intentado encontrar no por reproducción sino dejando que el tiempo, la materia y el azar generen su propio colapso sonoro.",
         "echo.short_description": "Instalación sonora que combina metal, cuerdas de guitarra eléctrica, hielo y cadenas suspendidas.",
-        "echo.credits": "DNSEP (Diploma Nacional Superior de Expresión Plástica), junio 2024 – École supérieure des Beaux-Arts de Bordeaux",
+        "echo.credits": "DNSEP (Diploma Nacional Superior de Expresión Plástica), junio 2024",
+        "echo_chamber.title": "Cámara de Eco",
+        "echo_chamber.description": "Instalación sonora que combina metal, cuerdas de guitarra eléctrica, hielo y cadenas suspendidas.",
+        "echo_chamber.diploma": "DNSEP (Diploma Nacional Superior de Expresión Plástica), junio 2024",
+        "echo_chamber.school": "École supérieure des Beaux-Arts de Bordeaux",
 
         // Terminal
         "terminal.title": "Terminal",
@@ -221,7 +233,11 @@ const translations = {
         "echo.title": "Эхо-камера",
         "echo.description": "Звуковая инсталляция, состоящая из пяти металлических конструкций, построенных для резонанса, каждая из которых подвешивает металлическую пластину, пересеченную струнами электрогитары, над которой цепь спускается с потолка, удерживая блок льда, который медленно тает, капли падают на пластины, и каждый удар улавливается пьезомикрофоном, раскрывая уникальные звуки в зависимости от размера и натяжения каждой конструкции. Целое образует эволюционирующую композицию, которая начинается почти в отсутствие звука, а затем становится все более плотной и ритмичной по мере таяния льда. Эта работа является частью исследования звука конца света, звука, который я однажды услышал в горах перед трескающимся ледником, глубокой и приглушенной вибрации, которая пересекла всю долину, и которую я с тех пор пытался найти не через воспроизведение, а позволяя времени, материи и случаю генерировать свой собственный звуковой коллапс.",
         "echo.short_description": "Звуковая инсталляция, сочетающая металл, струны электрогитары, лед и подвешенные цепи.",
-        "echo.credits": "DNSEP (Национальный высший диплом в области изобразительного искусства), июнь 2024 – École supérieure des Beaux-Arts de Bordeaux",
+        "echo.credits": "DNSEP (Национальный высший диплом в области изобразительного искусства), июнь 2024",
+        "echo_chamber.title": "Эхо-камера",
+        "echo_chamber.description": "Звуковая инсталляция, сочетающая металл, струны электрогитары, лед и подвешенные цепи.",
+        "echo_chamber.diploma": "DNSEP (Национальный высший диплом в области пластических искусств), июнь 2024",
+        "echo_chamber.school": "École supérieure des Beaux-Arts de Bordeaux",
 
         // Terminal
         "terminal.title": "Терминал",
