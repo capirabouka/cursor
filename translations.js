@@ -171,6 +171,9 @@ const translations = {
         // El halo del mundo
         "halo.title": "El halo del mundo",
         "halo.description": "Sonido para instalación sonora, durante el festival/exposición 2023 \"Exhibition\" en NPAK.\n\nTema:\n\nEn medio de la pérdida de nuestras características humanas, intentamos escapar de la realidad personificando o creando figuras antropomórficas. A través de tu arte, ¿cómo puedes atribuir emociones, actitudes, estados mentales, rostros y valores a cosas no humanas y reflejarte?",
+
+        // Enter the experience
+        "projects.enter_experience": "Entrar en la experiencia",
     },
     ru: {
         // Navigation
@@ -220,5 +223,8 @@ const translations = {
         // Ореол мира
         "halo.title": "Ореол мира",
         "halo.description": "Звук для звуковой инсталляции, во время фестиваля/выставки 2023 \"Exhibition\" в NPAK.\n\nТема:\n\nВ условиях потери наших человеческих характеристик мы пытаемся избежать реальности, олицетворяя или создавая антропоморфные фигуры. Через ваше искусство, как вы можете приписывать эмоции, отношения, психические состояния, лица и ценности нечеловеческим вещам и отражать себя?",
+
+        // Enter the experience
+        "projects.enter_experience": "Войти в опыт",
     }
 }; 
