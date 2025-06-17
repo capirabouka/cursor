@@ -484,12 +484,16 @@
         // Animation de la caméra vers une planète
         function animateCameraToPlanet(planet) {
             const targetPosition = planet.position.clone();
+            
+            // Calcul de la position de la caméra pour être face à la planète
+            const distance = planet.radius * 3; // Distance proportionnelle à la taille de la planète
             const cameraPosition = new THREE.Vector3(
-                targetPosition.x * 1.5,
-                targetPosition.y * 1.5,
-                targetPosition.z + 50
+                targetPosition.x,
+                targetPosition.y,
+                targetPosition.z + distance
             );
 
+            // Animation de la caméra
             gsap.to(camera.position, {
                 x: cameraPosition.x,
                 y: cameraPosition.y,
@@ -498,6 +502,10 @@
                 ease: "power2.inOut",
                 onUpdate: () => {
                     controls.target.copy(targetPosition);
+                },
+                onComplete: () => {
+                    // Ajustement fin de la rotation pour être parfaitement face à la planète
+                    controls.update();
                 }
             });
         }
