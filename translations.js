@@ -17,6 +17,7 @@ const translations = {
         "projects.title": "Projets",
         "projects.resonances": "Résonances Disloquées",
         "projects.resonances.description": "J'ai toujours eu peur de la fin du monde. À travers mon travail, je questionne ce qui déclenche une fin, ce qui l'annonce, ce qu'elle laisse derrière elle. J'imagine ses formes, ses bruits, ses échos. Je cherche à comprendre non pas comment tout s'effondre, mais comment nous l'entendons, le percevons, parfois même le mettons en scène.",
+        "projects.borders": "Frontières et Identités",
 
         // The Voice of the Edge
         "voice.title": "The Voice of the Edge",
@@ -53,7 +54,12 @@ const translations = {
 
         // Le bruit de la chute
         "fall.title": "Le bruit de la chute",
-        "fall.description": "Le bruit de la chute met en scène deux effondrements — une maison en feu, une montagne qui s'écroule — dont les sons, pourtant, sont fabriqués à la main, hors champ. En dévoilant la construction de l'illusion, je m'inscris dans une tradition critique de l'image : celle qui ne montre pas seulement, mais interroge ce qu'elle fait croire. Depuis les premières projections d'ombres jusqu'aux flux numériques, nous ne cessons de confondre ce que nous voyons avec ce que nous savons. Ce projet travaille cette faille-là."
+        "fall.description": "Le bruit de la chute met en scène deux effondrements — une maison en feu, une montagne qui s'écroule — dont les sons, pourtant, sont fabriqués à la main, hors champ. En dévoilant la construction de l'illusion, je m'inscris dans une tradition critique de l'image : celle qui ne montre pas seulement, mais interroge ce qu'elle fait croire. Depuis les premières projections d'ombres jusqu'aux flux numériques, nous ne cessons de confondre ce que nous voyons avec ce que nous savons. Ce projet travaille cette faille-là.",
+        "fall.description.short": "Le bruit de la chute rejoue deux scènes d'effondrement dont les sons, fabriqués à la main hors champ, déjouent l'illusion de réalisme. En dévoilant les ficelles de la mise en scène, le projet questionne notre consommation passive d'images, et explore la manière dont le visible s'impose souvent comme vérité sans qu'on en interroge la fabrication.",
+
+        // L'auréole du monde
+        "halo.title": "L'auréole du monde",
+        "halo.description": "Son pour installation sonore, lors du festival/exposition 2023 \"Exhibition\" au NPAK.\n\nThème : \n\nAu milieu de la perte de nos caractéristiques humaines, nous essayons d'échapper à la réalité en personnifiant ou en créant des figures anthropomorphes. À travers votre art, comment pouvez-vous attribuer des émotions, des attitudes, des états mentaux, des visages et des valeurs à des choses non humaines et vous refléter ?",
     },
     en: {
         // Navigation
@@ -73,6 +79,7 @@ const translations = {
         "projects.title": "Projects",
         "projects.resonances": "Dislocated Resonances",
         "projects.resonances.description": "I have always been afraid of the end of the world. Through my work, I question what triggers an end, what announces it, what it leaves behind. I imagine its forms, its noises, its echoes. I seek to understand not how everything collapses, but how we hear it, perceive it, sometimes even stage it.",
+        "projects.borders": "Borders and Identities",
 
         // The Voice of the Edge
         "voice.title": "The Voice of the Edge",
@@ -109,7 +116,12 @@ const translations = {
 
         // The Sound of Falling
         "fall.title": "The Sound of Falling",
-        "fall.description": "The Sound of Falling stages two collapses — a house on fire, a mountain crumbling — whose sounds, however, are handcrafted, off-screen. By revealing the construction of illusion, I align myself with a critical tradition of image: one that doesn't just show, but questions what it makes us believe. From the first shadow projections to digital streams, we constantly confuse what we see with what we know. This project works on that gap."
+        "fall.description": "The Sound of Falling stages two collapses — a house on fire, a mountain crumbling — whose sounds, however, are handcrafted, off-screen. By revealing the construction of illusion, I align myself with a critical tradition of image: one that doesn't just show, but questions what it makes us believe. From the first shadow projections to digital streams, we constantly confuse what we see with what we know. This project works on that gap.",
+        "fall.description.short": "The Sound of Falling replays two collapse scenes whose sounds, handcrafted off-screen, thwart the illusion of realism. By revealing the strings of the staging, the project questions our passive consumption of images and explores how the visible often imposes itself as truth without questioning its fabrication.",
+
+        // The World's Halo
+        "halo.title": "The World's Halo",
+        "halo.description": "Sound for sound installation, during the 2023 \"Exhibition\" festival at NPAK.\n\nTheme:\n\nIn the midst of losing our human characteristics, we try to escape reality by personifying or creating anthropomorphic figures. Through your art, how can you attribute emotions, attitudes, mental states, faces, and values to non-human things and reflect yourself?",
     },
     es: {
         // Navigation
@@ -129,6 +141,7 @@ const translations = {
         "projects.title": "Proyectos",
         "projects.resonances": "Resonancias Dislocadas",
         "projects.resonances.description": "Siempre he tenido miedo del fin del mundo. A través de mi trabajo, cuestiono lo que desencadena un fin, lo que lo anuncia, lo que deja atrás. Imagino sus formas, sus ruidos, sus ecos. Busco entender no cómo todo colapsa, sino cómo lo escuchamos, lo percibimos, a veces incluso lo escenificamos.",
+        "projects.borders": "Fronteras e Identidades",
 
         // The Voice of the Edge
         "voice.title": "La Voz del Borde",
@@ -152,7 +165,12 @@ const translations = {
 
         // The Sound of Falling
         "fall.title": "El sonido de la caída",
-        "fall.description": "El sonido de la caída escenifica dos derrumbes — una casa en llamas, una montaña que se desmorona — cuyos sonidos, sin embargo, están fabricados a mano, fuera de campo. Al revelar la construcción de la ilusión, me inscribo en una tradición crítica de la imagen: aquella que no solo muestra, sino que interroga lo que hace creer. Desde las primeras proyecciones de sombras hasta los flujos digitales, no dejamos de confundir lo que vemos con lo que sabemos. Este proyecto trabaja esa falla."
+        "fall.description": "El sonido de la caída escenifica dos derrumbes — una casa en llamas, una montaña que se desmorona — cuyos sonidos, sin embargo, están fabricados a mano, fuera de campo. Al revelar la construcción de la ilusión, me inscribo en una tradición crítica de la imagen: aquella que no solo muestra, sino que interroga lo que hace creer. Desde las primeras proyecciones de sombras hasta los flujos digitales, no dejamos de confundir lo que vemos con lo que sabemos. Este proyecto trabaja esa falla.",
+        "fall.description.short": "El sonido de la caída repite dos escenas de derrumbe cuyos sonidos, fabricados a mano fuera de campo, frustran la ilusión de realismo. Al revelar los hilos de la puesta en escena, el proyecto cuestiona nuestro consumo pasivo de imágenes y explora cómo lo visible a menudo se impone como verdad sin cuestionar su fabricación.",
+
+        // El halo del mundo
+        "halo.title": "El halo del mundo",
+        "halo.description": "Sonido para instalación sonora, durante el festival/exposición 2023 \"Exhibition\" en NPAK.\n\nTema:\n\nEn medio de la pérdida de nuestras características humanas, intentamos escapar de la realidad personificando o creando figuras antropomórficas. A través de tu arte, ¿cómo puedes atribuir emociones, actitudes, estados mentales, rostros y valores a cosas no humanas y reflejarte?",
     },
     ru: {
         // Navigation
@@ -172,6 +190,7 @@ const translations = {
         "projects.title": "Проекты",
         "projects.resonances": "Разъединенные Резонансы",
         "projects.resonances.description": "Я всегда боялся конца света. Через свою работу я исследую, что вызывает конец, что его предвещает, что он оставляет после себя. Я представляю его формы, шумы, эхо. Я пытаюсь понять не то, как все рушится, а то, как мы это слышим, воспринимаем, иногда даже ставим на сцене.",
+        "projects.borders": "Границы и Идентичности",
 
         // The Voice of the Edge
         "voice.title": "Голос Края",
@@ -195,6 +214,11 @@ const translations = {
 
         // The Sound of Falling
         "fall.title": "Звук падения",
-        "fall.description": "Звук падения представляет два обрушения — горящий дом, рушащаяся гора — чьи звуки, однако, созданы вручную, за кадром. Раскрывая конструкцию иллюзии, я вписываюсь в критическую традицию образа: ту, которая не просто показывает, но ставит под сомнение то, во что заставляет верить. От первых теневых проекций до цифровых потоков мы постоянно путаем то, что видим, с тем, что знаем. Этот проект работает над этим разрывом."
+        "fall.description": "Звук падения представляет два обрушения — горящий дом, рушащаяся гора — чьи звуки, однако, созданы вручную, за кадром. Раскрывая конструкцию иллюзии, я вписываюсь в критическую традицию образа: ту, которая не просто показывает, но ставит под сомнение то, во что заставляет верить. От первых теневых проекций до цифровых потоков мы постоянно путаем то, что видим, с тем, что знаем. Этот проект работает над этим разрывом.",
+        "fall.description.short": "Звук падения воспроизводит две сцены обрушения, чьи звуки, созданные вручную за кадром, разрушают иллюзию реализма. Раскрывая нити постановки, проект ставит под сомнение наше пассивное потребление образов и исследует, как видимое часто навязывается как истина без исследования его создания.",
+
+        // Ореол мира
+        "halo.title": "Ореол мира",
+        "halo.description": "Звук для звуковой инсталляции, во время фестиваля/выставки 2023 \"Exhibition\" в NPAK.\n\nТема:\n\nВ условиях потери наших человеческих характеристик мы пытаемся избежать реальности, олицетворяя или создавая антропоморфные фигуры. Через ваше искусство, как вы можете приписывать эмоции, отношения, психические состояния, лица и ценности нечеловеческим вещам и отражать себя?",
     }
 }; 

@@ -225,7 +225,7 @@
         <div class="section" id="projects">
             <h2 data-i18n="projects.title">Projets</h2>
             <h3 class="project-group-title" data-i18n="projects.resonances">Résonances Disloquées</h3>
-            <p class="group-description" data-i18n="projects.resonances.description">J'ai toujours eu peur de la fin du monde. À travers mon travail, je questionne ce qui déclenche une fin, ce qui l'annonce, ce qu'elle laisse derrière elle. J'imagine ses formes, ses bruits, ses échos. Je cherche à comprendre non pas comment tout s'effondre, mais comment nous l'entendons, le percevons, parfois même le mettons en scène.</p>
+            <p class="group-description" data-i18n="projects.resonances.description">Ce travail artistique autour de la fin du monde mêle voix, sons, images et installations pour offrir des expériences sensorielles et réflexives. Chaque projet croise récits intimes, imaginaires et phénomènes physiques, entre contrôle et hasard, présence et disparition. De la cartographie vocale aux sons de la glace fondante, en passant par la déconstruction des illusions et la métaphore sonore du déclin, ces travaux invitent à une écoute attentive et à une contemplation sensible des transformations du monde et de notre rapport à elles, entre poésie, inquiétude et distanciation critique.</p>
             <div class="project-item">
                 <h3 data-i18n="voice.title">The Voice of the Edge</h3>
                 <div class="project-content">
@@ -290,7 +290,7 @@
             <div class="project-item">
                 <h3 data-i18n="fall.title">Le bruit de la chute</h3>
                 <div class="project-content">
-                    <p class="project-description">Le bruit de la chute rejoue deux scènes d'effondrement dont les sons, fabriqués à la main hors champ, déjouent l'illusion de réalisme. En dévoilant les ficelles de la mise en scène, le projet questionne notre consommation passive d'images, et explore la manière dont le visible s'impose souvent comme vérité sans qu'on en interroge la fabrication.</p>
+                    <p class="project-description" data-i18n="fall.description.short">Le bruit de la chute rejoue deux scènes d'effondrement dont les sons, fabriqués à la main hors champ, déjouent l'illusion de réalisme. En dévoilant les ficelles de la mise en scène, le projet questionne notre consommation passive d'images, et explore la manière dont le visible s'impose souvent comme vérité sans qu'on en interroge la fabrication.</p>
                     <div class="media-container">
                         <div class="media-grid">
                             <video class="project-video" controls>
@@ -307,9 +307,9 @@
             </div>
 
             <div class="project-item">
-                <h3>L'auréole du monde</h3>
+                <h3 data-i18n="halo.title">L'auréole du monde</h3>
                 <div class="project-content">
-                    <div class="matrix-text">
+                    <div class="matrix-text" data-i18n="halo.description">
                         Son pour installation sonore, lors du festival/exposition 2023 "Exhibition" au NPAK.
 
                         Thème : 
@@ -329,11 +329,11 @@
             <section id="symphonie" class="project-section">
             </section>
 
-            <h3 class="project-group-title">Frontières et Identités</h3>
+            <h3 class="project-group-title" data-i18n="projects.borders">Frontières et Identités</h3>
             <div class="project-item">
-                <h3>Terminal</h3>
+                <h3 data-i18n="terminal.title">Terminal</h3>
                 <div class="project-content">
-                    <p class="project-description">Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.</p>
+                    <p class="project-description" data-i18n="terminal.description">Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.</p>
                     <div class="media-container">
                         <a href="gallery.html" class="immersive-button">Entrer dans l'expérience</a>
                     </div>
@@ -358,6 +358,17 @@
     <script src="animation.js"></script>
     <script src="apocalypse.js"></script>
     <script>
+        // Fonction pour traduire le contenu
+        function translatePage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
         // Animation d'apparition des éléments
         function handleScroll() {
             const aboutContent = document.querySelector('.about-content');
@@ -384,6 +395,21 @@
         window.addEventListener('scroll', handleScroll);
         // Déclencher une première fois pour les éléments déjà visibles
         handleScroll();
+
+        // Gestion du sélecteur de langue
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButton = document.querySelector('.language-button');
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    languageButton.textContent = lang.toUpperCase();
+                    translatePage(lang);
+                });
+            });
+        });
 
         // Gestion de l'audio pour La symphonie du Déclin
         document.addEventListener('DOMContentLoaded', function() {
