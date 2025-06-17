@@ -3,94 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musique - Anouche Lelong</title>
+    <title data-i18n="music.title">Musique - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
     <style>
-        .music-section {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .music-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .music-item {
-            background: var(--bg-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .music-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .music-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-
-        .music-description {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .audio-player {
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            margin-top: 1rem;
+            height: 100%;
+            z-index: 1;
         }
 
         .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 20px;
+            z-index: 2;
         }
 
-        .play-pause-btn {
-            background: none;
-            border: none;
+        .control-button {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1.5rem;
-            color: var(--text-color);
+            transition: all 0.3s ease;
         }
 
-        .progress-bar {
-            flex-grow: 1;
-            height: 4px;
-            background: #ddd;
-            border-radius: 2px;
-            position: relative;
+        .control-button:hover {
+            background: rgba(0, 0, 0, 0.1);
         }
 
-        .progress {
-            position: absolute;
-            left: 0;
+        .loading-screen {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: var(--text-color);
-            border-radius: 2px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-text {
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #333;
             width: 0%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
+    <div class="noise-overlay"></div>
+    <div class="explosion-effect"></div>
+    <div class="particles"></div>
+    <div class="alarm-effect"></div>
+    <audio id="alarmSound" preload="auto">
+        <source src="alarme.mp3" type="audio/mpeg">
+        <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
+    </audio>
+    
     <nav class="main-nav">
         <div class="nav-links">
-            <a href="landing.html" class="nav-link">Projets</a>
-            <a href="musique.html" class="nav-link">Musique</a>
-            <a href="engagement.html" class="nav-link">Engagement</a>
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musique</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="language-selector">
             <button class="language-button">FR</button>
@@ -103,46 +109,271 @@
         </div>
     </nav>
 
-    <main class="music-section">
-        <h1>Musique</h1>
-        <p class="intro">Une sélection de compositions sonores et d'expérimentations musicales.</p>
+    <div id="scene-container"></div>
+    <div class="audio-controls">
+        <button class="control-button" id="reset-camera">Reset Camera</button>
+        <button class="control-button" id="toggle-rotation">Toggle Rotation</button>
+    </div>
 
-        <div class="music-grid">
-            <div class="music-item">
-                <h2 class="music-title">Symphonie du Déclin</h2>
-                <p class="music-description">Une composition collective qui rassemble des visions personnelles de la fin du monde, exprimées à travers le son.</p>
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
-                        Votre navigateur ne supporte pas l'élément audio.
-                    </audio>
-                </div>
-            </div>
-
-            <div class="music-item">
-                <h2 class="music-title">Chambre d'Écho</h2>
-                <p class="music-description">Installation sonore composée de structures métalliques résonantes, créant une composition évolutive basée sur la fonte de la glace.</p>
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="chambre/goute.wav" type="audio/wav">
-                        Votre navigateur ne supporte pas l'élément audio.
-                    </audio>
-                </div>
-            </div>
-
-            <div class="music-item">
-                <h2 class="music-title">L'Auréole du Monde</h2>
-                <p class="music-description">Composition sonore explorant la personnification des objets non-humains et la projection de nos émotions sur le monde qui nous entoure.</p>
-                <div class="audio-player">
-                    <audio controls>
-                        <source src="aureole.mp3" type="audio/mpeg">
-                        Votre navigateur ne supporte pas l'élément audio.
-                    </audio>
-                </div>
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-text" data-i18n="music.loading">Chargement de l'expérience</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // Configuration des thèmes et leurs pistes audio
+        const themes = {
+            spectacle: {
+                position: { x: -5, y: 2, z: 0 },
+                color: 0x00ff9d,
+                tracks: [
+                    {
+                        title: "Symphonie du Déclin",
+                        file: "symphonie de la fin du monde.mp3",
+                        description: "Une composition collective qui rassemble des visions personnelles de la fin du monde."
+                    }
+                ]
+            },
+            performance: {
+                position: { x: 5, y: 2, z: 0 },
+                color: 0xff00ff,
+                tracks: [
+                    {
+                        title: "Chambre d'Écho",
+                        file: "chambre/goute.wav",
+                        description: "Installation sonore composée de structures métalliques résonantes."
+                    }
+                ]
+            },
+            histoire: {
+                position: { x: 0, y: -2, z: 5 },
+                color: 0x00ffff,
+                tracks: [
+                    {
+                        title: "L'Auréole du Monde",
+                        file: "aureole.mp3",
+                        description: "Composition sonore explorant la personnification des objets non-humains."
+                    }
+                ]
+            },
+            techno: {
+                position: { x: 0, y: -2, z: -5 },
+                color: 0xff0000,
+                tracks: []
+            }
+        };
+
+        // Initialisation de la scène Three.js
+        let scene, camera, renderer, controls;
+        let nodes = {};
+        let connections = [];
+        let isRotating = true;
+        let selectedNode = null;
+
+        function init() {
+            console.log("Initializing scene...");
+            // Création de la scène
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xffffff);
+
+            // Configuration de la caméra
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 15;
+
+            // Configuration du renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('scene-container').appendChild(renderer.domElement);
+
+            // Configuration des contrôles de caméra
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 5;
+            controls.maxDistance = 30;
+            controls.maxPolarAngle = Math.PI / 2;
+
+            // Ajout des lumières
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+
+            // Création des nœuds de thèmes
+            createThemeNodes();
+
+            // Animation
+            animate();
+
+            // Gestion du redimensionnement
+            window.addEventListener('resize', onWindowResize, false);
+
+            // Gestion des clics sur les nœuds
+            const raycaster = new THREE.Raycaster();
+            const mouse = new THREE.Vector2();
+
+            window.addEventListener('click', (event) => {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(Object.values(nodes));
+
+                if (intersects.length > 0) {
+                    const clickedNode = intersects[0].object;
+                    const theme = Object.keys(nodes).find(key => nodes[key] === clickedNode);
+                    
+                    if (selectedNode) {
+                        selectedNode.material.emissiveIntensity = 0.2;
+                    }
+                    
+                    selectedNode = clickedNode;
+                    selectedNode.material.emissiveIntensity = 0.5;
+                    
+                    // Animation de la caméra vers le nœud
+                    gsap.to(camera.position, {
+                        x: selectedNode.position.x * 1.5,
+                        y: selectedNode.position.y * 1.5,
+                        z: selectedNode.position.z * 1.5,
+                        duration: 1
+                    });
+                }
+            });
+        }
+
+        function createThemeNodes() {
+            console.log("Creating theme nodes...");
+            Object.entries(themes).forEach(([theme, data]) => {
+                // Création de la géométrie du nœud
+                const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+                const material = new THREE.MeshPhongMaterial({
+                    color: data.color,
+                    emissive: data.color,
+                    emissiveIntensity: 0.2,
+                    shininess: 100
+                });
+                const node = new THREE.Mesh(geometry, material);
+                node.position.set(data.position.x, data.position.y, data.position.z);
+                scene.add(node);
+                nodes[theme] = node;
+
+                // Création des connexions entre les nœuds
+                Object.entries(themes).forEach(([otherTheme, otherData]) => {
+                    if (theme !== otherTheme) {
+                        const points = [];
+                        points.push(new THREE.Vector3(data.position.x, data.position.y, data.position.z));
+                        points.push(new THREE.Vector3(otherData.position.x, otherData.position.y, otherData.position.z));
+                        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                        const material = new THREE.LineBasicMaterial({
+                            color: 0x333333,
+                            transparent: true,
+                            opacity: 0.3
+                        });
+                        const line = new THREE.Line(geometry, material);
+                        scene.add(line);
+                        connections.push(line);
+                    }
+                });
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (isRotating && !controls.enabled) {
+                scene.rotation.y += 0.002;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Gestion des contrôles
+        document.getElementById('reset-camera').addEventListener('click', () => {
+            gsap.to(camera.position, {
+                x: 0,
+                y: 0,
+                z: 15,
+                duration: 1
+            });
+            gsap.to(scene.rotation, {
+                x: 0,
+                y: 0,
+                z: 0,
+                duration: 1
+            });
+            if (selectedNode) {
+                selectedNode.material.emissiveIntensity = 0.2;
+                selectedNode = null;
+            }
+        });
+
+        document.getElementById('toggle-rotation').addEventListener('click', () => {
+            isRotating = !isRotating;
+            controls.enabled = !isRotating;
+        });
+
+        // Initialisation
+        window.addEventListener('load', () => {
+            console.log("Window loaded, starting initialization...");
+            const loadingProgress = document.querySelector('.loading-progress');
+            const loadingScreen = document.querySelector('.loading-screen');
+
+            // Simulation du chargement
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 1;
+                loadingProgress.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    gsap.to(loadingScreen, {
+                        opacity: 0,
+                        duration: 1,
+                        onComplete: () => {
+                            loadingScreen.style.display = 'none';
+                            init();
+                        }
+                    });
+                }
+            }, 20);
+        });
+
+        // Gestion des traductions
+        function updateLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Gestion du sélecteur de langue
+        document.querySelectorAll('.language-dropdown a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = e.target.getAttribute('data-lang');
+                document.querySelector('.language-button').textContent = lang.toUpperCase();
+                updateLanguage(lang);
+            });
+        });
+    </script>
 </body>
 </html> 
