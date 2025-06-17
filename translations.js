@@ -60,6 +60,9 @@ const translations = {
         // L'auréole du monde
         "halo.title": "L'auréole du monde",
         "halo.description": "Son pour installation sonore, lors du festival/exposition 2023 \"Exhibition\" au NPAK.\n\nThème : \n\nAu milieu de la perte de nos caractéristiques humaines, nous essayons d'échapper à la réalité en personnifiant ou en créant des figures anthropomorphes. À travers votre art, comment pouvez-vous attribuer des émotions, des attitudes, des états mentaux, des visages et des valeurs à des choses non humaines et vous refléter ?",
+
+        // NE PAS APPUYER
+        "apocalypse.warning": "NE PAS APPUYER",
     },
     en: {
         // Navigation
@@ -122,6 +125,9 @@ const translations = {
         // The World's Halo
         "halo.title": "The World's Halo",
         "halo.description": "Sound for sound installation, during the 2023 \"Exhibition\" festival at NPAK.\n\nTheme:\n\nIn the midst of losing our human characteristics, we try to escape reality by personifying or creating anthropomorphic figures. Through your art, how can you attribute emotions, attitudes, mental states, faces, and values to non-human things and reflect yourself?",
+
+        // DO NOT PRESS
+        "apocalypse.warning": "DO NOT PRESS",
     },
     es: {
         // Navigation
@@ -174,6 +180,12 @@ const translations = {
 
         // Enter the experience
         "projects.enter_experience": "Entrar en la experiencia",
+
+        // NO PRESIONAR
+        "apocalypse.warning": "NO PRESIONAR",
+
+        // En colaboración con NPAK - Centro de Arte Contemporáneo
+        "partners.text": "En colaboración con NPAK - Centro de Arte Contemporáneo",
     },
     ru: {
         // Navigation
@@ -226,5 +238,11 @@ const translations = {
 
         // Enter the experience
         "projects.enter_experience": "Войти в опыт",
+
+        // НЕ НАЖИМАТЬ
+        "apocalypse.warning": "НЕ НАЖИМАТЬ",
+
+        // В партнерстве с NPAK - Центр современного искусства
+        "partners.text": "В партнерстве с NPAK - Центр современного искусства",
     }
 }; 
