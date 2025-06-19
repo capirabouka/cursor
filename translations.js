@@ -67,6 +67,21 @@ const translations = {
 
         // NE PAS APPUYER
         "apocalypse.warning": "NE PAS APPUYER",
+
+        music: {
+            title: {
+                fr: "Musique",
+                en: "Music",
+                es: "Música",
+                ru: "Музыка"
+            },
+            loading: {
+                fr: "Chargement de l'expérience",
+                en: "Loading Experience",
+                es: "Cargando Experiencia",
+                ru: "Загрузка Опыта"
+            },
+        },
     },
     en: {
         // Navigation
@@ -136,6 +151,21 @@ const translations = {
 
         // DO NOT PRESS
         "apocalypse.warning": "DO NOT PRESS",
+
+        music: {
+            title: {
+                fr: "Musique",
+                en: "Music",
+                es: "Música",
+                ru: "Музыка"
+            },
+            loading: {
+                fr: "Chargement de l'expérience",
+                en: "Loading Experience",
+                es: "Cargando Experiencia",
+                ru: "Загрузка Опыта"
+            },
+        },
     },
     es: {
         // Navigation
@@ -198,6 +228,21 @@ const translations = {
 
         // En colaboración con NPAK - Centro de Arte Contemporáneo
         "partners.text": "En colaboración con NPAK - Centro de Arte Contemporáneo",
+
+        music: {
+            title: {
+                fr: "Musique",
+                en: "Music",
+                es: "Música",
+                ru: "Музыка"
+            },
+            loading: {
+                fr: "Chargement de l'expérience",
+                en: "Loading Experience",
+                es: "Cargando Experiencia",
+                ru: "Загрузка Опыта"
+            },
+        },
     },
     ru: {
         // Navigation
@@ -260,5 +305,20 @@ const translations = {
 
         // В партнерстве с NPAK - Центр современного искусства
         "partners.text": "В партнерстве с NPAK - Центр современного искусства",
+
+        music: {
+            title: {
+                fr: "Musique",
+                en: "Music",
+                es: "Música",
+                ru: "Музыка"
+            },
+            loading: {
+                fr: "Chargement de l'expérience",
+                en: "Loading Experience",
+                es: "Cargando Experiencia",
+                ru: "Загрузка Опыта"
+            },
+        },
     }
 }; 

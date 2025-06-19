@@ -13,7 +13,7 @@
         body {
             margin: 0;
             overflow: hidden;
-            background: #ffffff;
+            background: #FFFFFF;
             font-family: 'Space Grotesk', sans-serif;
         }
 
@@ -24,6 +24,19 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            background: #FFFFFF;
+        }
+
+        /* Fond supplémentaire très lumineux */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FEFEFE 50%, #FFFFFF 100%);
+            z-index: 0;
         }
 
         .planet-info {
@@ -297,6 +310,114 @@
             background: rgba(0, 0, 0, 0.1);
             transform: translateX(-5px);
         }
+
+        .images-container {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            pointer-events: none;
+            display: flex;
+            gap: 120px;
+            align-items: center;
+        }
+
+        .image-item {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            pointer-events: auto;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .image-item.smaller {
+            width: 180px;
+            height: 135px;
+        }
+
+        .image-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .image-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .image-overlay h3 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .image-overlay p {
+            color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .info-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .info-panel.visible {
+            opacity: 1;
+        }
+
+        .panel-header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .tracks-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -329,26 +450,41 @@
 
     <div id="scene-container"></div>
 
-    <div class="planet-info">
-        <div class="planet-title"></div>
-        <div class="track-list"></div>
-    </div>
-
-    <div class="controls">
-        <button class="control-button" id="reset-camera">Reset</button>
-        <button class="control-button" id="toggle-rotation">Rotation</button>
-    </div>
-
-    <div class="audio-player">
-        <div class="audio-title"></div>
-        <div class="audio-controls">
-            <button class="play-pause-btn">
-                <span class="play-icon">▶</span>
-                <span class="pause-icon">⏸</span>
-            </button>
-            <div class="progress-bar">
-                <div class="progress"></div>
+    <!-- Images avec effets de survole -->
+    <div class="images-container">
+        <div class="image-item smaller" data-image="meza">
+            <img src="meza.jpg" alt="Meza A" class="hover-image">
+            <div class="image-overlay">
+                <h3>Meza A</h3>
+                <p>Cliquez pour découvrir</p>
             </div>
+        </div>
+        
+        <div class="image-item" data-image="mezb">
+            <img src="mezb.jpg" alt="Meza B" class="hover-image">
+            <div class="image-overlay">
+                <h3>Meza B</h3>
+                <p>Cliquez pour découvrir</p>
+            </div>
+        </div>
+        
+        <div class="image-item" data-image="mezc">
+            <img src="mezc.jpg" alt="Meza C" class="hover-image">
+            <div class="image-overlay">
+                <h3>Meza C</h3>
+                <p>Cliquez pour découvrir</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panneau d'information -->
+    <div class="info-panel" id="info-panel">
+        <div class="panel-header">
+            <h2 id="panel-title">Titre</h2>
+            <button class="close-button" id="close-panel">×</button>
+        </div>
+        <div class="tracks-container" id="tracks-container">
+            <!-- Les pistes audio seront ajoutées ici dynamiquement -->
         </div>
     </div>
 
@@ -357,89 +493,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script>
-        // Configuration des planètes
-        const planets = {
-            spectacle: {
-                position: new THREE.Vector3(-50, 0, 0),
-                color: 0x4FD1C5, // Teal
-                radius: 15,
-                tracks: [
-                    { 
-                        title: "Écho Spatial", 
-                        audio: "assets/audio/spectacle-echo-spatial.mp3",
-                        duration: "3:42",
-                        description: "Une exploration sonore immersive qui mêle textures électroniques et ambiances spatiales. Cette pièce invite à un voyage à travers les dimensions sonores."
-                    },
-                    { 
-                        title: "Rythmes Modulaires", 
-                        audio: "assets/audio/spectacle-rythmes-modulaires.mp3",
-                        duration: "4:18",
-                        description: "Composition rythmique complexe utilisant des percussions digitales et des synthétiseurs modulaires pour créer une expérience auditive unique."
-                    }
-                ]
-            },
-            performance: {
-                position: new THREE.Vector3(50, 0, 0),
-                color: 0x9F7AEA, // Purple
-                radius: 12,
-                tracks: [
-                    { 
-                        title: "Live Acoustique", 
-                        audio: "assets/audio/performance-live-acoustique.mp3",
-                        duration: "5:23",
-                        description: "Performance live capturée dans un espace acoustique unique, mêlant voix, instruments acoustiques et traitement numérique en temps réel."
-                    },
-                    { 
-                        title: "Improvisation Collective", 
-                        audio: "assets/audio/performance-improvisation.mp3",
-                        duration: "6:47",
-                        description: "Improvisation collective explorant les frontières entre musique traditionnelle et expérimentation contemporaine."
-                    }
-                ]
-            },
-            histoire: {
-                position: new THREE.Vector3(0, 50, 0),
-                color: 0x63B3ED, // Blue
-                radius: 18,
-                tracks: [
-                    { 
-                        title: "Mémoire des Lieux", 
-                        audio: "assets/audio/histoire-memoire-lieux.mp3",
-                        duration: "4:55",
-                        description: "Narration sonore retraçant l'histoire d'un lieu à travers ses ambiances et ses transformations acoustiques au fil du temps."
-                    },
-                    { 
-                        title: "Archives Sonores", 
-                        audio: "assets/audio/histoire-archives.mp3",
-                        duration: "7:12",
-                        description: "Composition documentaire utilisant des archives sonores et des témoignages pour reconstituer une mémoire collective."
-                    }
-                ]
-            },
-            techno: {
-                position: new THREE.Vector3(0, -50, 0),
-                color: 0x6B46C1, // Violet foncé
-                radius: 14,
-                tracks: [
-                    { 
-                        title: "Underground Pulse", 
-                        audio: "assets/audio/techno-underground.mp3",
-                        duration: "5:38",
-                        description: "Rythme techno hypnotique construit autour de séquences modulaires et de textures industrielles, évoquant l'énergie des clubs underground."
-                    },
-                    { 
-                        title: "Minimal Concrete", 
-                        audio: "assets/audio/techno-minimal.mp3",
-                        duration: "6:24",
-                        description: "Fusion entre techno minimale et musique concrète, explorant les limites entre rythme mécanique et organicité sonore."
-                    }
-                ]
-            }
-        };
-
         // Initialisation de la scène
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff);
+        scene.background = new THREE.Color(0xFFFFFF); // Blanc ultra-pur
+        scene.fog = new THREE.Fog(0xFFFFFF, 100, 1000); // Brouillard blanc pour plus de luminosité
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -450,334 +507,68 @@
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.minDistance = 20;
-        controls.maxDistance = 200;
-        controls.maxPolarAngle = Math.PI / 2;
-        controls.enablePan = false;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.5;
+        controls.maxDistance = 300;
+        controls.maxPolarAngle = Math.PI;
+        controls.enablePan = true;
+        controls.autoRotate = false;
+        controls.enableZoom = true;
 
         // Position initiale de la caméra
-        camera.position.z = 100;
-
-        // Création des planètes
-        const planetMeshes = {};
-        Object.entries(planets).forEach(([name, data]) => {
-            const geometry = new THREE.SphereGeometry(data.radius, 32, 32);
-            const material = new THREE.MeshPhongMaterial({
-                color: data.color,
-                emissive: data.color,
-                emissiveIntensity: 0.2,
-                shininess: 100
-            });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.copy(data.position);
-            scene.add(mesh);
-            planetMeshes[name] = mesh;
-            data.mesh = mesh;
-        });
-
-        // Création des orbites
-        Object.entries(planets).forEach(([name, data]) => {
-            const orbitGeometry = new THREE.RingGeometry(
-                data.position.length() - 1,
-                data.position.length() + 1,
-                128
-            );
-            const orbitMaterial = new THREE.MeshBasicMaterial({
-                color: data.color,
-                transparent: true,
-                opacity: 0.1,
-                side: THREE.DoubleSide
-            });
-            const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
-            orbit.rotation.x = Math.PI / 2;
-            scene.add(orbit);
-        });
-
-        // Création de l'anneau entre histoire et techno
-        const histoirePosition = planets.histoire.position;
-        const technoPosition = planets.techno.position;
-        const midPoint = new THREE.Vector3().addVectors(histoirePosition, technoPosition).multiplyScalar(0.5);
-        const direction = new THREE.Vector3().subVectors(technoPosition, histoirePosition);
-        const length = direction.length();
-        direction.normalize();
-
-        const ringGeometry = new THREE.TorusGeometry(length / 2, 0.1, 32, 100);
-        const ringMaterial = new THREE.MeshBasicMaterial({
-            color: 0x805AD5, // Couleur indigo
-            transparent: true,
-            opacity: 0.4,
-            side: THREE.DoubleSide
-        });
-        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-        
-        // Positionner et orienter l'anneau
-        ring.position.copy(midPoint);
-        ring.quaternion.setFromUnitVectors(
-            new THREE.Vector3(0, 1, 0),
-            direction
-        );
-        scene.add(ring);
-
-        // Création de l'anneau entre spectacle et performance
-        const spectaclePosition = planets.spectacle.position;
-        const performancePosition = planets.performance.position;
-        const midPoint2 = new THREE.Vector3().addVectors(spectaclePosition, performancePosition).multiplyScalar(0.5);
-        const direction2 = new THREE.Vector3().subVectors(performancePosition, spectaclePosition);
-        const length2 = direction2.length();
-        direction2.normalize();
-
-        const ringGeometry2 = new THREE.TorusGeometry(length2 / 2, 0.1, 32, 100);
-        const ringMaterial2 = new THREE.MeshBasicMaterial({
-            color: 0x9F7AEA, // Couleur violette
-            transparent: true,
-            opacity: 0.4,
-            side: THREE.DoubleSide
-        });
-        const ring2 = new THREE.Mesh(ringGeometry2, ringMaterial2);
-        
-        // Positionner et orienter l'anneau
-        ring2.position.copy(midPoint2);
-        ring2.quaternion.setFromUnitVectors(
-            new THREE.Vector3(0, 1, 0),
-            direction2
-        );
-        scene.add(ring2);
+        camera.position.set(0, 50, 150);
 
         // Ajout des étoiles
         const starGeometry = new THREE.BufferGeometry();
         const starMaterial = new THREE.PointsMaterial({
-            color: 0xffffff,
+            color: 0xFFFFFF, // Blanc pur
             size: 0.5,
-            transparent: true
+            transparent: true,
+            opacity: 0.6
         });
 
         const starVertices = [];
+        const starColors = [];
         for (let i = 0; i < 10000; i++) {
             const x = (Math.random() - 0.5) * 2000;
             const y = (Math.random() - 0.5) * 2000;
             const z = (Math.random() - 0.5) * 2000;
             starVertices.push(x, y, z);
+            
+            // Couleur des étoiles avec variation noir/blanc
+            const starIntensity = 0.3 + 0.7 * Math.random();
+            starColors.push(starIntensity, starIntensity, starIntensity);
         }
 
         starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        starGeometry.setAttribute('color', new THREE.Float32BufferAttribute(starColors, 3));
         const stars = new THREE.Points(starGeometry, starMaterial);
         scene.add(stars);
 
         // Éclairage
-        const ambientLight = new THREE.AmbientLight(0x404040);
+        const ambientLight = new THREE.AmbientLight(0xFFFFFF, 1.0); // Lumière ambiante blanche maximale
         scene.add(ambientLight);
 
-        const sunLight = new THREE.PointLight(0xffffff, 1, 1000);
+        const sunLight = new THREE.PointLight(0xFFFFFF, 2.0, 1000); // Lumière principale plus intense
         sunLight.position.set(0, 0, 0);
         scene.add(sunLight);
 
-        // Variables globales pour la gestion audio
-        let currentAudio = null;
-        let currentTrackElement = null;
-
-        // Fonction pour mettre à jour les informations de la planète
-        function updatePlanetInfo(planetName) {
-            const planetInfo = document.querySelector('.planet-info');
-            const planetTitle = planetInfo.querySelector('.planet-title');
-            const trackList = planetInfo.querySelector('.track-list');
-
-            planetTitle.textContent = planetName.charAt(0).toUpperCase() + planetName.slice(1);
-            trackList.innerHTML = planets[planetName].tracks.map((track, index) => `
-                <div class="track-item" data-audio="${track.audio}" data-track-index="${index}">
-                    <div class="track-content">
-                        <div class="track-info">
-                            <div class="track-title">${track.title}</div>
-                            <div class="track-duration">${track.duration}</div>
-                        </div>
-                        <div class="audio-controls">
-                            <button class="play-button" data-audio="${track.audio}">
-                                ▶
-                            </button>
-                            <div class="progress-container">
-                                <div class="progress-bar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="track-bubble">
-                        ${track.description}
-                    </div>
-                </div>
-            `).join('');
-
-            planetInfo.classList.add('visible');
-            
-            // Ajouter les gestionnaires d'événements pour les boutons de lecture
-            addAudioEventListeners();
-        }
-
-        // Fonction pour ajouter les gestionnaires d'événements audio
-        function addAudioEventListeners() {
-            const playButtons = document.querySelectorAll('.play-button');
-            playButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const audioSrc = button.getAttribute('data-audio');
-                    const trackItem = button.closest('.track-item');
-                    
-                    if (currentAudio && currentAudio.src.includes(audioSrc)) {
-                        // Même audio - basculer play/pause
-                        if (currentAudio.paused) {
-                            playAudio(currentAudio, button, trackItem);
-                        } else {
-                            pauseAudio(button);
-                        }
-                    } else {
-                        // Nouvel audio - arrêter l'ancien et jouer le nouveau
-                        if (currentAudio) {
-                            currentAudio.pause();
-                            currentAudio.currentTime = 0;
-                            if (currentTrackElement) {
-                                const oldButton = currentTrackElement.querySelector('.play-button');
-                                const oldProgress = currentTrackElement.querySelector('.progress-bar');
-                                oldButton.textContent = '▶';
-                                oldButton.classList.remove('playing');
-                                oldProgress.style.width = '0%';
-                            }
-                        }
-                        
-                        // Créer et jouer le nouvel audio
-                        const audio = new Audio(audioSrc);
-                        playAudio(audio, button, trackItem);
-                    }
-                });
-            });
-        }
-
-        // Fonction pour jouer l'audio
-        function playAudio(audio, button, trackItem) {
-            currentAudio = audio;
-            currentTrackElement = trackItem;
-            
-            button.textContent = '⏸';
-            button.classList.add('playing');
-            
-            audio.play();
-            
-            // Mettre à jour la barre de progression
-            audio.addEventListener('timeupdate', () => {
-                const progress = (audio.currentTime / audio.duration) * 100;
-                const progressBar = trackItem.querySelector('.progress-bar');
-                progressBar.style.width = `${progress}%`;
-            });
-            
-            // Quand l'audio se termine
-            audio.addEventListener('ended', () => {
-                button.textContent = '▶';
-                button.classList.remove('playing');
-                const progressBar = trackItem.querySelector('.progress-bar');
-                progressBar.style.width = '0%';
-                currentAudio = null;
-                currentTrackElement = null;
-            });
-        }
-
-        // Fonction pour mettre en pause l'audio
-        function pauseAudio(button) {
-            if (currentAudio) {
-                currentAudio.pause();
-                button.textContent = '▶';
-                button.classList.remove('playing');
-            }
-        }
+        // Lumière d'accentuation pour plus de contraste
+        const accentLight = new THREE.DirectionalLight(0xFFFFFF, 1.5); // Lumière directionnelle plus intense
+        accentLight.position.set(50, 50, 50);
+        scene.add(accentLight);
 
         // Animation
         function animate() {
             requestAnimationFrame(animate);
+            
+            // Animation du champ d'étoiles (parallaxe subtile)
+            stars.rotation.y += 0.0001;
+            
             controls.update();
             renderer.render(scene, camera);
         }
 
         // Démarrer l'animation
         animate();
-
-        // Gestionnaire de clic sur les planètes
-        window.addEventListener('click', (event) => {
-            const raycaster = new THREE.Raycaster();
-            const mouse = new THREE.Vector2(
-                (event.clientX / window.innerWidth) * 2 - 1,
-                -(event.clientY / window.innerHeight) * 2 + 1
-            );
-
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(scene.children);
-
-            if (intersects.length > 0) {
-                const clickedObject = intersects[0].object;
-                const planetName = Object.keys(planets).find(name => 
-                    planets[name].mesh === clickedObject
-                );
-
-                if (planetName) {
-                    // Désactiver la rotation automatique pendant l'animation
-                    controls.autoRotate = false;
-                    
-                    // Animer la caméra vers la planète
-                    animateCameraToPlanet(planets[planetName]);
-                    
-                    // Mettre à jour l'interface
-                    updatePlanetInfo(planetName);
-                }
-            }
-        });
-
-        // Animation de la caméra vers une planète
-        function animateCameraToPlanet(planet) {
-            const targetPosition = planet.position.clone();
-            
-            // Calcul de la position de la caméra pour être face à la planète
-            const distance = planet.radius * 3; // Distance proportionnelle à la taille de la planète
-            const cameraPosition = new THREE.Vector3(
-                targetPosition.x,
-                targetPosition.y,
-                targetPosition.z + distance
-            );
-
-            // Animation de la caméra
-            gsap.to(camera.position, {
-                x: cameraPosition.x,
-                y: cameraPosition.y,
-                z: cameraPosition.z,
-                duration: 1.5,
-                ease: "power2.inOut",
-                onUpdate: () => {
-                    controls.target.copy(targetPosition);
-                },
-                onComplete: () => {
-                    // Ajustement fin de la rotation pour être parfaitement face à la planète
-                    controls.update();
-                }
-            });
-        }
-
-        // Fonction pour réinitialiser la caméra
-        function resetCamera() {
-            gsap.to(camera.position, {
-                x: 0,
-                y: 0,
-                z: 100,
-                duration: 1.5,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    controls.target.set(0, 0, 0);
-                    controls.autoRotate = true;
-                }
-            });
-        }
-
-        // Fonction pour basculer la rotation
-        function toggleRotation() {
-            controls.autoRotate = !controls.autoRotate;
-        }
-
-        // Gestionnaires d'événements pour les boutons
-        document.getElementById('reset-camera').addEventListener('click', resetCamera);
-        document.getElementById('toggle-rotation').addEventListener('click', toggleRotation);
 
         // Gestion du redimensionnement
         window.addEventListener('resize', () => {
