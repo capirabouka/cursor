@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le bruit de la chute</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .cinema-screen {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .title {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 28px;
+            font-weight: 300;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .videos-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            max-width: 90vw;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .credits {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        .arrow {
+            position: absolute;
+            right: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 20;
+        }
+
+        .arrow:hover {
+            color: #000;
+        }
+
+        .arrow-back {
+            position: absolute;
+            left: -80px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 20;
+            display: none;
+        }
+
+        .arrow-back:hover {
+            color: #000;
+        }
+
+        .video-wrapper.hidden {
+            display: none;
+        }
+
+        .arrow.hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                top: 20px;
+                left: 20px;
+                font-size: 20px;
+            }
+            
+            .videos-container {
+                gap: 40px;
+            }
+            
+            .credits {
+                bottom: 20px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cinema-screen">
+        <div class="title">Le bruit de la chute</div>
+        
+        <div class="videos-container">
+            <div class="video-wrapper" id="first-video">
+                <div class="arrow" onclick="showSecondVideo()">→</div>
+                <video controls>
+                    <source src="incendiel.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas l'élément vidéo.
+                </video>
+            </div>
+            
+            <div class="video-wrapper hidden" id="second-video">
+                <div class="arrow-back" onclick="showFirstVideo()">←</div>
+                <video controls>
+                    <source src="effondrement.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas l'élément vidéo.
+                </video>
+            </div>
+        </div>
+        
+        <div class="credits">
+        </div>
+    </div>
+
+    <script>
+        function showSecondVideo() {
+            document.getElementById('first-video').classList.add('hidden');
+            document.getElementById('second-video').classList.remove('hidden');
+            document.querySelector('.arrow').style.display = 'none';
+            document.querySelector('.arrow-back').style.display = 'block';
+        }
+        
+        function showFirstVideo() {
+            document.getElementById('first-video').classList.remove('hidden');
+            document.getElementById('second-video').classList.add('hidden');
+            document.querySelector('.arrow').style.display = 'block';
+            document.querySelector('.arrow-back').style.display = 'none';
+        }
+    </script>
+</body>
+</html> 
