@@ -43,6 +43,47 @@
             margin: 0 auto 60px auto;
             text-align: center;
         }
+
+        .image-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            margin-top: 40px;
+        }
+
+        .image-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img.large {
+            max-width: 1400px;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .image-description {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .credits {
+            text-align: center;
+            margin: 60px 0 30px 0;
+            font-size: 16px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -58,8 +99,30 @@
     <div class="title">Home Sweet Boom</div>
 
     <div class="content-section">
-        <div class="content-item">
-            <!-- Content will be added here -->
+        <div class="image-gallery">
+            <div class="image-container">
+                <img src="home/tige.jpg" alt="Home Sweet Boom - Tige">
+            </div>
+            
+            <div class="image-description">
+                Installation composée de tiges en bois, de pétards et de maisons réalisées en impression 3D.
+            </div>
+            
+            <div class="image-container">
+                <img src="home/1.jpg" alt="Home Sweet Boom - Image 1" class="large">
+            </div>
+            
+            <div class="image-container">
+                <img src="home/2.jpg" alt="Home Sweet Boom - Image 2">
+            </div>
+            
+            <div class="image-container">
+                <img src="home/3.jpg" alt="Home Sweet Boom - Image 3">
+            </div>
+        </div>
+        
+        <div class="credits">
+            DNA (Diplôme National d'Art), juin 2022 – École supérieure des Beaux-Arts de Bordeaux
         </div>
     </div>
 
