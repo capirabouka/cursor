@@ -195,6 +195,49 @@
         .language-selector:hover {
             opacity: 1;
         }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-arrow {
+            font-size: 20px;
+            background: linear-gradient(45deg, #333, #666, #999, #666, #333);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        .scroll-arrow.left {
+            animation-delay: 0s;
+        }
+
+        .scroll-arrow.right {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .logo-container:hover .scroll-indicator {
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -203,6 +246,10 @@
 
     <div class="logo-container">
         <img src="chambre/assiette.jpg" alt="Logo" class="logo" id="audioToggle">
+        <div class="scroll-indicator">
+            <div class="scroll-arrow left">↓</div>
+            <div class="scroll-arrow right">↓</div>
+        </div>
     </div>
 
     <div class="main-content">

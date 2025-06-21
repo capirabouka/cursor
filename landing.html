@@ -131,18 +131,50 @@
 
         .immersive-button {
             display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2rem;
-            background: white;
-            color: black;
+            margin-top: 0;
+            padding: 1.2rem 2.5rem;
+            background: none;
+            color: #000;
             text-decoration: none;
-            border-radius: 4px;
-            transition: transform 0.3s ease, background 0.3s ease;
+            border: none;
+            border-radius: 0;
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .immersive-button::before {
+            content: '→';
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .immersive-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0.8rem;
+            left: 2.5rem;
+            width: calc(100% - 5rem);
+            height: 1px;
+            background: #8B5CF6;
+            transition: all 0.3s ease;
         }
 
         .immersive-button:hover {
-            transform: translateY(-2px);
-            background: #f0f0f0;
+            color: #666;
+            transform: translateY(-1px);
+        }
+
+        .immersive-button:hover::after {
+            background: #A78BFA;
+            height: 2px;
+        }
+
+        .immersive-button:active {
+            transform: translateY(0);
         }
 
         .npak-link {
@@ -176,6 +208,18 @@
         .project-video {
             width: 45%;
             height: auto;
+        }
+
+        .project-content {
+            display: block !important;
+        }
+
+        .project-text {
+            margin-bottom: 1rem !important;
+        }
+
+        .project-button {
+            margin-top: 2rem !important;
         }
     </style>
 </head>
@@ -232,7 +276,7 @@
                 <div class="project-content">
                     <p class="project-description">Cette installation explore la fragilité de nos constructions intimes et sociales face à l'avenir. Chaque tige devient une métaphore de la tension entre stabilité apparente et menace imminente. Faut-il laisser ces maisons en équilibre instable, vivre dans l'angoisse que tout s'effondre à tout moment ? Ou bien choisir de tout faire exploser, au risque de perdre nos repères, nos certitudes, nos zones de confort ?<br><br>Dans cet entre-deux précaire, le projet interroge notre rapport à l'incertitude, à la rupture, à la reconstruction. Il met en tension l'idée même de « chez-soi » : abri ou illusion ? sécurité ou piège ?<br><br>Home Sweet Boom est une image arrêtée d'un moment critique : celui juste avant la décision, juste avant que tout bascule – ou pas.</p>
                     <div class="media-container">
-                        <a href="boom.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
+                        <a href="boom.html" class="immersive-button">écoutez-voir</a>
                     </div>
                 </div>
             </div>
@@ -262,7 +306,7 @@
                 <div class="project-content">
                     <p class="project-description" data-i18n="voice.description">Projet sonore réalisé dans le cadre d'un mémoire de recherche sur la fin du monde, "The Voice of the Edge" est un recueil de voix enregistrées à l'international, rassemblant des récits personnels en réponse à une même question posée à chacun : quel est ton scénario de fin du monde. Chaque voix témoigne d'une vision singulière, intime, poétique ou politique, et dessine peu à peu une cartographie vocale de nos imaginaires de la fin. Le projet propose une écoute lente, fragmentaire et immersive, où les récits se superposent, se confrontent ou se répondent, révélant autant de seuils que de manières de disparaître. Il s'agit d'un espace d'archivage sensible, une tentative de donner forme à l'effondrement à travers les mots, les timbres et les silences de ceux qui l'imaginent.</p>
                     <div class="media-container">
-                        <a href="videos.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
+                        <a href="videos.html" class="immersive-button">écoutez-voir</a>
                     </div>
                 </div>
             </div>
@@ -276,7 +320,7 @@
                             <p data-i18n="symphony.description2">Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
                             <p data-i18n="symphony.description3">L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
                         </div>
-                        <a href="symphonie.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
+                        <a href="symphonie.html" class="immersive-button">écoutez-voir</a>
                     </div>
                     <div class="media-container">
                     </div>
@@ -288,7 +332,7 @@
                 <div class="project-content">
                     <p class="project-description" data-i18n="echo.description">Installation sonore composée de cinq structures en métal construites pour résonner, chacune suspend une plaque métallique traversée par des cordes de guitare électrique, au-dessus une chaîne descend du plafond maintenant un bloc de glace qui fond lentement, les gouttes tombent sur les plaques et chaque impact est capté par un micro piezzo, révélant des sons uniques selon la taille et la tension de chaque structure. L'ensemble forme une composition évolutive qui commence dans une quasi-absence de son puis devient de plus en plus dense et rythmée au fil de la fonte. Ce travail s'inscrit dans une recherche autour du son de la fin du monde, un son que j'ai cru entendre un jour en montagne face à un glacier en train de craquer, une vibration profonde et sourde qui a traversé toute la vallée et que j'ai depuis tenté de retrouver non par reproduction mais en laissant le temps, la matière et le hasard générer leur propre effondrement sonore.</p>
                     <div class="media-container">
-                        <a href="echo-chamber.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
+                        <a href="echo-chamber.html" class="immersive-button">écoutez-voir</a>
                     </div>
                 </div>
             </div>
@@ -321,7 +365,7 @@
                 <div class="project-content">
                     <p class="project-description" data-i18n="terminal.description">Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.</p>
                     <div class="media-container">
-                        <a href="gallery.html" class="immersive-button" data-i18n="projects.enter_experience">Entrer dans l'expérience</a>
+                        <a href="gallery.html" class="immersive-button">écoutez-voir</a>
                     </div>
                 </div>
             </div>
