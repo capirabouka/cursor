@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Symphonie du déclin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="../translations.js"></script>
+    <script src="../script.js"></script>
     <style>
         body {
             margin: 0;
@@ -16,10 +21,13 @@
             align-items: center;
             min-height: 100vh;
             cursor: pointer;
+            padding-top: 80px; /* Espace pour la barre de navigation */
         }
 
         .container {
             text-align: center;
+            z-index: 10;
+            position: relative;
         }
 
         .title {
@@ -36,13 +44,127 @@
         #audioPlayer {
             display: none;
         }
+
+        /* Styles pour la navigation */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            z-index: 100;
+            background: linear-gradient(225deg, #FFFFFF 0%, #F8FAFC 100%) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .nav-link {
+            color: #2C3E50;
+            text-decoration: none;
+            font-size: 1.2em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #805AD5;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #805AD5;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .language-selector {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .language-button {
+            background: none;
+            border: none;
+            color: #2C3E50;
+            font-size: 1em;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .language-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            min-width: 120px;
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-dropdown a {
+            display: block;
+            padding: 8px 12px;
+            color: #2C3E50;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .language-dropdown a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="../landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="../musique.html" class="nav-link" data-i18n="nav.music">Musique</a>
+            <a href="../engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="../contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="title">Symphonie du déclin</div>
         <audio id="audioPlayer" loop>
-            <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
+            <source src="../symphonie de la fin du monde.mp3" type="audio/mpeg">
         </audio>
     </div>
 
@@ -59,6 +181,21 @@
                 document.body.style.backgroundColor = '#111';
             }
             isPlaying = !isPlaying;
+        });
+
+        // Gestion du sélecteur de langue
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButton = document.querySelector('.language-button');
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    languageButton.textContent = lang.toUpperCase();
+                    translatePage(lang);
+                });
+            });
         });
     </script>
 </body>

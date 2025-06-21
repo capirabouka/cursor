@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symphonie du déclin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .title {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 32px;
+            font-weight: 300;
+            color: #000;
+            z-index: 200;
+            background: none;
+            padding: 10px 15px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .audio-section {
+            margin-top: 150px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .audio-container {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: none;
+            border-radius: 0;
+        }
+
+        .audio-player {
+            display: none;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .play-pause-btn {
+            background: none;
+            border: none;
+            color: #000;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-pause-btn:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .audio-progress {
+            width: 150px;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #000;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            color: #000;
+            font-size: 0.8em;
+            min-width: 60px;
+        }
+
+        .media-section {
+            padding: 40px 20px;
+        }
+
+        .media-item {
+            max-width: 100%;
+            margin: 0 auto 60px auto;
+            text-align: center;
+        }
+
+        .media-item img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .media-item video {
+            width: 100%;
+            max-width: 1100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .video-section {
+            margin-top: 100px;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .arrow {
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #000;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0.6;
+        }
+
+        .arrow:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container img.hidden {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .image-description {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 18px;
+        }
+
+        .audio-description {
+            text-align: center;
+            margin: 0 0 20px 0;
+            font-size: 18px;
+        }
+
+        .credits {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="explosion-effect"></div>
+    <div class="particles"></div>
+    <div class="alarm-effect"></div>
+    <audio id="alarmSound" preload="auto">
+        <source src="alarme.mp3" type="audio/mpeg">
+        <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
+    </audio>
+    
+    <div class="title">Symphonie du déclin</div>
+
+    <div class="audio-section">
+        <div class="audio-description">
+            Son utilisé lors de l'installation/performance, diffusé par le robot aspirateur.
+        </div>
+        <div class="audio-container">
+            <audio class="audio-player" controlsList="nodownload" preload="auto">
+                <source src="symphonie de la fin du monde.mp3" type="audio/mpeg">
+                <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
+            </audio>
+            <div class="audio-controls">
+                <button class="play-pause-btn">
+                    <span class="play-icon">▶</span>
+                    <span class="pause-icon" style="display: none;">❚❚</span>
+                </button>
+                <div class="audio-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="time-display">
+                    <span>0:00</span> / <span>0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="media-section">
+        <div class="media-item">
+            <div class="image-description">
+                Installation/performance avec des tours de Kapla et un robot aspirateur, accompagnée de la musique « La Symphonie du déclin »
+            </div>
+            <div class="image-container">
+                <img src="bom.JPG" alt="Symphonie du déclin" id="image1" class="active">
+                <img src="bombom.JPG" alt="Symphonie du déclin" id="image2" class="hidden">
+                <div class="arrow" onclick="toggleImage()">→</div>
+            </div>
+        </div>
+        
+        <div class="credits">
+            DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux
+        </div>
+        
+        <div class="video-section">
+            <div class="media-item">
+                <video controls>
+                    <source src="perf-symph.mp4" type="video/mp4">
+                    <span data-i18n="video.not_supported">Votre navigateur ne supporte pas l'élément vidéo.</span>
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion de l'audio pour La symphonie du Déclin
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.querySelector('.audio-player');
+            const playPauseBtn = document.querySelector('.play-pause-btn');
+            const playIcon = document.querySelector('.play-icon');
+            const pauseIcon = document.querySelector('.pause-icon');
+            const progressBar = document.querySelector('.progress-bar');
+            const timeDisplay = document.querySelector('.time-display').children;
+
+            playPauseBtn.addEventListener('click', function() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'inline';
+                } else {
+                    audioPlayer.pause();
+                    playIcon.style.display = 'inline';
+                    pauseIcon.style.display = 'none';
+                }
+            });
+
+            audioPlayer.addEventListener('timeupdate', function() {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = progress + '%';
+                
+                // Mise à jour du temps
+                const currentMinutes = Math.floor(audioPlayer.currentTime / 60);
+                const currentSeconds = Math.floor(audioPlayer.currentTime % 60);
+                const durationMinutes = Math.floor(audioPlayer.duration / 60);
+                const durationSeconds = Math.floor(audioPlayer.duration % 60);
+                
+                timeDisplay[0].textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+                timeDisplay[1].textContent = `${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`;
+            });
+        });
+
+        // Gestion du sélecteur de langue
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButton = document.querySelector('.language-button');
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    languageButton.textContent = lang.toUpperCase();
+                    translatePage(lang);
+                });
+            });
+        });
+
+        // Fonction pour basculer entre les images
+        function toggleImage() {
+            const image1 = document.getElementById('image1');
+            const image2 = document.getElementById('image2');
+            const arrow = document.querySelector('.arrow');
+            
+            if (image1.classList.contains('active')) {
+                image1.classList.remove('active');
+                image1.classList.add('hidden');
+                image2.classList.remove('hidden');
+                image2.classList.add('active');
+                arrow.textContent = '←';
+            } else {
+                image2.classList.remove('active');
+                image2.classList.add('hidden');
+                image1.classList.remove('hidden');
+                image1.classList.add('active');
+                arrow.textContent = '→';
+            }
+        }
+    </script>
+</body>
+</html> 
