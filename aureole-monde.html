@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'auréole du monde - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .project-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(50,0,50,0.5));
+            z-index: 1;
+        }
+
+        .project-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .project-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .project-hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .project-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .project-section {
+            margin-bottom: 4rem;
+        }
+
+        .project-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            text-align: justify;
+        }
+
+        .project-description p {
+            margin-bottom: 1.5rem;
+        }
+
+        .apocalypse-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .apocalypse-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .apocalypse-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .apocalypse-button {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .apocalypse-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 68, 68, 0.3);
+        }
+
+        .apocalypse-warning {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        .apocalypse-progress-container {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .apocalypse-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4444, #cc0000);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .project-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .project-content {
+                padding: 2rem 1rem;
+            }
+            
+            .apocalypse-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="landing.html" class="back-button">← Retour</a>
+
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="landing.html" class="nav-link">Projets</a>
+            <a href="musique.html" class="nav-link">Musique</a>
+            <a href="engagement.html" class="nav-link">Engagement</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="project-hero">
+            <div class="project-hero-content">
+                <h1>L'auréole du monde</h1>
+                <p class="subtitle">Son pour installation sonore, lors du festival/exposition 2023 "Exhibition" au NPAK</p>
+            </div>
+        </section>
+
+        <div class="project-content">
+            <div class="project-section">
+                <h2>À propos du projet</h2>
+                <div class="project-description">
+                    <p>Son pour installation sonore, lors du festival/exposition 2023 "Exhibition" au NPAK.</p>
+                    
+                    <h3>Thème :</h3>
+                    <p>Au milieu de la perte de nos caractéristiques humaines, nous essayons d'échapper à la réalité en personnifiant ou en créant des figures anthropomorphes. À travers votre art, comment pouvez-vous attribuer des émotions, des attitudes, des états mentaux, des visages et des valeurs à des choses non humaines et vous refléter ?</p>
+                </div>
+            </div>
+
+            <div class="apocalypse-section">
+                <h3>Expérience interactive</h3>
+                <div class="apocalypse-button-container">
+                    <button id="apocalypseButton" class="apocalypse-button">PUSH</button>
+                    <p class="apocalypse-warning">NE PAS APPUYER</p>
+                    <div class="apocalypse-progress-container">
+                        <div class="apocalypse-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="apocalypse.js"></script>
+    <script>
+        // Gestion du sélecteur de langue
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButton = document.querySelector('.language-button');
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    languageButton.textContent = lang.toUpperCase();
+                    // Ici vous pouvez ajouter la logique de traduction si nécessaire
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

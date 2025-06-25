@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="about.title">Chambre d'Echo - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+    <style>
+        .about-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--text-color);
+            opacity: 0.5;
+        }
+
+        .about-text {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: justify;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-text.intro {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .about-text.conclusion {
+            font-style: italic;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .about-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            z-index: -1;
+        }
+
+        /* NOUVELLE PRÉSENTATION DYNAMIQUE */
+        .dynamic-presentation {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+
+        .floating-fragments {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .fragment {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        .fragment:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .fragment:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .fragment:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .fragment:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            left: 70%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+            75% { transform: translateY(-30px) rotate(270deg); }
+        }
+
+        .presentation-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .presentation-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1s ease-out;
+        }
+
+        .presentation-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .presentation-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease-out;
+        }
+
+        .presentation-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .artist-name {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .artist-name::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--text-color), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .artist-title {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .artist-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .resonance-quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-left: 3px solid var(--text-color);
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .resonance-quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: -20px;
+            opacity: 0.3;
+        }
+
+        .fragments-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .fragment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fragment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .fragment-card:hover::before {
+            left: 100%;
+        }
+
+        .fragment-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .fragment-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .fragment-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .enter-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: none;
+            color: var(--text-color);
+            text-decoration: none;
+            border: 1px solid var(--text-color);
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--text-color);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .enter-button:hover::before {
+            left: 0;
+        }
+
+        .enter-button:hover {
+            color: var(--bg-color);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            opacity: 0.6;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .presentation-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+
+            .artist-name {
+                font-size: 2.5rem;
+            }
+
+            .fragments-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .video-item {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Ratio 16:9 */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-item video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .immersive-button {
+            display: inline-block;
+            margin-top: 0;
+            padding: 1.2rem 2.5rem;
+            background: none;
+            color: #000;
+            text-decoration: none;
+            border: none;
+            border-radius: 0;
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .immersive-button::before {
+            content: '→';
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .immersive-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0.8rem;
+            left: 2.5rem;
+            width: calc(100% - 5rem);
+            height: 1px;
+            background: #8B5CF6;
+            transition: all 0.3s ease;
+        }
+
+        .immersive-button:hover {
+            color: #666;
+            transform: translateY(-1px);
+        }
+
+        .immersive-button:hover::after {
+            background: #A78BFA;
+            height: 2px;
+        }
+
+        .immersive-button:active {
+            transform: translateY(0);
+        }
+
+        .npak-link {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .npak-link:hover {
+            transform: scale(1.05);
+        }
+
+        .npak-logo {
+            width: 100px;
+            height: auto;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .npak-link:hover .npak-logo {
+            opacity: 1;
+        }
+
+        .media-grid {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .project-video {
+            width: 45%;
+            height: auto;
+        }
+
+        .project-content {
+            display: block !important;
+        }
+
+        .project-text {
+            margin-bottom: 1rem !important;
+        }
+
+        .project-button {
+            margin-top: 2rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    <div class="explosion-effect"></div>
+    <div class="particles"></div>
+    <div class="alarm-effect"></div>
+    <audio id="alarmSound" preload="auto">
+        <source src="alarme.mp3" type="audio/mpeg">
+        <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
+    </audio>
+    
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musique</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="about" class="section about-section">
+            <div class="about-background"></div>
+            <div class="about-content">
+                <h2 data-i18n="about.title">À propos</h2>
+                <p id="about-intro" class="intro about-text" data-i18n="about.intro">Cet espace présente l'essentiel de mon travail artistique, à travers une sélection de projets, une réflexion sur ma démarche, et des fragments en constante évolution.</p>
+                
+                <p id="about-description1" class="description about-text" data-i18n="about.description1">Artiste pluridisciplinaire, je travaille à partir du son, de la matière et du vide. Mes installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil, tout en laissant une place essentielle à la perception libre du spectateur.</p>
+                
+                <p id="about-description2" class="description about-text" data-i18n="about.description2">Ce site fonctionne comme une chambre d'écho de mes recherches : un lieu de tension, d'expérimentation et d'inscription dans le réel. Il accueille des projets passés, en cours, et à venir.</p>
+                
+                <p id="about-conclusion" class="conclusion about-text" data-i18n="about.conclusion">Ici, les choses vibrent avant de s'effondrer, ou peut-être malgré tout.</p>
+            </div>
+        </section>
+
+        <div class="section" id="projects">
+            <h2 data-i18n="projects.title">Projets</h2>
+            <h3 class="project-group-title" data-i18n="projects.resonances">Résonances Disloquées</h3>
+            <p class="group-description" data-i18n="projects.resonances.description">Ce travail artistique autour de la fin du monde mêle voix, sons, images et installations pour offrir des expériences sensorielles et réflexives. Chaque projet croise récits intimes, imaginaires et phénomènes physiques, entre contrôle et hasard, présence et disparition. De la cartographie vocale aux sons de la glace fondante, en passant par la déconstruction des illusions et la métaphore sonore du déclin, ces travaux invitent à une écoute attentive et à une contemplation sensible des transformations du monde et de notre rapport à elles, entre poésie, inquiétude et distanciation critique.</p>
+            
+            <div class="project-item">
+                <h3>Home Sweet Boom</h3>
+                <div class="project-content">
+                    <p class="project-description">Cette installation explore la fragilité de nos constructions intimes et sociales face à l'avenir. Chaque tige devient une métaphore de la tension entre stabilité apparente et menace imminente. Faut-il laisser ces maisons en équilibre instable, vivre dans l'angoisse que tout s'effondre à tout moment ? Ou bien choisir de tout faire exploser, au risque de perdre nos repères, nos certitudes, nos zones de confort ?<br><br>Dans cet entre-deux précaire, le projet interroge notre rapport à l'incertitude, à la rupture, à la reconstruction. Il met en tension l'idée même de « chez-soi » : abri ou illusion ? sécurité ou piège ?<br><br>Home Sweet Boom est une image arrêtée d'un moment critique : celui juste avant la décision, juste avant que tout bascule – ou pas.</p>
+                    <div class="media-container">
+                        <a href="boom.html" class="immersive-button">écoutez-voir</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-item">
+                <h3 data-i18n="halo.title">L'auréole du monde</h3>
+                <div class="project-content">
+                    <div class="matrix-text" data-i18n="halo.description">
+                        Son pour installation sonore, lors du festival/exposition 2023 "Exhibition" au NPAK.
+
+                        Thème : 
+
+                        Au milieu de la perte de nos caractéristiques humaines, nous essayons d'échapper à la réalité en personnifiant ou en créant des figures anthropomorphes. À travers votre art, comment pouvez-vous attribuer des émotions, des attitudes, des états mentaux, des visages et des valeurs à des choses non humaines et vous refléter ?
+                    </div>
+                    <div class="apocalypse-button-container">
+                        <button id="apocalypseButton" class="apocalypse-button">PUSH</button>
+                        <p class="apocalypse-warning" data-i18n="apocalypse.warning">NE PAS APPUYER</p>
+                        <div class="apocalypse-progress-container">
+                            <div class="apocalypse-progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-item">
+                <h3 data-i18n="voice.title">The Voice of the Edge</h3>
+                <div class="project-content">
+                    <p class="project-description" data-i18n="voice.description">Projet sonore réalisé dans le cadre d'un mémoire de recherche sur la fin du monde, "The Voice of the Edge" est un recueil de voix enregistrées à l'international, rassemblant des récits personnels en réponse à une même question posée à chacun : quel est ton scénario de fin du monde. Chaque voix témoigne d'une vision singulière, intime, poétique ou politique, et dessine peu à peu une cartographie vocale de nos imaginaires de la fin. Le projet propose une écoute lente, fragmentaire et immersive, où les récits se superposent, se confrontent ou se répondent, révélant autant de seuils que de manières de disparaître. Il s'agit d'un espace d'archivage sensible, une tentative de donner forme à l'effondrement à travers les mots, les timbres et les silences de ceux qui l'imaginent.</p>
+                    <div class="media-container">
+                        <a href="videos.html" class="immersive-button">écoutez-voir</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item symphonie-declin">
+                <h3 data-i18n="symphony.title">La symphonie du Déclin</h3>
+                <div class="project-content">
+                    <div class="left-content">
+                        <div class="project-description">
+                            <p data-i18n="symphony.description1">Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
+                            <p data-i18n="symphony.description2">Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
+                            <p data-i18n="symphony.description3">L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
+                        </div>
+                        <a href="symphonie.html" class="immersive-button">écoutez-voir</a>
+                    </div>
+                    <div class="media-container">
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h3 data-i18n="echo.title">Chambre d'écho</h3>
+                <div class="project-content">
+                    <p class="project-description" data-i18n="echo.description">Installation sonore composée de cinq structures en métal construites pour résonner, chacune suspend une plaque métallique traversée par des cordes de guitare électrique, au-dessus une chaîne descend du plafond maintenant un bloc de glace qui fond lentement, les gouttes tombent sur les plaques et chaque impact est capté par un micro piezzo, révélant des sons uniques selon la taille et la tension de chaque structure. L'ensemble forme une composition évolutive qui commence dans une quasi-absence de son puis devient de plus en plus dense et rythmée au fil de la fonte. Ce travail s'inscrit dans une recherche autour du son de la fin du monde, un son que j'ai cru entendre un jour en montagne face à un glacier en train de craquer, une vibration profonde et sourde qui a traversé toute la vallée et que j'ai depuis tenté de retrouver non par reproduction mais en laissant le temps, la matière et le hasard générer leur propre effondrement sonore.</p>
+                    <div class="media-container">
+                        <a href="echo-chamber.html" class="immersive-button">écoutez-voir</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h3 data-i18n="fall.title">Le bruit de la chute</h3>
+                <div class="project-content">
+                    <p class="project-description" data-i18n="fall.description.short">Le bruit de la chute rejoue deux scènes d'effondrement dont les sons, fabriqués à la main hors champ, déjouent l'illusion de réalisme. En dévoilant les ficelles de la mise en scène, le projet questionne notre consommation passive d'images, et explore la manière dont le visible s'impose souvent comme vérité sans qu'on en interroge la fabrication.</p>
+                    <div class="media-container">
+                        <a href="chute.html" class="immersive-button">écoutez-voir</a>
+                    </div>
+                </div>
+            </div>
+
+            <section id="symphonie" class="project-section">
+            </section>
+
+            <h3 class="project-group-title" data-i18n="projects.borders">Frontières et Identités</h3>
+            <div class="project-item">
+                <h3 data-i18n="terminal.title">Terminal</h3>
+                <div class="project-content">
+                    <p class="project-description" data-i18n="terminal.description">Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.</p>
+                    <div class="media-container">
+                        <a href="gallery.html" class="immersive-button">écoutez-voir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="partners">
+            <div class="partners-grid">
+                <span class="partner-text" data-i18n="partners.text">En partenariat avec NPAK - Centre d'Art Contemporain</span>
+                <div class="partner-logo-container">
+                    <a href="https://www.accea.info/" target="_blank" class="npak-link">
+                        <img src="logo npak.jpg" alt="Logo NPAK" class="npak-logo">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    <script src="animation.js"></script>
+    <script src="apocalypse.js"></script>
+    <script>
+        // Fonction pour traduire le contenu
+        function translatePage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Animation d'apparition des éléments
+        function handleScroll() {
+            const aboutContent = document.querySelector('.about-content');
+            const aboutTexts = document.querySelectorAll('.about-text');
+            
+            if (aboutContent) {
+                const rect = aboutContent.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8);
+                
+                if (isVisible) {
+                    aboutContent.classList.add('visible');
+                    
+                    // Animation séquentielle des paragraphes
+                    aboutTexts.forEach((text, index) => {
+                        setTimeout(() => {
+                            text.classList.add('visible');
+                        }, 200 * index);
+                    });
+                }
+            }
+        }
+
+        // Ajouter l'écouteur d'événement de défilement
+        window.addEventListener('scroll', handleScroll);
+        // Déclencher une première fois pour les éléments déjà visibles
+        handleScroll();
+
+        // Gestion du sélecteur de langue
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButton = document.querySelector('.language-button');
+            const languageLinks = document.querySelectorAll('.language-dropdown a');
+
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    languageButton.textContent = lang.toUpperCase();
+                    translatePage(lang);
+                });
+            });
+        });
+
+        // Gestion de l'audio pour La symphonie du Déclin
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.querySelector('.symphonie-declin .audio-player');
+            const playPauseBtn = document.querySelector('.symphonie-declin .play-pause-btn');
+            const playIcon = document.querySelector('.symphonie-declin .play-icon');
+            const pauseIcon = document.querySelector('.symphonie-declin .pause-icon');
+            const progressBar = document.querySelector('.symphonie-declin .progress-bar');
+            const timeDisplay = document.querySelector('.symphonie-declin .time-display').children;
+
+            playPauseBtn.addEventListener('click', function() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'inline';
+                } else {
+                    audioPlayer.pause();
+                    playIcon.style.display = 'inline';
+                    pauseIcon.style.display = 'none';
+                }
+            });
+
+            audioPlayer.addEventListener('timeupdate', function() {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressBar.style.width = progress + '%';
+                
+                // Mise à jour du temps
+                const currentMinutes = Math.floor(audioPlayer.currentTime / 60);
+                const currentSeconds = Math.floor(audioPlayer.currentTime % 60);
+                const durationMinutes = Math.floor(audioPlayer.duration / 60);
+                const durationSeconds = Math.floor(audioPlayer.duration % 60);
+                
+                timeDisplay[0].textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+                timeDisplay[1].textContent = `${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`;
+            });
+        });
+    </script>
+</body>
+</html> 

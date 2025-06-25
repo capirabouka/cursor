@@ -156,6 +156,27 @@
         .side-image.right {
             right: 20px;
         }
+
+        .project-description {
+            position: fixed;
+            top: 350px;
+            right: 50px;
+            max-width: 400px;
+            padding: 20px;
+            z-index: 1000;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+        }
+
+        .project-description p {
+            margin: 0 0 15px 0;
+        }
+
+        .project-description p:last-child {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -166,6 +187,12 @@
     <div class="video-container" id="videoContainer">
         <button class="close-button" id="closeButton">&times;</button>
         <video id="videoPlayer" controls></video>
+    </div>
+
+    <div class="project-description">
+        <p>Projet sonore réalisé dans le cadre d'un mémoire de recherche sur la fin du monde, "The Voice of the Edge" est un recueil de voix enregistrées à l'international, rassemblant des récits personnels en réponse à une même question posée à chacun : quel est ton scénario de fin du monde.</p>
+        <p>Chaque voix témoigne d'une vision singulière, intime, poétique ou politique, et dessine peu à peu une cartographie vocale de nos imaginaires de la fin. Le projet propose une écoute lente, fragmentaire et immersive, où les récits se superposent, se confrontent ou se répondent, révélant autant de seuils que de manières de disparaître.</p>
+        <p>Il s'agit d'un espace d'archivage sensible, une tentative de donner forme à l'effondrement à travers les mots, les timbres et les silences de ceux qui l'imaginent.</p>
     </div>
 
     <script>
@@ -211,15 +238,13 @@
 
         function createVideoSpace() {
             const verticalSpacing = 30;
-            const halfVideos = Math.ceil(videos.length / 2);
-            const leftMargin = 30;
-            const rightMargin = window.innerWidth - 200;
+            const leftMargin = 50;
+            const maxWidth = 600;
 
-            // Créer deux colonnes
+            // Créer une seule colonne à gauche
             videos.forEach((video, i) => {
-                const isLeftColumn = i < halfVideos;
-                const x = isLeftColumn ? leftMargin : (window.innerWidth - 200);
-                const y = (i % halfVideos) * verticalSpacing + 100;
+                const x = leftMargin;
+                const y = 150 + (i * verticalSpacing);
 
                 // Créer le lien
                 const link = document.createElement('a');
@@ -236,14 +261,13 @@
                 });
                 camera.appendChild(link);
 
-                // Créer la ligne de connexion si ce n'est pas le dernier élément de la colonne
-                if (i < videos.length - 1 && (i + 1) % halfVideos !== 0) {
-                    const nextY = ((i + 1) % halfVideos) * verticalSpacing + 100;
+                // Créer la ligne de connexion si ce n'est pas le dernier élément
+                if (i < videos.length - 1) {
                     const line = document.createElement('div');
                     line.className = 'line';
                     line.style.width = `${verticalSpacing}px`;
-                    line.style.left = `${x}px`;
-                    line.style.top = `${y}px`;
+                    line.style.left = `${x + 50}px`;
+                    line.style.top = `${y + 20}px`;
                     line.style.transform = `rotate(90deg)`;
                     camera.appendChild(line);
                 }
