@@ -701,22 +701,40 @@
                 title: "MEZA A",
                 tracks: [
                     {
-                        name: "Piste 1",
-                        duration: "3:45",
-                        audioSrc: "assets/audio/meza-track1.mp3",
+                        name: "Azakh",
+                        duration: "3:30",
+                        audioSrc: "MUSIQUES/mu/Azakh.mp3",
                         comment: "Une mélodie douce qui évoque la sérénité matinale"
                     },
                     {
-                        name: "Piste 2", 
+                        name: "Gate 17A", 
                         duration: "4:20",
-                        audioSrc: "assets/audio/meza-track2.mp3",
+                        audioSrc: "MUSIQUES/mu/Gate 17A.mp3",
                         comment: "Rythmes énergiques pour dynamiser votre journée"
                     },
                     {
-                        name: "Piste 3",
+                        name: "Tsavuy 1",
                         duration: "5:15",
-                        audioSrc: "assets/audio/meza-track3.mp3",
+                        audioSrc: "MUSIQUES/mu/Tsavuy 1.mp3",
                         comment: "Ambiance contemplative et méditative"
+                    },
+                    {
+                        name: "Tsavuy 2",
+                        duration: "4:45",
+                        audioSrc: "MUSIQUES/mu/Tsavuy 2.mp3",
+                        comment: "Exploration sonore des textures urbaines"
+                    },
+                    {
+                        name: "Alarme",
+                        duration: "2:30",
+                        audioSrc: "MUSIQUES/mu/alarme.mp3",
+                        comment: "Son d'alerte et de réveil"
+                    },
+                    {
+                        name: "Arev",
+                        duration: "6:20",
+                        audioSrc: "MUSIQUES/mu/Arev.wav",
+                        comment: "Composition atmosphérique et enveloppante"
                     }
                 ]
             },
@@ -724,21 +742,21 @@
                 title: "MEZA B",
                 tracks: [
                     {
-                        name: "Composition 1",
-                        duration: "6:30",
-                        audioSrc: "assets/audio/mezb-track1.mp3",
+                        name: "Parasite",
+                        duration: "3:45",
+                        audioSrc: "MUSIQUES/mumu/Parasite.mp3",
                         comment: "Exploration sonore des textures urbaines"
                     },
                     {
-                        name: "Composition 2",
-                        duration: "4:55",
-                        audioSrc: "assets/audio/mezb-track2.mp3",
+                        name: "32° Farenheit",
+                        duration: "5:30",
+                        audioSrc: "MUSIQUES/mumu/32° Farenheit.mp3",
                         comment: "Fusion entre tradition et modernité"
                     },
                     {
-                        name: "Composition 3",
-                        duration: "7:20",
-                        audioSrc: "assets/audio/mezb-track3.mp3",
+                        name: "Loosin",
+                        duration: "2:45",
+                        audioSrc: "MUSIQUES/mumu/Loosin.mp3",
                         comment: "Voyage musical à travers différents paysages"
                     }
                 ]
@@ -747,22 +765,28 @@
                 title: "MEZA C",
                 tracks: [
                     {
-                        name: "Track Alpha",
-                        duration: "3:15",
-                        audioSrc: "assets/audio/mezc-track1.mp3",
+                        name: "Chute Libre",
+                        duration: "4:15",
+                        audioSrc: "MUSIQUES/mumumu/Chute Libre.mp3",
                         comment: "Électro-acoustique expérimentale"
                     },
                     {
-                        name: "Track Beta",
-                        duration: "5:45",
-                        audioSrc: "assets/audio/mezc-track2.mp3",
+                        name: "Ice",
+                        duration: "7:45",
+                        audioSrc: "MUSIQUES/mumumu/Ice.wav",
                         comment: "Mélange de sons organiques et synthétiques"
                     },
                     {
-                        name: "Track Gamma",
-                        duration: "4:10",
-                        audioSrc: "assets/audio/mezc-track3.mp3",
+                        name: "Capitaine",
+                        duration: "5:30",
+                        audioSrc: "MUSIQUES/mumumu/Capitaine.mp3",
                         comment: "Composition minimaliste et épurée"
+                    },
+                    {
+                        name: "Liminal",
+                        duration: "3:45",
+                        audioSrc: "MUSIQUES/mumumu/Liminal.mp3",
+                        comment: "Ambiance de transition et d'exploration"
                     }
                 ]
             }
@@ -770,6 +794,175 @@
 
         // Stockage des objets audio
         const audioPlayers = {};
+        let currentlyPlayingTrack = null;
+
+        // Fonction pour créer tous les objets audio au chargement
+        function initializeAudioPlayers() {
+            Object.entries(audioData).forEach(([imageType, data]) => {
+                data.tracks.forEach((track, index) => {
+                    const trackId = `${imageType}-track-${index}`;
+                    
+                    // Créer l'objet audio avec Howler.js
+                    audioPlayers[trackId] = new Howl({
+                        src: [track.audioSrc],
+                        html5: true,
+                        preload: true,
+                        onload: () => {
+                            console.log(`Audio chargé avec succès: ${track.name}`);
+                        },
+                        onloaderror: (id, error) => {
+                            console.error(`Erreur de chargement audio pour ${track.name}:`, error);
+                        },
+                        onplay: () => {
+                            console.log(`Lecture démarrée: ${track.name}`);
+                            currentlyPlayingTrack = trackId;
+                            updatePlayButton(trackId, '⏸', true);
+                        },
+                        onpause: () => {
+                            console.log(`Lecture en pause: ${track.name}`);
+                            if (currentlyPlayingTrack === trackId) {
+                                currentlyPlayingTrack = null;
+                            }
+                            updatePlayButton(trackId, '▶', false);
+                        },
+                        onend: () => {
+                            console.log(`Lecture terminée: ${track.name}`);
+                            if (currentlyPlayingTrack === trackId) {
+                                currentlyPlayingTrack = null;
+                            }
+                            updatePlayButton(trackId, '▶', false);
+                        },
+                        onplayerror: (id, error) => {
+                            console.error(`Erreur de lecture pour ${track.name}:`, error);
+                            updatePlayButton(trackId, '❌', false, '#ff0000');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Fonction pour mettre à jour l'état du bouton play
+        function updatePlayButton(trackId, text, isPlaying, color = '#666') {
+            const playButton = document.querySelector(`[data-track="${trackId}"].play-button`);
+            if (playButton) {
+                playButton.textContent = text;
+                playButton.style.color = color;
+                if (isPlaying) {
+                    playButton.classList.add('playing');
+                } else {
+                    playButton.classList.remove('playing');
+                }
+            }
+        }
+
+        // Fonction pour créer l'interface des pistes
+        function createTrackInterface(imageType, data) {
+            const tracksList = document.getElementById('tracks-list');
+            tracksList.innerHTML = '';
+            
+            data.tracks.forEach((track, index) => {
+                const trackId = `${imageType}-track-${index}`;
+                const audio = audioPlayers[trackId];
+                const isCurrentlyPlaying = currentlyPlayingTrack === trackId;
+                
+                const trackRow = document.createElement('div');
+                trackRow.className = 'track-row';
+                trackRow.innerHTML = `
+                    <div class="track-info">
+                        <div class="track-name">${track.name}</div>
+                        <div class="track-duration">${track.duration}</div>
+                        <div class="audio-controls">
+                            <button class="play-button" data-track="${trackId}">${isCurrentlyPlaying ? '⏸' : '▶'}</button>
+                            <div class="progress-container" data-track="${trackId}">
+                                <div class="progress-bar" data-track="${trackId}"></div>
+                            </div>
+                            <div class="time-display" data-track="${trackId}">0:00</div>
+                        </div>
+                    </div>
+                    <div class="track-comment">${track.comment}</div>
+                `;
+                tracksList.appendChild(trackRow);
+                
+                // Appliquer l'état actuel du bouton
+                if (isCurrentlyPlaying) {
+                    updatePlayButton(trackId, '⏸', true);
+                }
+                
+                // Gestion du bouton play/pause
+                const playButton = trackRow.querySelector('.play-button');
+                playButton.addEventListener('click', () => {
+                    handlePlayButtonClick(trackId, track.name);
+                });
+                
+                // Mise à jour de la barre de progression
+                setInterval(() => {
+                    if (audio && audio.playing()) {
+                        const progress = (audio.seek() / audio.duration()) * 100;
+                        const progressBar = document.querySelector(`[data-track="${trackId}"].progress-bar`);
+                        const timeDisplay = document.querySelector(`[data-track="${trackId}"].time-display`);
+                        
+                        if (progressBar) progressBar.style.width = `${progress}%`;
+                        if (timeDisplay) timeDisplay.textContent = formatTime(audio.seek());
+                    }
+                }, 100);
+                
+                // Clic sur la barre de progression
+                const progressContainer = trackRow.querySelector('.progress-container');
+                progressContainer.addEventListener('click', (e) => {
+                    const rect = progressContainer.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const width = rect.width;
+                    const percentage = clickX / width;
+                    audio.seek(percentage * audio.duration());
+                });
+            });
+        }
+
+        // Fonction pour gérer le clic sur le bouton play
+        function handlePlayButtonClick(trackId, trackName) {
+            const audio = audioPlayers[trackId];
+            console.log(`Clic sur le bouton play pour: ${trackName}`);
+            
+            if (audio.playing()) {
+                console.log('Pause de l\'audio');
+                audio.pause();
+            } else {
+                console.log('Démarrage de l\'audio');
+                // Arrêter tous les autres audios
+                Object.values(audioPlayers).forEach(player => {
+                    if (player.playing()) player.pause();
+                });
+                
+                // Essayer de jouer l'audio avec gestion d'erreur
+                try {
+                    audio.play();
+                } catch (error) {
+                    console.error(`Erreur lors de la lecture de ${trackName}:`, error);
+                    updatePlayButton(trackId, '❌', false, '#ff0000');
+                }
+            }
+        }
+
+        // Initialiser tous les audios au chargement
+        initializeAudioPlayers();
+
+        // Fonction pour vérifier le support des formats audio
+        function checkAudioSupport() {
+            const audio = document.createElement('audio');
+            const formats = {
+                mp3: audio.canPlayType('audio/mpeg'),
+                wav: audio.canPlayType('audio/wav'),
+                aif: audio.canPlayType('audio/aiff'),
+                aiff: audio.canPlayType('audio/x-aiff')
+            };
+            
+            console.log('Support des formats audio par le navigateur:');
+            Object.entries(formats).forEach(([format, support]) => {
+                console.log(`${format}: ${support}`);
+            });
+            
+            return formats;
+        }
 
         // Fonction pour formater le temps
         function formatTime(seconds) {
@@ -777,6 +970,9 @@
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
+
+        // Vérifier le support au chargement
+        checkAudioSupport();
 
         // Gestion des clics sur les images
         document.querySelectorAll('.image-item').forEach(item => {
@@ -803,87 +999,7 @@
                     
                     document.getElementById('audio-title').textContent = data.title;
                     
-                    const tracksList = document.getElementById('tracks-list');
-                    tracksList.innerHTML = '';
-                    
-                    data.tracks.forEach((track, index) => {
-                        const trackId = `${imageType}-track-${index}`;
-                        
-                        const trackRow = document.createElement('div');
-                        trackRow.className = 'track-row';
-                        trackRow.innerHTML = `
-                            <div class="track-info">
-                                <div class="track-name">${track.name}</div>
-                                <div class="track-duration">${track.duration}</div>
-                                <div class="audio-controls">
-                                    <button class="play-button" data-track="${trackId}">▶</button>
-                                    <div class="progress-container" data-track="${trackId}">
-                                        <div class="progress-bar" data-track="${trackId}"></div>
-                                    </div>
-                                    <div class="time-display" data-track="${trackId}">0:00</div>
-                                </div>
-                            </div>
-                            <div class="track-comment">${track.comment}</div>
-                        `;
-                        tracksList.appendChild(trackRow);
-                        
-                        // Créer l'objet audio avec Howler.js
-                        audioPlayers[trackId] = new Howl({
-                            src: [track.audioSrc],
-                            html5: true,
-                            onplay: () => {
-                                document.querySelector(`[data-track="${trackId}"].play-button`).textContent = '⏸';
-                                document.querySelector(`[data-track="${trackId}"].play-button`).classList.add('playing');
-                            },
-                            onpause: () => {
-                                document.querySelector(`[data-track="${trackId}"].play-button`).textContent = '▶';
-                                document.querySelector(`[data-track="${trackId}"].play-button`).classList.remove('playing');
-                            },
-                            onend: () => {
-                                document.querySelector(`[data-track="${trackId}"].play-button`).textContent = '▶';
-                                document.querySelector(`[data-track="${trackId}"].play-button`).classList.remove('playing');
-                            }
-                        });
-                        
-                        // Gestion du bouton play/pause
-                        const playButton = trackRow.querySelector('.play-button');
-                        playButton.addEventListener('click', () => {
-                            const audio = audioPlayers[trackId];
-                            if (audio.playing()) {
-                                audio.pause();
-                            } else {
-                                // Arrêter tous les autres audios
-                                Object.values(audioPlayers).forEach(player => {
-                                    if (player.playing()) player.pause();
-                                });
-                                audio.play();
-                            }
-                        });
-                        
-                        // Mise à jour de la barre de progression
-                        setInterval(() => {
-                            const audio = audioPlayers[trackId];
-                            if (audio && audio.playing()) {
-                                const progress = (audio.seek() / audio.duration()) * 100;
-                                const progressBar = document.querySelector(`[data-track="${trackId}"].progress-bar`);
-                                const timeDisplay = document.querySelector(`[data-track="${trackId}"].time-display`);
-                                
-                                if (progressBar) progressBar.style.width = `${progress}%`;
-                                if (timeDisplay) timeDisplay.textContent = formatTime(audio.seek());
-                            }
-                        }, 100);
-                        
-                        // Clic sur la barre de progression
-                        const progressContainer = trackRow.querySelector('.progress-container');
-                        progressContainer.addEventListener('click', (e) => {
-                            const audio = audioPlayers[trackId];
-                            const rect = progressContainer.getBoundingClientRect();
-                            const clickX = e.clientX - rect.left;
-                            const width = rect.width;
-                            const percentage = clickX / width;
-                            audio.seek(percentage * audio.duration());
-                        });
-                    });
+                    createTrackInterface(imageType, data);
                     
                     document.getElementById('audio-panel').classList.add('visible');
                 }
