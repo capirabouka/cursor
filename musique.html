@@ -339,6 +339,11 @@
             height: 135px;
         }
 
+        .image-item.larger {
+            width: 250px;
+            height: 188px;
+        }
+
         .image-item:hover {
             transform: scale(1.05);
         }
@@ -595,6 +600,10 @@
         <div class="image-item" data-image="mezc">
             <img src="mezc.jpg" alt="Meza C" class="hover-image">
         </div>
+        
+        <div class="image-item larger" data-image="mezac">
+            <img src="mezac.jpg" alt="Meza AC" class="hover-image">
+        </div>
     </div>
 
     <!-- Panneau audio -->
@@ -787,6 +796,29 @@
                         duration: "3:45",
                         audioSrc: "MUSIQUES/mumumu/Liminal.mp3",
                         comment: "Ambiance de transition et d'exploration"
+                    }
+                ]
+            },
+            mezac: {
+                title: "MEZA AC",
+                tracks: [
+                    {
+                        name: "De nos jours - 2019:2020",
+                        duration: "6:15",
+                        audioSrc: "MUSIQUES/mumumumu/De nos jours - 2019:2020.mp3",
+                        comment: "Exploration sonore de l'époque contemporaine"
+                    },
+                    {
+                        name: "Etat des lieux - 2020:2021",
+                        duration: "5:45",
+                        audioSrc: "MUSIQUES/mumumumu/Etat des lieux - 2020:2021.mp3",
+                        comment: "Bilan musical d'une période de transition"
+                    },
+                    {
+                        name: "Covid - 2021:2022",
+                        duration: "4:30",
+                        audioSrc: "MUSIQUES/mumumumu/Covid - 2021:2022.mp3",
+                        comment: "Composition reflétant les défis de la période Covid"
                     }
                 ]
             }
