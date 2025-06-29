@@ -156,6 +156,70 @@
         rightScreen.rotation.y = -Math.PI/2;
         scene.add(rightScreen);
 
+        // Écran arrière (texte sur les passeports)
+        const createTextCanvas = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 2048;
+            canvas.height = 2048;
+            const ctx = canvas.getContext('2d');
+            
+            // Amélioration de la qualité du rendu
+            ctx.imageSmoothingEnabled = false;
+            
+            // Fond noir
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Texte blanc avec police minimaliste et précise
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '300 36px "Helvetica Neue", Helvetica, Arial, sans-serif';
+            ctx.textAlign = 'center';
+            
+            const text = `Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.`;
+            
+            // Découpage du texte en lignes
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+            
+            for (let i = 1; i < words.length; i++) {
+                const word = words[i];
+                const width = ctx.measureText(currentLine + ' ' + word).width;
+                if (width < canvas.width - 100) {
+                    currentLine += ' ' + word;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            lines.push(currentLine);
+            
+            // Affichage du texte centré
+            const lineHeight = 52;
+            const startY = 650;
+            const centerX = canvas.width / 2;
+            
+            lines.forEach((line, index) => {
+                ctx.fillText(line, centerX, startY + index * lineHeight);
+            });
+            
+            return canvas;
+        };
+        
+        const textCanvas = createTextCanvas();
+        const textTexture = new THREE.CanvasTexture(textCanvas);
+        const textMaterial = new THREE.MeshBasicMaterial({
+            map: textTexture,
+            side: THREE.DoubleSide
+        });
+        const textScreen = new THREE.Mesh(
+            new THREE.PlaneGeometry(screenSize * 3, screenSize * 3),
+            textMaterial
+        );
+        textScreen.position.z = screenDistance * 3;
+        textScreen.rotation.y = Math.PI;
+        scene.add(textScreen);
+
         // Contrôles de la caméra (rotation horizontale)
         let isDragging = false;
         let previousMousePosition = { x: 0 };
