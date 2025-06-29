@@ -48,6 +48,61 @@
             font-family: monospace;
             font-size: 12px;
         }
+        
+        /* Flèches de navigation discrètes */
+        .nav-arrows {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+        
+        .nav-arrow:hover {
+            opacity: 0.6;
+        }
+        
+        .nav-arrow.left {
+            left: 150px;
+        }
+        
+        .nav-arrow.right {
+            right: 150px;
+        }
+        
+        .nav-arrow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            border-top: 2px solid rgba(255, 255, 255, 0.8);
+            border-left: 2px solid rgba(255, 255, 255, 0.8);
+            transform: translate(-50%, -50%);
+        }
+        
+        .nav-arrow.left::before {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        
+        .nav-arrow.right::before {
+            transform: translate(-50%, -50%) rotate(135deg);
+        }
     </style>
 </head>
 <body>
@@ -57,6 +112,13 @@
         </div>
         <div id="time">00:00 / 00:00</div>
     </div>
+    
+    <!-- Flèches de navigation discrètes -->
+    <div class="nav-arrows">
+        <div class="nav-arrow left" title="Tourner à gauche"></div>
+        <div class="nav-arrow right" title="Tourner à droite"></div>
+    </div>
+    
     <canvas id="canvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
     <script>
@@ -220,6 +282,27 @@
         textScreen.rotation.y = Math.PI;
         scene.add(textScreen);
 
+        // Gestionnaires de double-clic pour recentrer la caméra
+        let doubleClickTimeout;
+        
+        // Fonction pour gérer le double-clic
+        function handleDoubleClick(targetRotation) {
+            camera.rotation.y = targetRotation;
+        }
+        
+        // Fonction pour gérer le clic simple et détecter le double-clic
+        function handleClick(targetRotation) {
+            if (doubleClickTimeout) {
+                clearTimeout(doubleClickTimeout);
+                doubleClickTimeout = null;
+                handleDoubleClick(targetRotation);
+            } else {
+                doubleClickTimeout = setTimeout(() => {
+                    doubleClickTimeout = null;
+                }, 300);
+            }
+        }
+
         // Contrôles de la caméra (rotation horizontale)
         let isDragging = false;
         let previousMousePosition = { x: 0 };
@@ -246,6 +329,48 @@
 
         document.addEventListener('mouseup', () => {
             isDragging = false;
+        });
+
+        // Gestionnaires de clic pour recentrer la caméra
+        document.addEventListener('click', (e) => {
+            // Vérifier si le clic est sur le canvas
+            if (e.target.id === 'canvas') {
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const centerX = rect.width / 2;
+                
+                // Déterminer la zone cliquée et la rotation correspondante
+                if (x < rect.width * 0.3) {
+                    // Zone gauche - image de gauche
+                    handleClick(Math.PI/2);
+                } else if (x > rect.width * 0.7) {
+                    // Zone droite - image de droite
+                    handleClick(-Math.PI/2);
+                } else {
+                    // Zone centrale - vidéo ou texte (selon la rotation actuelle)
+                    if (Math.abs(camera.rotation.y) < 0.5) {
+                        // Face à la vidéo
+                        handleClick(0);
+                    } else if (Math.abs(camera.rotation.y - Math.PI) < 0.5) {
+                        // Face au texte
+                        handleClick(Math.PI);
+                    }
+                }
+            }
+        });
+
+        // Contrôles des flèches de navigation
+        const leftArrow = document.querySelector('.nav-arrow.left');
+        const rightArrow = document.querySelector('.nav-arrow.right');
+        
+        leftArrow.addEventListener('click', () => {
+            // Rotation vers l'image de gauche (rotation.y = Math.PI/2)
+            camera.rotation.y = Math.PI/2;
+        });
+        
+        rightArrow.addEventListener('click', () => {
+            // Rotation vers l'image de droite (rotation.y = -Math.PI/2)
+            camera.rotation.y = -Math.PI/2;
         });
 
         // Animation
