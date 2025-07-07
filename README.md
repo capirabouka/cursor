@@ -19,4 +19,4 @@ Ce site est déployé sur GitHub Pages et est accessible à l'adresse : https://
 - `styles.css` : Styles CSS
 - `script.js` : Scripts JavaScript
 - `assets/` : Dossier contenant les ressources médias
-- `videos-/` : Dossier contenant les vidéos (non versionné) 
+- `videos-/` : Dossier contenant les vidéos (non versionné) # Updated Mon Jul  7 10:24:29 CEST 2025
