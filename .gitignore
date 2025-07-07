@@ -1,78 +1,36 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
+# Fichiers volumineux à exclure
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+*.aif
+*.aiff
+*.mp3
+*.m4a
+*.flac
 
-# Environnement virtuel
-venv/
-env/
-.env/
+# Dossiers avec médias
+MUSIQUES/
+assets/videos/
+videos-/
+chambre/
 
 # Fichiers système
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Fichiers d'IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*.sublime-project
-*.sublime-workspace
-
-# Logs
+# Fichiers temporaires
+*.tmp
+*.temp
 *.log
+*.cache
+*.asd
 
-node_modules/
-*.mov
-*.mp3
-Terminal.mov
-
-# Exceptions pour certains fichiers MP4 et MP3
-!effondrement.mp4
-!incendie.mp4
-!alarme.mp3
-
-# Dependencies
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
-# Build files
-dist/
-build/
-
-# Fichiers vidéo
-*.mp4
-*.mov
-*.avi
-*.mkv
-
-# Fichiers média
-*.mp3
-*.mp4
-*.mov
-*.wav
-*.avi
-*.mkv
-
-# Images
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.bmp
-
-# Fichiers système
-.DS_Store
-Thumbs.db 
+# Fichiers de sauvegarde
+*~
+*.bak
+*.backup
+*_backup.html
+landing_backup.html
+temp_index.html 
