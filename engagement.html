@@ -5,51 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engagement - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .engagement-section {
-            padding: 2rem;
-            max-width: 1200px;
+        .engagement-container {
+            max-width: 800px;
             margin: 0 auto;
+            padding: 8rem 2rem 4rem 2rem;
+            line-height: 1.8;
         }
 
-        .engagement-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .engagement-item {
-            background: var(--bg-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .engagement-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .engagement-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+        .engagement-text {
+            font-size: 1.1rem;
             color: var(--text-color);
+            margin-bottom: 2.5rem;
+            text-align: justify;
+            hyphens: auto;
         }
 
-        .engagement-description {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+        .engagement-text:last-child {
+            margin-bottom: 0;
         }
 
-        .engagement-image {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 1rem;
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text-color);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .engagement-container {
+                padding: 2rem 1rem;
+            }
+            
+            .engagement-text {
+                font-size: 1rem;
+                text-align: left;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -73,29 +73,20 @@
         </div>
     </nav>
 
-    <main class="engagement-section">
-        <h1>Engagement</h1>
-        <p class="intro">Mon travail artistique s'inscrit dans une démarche d'engagement social et politique, explorant les questions de pouvoir, d'oppression et d'exil.</p>
+    <main class="engagement-container">
+        <h1 class="page-title">Engagement</h1>
+        
+        <p class="engagement-text">
+            Anouche Lelong inscrit son travail dans une recherche esthétique, politique et sensible, indissociable des réalités sociales, écologiques et historiques qui traversent nos corps et nos espaces. Son engagement ne prend pas la forme du manifeste ou du slogan, mais celle d'une écoute active, d'un déplacement constant, d'un refus des évidences.
+        </p>
 
-        <div class="engagement-grid">
-            <div class="engagement-item">
-                <h2 class="engagement-title">Art et Résistance</h2>
-                <p class="engagement-description">À travers mes installations et performances, je questionne les mécanismes de pouvoir et les systèmes d'oppression. L'art devient un outil de résistance et de réflexion critique sur notre société.</p>
-                <img src="resistance.jpg" alt="Art et Résistance" class="engagement-image">
-            </div>
+        <p class="engagement-text">
+            À travers le son, le vide, les matières brutes ou altérées, elle interroge les structures de pouvoir, les récits dominants, les zones d'oppression et d'exil. Elle porte une attention particulière aux traces du vivant, aux silences produits par l'effondrement en cours, aux formes sensibles que prend la catastrophe.
+        </p>
 
-            <div class="engagement-item">
-                <h2 class="engagement-title">Frontières et Identités</h2>
-                <p class="engagement-description">Le projet "Terminal" explore la violence des frontières et la bureaucratie de l'identité. Il témoigne des obstacles que rencontrent les personnes dans leur liberté de circulation et leur droit à l'amour.</p>
-                <img src="frontieres.jpg" alt="Frontières et Identités" class="engagement-image">
-            </div>
-
-            <div class="engagement-item">
-                <h2 class="engagement-title">Écologie et Fin du Monde</h2>
-                <p class="engagement-description">Mes recherches sur la fin du monde et l'effondrement interrogent notre relation à l'environnement et notre responsabilité collective face aux crises écologiques actuelles.</p>
-                <img src="ecologie.jpg" alt="Écologie et Fin du Monde" class="engagement-image">
-            </div>
-        </div>
+        <p class="engagement-text">
+            Sa pratique s'inscrit dans une conscience aiguë des enjeux climatiques : choix des matériaux, rythmes de production, déplacements : chaque geste est pensé avec sobriété. Sans prôner une pureté illusoire, elle cherche une justesse, une cohérence entre le fond et la forme, entre l'acte de création et la situation du monde.
+        </p>
     </main>
 
     <script src="script.js"></script>
