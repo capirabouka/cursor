@@ -9,171 +9,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .landing-section {
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            background: var(--bg-color);
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
         }
-        .landing-content {
-            text-align: center;
-            z-index: 2;
-            transition: transform 0.3s ease;
-            color: var(--text-color);
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }
-        .landing-content:hover {
-            transform: translate(-50%, -50%) scale(1.02);
-        }
-        .landing-content h1 {
-            color: var(--text-color);
-            font-size: 2.8em;
-            margin-bottom: 1rem;
+
+        .title {
+            position: fixed;
+            top: 35%;
+            left: 500px;
+            transform: translateY(-50%);
+            font-size: 32px;
+            font-weight: 300;
+            color: #000;
+            z-index: 10000;
+            background: none;
+            padding: 10px 15px;
+            letter-spacing: -0.5px;
             text-transform: uppercase;
-            font-weight: normal;
-            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
-        .subtitle {
-            font-size: 1em;
-            margin: 0.3rem 0;
-            opacity: 0.9;
+
+        .title:hover {
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            transform: translateY(-50%) scale(1.05);
         }
-        .click-instruction {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8em;
-            opacity: 0.7;
+
+        .clickable-image {
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110vw;
+            height: 110vh;
+            background-image: url('test.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 24px;
+                top: 15px;
+                left: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="landing-section" id="landing">
-        <canvas id="particles-canvas"></canvas>
-        <div class="landing-content">
-            <h1>Chambre d'Echo</h1>
-            <p class="subtitle">Anouche Lelong</p>
-            <p class="subtitle">Installations • Musique • Engagement</p>
-        </div>
-        <div class="click-instruction">Cliquez pour entrer</div>
-    </div>
-
-    <nav class="main-nav">
-        <div class="nav-links">
-            <a href="landing.html" class="nav-link">Projets</a>
-            <a href="musique.html" class="nav-link">Musiques</a>
-            <a href="engagement.html" class="nav-link">Engagement</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-        </div>
-        <div class="language-selector">
-            <button class="language-button">FR</button>
-            <div class="language-dropdown">
-                <a href="#" data-lang="fr">Français</a>
-                <a href="#" data-lang="en">English</a>
-                <a href="#" data-lang="es">Español</a>
-                <a href="#" data-lang="ru">Русский</a>
-            </div>
-        </div>
-    </nav>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Configuration de Three.js pour les effets visuels
-        let scene, camera, renderer, particles;
-        const particleCount = 500;
-
-        function initThreeJS() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ 
-                canvas: document.getElementById('particles-canvas'),
-                alpha: true 
-            });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            // Création des particules
-            const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(particleCount * 3);
-            const colors = new Float32Array(particleCount * 3);
-
-            for (let i = 0; i < particleCount; i++) {
-                positions[i * 3] = (Math.random() - 0.5) * 10;
-                positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
-                positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-
-                // Attribution aléatoire des couleurs
-                const colorType = Math.floor(Math.random() * 3);
-                if (colorType === 0) {
-                    // Noir
-                    colors[i * 3] = 0;
-                    colors[i * 3 + 1] = 0;
-                    colors[i * 3 + 2] = 0;
-                } else if (colorType === 1) {
-                    // Violet
-                    colors[i * 3] = 0.5;
-                    colors[i * 3 + 1] = 0;
-                    colors[i * 3 + 2] = 0.5;
-                } else {
-                    // Bleu ciel
-                    colors[i * 3] = 0.5;
-                    colors[i * 3 + 1] = 0.7;
-                    colors[i * 3 + 2] = 1;
-                }
-            }
-
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-            const material = new THREE.PointsMaterial({
-                size: 0.05,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.8
-            });
-
-            particles = new THREE.Points(geometry, material);
-            scene.add(particles);
-
-            camera.position.z = 5;
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            // Rotation des particules
-            if (particles) {
-                particles.rotation.x += 0.001;
-                particles.rotation.y += 0.001;
-            }
-            
-            renderer.render(scene, camera);
-        }
-
-        // Initialisation et démarrage de l'animation
-        initThreeJS();
-        animate();
-
-        // Gestion du redimensionnement
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Redirection vers la page principale au clic
-        document.getElementById('landing').addEventListener('click', () => {
-            window.location.href = 'landing.html';
-        });
-    </script>
+    <a href="landing.html" class="title">Chambre d'Echo</a>
+    
+    <a href="landing.html" class="clickable-image"></a>
 </body>
 </html> 
