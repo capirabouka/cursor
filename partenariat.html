@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partenariat - NPAK Centre d'Art Contemporain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+    <style>
+        .partnership-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .partnership-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+
+        .partnership-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .partnership-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+            color: #2C3E50;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .partnership-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: #2C3E50;
+            opacity: 0.5;
+        }
+
+        .partners-section {
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            justify-items: center;
+        }
+
+        .partner-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            min-height: 300px;
+        }
+
+        .partner-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            min-height: 300px;
+            opacity: 0.3;
+        }
+
+        .placeholder-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: #2C3E50;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .placeholder-logo {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #e9ecef;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+
+        .placeholder-logo::after {
+            content: '+';
+            font-size: 3rem;
+            color: #e9ecef;
+        }
+
+        .partner-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            color: #2C3E50;
+            opacity: 0.8;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .partner-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            color: #2C3E50;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            text-align: center;
+            letter-spacing: 0.03em;
+        }
+
+        .partner-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .npak-link {
+            display: block;
+        }
+
+        .npak-logo {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            filter: none;
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .logo-npak:hover {
+            transform: scale(1.02);
+            opacity: 0.8;
+        }
+
+        .logo-ebabx:hover {
+            transform: scale(1.02);
+            opacity: 0.8;
+        }
+
+        .npak-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .partnership-info {
+            margin-top: 3rem;
+            padding: 2rem;
+        }
+
+        .partnership-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2C3E50;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+        }
+
+        .partnership-info p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #2C3E50;
+            opacity: 0.8;
+        }
+
+        .logo-ebabx {
+            filter: brightness(1.5);
+        }
+
+        @media (max-width: 768px) {
+            .partnership-content h2 {
+                font-size: 2rem;
+            }
+
+            .partners-section {
+                padding: 2rem 1rem;
+            }
+
+            .partners-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .npak-logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .placeholder-logo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="index.html" class="home-circle"></a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
+            <a href="vost.html" class="nav-link">Vidéos</a>
+            <a href="bibliographie.html" class="nav-link">Bibliographie</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div class="language-selector">
+            <button class="language-button">FR</button>
+            <div class="language-dropdown">
+                <a href="#" data-lang="fr">Français</a>
+                <a href="#" data-lang="en">English</a>
+                <a href="#" data-lang="es">Español</a>
+                <a href="#" data-lang="ru">Русский</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="partnership-section">
+            <div class="partnership-content">
+                <h2>Partenariat</h2>
+                
+                <div class="partners-section">
+                    <div class="partners-grid">
+                        <div class="partner-item">
+                            <span class="partner-title">NPAK - Centre d'Art Contemporain de Erevan</span>
+                            <div class="partner-logo-container">
+                                <a href="https://www.accea.info/" target="_blank" class="npak-link">
+                                    <img src="logo npak.jpg" alt="Logo NPAK" class="npak-logo logo-npak">
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="partner-placeholder">
+                            <span class="placeholder-text">Partenariat à venir</span>
+                            <div class="placeholder-logo"></div>
+                        </div>
+                        <div class="partner-item">
+                            <span class="partner-title">EBABX - École Supérieure des Beaux-Arts de Bordeaux</span>
+                            <div class="partner-logo-container">
+                                <a href="https://www.ebabx.fr/fr" target="_blank" rel="noopener">
+                                    <img src="ebabx.jpg" alt="Logo EBABX" class="npak-logo logo-ebabx">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Animation d'apparition des éléments
+        function handleScroll() {
+            const partnershipContent = document.querySelector('.partnership-content');
+            
+            if (partnershipContent) {
+                const rect = partnershipContent.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8);
+                
+                if (isVisible) {
+                    partnershipContent.classList.add('visible');
+                }
+            }
+        }
+
+        // Ajouter l'écouteur d'événement de défilement
+        window.addEventListener('scroll', handleScroll);
+        // Déclencher une première fois pour les éléments déjà visibles
+        handleScroll();
+    </script>
+</body>
+</html> 
