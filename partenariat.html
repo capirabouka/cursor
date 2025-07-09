@@ -172,7 +172,19 @@
             opacity: 0.8;
         }
 
+        .logo-elf {
+            transform: scaleY(0.8) scale(1.5);
+            margin-left: -20px;
+        }
+
+        .logo-elf:hover {
+            transform: scaleY(0.8) scale(1.55);
+            opacity: 0.8;
+        }
+
         .npak-logo img {
+            width: auto;
+            height: auto;
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
@@ -239,7 +251,6 @@
             <a href="index.html" class="home-circle"></a>
             <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
             <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
-            <a href="vost.html" class="nav-link">Vidéos</a>
             <a href="bibliographie.html" class="nav-link">Bibliographie</a>
             <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
             <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
@@ -272,9 +283,11 @@
                             </div>
                         </div>
                         
-                        <div class="partner-placeholder">
-                            <span class="placeholder-text">Partenariat à venir</span>
-                            <div class="placeholder-logo"></div>
+                        <div class="partner-item">
+                            <span class="partner-title">Elfe Editions - Compositions Musicales</span>
+                            <div class="partner-logo-container">
+                                <img src="elfe.jpeg" alt="Logo ELF" class="npak-logo logo-elf">
+                            </div>
                         </div>
                         <div class="partner-item">
                             <span class="partner-title">EBABX - École Supérieure des Beaux-Arts de Bordeaux</span>

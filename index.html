@@ -20,7 +20,7 @@
         .title {
             position: fixed;
             top: 35%;
-            left: 500px;
+            left: 300px;
             transform: translateY(-50%);
             font-size: 48px;
             font-weight: 300;
@@ -36,6 +36,27 @@
 
         .title:hover {
             transform: translateY(-50%) scale(1.05);
+        }
+
+        .title-mirror {
+            position: fixed;
+            bottom: 10%;
+            right: 50px;
+            font-size: 48px;
+            font-weight: 300;
+            color: #000;
+            z-index: 10000;
+            background: none;
+            padding: 10px 15px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            transform: scaleX(-1);
+        }
+
+        .title-mirror:hover {
+            transform: scaleX(-1) scale(1.05);
         }
 
         .clickable-image {
@@ -60,6 +81,11 @@
                 font-size: 24px;
                 top: 15px;
                 left: 15px;
+            }
+            .title-mirror {
+                font-size: 24px;
+                bottom: 15px;
+                right: 15px;
             }
         }
     </style>
