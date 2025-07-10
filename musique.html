@@ -560,6 +560,184 @@
         .tracks-container {
             margin-top: 20px;
         }
+
+        /* Styles pour les photos des pistes */
+        .track-photos {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+        }
+
+        .track-photos.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .photo-separator {
+            width: 1px;
+            height: 20px;
+            background: #ddd;
+            margin: 0 10px;
+        }
+
+        .photo-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .track-photo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            transition: all 0.2s ease;
+        }
+
+        .track-photo:hover {
+            transform: scale(1.05);
+            border-color: #000;
+        }
+
+        .photo-nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        .photo-nav-button {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+
+        .photo-nav-button:hover {
+            border-color: #000;
+            color: #000;
+        }
+
+        .photo-nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .photo-counter {
+            font-size: 11px;
+            color: #999;
+            margin-left: 5px;
+        }
+
+
+
+        /* Styles pour l'overlay de la photo */
+        .photo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            pointer-events: auto; /* Permettre le clic sur l'overlay */
+        }
+
+        .photo-overlay-content {
+            position: relative;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 0;
+            min-width: 400px;
+            min-height: 200px;
+        }
+
+        .photo-overlay-img {
+            max-width: 70vw;
+            max-height: 70vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.7);
+            border: 2px solid #fff;
+            background: #222;
+            z-index: 1;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .photo-overlay-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .photo-overlay-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            border: none;
+            color: #fff;
+            font-size: 2.5rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 2;
+        }
+
+        .photo-overlay-prev {
+            left: 0;
+        }
+
+        .photo-overlay-next {
+            right: 0;
+        }
+
+        .photo-overlay-nav:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .photo-overlay-counter {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.5);
+            padding: 2px 10px;
+            border-radius: 8px;
+            z-index: 3;
+        }
     </style>
 </head>
 <body>
@@ -622,6 +800,8 @@
             <!-- Les pistes audio seront ajoutées ici dynamiquement -->
         </div>
     </div>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
@@ -772,7 +952,13 @@
                         name: "32° Farenheit",
                         duration: "19:46",
                         audioSrc: "MUSIQUES/mumu/32° Farenheit.mp3",
-                        comment: "Piste sonore pour performance avec Tristan Morel - 2022"
+                        comment: "Piste sonore pour performance avec Tristan Morel - 2022",
+                        photos: [
+                            "32/ti.jpg",
+                            "32/titi.jpg", 
+                            "32/tititi.jpg",
+                            "32/titititi.jpg"
+                        ]
                     },
                     {
                         name: "Loosin",
@@ -915,8 +1101,33 @@
                 const audio = audioPlayers[trackId];
                 const isCurrentlyPlaying = currentlyPlayingTrack === trackId;
                 
+                // Préparer la section des photos si elles existent
+                let photosSection = '';
+                if (track.photos && track.photos.length > 0) {
+                    let photosHTML = '';
+                    track.photos.forEach((photo, photoIndex) => {
+                        const isVisible = photoIndex === 0 ? '' : 'style="display: none;"';
+                        photosHTML += `<img src="${photo}" alt="Photo ${photoIndex + 1}" class="track-photo" data-photo-index="${photoIndex}" ${isVisible}>`;
+                    });
+                    
+                    photosSection = `
+                        <div class="track-photos" data-track="${trackId}">
+                            <div class="photo-separator"></div>
+                            <div class="photo-container">
+                                ${photosHTML}
+                                <div class="photo-nav">
+                                    <button class="photo-nav-button prev-photo" data-track="${trackId}" disabled>‹</button>
+                                    <button class="photo-nav-button next-photo" data-track="${trackId}" ${track.photos.length > 1 ? '' : 'disabled'}>›</button>
+                                </div>
+                                <span class="photo-counter">1/${track.photos.length}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 const trackRow = document.createElement('div');
                 trackRow.className = 'track-row';
+                trackRow.setAttribute('data-image-type', imageType); // Ajouter l'attribut data-image-type
                 trackRow.innerHTML = `
                     <div class="track-info">
                         <div class="track-name">${track.name}</div>
@@ -929,7 +1140,7 @@
                             <div class="time-display" data-track="${trackId}">0:00</div>
                         </div>
                     </div>
-                    <div class="track-comment">${track.comment}</div>
+                    <div class="track-comment">${track.comment}${photosSection}</div>
                 `;
                 tracksList.appendChild(trackRow);
                 
@@ -943,6 +1154,51 @@
                 playButton.addEventListener('click', () => {
                     handlePlayButtonClick(trackId, track.name);
                 });
+                
+                // Gestion de la navigation des photos
+                if (track.photos && track.photos.length > 0) {
+                    const prevButton = trackRow.querySelector('.prev-photo');
+                    const nextButton = trackRow.querySelector('.next-photo');
+                    const photoImg = trackRow.querySelector('.track-photo');
+                    const photoCounter = trackRow.querySelector('.photo-counter');
+                    let currentPhotoIndex = 0;
+                    
+                    // Fonction pour mettre à jour la photo
+                    function updatePhoto(index) {
+                        currentPhotoIndex = index;
+                        
+                        // Masquer toutes les photos
+                        const allPhotos = trackRow.querySelectorAll('.track-photo');
+                        allPhotos.forEach((photo, photoIndex) => {
+                            photo.style.display = photoIndex === index ? 'block' : 'none';
+                        });
+                        
+                        // Mettre à jour l'index de la photo visible
+                        const visiblePhoto = trackRow.querySelector(`.track-photo[data-photo-index="${index}"]`);
+                        if (visiblePhoto) {
+                            visiblePhoto.setAttribute('data-photo-index', index);
+                        }
+                        
+                        photoCounter.textContent = `${index + 1}/${track.photos.length}`;
+                        
+                        // Mettre à jour l'état des boutons
+                        prevButton.disabled = index === 0;
+                        nextButton.disabled = index === track.photos.length - 1;
+                    }
+                    
+                    // Événements pour les boutons de navigation
+                    prevButton.addEventListener('click', () => {
+                        if (currentPhotoIndex > 0) {
+                            updatePhoto(currentPhotoIndex - 1);
+                        }
+                    });
+                    
+                    nextButton.addEventListener('click', () => {
+                        if (currentPhotoIndex < track.photos.length - 1) {
+                            updatePhoto(currentPhotoIndex + 1);
+                        }
+                    });
+                }
                 
                 // Mise à jour de la barre de progression
                 setInterval(() => {
@@ -986,6 +1242,18 @@
                 // Essayer de jouer l'audio avec gestion d'erreur
                 try {
                     audio.play();
+                    // Afficher les photos si elles existent
+                    const photosContainer = document.querySelector(`[data-track="${trackId}"].track-photos`);
+                    if (photosContainer) {
+                        // Masquer toutes les autres photos
+                        document.querySelectorAll('.track-photos').forEach(container => {
+                            container.classList.remove('visible');
+                        });
+                        // Afficher les photos de cette piste
+                        setTimeout(() => {
+                            photosContainer.classList.add('visible');
+                        }, 100);
+                    }
                 } catch (error) {
                     console.error(`Erreur lors de la lecture de ${trackName}:`, error);
                     updatePlayButton(trackId, '❌', false, '#ff0000');
@@ -1094,6 +1362,104 @@
             }
             
             console.log('Initialisation terminée');
+        });
+
+        // Gestion de l'affichage agrandi des photos
+        document.addEventListener('click', function(e) {
+            console.log('Clic détecté sur:', e.target);
+            console.log('Classes de l\'élément:', e.target.className);
+            
+            if(e.target.classList.contains('track-photo')) {
+                console.log('=== CLIC SUR PHOTO ===');
+                
+                // Récupérer toutes les photos de la même piste
+                let photoContainer = e.target.closest('.track-photos');
+                if(photoContainer) {
+                    console.log('Photo container trouvé');
+                    
+                    let photos = [];
+                    let currentIndex = 0;
+                    
+                    // Récupérer toutes les photos de ce conteneur
+                    let allPhotos = photoContainer.querySelectorAll('.track-photo');
+                    console.log('Nombre de photos trouvées dans le DOM:', allPhotos.length);
+                    
+                    allPhotos.forEach((photo, index) => {
+                        console.log(`Photo ${index}:`, photo.src);
+                        photos.push(photo.src);
+                        if(photo === e.target) {
+                            currentIndex = index;
+                            console.log('Photo cliquée est à l\'index:', index);
+                        }
+                    });
+                    
+                    console.log('Liste finale des photos:', photos);
+                    console.log('Index actuel:', currentIndex);
+                    
+                    if(photos.length > 1) {
+                        console.log('Plusieurs photos trouvées, création de l\'overlay');
+                        
+                        // Créer l'overlay
+                        let overlay = document.createElement('div');
+                        overlay.className = 'photo-overlay';
+                        overlay.innerHTML = `
+                            <div class="photo-overlay-content">
+                                <button class="photo-overlay-close">×</button>
+                                <button class="photo-overlay-nav photo-overlay-prev" ${currentIndex === 0 ? 'disabled' : ''}>‹</button>
+                                <img src="${photos[currentIndex]}" alt="Photo agrandie" class="photo-overlay-img">
+                                <button class="photo-overlay-nav photo-overlay-next" ${currentIndex === photos.length - 1 ? 'disabled' : ''}>›</button>
+                                <span class="photo-overlay-counter">${currentIndex + 1}/${photos.length}</span>
+                            </div>
+                        `;
+                        
+                        document.body.appendChild(overlay);
+                        
+                        // Gestion de la navigation
+                        let prevBtn = overlay.querySelector('.photo-overlay-prev');
+                        let nextBtn = overlay.querySelector('.photo-overlay-next');
+                        let img = overlay.querySelector('.photo-overlay-img');
+                        let counter = overlay.querySelector('.photo-overlay-counter');
+                        let closeBtn = overlay.querySelector('.photo-overlay-close');
+                        
+                        function updatePhoto(index) {
+                            console.log('Mise à jour photo vers index:', index);
+                            currentIndex = index;
+                            img.src = photos[index];
+                            counter.textContent = `${index + 1}/${photos.length}`;
+                            prevBtn.disabled = index === 0;
+                            nextBtn.disabled = index === photos.length - 1;
+                        }
+                        
+                        prevBtn.addEventListener('click', () => {
+                            console.log('Clic sur prev, index actuel:', currentIndex);
+                            if(currentIndex > 0) {
+                                updatePhoto(currentIndex - 1);
+                            }
+                        });
+                        
+                        nextBtn.addEventListener('click', () => {
+                            console.log('Clic sur next, index actuel:', currentIndex);
+                            if(currentIndex < photos.length - 1) {
+                                updatePhoto(currentIndex + 1);
+                            }
+                        });
+                        
+                        closeBtn.addEventListener('click', () => {
+                            document.body.removeChild(overlay);
+                        });
+                        
+                        overlay.addEventListener('click', (e) => {
+                            if(e.target === overlay) {
+                                document.body.removeChild(overlay);
+                            }
+                        });
+                    } else {
+                        console.log('Une seule photo trouvée, pas de navigation nécessaire');
+                    }
+                } else {
+                    console.log('Aucun photo container trouvé');
+                }
+            }
         });
     </script>
 </body>
