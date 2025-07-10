@@ -3,7 +3,9 @@ const translations = {
         // Navigation
         "nav.projects": "Projets",
         "nav.music": "Musique",
+        "nav.bibliographie": "Bibliographie",
         "nav.engagement": "Engagement",
+        "nav.partenariat": "Partenariat",
         "nav.contact": "Contact",
 
         // À propos
@@ -155,7 +157,9 @@ const translations = {
         // Navigation
         "nav.projects": "Projects",
         "nav.music": "Music",
+        "nav.bibliographie": "Bibliography",
         "nav.engagement": "Engagement",
+        "nav.partenariat": "Partnership",
         "nav.contact": "Contact",
 
         // About
@@ -307,7 +311,9 @@ const translations = {
         // Navigation
         "nav.projects": "Proyectos",
         "nav.music": "Música",
+        "nav.bibliographie": "Bibliografía",
         "nav.engagement": "Compromiso",
+        "nav.partenariat": "Asociación",
         "nav.contact": "Contacto",
 
         // About
@@ -459,7 +465,9 @@ const translations = {
         // Navigation
         "nav.projects": "Проекты",
         "nav.music": "Музыка",
+        "nav.bibliographie": "Библиография",
         "nav.engagement": "Вовлеченность",
+        "nav.partenariat": "Партнерство",
         "nav.contact": "Контакты",
 
         // About
