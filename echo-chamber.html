@@ -324,6 +324,7 @@
     </div>
 
     <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
     <script>
         // Vérification que translations.js est bien chargé
         if (typeof translations === 'undefined') {
@@ -340,27 +341,14 @@
         let isAudioPlaying = false;
         let currentVideoIndex = 0;
         const videos = ['chambre/vid-b.mp4', 'chambre/vid-c.mp4'];
-        let currentLanguage = 'fr';
 
-        // Fonction pour changer la langue
+        // Fonction pour changer la langue (maintenant gérée par language-persistence.js)
         window.toggleLanguage = function() {
             const languages = ['fr', 'en', 'es', 'ru'];
-            const languageNames = {
-                'fr': 'FR',
-                'en': 'EN',
-                'es': 'ES',
-                'ru': 'RU'
-            };
-            const currentIndex = languages.indexOf(currentLanguage);
-            currentLanguage = languages[(currentIndex + 1) % languages.length];
-            document.querySelector('.language-selector').textContent = languageNames[currentLanguage];
-            
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[currentLanguage] && translations[currentLanguage][key]) {
-                    element.textContent = translations[currentLanguage][key];
-                }
-            });
+            const currentLang = window.languageManager.getCurrentLanguage();
+            const currentIndex = languages.indexOf(currentLang);
+            const nextLang = languages[(currentIndex + 1) % languages.length];
+            window.languageManager.translatePage(nextLang);
         };
 
         // Gestion des images de la galerie

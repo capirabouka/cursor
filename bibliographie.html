@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibliographie - Anouche Lelong</title>
+    <title data-i18n="bibliographie.title">Bibliographie - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
     <style>
         .bibliographie-container {
             max-width: 900px;
@@ -106,12 +107,12 @@
     <nav class="main-nav">
         <div class="nav-links">
             <a href="index.html" class="home-circle"></a>
-            <a href="landing.html" class="nav-link">Projets</a>
-            <a href="musique.html" class="nav-link">Musiques</a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
             <a href="bibliographie.html" class="nav-link">Bibliographie</a>
-            <a href="engagement.html" class="nav-link">Engagement</a>
-            <a href="partenariat.html" class="nav-link">Partenariat</a>
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="language-selector">
             <button class="language-button">FR</button>
@@ -127,8 +128,8 @@
     <main class="bibliographie-container">
         
         <section>
-            <h2 class="section-title">Bibliographie</h2>
-            <p class="section-intro">
+            <h2 class="section-title" data-i18n="bibliographie.page_title">Bibliographie</h2>
+            <p class="section-intro" data-i18n="bibliographie.intro">
                 Cette sélection d'ouvrages traverse des univers variés, mêlant fiction, essais, philosophie et poésie contemporaine, qui nourrissent la réflexion artistique et critique :
             </p>
             
@@ -152,8 +153,8 @@
         </section>
 
         <section>
-            <h2 class="section-title">Inspirations</h2>
-            <p class="section-intro">
+            <h2 class="section-title" data-i18n="bibliographie.inspirations.title">Inspirations</h2>
+            <p class="section-intro" data-i18n="bibliographie.inspirations.intro">
                 Un ensemble d'artistes, penseurs, chercheurs et créateurs dont les démarches pluridisciplinaires et engagées éclairent et inspirent le travail, entre art sonore, installation, écologie, sciences sociales et pratiques critiques :
             </p>
             
@@ -187,5 +188,10 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
+    <script>
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
+    </script>
 </body>
 </html> 

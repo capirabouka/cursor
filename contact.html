@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Anouche Lelong</title>
+    <title data-i18n="contact.title">Contact - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
     <style>
         body {
             background: var(--bg-color);
@@ -148,12 +149,12 @@
     <nav class="main-nav">
         <div class="nav-links">
             <a href="index.html" class="home-circle"></a>
-            <a href="landing.html" class="nav-link">Projets</a>
-            <a href="musique.html" class="nav-link">Musiques</a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
             <a href="bibliographie.html" class="nav-link">Bibliographie</a>
-            <a href="engagement.html" class="nav-link">Engagement</a>
-            <a href="partenariat.html" class="nav-link">Partenariat</a>
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="language-selector">
             <button class="language-button">FR</button>
@@ -168,24 +169,24 @@
 
     <main class="contact-section">
         <div class="contact-content">
-            <h2 class="contact-title">Pour toute collaboration</h2>
+            <h2 class="contact-title" data-i18n="contact.page_title">Pour toute collaboration</h2>
             <div class="contact-links">
                 <div>
-                    <div class="contact-label">Mail</div>
+                    <div class="contact-label" data-i18n="contact.mail">Mail</div>
                     <a href="mailto:anouche.lng@gmail.com" class="contact-link">
                         <span class="contact-icon">→</span>
                         anouche.lng@gmail.com
                     </a>
                 </div>
                 <div>
-                    <div class="contact-label">Telegram</div>
+                    <div class="contact-label" data-i18n="contact.telegram">Telegram</div>
                     <a href="https://t.me/anoushlng" target="_blank" class="contact-link">
                         <span class="contact-icon">→</span>
                         @anoushlng
                     </a>
                 </div>
                 <div>
-                    <div class="contact-label">WhatsApp</div>
+                    <div class="contact-label" data-i18n="contact.whatsapp">WhatsApp</div>
                     <a href="https://wa.me/33787585137" target="_blank" class="contact-link">
                         <span class="contact-icon">→</span>
                         +337 87 58 51 37
@@ -196,5 +197,10 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
+    <script>
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
+    </script>
 </body>
 </html> 

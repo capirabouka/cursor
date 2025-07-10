@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engagement - Anouche Lelong</title>
+    <title data-i18n="engagement.title">Engagement - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
     <style>
         .engagement-container {
             max-width: 800px;
@@ -57,12 +58,12 @@
     <nav class="main-nav">
         <div class="nav-links">
             <a href="index.html" class="home-circle"></a>
-            <a href="landing.html" class="nav-link">Projets</a>
-            <a href="musique.html" class="nav-link">Musiques</a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
             <a href="bibliographie.html" class="nav-link">Bibliographie</a>
-            <a href="engagement.html" class="nav-link">Engagement</a>
-            <a href="partenariat.html" class="nav-link">Partenariat</a>
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
         </div>
         <div class="language-selector">
             <button class="language-button">FR</button>
@@ -76,21 +77,26 @@
     </nav>
 
     <main class="engagement-container">
-        <h1 class="page-title">Engagement</h1>
+        <h1 class="page-title" data-i18n="engagement.page_title">Engagement</h1>
         
-        <p class="engagement-text">
+        <p class="engagement-text" data-i18n="engagement.text1">
             Anouche Lelong inscrit son travail dans une recherche esthétique, politique et sensible, indissociable des réalités sociales, écologiques et historiques qui traversent nos corps et nos espaces. Son engagement ne prend pas la forme du manifeste ou du slogan, mais celle d'une écoute active, d'un déplacement constant, d'un refus des évidences.
         </p>
 
-        <p class="engagement-text">
+        <p class="engagement-text" data-i18n="engagement.text2">
             À travers le son, le vide, les matières brutes ou altérées, elle interroge les structures de pouvoir, les récits dominants, les zones d'oppression et d'exil. Elle porte une attention particulière aux traces du vivant, aux silences produits par l'effondrement en cours, aux formes sensibles que prend la catastrophe.
         </p>
 
-        <p class="engagement-text">
+        <p class="engagement-text" data-i18n="engagement.text3">
             Sa pratique s'inscrit dans une conscience aiguë des enjeux climatiques : choix des matériaux, rythmes de production, déplacements : chaque geste est pensé avec sobriété. Sans prôner une pureté illusoire, elle cherche une justesse, une cohérence entre le fond et la forme, entre l'acte de création et la situation du monde.
         </p>
     </main>
 
     <script src="script.js"></script>
+    <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
+    <script>
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
+    </script>
 </body>
 </html> 

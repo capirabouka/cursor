@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partenariat - NPAK Centre d'Art Contemporain</title>
+    <title data-i18n="partenariat.title">Partenariat - NPAK Centre d'Art Contemporain</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -270,12 +270,12 @@
     <main>
         <section class="partnership-section">
             <div class="partnership-content">
-                <h2>Partenariat</h2>
+                <h2 data-i18n="partenariat.page_title">Partenariat</h2>
                 
                 <div class="partners-section">
                     <div class="partners-grid">
                         <div class="partner-item">
-                            <span class="partner-title">NPAK - Centre d'Art Contemporain de Erevan</span>
+                            <span class="partner-title" data-i18n="partenariat.npak">NPAK - Centre d'Art Contemporain de Erevan</span>
                             <div class="partner-logo-container">
                                 <a href="https://www.accea.info/" target="_blank" class="npak-link">
                                     <img src="logo npak.jpg" alt="Logo NPAK" class="npak-logo logo-npak">
@@ -284,13 +284,13 @@
                         </div>
                         
                         <div class="partner-item">
-                            <span class="partner-title">Elfe Editions - Compositions Musicales</span>
+                            <span class="partner-title" data-i18n="partenariat.elfe">Elfe Editions - Compositions Musicales</span>
                             <div class="partner-logo-container">
                                 <img src="elfe.jpeg" alt="Logo ELF" class="npak-logo logo-elf">
                             </div>
                         </div>
                         <div class="partner-item">
-                            <span class="partner-title">EBABX - École Supérieure des Beaux-Arts de Bordeaux</span>
+                            <span class="partner-title" data-i18n="partenariat.ebabx">EBABX - École Supérieure des Beaux-Arts de Bordeaux</span>
                             <div class="partner-logo-container">
                                 <a href="https://www.ebabx.fr/fr" target="_blank" rel="noopener">
                                     <img src="ebabx.jpg" alt="Logo EBABX" class="npak-logo logo-ebabx">
@@ -305,6 +305,8 @@
         </section>
     </main>
 
+    <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
     <script>
         // Animation d'apparition des éléments
         function handleScroll() {
@@ -324,6 +326,8 @@
         window.addEventListener('scroll', handleScroll);
         // Déclencher une première fois pour les éléments déjà visibles
         handleScroll();
+
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
     </script>
 </body>
 </html> 

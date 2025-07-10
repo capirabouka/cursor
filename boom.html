@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="translations.js"></script>
     <script src="script.js"></script>
+    <script src="language-persistence.js"></script>
     <style>
         body {
             margin: 0;
@@ -162,20 +163,7 @@
     </div>
 
     <script>
-        // Gestion du sélecteur de langue
-        document.addEventListener('DOMContentLoaded', function() {
-            const languageButton = document.querySelector('.language-button');
-            const languageLinks = document.querySelectorAll('.language-dropdown a');
-
-            languageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const lang = this.getAttribute('data-lang');
-                    languageButton.textContent = lang.toUpperCase();
-                    translatePage(lang);
-                });
-            });
-        });
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
     </script>
 </body>
 </html> 

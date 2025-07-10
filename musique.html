@@ -617,7 +617,7 @@
     <!-- Panneau audio -->
     <div class="audio-panel" id="audio-panel">
         <button class="close-panel" id="close-audio-panel">×</button>
-        <h2 class="audio-title" id="audio-title">Titre</h2>
+        <h2 class="audio-title" id="audio-title" data-i18n="music.titre">Titre</h2>
         <div class="tracks-list" id="tracks-list">
             <!-- Les pistes audio seront ajoutées ici dynamiquement -->
         </div>
@@ -627,7 +627,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
     <script>
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
+
         // Initialisation de la scène
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0xFFFFFF); // Blanc ultra-pur
@@ -715,7 +719,7 @@
         // Données des pistes audio avec commentaires
         const audioData = {
             meza: {
-                title: "Projet musical et sonore",
+                title: "music.project_musical",
                 tracks: [
                     {
                         name: "Arev",
@@ -750,7 +754,7 @@
                 ]
             },
             mezb: {
-                title: "Histoire et performance",
+                title: "music.histoire_performance",
                 tracks: [
                     {
                         name: "Origin",
@@ -779,7 +783,7 @@
                 ]
             },
             mezc: {
-                title: "Composition libre",
+                title: "music.composition_libre",
                 tracks: [
                     {
                         name: "Ice",
@@ -814,7 +818,7 @@
                 ]
             },
             mezac: {
-                title: "Journal audio",
+                title: "music.journal_audio",
                 tracks: [
                     {
                         name: "De nos jours - 2019:2020",
@@ -989,9 +993,6 @@
             }
         }
 
-        // Initialiser tous les audios au chargement
-        initializeAudioPlayers();
-
         // Fonction pour vérifier le support des formats audio
         function checkAudioSupport() {
             const audio = document.createElement('audio');
@@ -1020,48 +1021,79 @@
         // Vérifier le support au chargement
         checkAudioSupport();
 
-        // Gestion des clics sur les images
-        document.querySelectorAll('.image-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const imageType = item.getAttribute('data-image');
-                const data = audioData[imageType];
-                
-                if (data) {
-                    // Positionner le panneau près de l'image cliquée
-                    const rect = item.getBoundingClientRect();
-                    const audioPanel = document.getElementById('audio-panel');
+        // Initialisation complète après le chargement du DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Début de l\'initialisation...');
+            
+            // Initialiser les audios
+            console.log('Initialisation des audios...');
+            initializeAudioPlayers();
+            console.log('Audios initialisés');
+            
+            // Gestion des clics sur les images
+            console.log('Configuration des gestionnaires d\'événements...');
+            document.querySelectorAll('.image-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    console.log('Clic sur image détecté:', item.getAttribute('data-image'));
+                    const imageType = item.getAttribute('data-image');
+                    const data = audioData[imageType];
                     
-                    // Calculer la position horizontale de l'image
-                    const imageCenterX = rect.left + rect.width / 2;
-                    const panelWidth = 700; // Largeur max du panneau
-                    const panelLeft = Math.max(20, Math.min(window.innerWidth - panelWidth - 20, imageCenterX - panelWidth / 2));
-                    
-                    // Positionner le panneau en dessous de l'image
-                    const panelTop = rect.bottom + 80;
-                    
-                    audioPanel.style.left = `${panelLeft}px`;
-                    audioPanel.style.top = `${panelTop}px`;
-                    audioPanel.style.transform = 'none';
-                    
-                    document.getElementById('audio-title').textContent = data.title;
-                    
-                    createTrackInterface(imageType, data);
-                    
-                    document.getElementById('audio-panel').classList.add('visible');
-                }
+                    if (data) {
+                        console.log('Données trouvées pour:', imageType);
+                        // Positionner le panneau près de l'image cliquée
+                        const rect = item.getBoundingClientRect();
+                        const audioPanel = document.getElementById('audio-panel');
+                        
+                        // Calculer la position horizontale de l'image
+                        const imageCenterX = rect.left + rect.width / 2;
+                        const panelWidth = 700; // Largeur max du panneau
+                        const panelLeft = Math.max(20, Math.min(window.innerWidth - panelWidth - 20, imageCenterX - panelWidth / 2));
+                        
+                        // Positionner le panneau en dessous de l'image
+                        const panelTop = rect.bottom + 80;
+                        
+                        audioPanel.style.left = `${panelLeft}px`;
+                        audioPanel.style.top = `${panelTop}px`;
+                        audioPanel.style.transform = 'none';
+                        
+                        // Traduire le titre si c'est une clé de traduction
+                        const titleElement = document.getElementById('audio-title');
+                        const currentLang = window.languageManager ? window.languageManager.getCurrentLanguage() : 'fr';
+                        if (translations && translations[currentLang] && translations[currentLang][data.title]) {
+                            titleElement.textContent = translations[currentLang][data.title];
+                        } else {
+                            titleElement.textContent = data.title;
+                        }
+                        
+                        createTrackInterface(imageType, data);
+                        
+                        document.getElementById('audio-panel').classList.add('visible');
+                        console.log('Panneau audio affiché');
+                    } else {
+                        console.error('Aucune donnée trouvée pour:', imageType);
+                    }
+                });
             });
-        });
 
-        // Fermeture du panneau audio
-        document.getElementById('close-audio-panel').addEventListener('click', () => {
-            document.getElementById('audio-panel').classList.remove('visible');
-        });
-
-        // Fermeture en cliquant en dehors du panneau
-        document.getElementById('audio-panel').addEventListener('click', (e) => {
-            if (e.target.id === 'audio-panel') {
-                document.getElementById('audio-panel').classList.remove('visible');
+            // Fermeture du panneau audio
+            const closeButton = document.getElementById('close-audio-panel');
+            if (closeButton) {
+                closeButton.addEventListener('click', () => {
+                    document.getElementById('audio-panel').classList.remove('visible');
+                });
             }
+
+            // Fermeture en cliquant en dehors du panneau
+            const audioPanel = document.getElementById('audio-panel');
+            if (audioPanel) {
+                audioPanel.addEventListener('click', (e) => {
+                    if (e.target.id === 'audio-panel') {
+                        document.getElementById('audio-panel').classList.remove('visible');
+                    }
+                });
+            }
+            
+            console.log('Initialisation terminée');
         });
     </script>
 </body>

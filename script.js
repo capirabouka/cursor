@@ -98,43 +98,7 @@ function handleScroll() {
     });
 }
 
-// Gestion des langues
-function changeLanguage(lang) {
-    const translations = {
-        fr: {
-            projects: 'Projets',
-            musique: 'Musique',
-            engagement: 'Engagement',
-            contact: 'Contact'
-        },
-        en: {
-            projects: 'Projects',
-            musique: 'Music',
-            engagement: 'Commitment',
-            contact: 'Contact'
-        },
-        es: {
-            projects: 'Proyectos',
-            musique: 'Música',
-            engagement: 'Compromiso',
-            contact: 'Contacto'
-        },
-        ru: {
-            projects: 'Проекты',
-            musique: 'Музыка',
-            engagement: 'Участие',
-            contact: 'Контакт'
-        }
-    };
-
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        const section = link.getAttribute('href').substring(1);
-        if (translations[lang] && translations[lang][section]) {
-            link.textContent = translations[lang][section];
-        }
-    });
-}
+// La gestion des langues est maintenant gérée par language-persistence.js
 
 // Initialisation du lecteur audio
 function initAudioPlayer() {
