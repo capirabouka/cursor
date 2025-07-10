@@ -908,12 +908,6 @@
                         comment: "Composition progressive pour spectacle de danse contemporaine avec Joana Millet - 2021"
                     },
                     {
-                        name: "Gate 17A", 
-                        duration: "4:16",
-                        audioSrc: "MUSIQUES/mu/Gate 17A.mp3",
-                        comment: "Projet musique/vidéo avec textures aériennes - 2024"
-                    },
-                    {
                         name: "Tsavuy I",
                         duration: "5:07",
                         audioSrc: "MUSIQUES/mu/Tsavuy 1.mp3",
@@ -929,7 +923,17 @@
                         name: "L'auréole du monde",
                         duration: "3:48",
                         audioSrc: "MUSIQUES/mu/alarme.mp3",
-                        comment: "Exposition sur la fiction du réel à Erevan - 2023"
+                        comment: "Exposition sur la fiction du réel à Erevan - 2023",
+                        photos: [
+                            "aureole.jpg",
+                            "aureoleu.jpg"
+                        ]
+                    },
+                    {
+                        name: "Gate 17A", 
+                        duration: "4:16",
+                        audioSrc: "MUSIQUES/mu/Gate 17A.mp3",
+                        comment: "Projet musique/vidéo avec textures aériennes - 2024"
                     }
                 ]
             },
@@ -940,13 +944,20 @@
                         name: "Origin",
                         duration: "19:12",
                         audioSrc: "MUSIQUES/mumu/Origin.mp3",
-                        comment: "Composition expérimentale - 2020"
+                        comment: "Composition expérimentale - 2020",
+                        photos: [
+                            "origin.jpg"
+                        ]
                     },
                     {
                         name: "Parasite",
                         duration: "7:13",
                         audioSrc: "MUSIQUES/mumu/Parasite.mp3",
-                        comment: "Exploration sonore des textures urbaines - 2020"
+                        comment: "Exploration sonore des textures urbaines - 2020",
+                        photos: [
+                            "Loosin.jpeg",
+                            "oui.png"
+                        ]
                     },
                     {
                         name: "32° Farenheit",
@@ -964,7 +975,10 @@
                         name: "Loosin",
                         duration: "5:42",
                         audioSrc: "MUSIQUES/mumu/Loosin.mp3",
-                        comment: "Balade sonore sur le thème de la dictature internationale - 2021"
+                        comment: "Balade sonore sur le thème de la dictature internationale - 2021",
+                        photos: [
+                            "ambiance.jpg"
+                        ]
                     }
                 ]
             },
@@ -1396,8 +1410,8 @@
                     console.log('Liste finale des photos:', photos);
                     console.log('Index actuel:', currentIndex);
                     
-                    if(photos.length > 1) {
-                        console.log('Plusieurs photos trouvées, création de l\'overlay');
+                    if(photos.length > 0) {
+                        console.log('Photo(s) trouvée(s), création de l\'overlay');
                         
                         // Créer l'overlay
                         let overlay = document.createElement('div');
