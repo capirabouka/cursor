@@ -145,6 +145,37 @@
             border: none;
             aspect-ratio: 16/9;
         }
+        
+        /* Masquer les suggestions Vimeo */
+        .video-container iframe + div,
+        .video-container iframe ~ div,
+        .vp-preview,
+        .vp-suggestions,
+        .vp-suggestions-overlay,
+        .vp-suggestions-panel,
+        .vp-suggestions-list,
+        .vp-suggestions-item,
+        .vp-suggestions-thumbnail,
+        .vp-suggestions-title,
+        .vp-suggestions-duration,
+        .vp-suggestions-author,
+        .vp-suggestions-description,
+        .vp-suggestions-more,
+        .vp-suggestions-close,
+        .vp-suggestions-header,
+        .vp-suggestions-footer,
+        .vp-suggestions-container,
+        .vp-suggestions-wrapper,
+        .vp-suggestions-content,
+        .vp-suggestions-scroll,
+        .vp-suggestions-scrollbar,
+        .vp-suggestions-scrollbar-thumb,
+        .vp-suggestions-scrollbar-track {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
 
         .close-button {
             position: absolute;
@@ -282,7 +313,7 @@
 
     <script>
         const videos = [
-            { src: "https://player.vimeo.com/video/1100817888?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0&dnt=1&sidedock=0&pip=0&controls=1&loop=0&muted=0&transparent=0&autopause=0", type: "vimeo", title: "Martina" },
+            { src: "https://player.vimeo.com/video/1100817888?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0&dnt=1&sidedock=0&pip=0&controls=1&loop=0&muted=0&transparent=0&autopause=0&showinfo=0&rel=0&color=ffffff&background=000000", type: "vimeo", title: "Martina" },
             { src: "videos-/Michael-Atasoonts.mp4", type: "local", title: "Michael-Atasoonts" },
             { src: "videos-/Nathalie-Karibian.mp4", type: "local", title: "Nathalie-Karibian" },
             { src: "videos-/Patti-Smith.mp4", type: "local", title: "Patti-Smith" },
