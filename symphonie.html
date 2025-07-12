@@ -18,10 +18,42 @@
             background-color: #ffffff;
         }
 
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            z-index: 200;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .back-button::before {
+            content: '←';
+            font-size: 18px;
+            color: #000;
+            font-weight: 300;
+        }
+
         .title {
             position: fixed;
             top: 20px;
-            left: 20px;
+            left: 90px;
             font-size: 32px;
             font-weight: 300;
             color: #000;
@@ -210,6 +242,47 @@
         .project-description p:last-child {
             margin-bottom: 0;
         }
+
+        /* Responsive pour mobile */
+        @media (max-width: 768px) {
+            .back-button {
+                width: 35px;
+                height: 35px;
+                top: 20px;
+                left: 20px;
+            }
+
+            .back-button::before {
+                font-size: 16px;
+            }
+
+            .title {
+                font-size: 24px;
+                top: 15px;
+                left: 70px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                width: 30px;
+                height: 30px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .back-button::before {
+                font-size: 14px;
+            }
+
+            .title {
+                font-size: 20px;
+                top: 10px;
+                left: 55px;
+                padding: 6px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -222,6 +295,7 @@
         <span data-i18n="audio.not_supported">Votre navigateur ne supporte pas l'élément audio.</span>
     </audio>
     
+    <a href="landing.html" class="back-button"></a>
     <div class="title">Symphonie du déclin</div>
 
     <div class="project-description">
