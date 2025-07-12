@@ -17,7 +17,7 @@ const translations = {
 
         // Présentation artiste
         "artist.name": "Anouche Lelong",
-        "artist.title": "Installation sonore • Performance • Engagement",
+        "artist.title": "Installation sonore • Composition",
         "artist.description1": "Artiste pluridisciplinaire, Anouche Lelong explore le son, la matière et le vide comme vecteurs de tension et de transformation.",
         "artist.description2": "Ses installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil tout en ouvrant des zones de passage, de bascule et de mutation sensible.",
         "artist.description3": "Conçues comme des espaces d'écoute, de dérèglement et de résonance, ses pièces invitent à percevoir autrement.",
@@ -171,7 +171,7 @@ const translations = {
 
         // Artist presentation
         "artist.name": "Anouche Lelong",
-        "artist.title": "Sound Installation • Performance • Engagement",
+        "artist.title": "Sound Installation • Composition",
         "artist.description1": "Multidisciplinary artist, Anouche Lelong explores sound, matter, and emptiness as vectors of tension and transformation.",
         "artist.description2": "Her installations question power relations, mechanisms of oppression, and movements of exile while opening zones of passage, tipping points, and sensitive mutation.",
         "artist.description3": "Designed as spaces of listening, disruption, and resonance, her pieces invite us to perceive differently.",
@@ -325,7 +325,7 @@ const translations = {
 
         // Presentación del artista
         "artist.name": "Anouche Lelong",
-        "artist.title": "Instalación Sonora • Performance • Compromiso",
+        "artist.title": "Instalación Sonora • Composición",
         "artist.description1": "Artista multidisciplinaria, Anouche Lelong explora el sonido, la materia y el vacío como vectores de tensión y transformación.",
         "artist.description2": "Sus instalaciones cuestionan las relaciones de poder, los mecanismos de opresión y los movimientos de exilio mientras abren zonas de paso, puntos de inflexión y mutación sensible.",
         "artist.description3": "Diseñadas como espacios de escucha, desregulación y resonancia, sus piezas invitan a percibir de otra manera.",
@@ -479,7 +479,7 @@ const translations = {
 
         // Презентация художника
         "artist.name": "Ануш Леллонг",
-        "artist.title": "Звуковая Инсталляция • Перформанс • Вовлеченность",
+        "artist.title": "Звуковая Инсталляция • Композиция",
         "artist.description1": "Мультидисциплинарный художник, Ануш Леллонг исследует звук, материю и пустоту как векторы напряжения и трансформации.",
         "artist.description2": "Ее инсталляции исследуют отношения власти, механизмы угнетения и движения изгнания, открывая зоны перехода, переломные моменты и чувственную мутацию.",
         "artist.description3": "Созданные как пространства слушания, нарушения и резонанса, ее работы приглашают воспринимать по-другому.",
