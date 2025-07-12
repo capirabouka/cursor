@@ -261,6 +261,7 @@
     <div class="video-container" id="videoContainer">
         <button class="close-button" id="closeButton">&times;</button>
         <video id="videoPlayer" controls></video>
+        <iframe id="vimeoPlayer" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display: none; width: 100%; height: 100%;"></iframe>
     </div>
 
     <div class="project-description">
@@ -271,43 +272,44 @@
 
     <script>
         const videos = [
-            "videos-/Rita-Salnikova.mp4",
-            "videos-/Michael-Atasoonts.mp4",
-            "videos-/Nathalie-Karibian.mp4",
-            "videos-/Patti-Smith.mp4",
-            "videos-/Samar.mp4",
-            "videos-/Stella-Grigoryan.mp4",
-            "videos-/Tathev-Taryan.mp4",
-            "videos-/Stéphane Karibian.mp4",
-            "videos-/Silva Chobanyan.mp4",
-            "videos-/Sébastien Karibian.mp4",
-            "videos-/Masha Pospevola.mp4",
-            "videos-/Camille.mp4",
-            "videos-/Bogdan Zubov.mp4",
-            "videos-/Betty Karibian.mp4",
-            "videos-/Bela Poghosyan.mp4",
-            "videos-/Aram Zurabyan.mp4",
-            "videos-/Anton Adrienko.mp4",
-            "videos-/Anna Gordeeva.mp4",
-            "videos-/Ani Khitapszyan.mp4",
-            "videos-/Angie Stifler.mp4",
-            "videos-/Amir Zakariazadeh.mp4",
-            "videos-/Achode Karibian.mp4",
-            "videos-/Hakob Balayan.mp4",
-            "videos-/Liza Drudi.mp4",
-            "videos-/Jean.mp4",
-            "videos-/Leon Gaskin.mp4",
-            "videos-/Luna Sybil.mp4",
-            "videos-/Mariana.mp4",
-            "videos-/Joana Millet.mp4",
-            "videos-/Kolay Shatalov.mp4",
-            "videos-/Marie-Aïda Karibian.mp4",
-            "videos-/Martina.mp4"
+            { src: "videos-/Rita-Salnikova.mp4", type: "local", title: "Rita-Salnikova" },
+            { src: "videos-/Michael-Atasoonts.mp4", type: "local", title: "Michael-Atasoonts" },
+            { src: "videos-/Nathalie-Karibian.mp4", type: "local", title: "Nathalie-Karibian" },
+            { src: "videos-/Patti-Smith.mp4", type: "local", title: "Patti-Smith" },
+            { src: "videos-/Samar.mp4", type: "local", title: "Samar" },
+            { src: "videos-/Stella-Grigoryan.mp4", type: "local", title: "Stella-Grigoryan" },
+            { src: "videos-/Tathev-Taryan.mp4", type: "local", title: "Tathev-Taryan" },
+            { src: "videos-/Stéphane Karibian.mp4", type: "local", title: "Stéphane Karibian" },
+            { src: "videos-/Silva Chobanyan.mp4", type: "local", title: "Silva Chobanyan" },
+            { src: "videos-/Sébastien Karibian.mp4", type: "local", title: "Sébastien Karibian" },
+            { src: "videos-/Masha Pospevola.mp4", type: "local", title: "Masha Pospevola" },
+            { src: "videos-/Camille.mp4", type: "local", title: "Camille" },
+            { src: "videos-/Bogdan Zubov.mp4", type: "local", title: "Bogdan Zubov" },
+            { src: "videos-/Betty Karibian.mp4", type: "local", title: "Betty Karibian" },
+            { src: "videos-/Bela Poghosyan.mp4", type: "local", title: "Bela Poghosyan" },
+            { src: "videos-/Aram Zurabyan.mp4", type: "local", title: "Aram Zurabyan" },
+            { src: "videos-/Anton Adrienko.mp4", type: "local", title: "Anton Adrienko" },
+            { src: "videos-/Anna Gordeeva.mp4", type: "local", title: "Anna Gordeeva" },
+            { src: "videos-/Ani Khitapszyan.mp4", type: "local", title: "Ani Khitapszyan" },
+            { src: "videos-/Angie Stifler.mp4", type: "local", title: "Angie Stifler" },
+            { src: "videos-/Amir Zakariazadeh.mp4", type: "local", title: "Amir Zakariazadeh" },
+            { src: "videos-/Achode Karibian.mp4", type: "local", title: "Achode Karibian" },
+            { src: "videos-/Hakob Balayan.mp4", type: "local", title: "Hakob Balayan" },
+            { src: "videos-/Liza Drudi.mp4", type: "local", title: "Liza Drudi" },
+            { src: "videos-/Jean.mp4", type: "local", title: "Jean" },
+            { src: "videos-/Leon Gaskin.mp4", type: "local", title: "Leon Gaskin" },
+            { src: "videos-/Luna Sybil.mp4", type: "local", title: "Luna Sybil" },
+            { src: "videos-/Mariana.mp4", type: "local", title: "Mariana" },
+            { src: "videos-/Joana Millet.mp4", type: "local", title: "Joana Millet" },
+            { src: "videos-/Kolay Shatalov.mp4", type: "local", title: "Kolay Shatalov" },
+            { src: "videos-/Marie-Aïda Karibian.mp4", type: "local", title: "Marie-Aïda Karibian" },
+            { src: "https://player.vimeo.com/video/1100817888?h=your_hash_here&autoplay=0&title=0&byline=0&portrait=0", type: "vimeo", title: "Martina" }
         ];
 
         const camera = document.getElementById('camera');
         const videoContainer = document.getElementById('videoContainer');
         const videoPlayer = document.getElementById('videoPlayer');
+        const vimeoPlayer = document.getElementById('vimeoPlayer');
         const closeButton = document.getElementById('closeButton');
 
         function createVideoSpace() {
@@ -324,14 +326,24 @@
                 const link = document.createElement('a');
                 link.href = '#';
                 link.className = 'video-link';
-                link.textContent = video.split('/').pop().replace('.mp4', '');
+                link.textContent = video.title;
                 link.style.left = `${x}px`;
                 link.style.top = `${y}px`;
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    videoPlayer.src = video;
+                    if (video.type === 'vimeo') {
+                        // Afficher la vidéo Vimeo avec exactement le même format
+                        videoPlayer.style.display = 'none';
+                        vimeoPlayer.style.display = 'block';
+                        vimeoPlayer.src = video.src;
+                    } else {
+                        // Afficher la vidéo locale
+                        videoPlayer.style.display = 'block';
+                        vimeoPlayer.style.display = 'none';
+                        videoPlayer.src = video.src;
+                        videoPlayer.play();
+                    }
                     videoContainer.classList.add('active');
-                    videoPlayer.play();
                 });
                 camera.appendChild(link);
 
@@ -352,6 +364,9 @@
             videoContainer.classList.remove('active');
             videoPlayer.pause();
             videoPlayer.src = '';
+            vimeoPlayer.src = '';
+            videoPlayer.style.display = 'block';
+            vimeoPlayer.style.display = 'none';
         });
 
         createVideoSpace();
