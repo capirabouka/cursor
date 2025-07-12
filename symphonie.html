@@ -66,13 +66,14 @@
         }
 
         .audio-section {
-            margin-top: 40px;
+            margin-top: 60px;
             padding: 40px 20px;
             text-align: center;
             background: rgba(245, 245, 245, 0.3);
             border-radius: 10px;
             margin-left: 20px;
             margin-right: 20px;
+            margin-bottom: 50px;
         }
 
         .audio-container {
@@ -132,13 +133,18 @@
         }
 
         .media-section {
-            padding: 60px 20px 40px 20px;
+            padding: 0 20px 40px 20px;
+            margin-top: 20vh;
         }
 
         .media-item {
             max-width: 100%;
-            margin: 0 auto 80px auto;
+            margin: 0 auto;
             text-align: center;
+        }
+        
+        .media-item:not(:first-child) {
+            margin-top: 120px;
         }
 
         .media-item img {
@@ -158,7 +164,7 @@
         }
 
         .video-section {
-            margin-top: 80px;
+            margin-top: 200px;
         }
 
         .image-container {
@@ -186,7 +192,7 @@
 
         .image-container img {
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -298,35 +304,40 @@
     <a href="landing.html" class="back-button"></a>
     <div class="title">Symphonie du déclin</div>
 
-    <div class="project-description">
-        <p>Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
-        <p>Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
-        <p>L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
-    </div>
+
 
     <div class="media-section">
         <div class="media-item">
-            <div class="image-description">
-                Installation/performance avec des tours de Kapla et un robot aspirateur, accompagnée de la musique « La Symphonie du déclin »
-            </div>
             <div class="image-container">
-                <img src="bom.JPG" alt="Symphonie du déclin" id="image1" class="active">
-                <img src="bombom.JPG" alt="Symphonie du déclin" id="image2" class="hidden">
+                <img src="celle.jpg" alt="Symphonie du déclin" id="image1" class="active">
+                <img src="bom.JPG" alt="Symphonie du déclin" id="image2" class="hidden">
+                <img src="bombom.JPG" alt="Symphonie du déclin" id="image3" class="hidden">
                 <div class="arrow" onclick="toggleImage()">→</div>
             </div>
-        </div>
-        
-        <div class="credits">
-            DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux
+            <div class="image-description" style="margin-top: 20px;">
+                Installation/performance avec des tours de Kapla et un robot aspirateur, accompagnée de la musique « La Symphonie du déclin »
+            </div>
+            <div class="credits" style="margin-top: 10px;">
+                DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux
+                <div style="text-align: center; margin-top: 65px; font-size: 16px; color: #666; opacity: 0.8;">↓</div>
+            </div>
         </div>
         
         <div class="video-section">
             <div class="media-item">
-                <video controls>
-                    <source src="perf-symph.mp4" type="video/mp4">
-                    <span data-i18n="video.not_supported">Votre navigateur ne supporte pas l'élément vidéo.</span>
-                </video>
+                <iframe src="https://player.vimeo.com/video/1100817664?h=share&title=0&byline=0&portrait=0&autoplay=0&loop=0&color=ffffff" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen
+                        style="width: 100%; max-width: 1400px; height: auto; min-height: 550px;">
+                </iframe>
             </div>
+        </div>
+        
+        <div class="project-description" style="margin-top: 80px; padding: 0 20px;">
+            <p>Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
+            <p>Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
+            <p>L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
         </div>
     </div>
 
@@ -410,6 +421,7 @@
         function toggleImage() {
             const image1 = document.getElementById('image1');
             const image2 = document.getElementById('image2');
+            const image3 = document.getElementById('image3');
             const arrow = document.querySelector('.arrow');
             
             if (image1.classList.contains('active')) {
@@ -417,10 +429,16 @@
                 image1.classList.add('hidden');
                 image2.classList.remove('hidden');
                 image2.classList.add('active');
-                arrow.textContent = '←';
-            } else {
+                arrow.textContent = '→';
+            } else if (image2.classList.contains('active')) {
                 image2.classList.remove('active');
                 image2.classList.add('hidden');
+                image3.classList.remove('hidden');
+                image3.classList.add('active');
+                arrow.textContent = '←';
+            } else {
+                image3.classList.remove('active');
+                image3.classList.add('hidden');
                 image1.classList.remove('hidden');
                 image1.classList.add('active');
                 arrow.textContent = '→';

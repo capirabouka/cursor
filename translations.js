@@ -1,8 +1,8 @@
 const translations = {
     fr: {
         // Navigation
-        "nav.projects": "Projets",
-        "nav.music": "Musique",
+        "nav.projects": "Installation",
+        "nav.music": "Composition",
         "nav.bibliographie": "Bibliographie",
         "nav.engagement": "Engagement",
         "nav.partenariat": "Partenariat",
@@ -42,7 +42,7 @@ const translations = {
         "button.listen_see": "écoutez-voir",
 
         // Projets
-        "projects.title": "Projets",
+        "projects.title": "Installation",
         "projects.resonances": "Résonances Disloquées",
         "projects.resonances.description": "Ce travail artistique autour de la fin du monde mêle voix, sons, images et installations pour offrir des expériences sensorielles et réflexives. Chaque projet croise récits intimes, imaginaires et phénomènes physiques, entre contrôle et hasard, présence et disparition. De la cartographie vocale aux sons de la glace fondante, en passant par la déconstruction des illusions et la métaphore sonore du déclin, ces travaux invitent à une écoute attentive et à une contemplation sensible des transformations du monde et de notre rapport à elles, entre poésie, inquiétude et distanciation critique.",
         "projects.borders": "Le bruit des frontières",
@@ -103,7 +103,7 @@ const translations = {
         "apocalypse.warning": "NE PAS APPUYER",
 
         // Musique
-        "music.title": "Musique - Anouche Lelong",
+        "music.title": "Composition - Anouche Lelong",
         "music.project_musical": "Projet musical et sonore",
         "music.histoire_performance": "Histoire et performance",
         "music.composition_libre": "Composition libre",
@@ -155,8 +155,8 @@ const translations = {
     },
     en: {
         // Navigation
-        "nav.projects": "Projects",
-        "nav.music": "Music",
+        "nav.projects": "Installation",
+        "nav.music": "Composition",
         "nav.bibliographie": "Bibliography",
         "nav.engagement": "Engagement",
         "nav.partenariat": "Partnership",
@@ -196,7 +196,7 @@ const translations = {
         "button.listen_see": "listen-see",
 
         // Projects
-        "projects.title": "Projects",
+        "projects.title": "Installation",
         "projects.resonances": "Dislocated Resonances",
         "projects.resonances.description": "This artistic work around the end of the world mixes voices, sounds, images, and installations to offer sensory and reflective experiences. Each project crosses intimate narratives, imaginaries, and physical phenomena, between control and chance, presence and disappearance. From vocal cartography to the sounds of melting ice, through the deconstruction of illusions and the sonic metaphor of decline, these works invite attentive listening and sensitive contemplation of the world's transformations and our relationship to them, between poetry, concern, and critical distance.",
         "projects.borders": "The Noise of Borders",
@@ -257,7 +257,7 @@ const translations = {
         "apocalypse.warning": "DO NOT PRESS",
 
         // Music
-        "music.title": "Music - Anouche Lelong",
+        "music.title": "Composition - Anouche Lelong",
         "music.project_musical": "Musical and sound project",
         "music.histoire_performance": "History and performance",
         "music.composition_libre": "Free composition",
@@ -309,8 +309,8 @@ const translations = {
     },
     es: {
         // Navigation
-        "nav.projects": "Proyectos",
-        "nav.music": "Música",
+        "nav.projects": "Instalación",
+        "nav.music": "Composición",
         "nav.bibliographie": "Bibliografía",
         "nav.engagement": "Compromiso",
         "nav.partenariat": "Asociación",
@@ -463,8 +463,8 @@ const translations = {
     },
     ru: {
         // Navigation
-        "nav.projects": "Проекты",
-        "nav.music": "Музыка",
+        "nav.projects": "Инсталляция",
+        "nav.music": "Композиция",
         "nav.bibliographie": "Библиография",
         "nav.engagement": "Вовлеченность",
         "nav.partenariat": "Партнерство",
@@ -504,7 +504,7 @@ const translations = {
         "button.listen_see": "слушай-смотри",
 
         // Проекты
-        "projects.title": "Проекты",
+        "projects.title": "Инсталляция",
         "projects.resonances": "Разъединенные Резонансы",
         "projects.resonances.description": "Эта художественная работа вокруг конца света смешивает голоса, звуки, образы и инсталляции, чтобы предложить сенсорные и рефлексивные переживания. Каждый проект пересекает интимные повествования, воображаемые миры и физические явления, между контролем и случаем, присутствием и исчезновением. От вокальной картографии до звуков тающего льда, через деконструкцию иллюзий и звуковую метафору упадка, эти работы приглашают к внимательному слушанию и чувственному созерцанию трансформаций мира и нашего отношения к ним, между поэзией, беспокойством и критической дистанцией.",
         "projects.borders": "Шум границ",
@@ -565,7 +565,7 @@ const translations = {
         "apocalypse.warning": "НЕ НАЖИМАТЬ",
 
         // Музыка
-        "music.title": "Музыка - Ануш Леллонг",
+        "music.title": "Композиция - Ануш Леллонг",
         "music.project_musical": "Музыкальный и звуковой проект",
         "music.histoire_performance": "История и перформанс",
         "music.composition_libre": "Свободная композиция",
