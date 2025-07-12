@@ -128,13 +128,22 @@
             display: block;
         }
 
-        .video-container video,
+        .video-container video {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            display: block;
+            background: #000;
+        }
+        
         .video-container iframe {
             width: 100%;
             height: auto;
             max-height: 70vh;
             display: block;
             background: #000;
+            border: none;
+            aspect-ratio: 16/9;
         }
 
         .close-button {
@@ -273,7 +282,7 @@
 
     <script>
         const videos = [
-            { src: "https://player.vimeo.com/video/1100817888?h=your_hash_here&autoplay=0&title=0&byline=0&portrait=0", type: "vimeo", title: "Martina" },
+            { src: "https://player.vimeo.com/video/1100817888?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0", type: "vimeo", title: "Martina" },
             { src: "videos-/Michael-Atasoonts.mp4", type: "local", title: "Michael-Atasoonts" },
             { src: "videos-/Nathalie-Karibian.mp4", type: "local", title: "Nathalie-Karibian" },
             { src: "videos-/Patti-Smith.mp4", type: "local", title: "Patti-Smith" },
