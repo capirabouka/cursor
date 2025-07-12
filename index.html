@@ -78,12 +78,41 @@
 
         @media (max-width: 768px) {
             .title {
-                font-size: 24px;
-                top: 15px;
-                left: 15px;
+                font-size: 20px;
+                top: 20px;
+                left: 20px;
+                transform: translateY(0);
+                padding: 8px 12px;
+            }
+            .title:hover {
+                transform: scale(1.05);
             }
             .title-mirror {
-                font-size: 24px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+                transform: scaleX(-1);
+            }
+            .title-mirror:hover {
+                transform: scaleX(-1) scale(1.05);
+            }
+            .clickable-image {
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 18px;
+                top: 15px;
+                left: 15px;
+                padding: 6px 10px;
+            }
+            .title-mirror {
+                font-size: 18px;
                 bottom: 15px;
                 right: 15px;
             }

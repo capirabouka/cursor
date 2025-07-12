@@ -1623,3 +1623,163 @@ body.dark-mode .apocalypse-button {
 .symphonie-declin .audio-container {
     margin-top: 4rem;
 }
+
+/* Améliorations responsive pour mobile */
+@media (max-width: 768px) {
+    /* Navigation */
+    .main-nav {
+        padding: 15px 10px;
+    }
+    
+    .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        font-size: 1em;
+        padding: 5px 10px;
+    }
+    
+    /* Titres et textes */
+    .glitch-text {
+        font-size: 2.5em;
+        padding: 0 20px;
+    }
+    
+    .subtitle {
+        font-size: 1.2em;
+        padding: 0 20px;
+        white-space: normal;
+    }
+    
+    .subtitle:first-of-type {
+        font-size: 1.5em;
+        padding: 0 20px;
+        white-space: normal;
+    }
+    
+    /* Sections */
+    .section {
+        margin: 2rem 0;
+        padding: 1.5rem;
+    }
+    
+    .section h2 {
+        font-size: 1.8rem;
+    }
+    
+    /* Contenu */
+    .content {
+        padding: 0 20px;
+    }
+    
+    /* Grilles */
+    .installations-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .partners-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Boutons et contrôles */
+    .apocalypse-button {
+        width: 120px;
+        height: 120px;
+        font-size: 2em;
+        padding: 15px 30px;
+    }
+    
+    .apocalypse-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .apocalypse-text {
+        max-width: 100%;
+    }
+    
+    /* Audio player */
+    .audio-player {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+        padding: 10px;
+    }
+    
+    /* Contact */
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .contact-item {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Navigation encore plus compacte */
+    .nav-links {
+        gap: 15px;
+    }
+    
+    .nav-link {
+        font-size: 0.9em;
+    }
+    
+    /* Titres plus petits */
+    .glitch-text {
+        font-size: 2em;
+    }
+    
+    .subtitle {
+        font-size: 1.1em;
+    }
+    
+    .subtitle:first-of-type {
+        font-size: 1.3em;
+    }
+    
+    /* Sections plus compactes */
+    .section {
+        padding: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .section h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Bouton apocalypse plus petit */
+    .apocalypse-button {
+        width: 100px;
+        height: 100px;
+        font-size: 1.5em;
+        padding: 10px 20px;
+    }
+    
+    /* Audio player plus compact */
+    .audio-player {
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
+        padding: 8px;
+    }
+    
+    .audio-controls {
+        gap: 5px;
+    }
+    
+    .play-pause-btn {
+        width: 30px;
+        height: 30px;
+    }
+}
