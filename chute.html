@@ -79,22 +79,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 60px;
-            max-width: 90vw;
+            gap: 0;
+            max-width: 100vw;
+            padding: 0;
+            width: 100vw;
         }
 
         .video-wrapper {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             text-align: center;
             position: relative;
+            margin: 0 auto;
         }
 
-        .video-wrapper video {
+        .video-wrapper iframe {
             width: 100%;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 255, 255, 0.1);
+            height: 70vh;
+            border: none;
         }
 
         .credits {
@@ -109,7 +111,7 @@
 
         .project-description {
             position: absolute;
-            bottom: 80px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             max-width: 800px;
@@ -223,18 +225,20 @@
         <div class="videos-container">
             <div class="video-wrapper" id="first-video">
                 <div class="arrow" onclick="showSecondVideo()">→</div>
-                <video controls>
-                    <source src="incendiel.mp4" type="video/mp4">
-                    Votre navigateur ne supporte pas l'élément vidéo.
-                </video>
+                <iframe src="https://player.vimeo.com/video/1100817677?h=share&title=0&byline=0&portrait=0&autoplay=0&loop=0&color=ffffff" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
             </div>
             
             <div class="video-wrapper hidden" id="second-video">
                 <div class="arrow-back" onclick="showFirstVideo()">←</div>
-                <video controls>
-                    <source src="effondrement.mp4" type="video/mp4">
-                    Votre navigateur ne supporte pas l'élément vidéo.
-                </video>
+                <iframe src="https://player.vimeo.com/video/1100817637?h=share&title=0&byline=0&portrait=0&autoplay=0&loop=0&color=ffffff" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
             </div>
         </div>
         
