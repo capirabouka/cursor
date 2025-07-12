@@ -90,18 +90,11 @@
             position: relative;
         }
 
-        .video-wrapper video,
-        .video-wrapper iframe {
+        .video-wrapper video {
             width: 100%;
             height: auto;
             border-radius: 4px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 0 2px rgba(255, 255, 255, 0.1);
-        }
-        
-        .video-wrapper iframe {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 16/9;
         }
 
         .credits {
@@ -230,12 +223,10 @@
         <div class="videos-container">
             <div class="video-wrapper" id="first-video">
                 <div class="arrow" onclick="showSecondVideo()">→</div>
-                <iframe 
-                    src="https://player.vimeo.com/video/1100817677?h=your_hash_here&autoplay=0&title=0&byline=0&portrait=0" 
-                    frameborder="0" 
-                    allow="autoplay; fullscreen; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+                <video controls>
+                    <source src="incendiel.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas l'élément vidéo.
+                </video>
             </div>
             
             <div class="video-wrapper hidden" id="second-video">
