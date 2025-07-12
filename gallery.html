@@ -14,40 +14,7 @@
             width: 100vw;
             height: 100vh;
         }
-        #video-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(0,0,0,0.7);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        #progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            position: relative;
-        }
-        #progress {
-            width: 0%;
-            height: 100%;
-            background: #ffd700;
-            border-radius: 2px;
-            position: relative;
-        }
-        #time {
-            color: white;
-            font-family: monospace;
-            font-size: 12px;
-        }
+
         
         /* Flèches de navigation discrètes */
         .nav-arrows {
@@ -103,15 +70,53 @@
         .nav-arrow.right::before {
             transform: translate(-50%, -50%) rotate(135deg);
         }
+        
+        /* Barre de glissement de caméra */
+        .camera-slider {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+        
+        .slider-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .slider-ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: grab;
+            transition: transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slider-ball:active {
+            cursor: grabbing;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
     </style>
 </head>
 <body>
-    <div id="video-controls">
-        <div id="progress-bar">
-            <div id="progress"></div>
-        </div>
-        <div id="time">00:00 / 00:00</div>
-    </div>
+
     
     <!-- Flèches de navigation discrètes -->
     <div class="nav-arrows">
@@ -119,11 +124,17 @@
         <div class="nav-arrow right" title="Tourner à droite"></div>
     </div>
     
+    <!-- Barre de glissement de caméra -->
+    <div class="camera-slider" id="cameraSlider" title="Faire glisser pour tourner la caméra">
+        <div class="slider-track">
+            <div class="slider-ball" id="sliderBall"></div>
+        </div>
+    </div>
+    
     <canvas id="canvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
     <script>
-        const progress = document.getElementById('progress');
-        const timeDisplay = document.getElementById('time');
+
         
         // Initialisation de la scène
         const scene = new THREE.Scene();
@@ -144,50 +155,56 @@
         const screenSize = 5;
         const screenDistance = 3;
 
-        // Écran central (vidéo)
-        const video = document.createElement('video');
-        video.src = 'termina-l.mp4';
-        video.autoplay = true;
-        video.loop = true;
-        video.muted = false;
-        video.playsInline = true;
+        // Écran central (vidéo Vimeo fixe dans l'espace 3D)
+        const videoContainer = document.createElement('div');
+        videoContainer.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 95vw;
+            height: 53vw;
+            max-width: 1600px;
+            max-height: 900px;
+            pointer-events: none;
+            z-index: 10;
+        `;
         
-        // Mise à jour de la barre de progression
-        video.addEventListener('timeupdate', () => {
-            const progressPercent = (video.currentTime / video.duration) * 100;
-            progress.style.width = progressPercent + '%';
-            
-            // Formatage du temps
-            const formatTime = (time) => {
-                const minutes = Math.floor(time / 60);
-                const seconds = Math.floor(time % 60);
-                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            };
-            
-            timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        const vimeoIframe = document.createElement('iframe');
+        vimeoIframe.src = 'https://player.vimeo.com/video/1100817715?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0&dnt=1&sidedock=0&pip=0&controls=1&loop=1&muted=0&transparent=0&autopause=0&showinfo=0&rel=0&color=ffffff&background=000000';
+        vimeoIframe.style.cssText = `
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: auto;
+        `;
+        vimeoIframe.allow = 'autoplay; fullscreen; picture-in-picture';
+        vimeoIframe.allowFullscreen = true;
+        
+        videoContainer.appendChild(vimeoIframe);
+        document.body.appendChild(videoContainer);
+        
+        // Créer un écran transparent pour la vidéo dans Three.js
+        const videoGeometry = new THREE.PlaneGeometry(screenSize, screenSize * 9/16);
+        const videoMaterial = new THREE.MeshBasicMaterial({ 
+            transparent: true,
+            opacity: 0,
+            side: THREE.DoubleSide 
         });
-
-        // Ajout de la fonctionnalité de clic sur la barre de progression
-        const progressBar = document.getElementById('progress-bar');
-        progressBar.addEventListener('click', (e) => {
-            const rect = progressBar.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            video.currentTime = pos * video.duration;
-        });
-
-        video.onloadeddata = () => {
-            const videoTexture = new THREE.VideoTexture(video);
-            const videoMaterial = new THREE.MeshBasicMaterial({
-                map: videoTexture,
-                side: THREE.DoubleSide
-            });
-            const videoScreen = new THREE.Mesh(
-                new THREE.PlaneGeometry(screenSize, screenSize * 9/16),
-                videoMaterial
-            );
-            videoScreen.position.z = -screenDistance;
-            scene.add(videoScreen);
-            video.play();
+        const videoScreen = new THREE.Mesh(videoGeometry, videoMaterial);
+        videoScreen.position.z = -screenDistance * 2; // Plus loin de la caméra
+        scene.add(videoScreen);
+        
+        // Fonction pour afficher la vidéo seulement quand on regarde vers l'avant
+        const updateVideoPosition = () => {
+            const cameraRotation = camera.rotation.y;
+            if (Math.abs(cameraRotation) < 0.5) {
+                // Face à la vidéo - l'afficher
+                videoContainer.style.display = 'block';
+            } else {
+                // Pas face à la vidéo - la cacher
+                videoContainer.style.display = 'none';
+            }
         };
 
         // Écran gauche (image)
@@ -349,7 +366,7 @@
                 } else {
                     // Zone centrale - vidéo ou texte (selon la rotation actuelle)
                     if (Math.abs(camera.rotation.y) < 0.5) {
-                        // Face à la vidéo
+                        // Face à la vidéo - recentrer la caméra
                         handleClick(0);
                     } else if (Math.abs(camera.rotation.y - Math.PI) < 0.5) {
                         // Face au texte
@@ -359,23 +376,85 @@
             }
         });
 
-        // Contrôles des flèches de navigation
+        // Contrôles des flèches de navigation pour tourner sur chaque face
         const leftArrow = document.querySelector('.nav-arrow.left');
         const rightArrow = document.querySelector('.nav-arrow.right');
         
+        // Positions des faces du cube 3D
+        const faces = [
+            0,           // Avant (vidéo)
+            Math.PI/2,   // Gauche (photo)
+            Math.PI,     // Arrière (texte)
+            -Math.PI/2   // Droite (photo)
+        ];
+        let currentFaceIndex = 0;
+        
         leftArrow.addEventListener('click', () => {
-            // Rotation vers l'image de gauche (rotation.y = Math.PI/2)
-            camera.rotation.y = Math.PI/2;
+            // Tourner vers la face suivante (sens anti-horaire)
+            currentFaceIndex = (currentFaceIndex + 1) % faces.length;
+            camera.rotation.y = faces[currentFaceIndex];
         });
         
         rightArrow.addEventListener('click', () => {
-            // Rotation vers l'image de droite (rotation.y = -Math.PI/2)
-            camera.rotation.y = -Math.PI/2;
+            // Tourner vers la face précédente (sens horaire)
+            currentFaceIndex = (currentFaceIndex - 1 + faces.length) % faces.length;
+            camera.rotation.y = faces[currentFaceIndex];
+        });
+        
+        // Gestion de la barre de glissement de caméra
+        const cameraSlider = document.getElementById('cameraSlider');
+        const sliderBall = document.getElementById('sliderBall');
+        let isSliderDragging = false;
+        let startX = 0;
+        let startLeft = 0;
+        
+        // Position initiale de la boule (centre)
+        let ballPosition = 50; // 50% = centre
+        updateBallPosition();
+        
+        function updateBallPosition() {
+            sliderBall.style.left = ballPosition + '%';
+        }
+        
+        function updateCameraRotation() {
+            // Convertir la position de la boule (0-100%) en rotation de caméra (-π à π)
+            const rotation = (ballPosition - 50) / 50 * Math.PI;
+            camera.rotation.y = rotation;
+        }
+        
+        // Démarrer le glissement
+        sliderBall.addEventListener('mousedown', (e) => {
+            isSliderDragging = true;
+            startX = e.clientX;
+            startLeft = ballPosition;
+            sliderBall.style.cursor = 'grabbing';
+        });
+        
+        // Glisser la boule
+        document.addEventListener('mousemove', (e) => {
+            if (!isSliderDragging) return;
+            
+            const deltaX = e.clientX - startX;
+            const sliderWidth = cameraSlider.offsetWidth;
+            const deltaPercent = (deltaX / sliderWidth) * 100;
+            
+            ballPosition = Math.max(0, Math.min(100, startLeft + deltaPercent));
+            updateBallPosition();
+            updateCameraRotation();
+        });
+        
+        // Arrêter le glissement
+        document.addEventListener('mouseup', () => {
+            if (isSliderDragging) {
+                isSliderDragging = false;
+                sliderBall.style.cursor = 'grab';
+            }
         });
 
         // Animation
         function animate() {
             requestAnimationFrame(animate);
+            updateVideoPosition(); // Mettre à jour la position de la vidéo selon la perspective 3D
             renderer.render(scene, camera);
         }
 

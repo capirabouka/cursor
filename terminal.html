@@ -41,6 +41,61 @@
             cursor: pointer;
             color: var(--accent-color);
         }
+        
+        /* Styles pour la vidéo Vimeo */
+        .video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .video-container.active {
+            display: flex;
+        }
+        
+        .video-container iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+        
+        .close-video {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        
+        .play-video-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1001;
+            transition: background-color 0.3s ease;
+        }
+        
+        .play-video-button:hover {
+            background: #d32f2f;
+        }
     </style>
 </head>
 <body>
@@ -54,8 +109,49 @@
             <p id="passportText"></p>
         </div>
     </div>
+    
+    <!-- Bouton pour jouer la vidéo -->
+    <button class="play-video-button" id="playVideoButton">Regarder Termina-l</button>
+    
+    <!-- Conteneur vidéo Vimeo -->
+    <div class="video-container" id="videoContainer">
+        <button class="close-video" id="closeVideoButton">&times;</button>
+        <iframe id="vimeoPlayer" 
+                src="https://player.vimeo.com/video/1100817715?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0&dnt=1&sidedock=0&pip=0&controls=1&loop=0&muted=0&transparent=0&autopause=0&showinfo=0&rel=0&color=ffffff&background=000000" 
+                frameborder="0" 
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="terminal.js"></script>
+    <script>
+        // Gestion de la vidéo Vimeo
+        const playVideoButton = document.getElementById('playVideoButton');
+        const videoContainer = document.getElementById('videoContainer');
+        const closeVideoButton = document.getElementById('closeVideoButton');
+        const vimeoPlayer = document.getElementById('vimeoPlayer');
+        
+        playVideoButton.addEventListener('click', () => {
+            videoContainer.classList.add('active');
+            // L'autoplay est déjà configuré dans l'URL Vimeo
+        });
+        
+        closeVideoButton.addEventListener('click', () => {
+            videoContainer.classList.remove('active');
+            // Recharger l'iframe pour arrêter la vidéo
+            const currentSrc = vimeoPlayer.src;
+            vimeoPlayer.src = '';
+            vimeoPlayer.src = currentSrc;
+        });
+        
+        // Fermer la vidéo en cliquant en dehors
+        videoContainer.addEventListener('click', (e) => {
+            if (e.target === videoContainer) {
+                closeVideoButton.click();
+            }
+        });
+    </script>
 </body>
 </html> 
