@@ -93,7 +93,8 @@
             margin: 0 auto;
         }
 
-        .video-wrapper iframe {
+        .video-wrapper iframe,
+        .video-wrapper video {
             width: 100%;
             height: 70vh;
             border: none;
@@ -225,20 +226,18 @@
         <div class="videos-container">
             <div class="video-wrapper" id="first-video">
                 <div class="arrow" onclick="showSecondVideo()">→</div>
-                <iframe src="https://player.vimeo.com/video/1100817677?h=share&title=0&byline=0&portrait=0&autoplay=0&loop=0&color=ffffff" 
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
+                <video controls>
+                    <source src="incendiel.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
             </div>
             
             <div class="video-wrapper hidden" id="second-video">
                 <div class="arrow-back" onclick="showFirstVideo()">←</div>
-                <iframe src="https://player.vimeo.com/video/1100817637?h=share&title=0&byline=0&portrait=0&autoplay=0&loop=0&color=ffffff" 
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
+                <video controls>
+                    <source src="effondrement.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
             </div>
         </div>
         
