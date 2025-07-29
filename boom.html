@@ -51,6 +51,58 @@
             font-weight: 300;
         }
 
+        .language-selector {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 200;
+        }
+
+        .language-button {
+            background: transparent;
+            border: 1px solid #9F7AEA;
+            color: #9F7AEA;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .language-button:hover {
+            background: rgba(159, 122, 234, 0.1);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #9F7AEA;
+            border-radius: 3px;
+            padding: 5px 0;
+            min-width: 120px;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-dropdown a {
+            display: block;
+            padding: 8px 15px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .language-dropdown a:hover {
+            background: rgba(159, 122, 234, 0.1);
+            color: #9F7AEA;
+        }
+
         .title {
             position: fixed;
             top: 20px;
@@ -202,6 +254,16 @@
     
     <a href="landing.html" class="back-button"></a>
     <div class="title">Home Sweet Boom</div>
+    
+    <div class="language-selector">
+        <button class="language-button">FR</button>
+        <div class="language-dropdown">
+            <a href="#" data-lang="fr">Français</a>
+            <a href="#" data-lang="en">English</a>
+            <a href="#" data-lang="es">Español</a>
+            <a href="#" data-lang="ru">Русский</a>
+        </div>
+    </div>
 
     <div class="content-section">
         <div class="image-gallery">
