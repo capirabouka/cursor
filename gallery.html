@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#000000">
     <meta name="msapplication-navbutton-color" content="#000000">
     <title>Galerie - Anouche Lelong</title>
@@ -293,10 +293,26 @@
         @media (max-width: 768px) {
             body {
                 padding-top: 0;
+                min-height: 100vh;
+                min-height: 100dvh;
             }
 
             .back-button {
-                top: max(20px, env(safe-area-inset-top) + 5px);
+                top: 10px;
+                left: 10px;
+            }
+
+            canvas {
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+        }
+
+        /* Optimisations spécifiques pour iOS */
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .back-button {
+                top: 5px;
+                left: 5px;
             }
         }
 
@@ -694,4 +710,5 @@
         animate();
     </script>
 </body>
+</html> 
 </html> 
