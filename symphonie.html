@@ -312,8 +312,9 @@
             margin-bottom: 0;
         }
 
-        /* Responsive pour mobile */
+        /* Responsive pour mobile - Version complète */
         @media (max-width: 768px) {
+            /* Bouton retour mobile */
             .back-button {
                 width: 35px;
                 height: 35px;
@@ -322,18 +323,109 @@
             }
 
             .back-button::before {
-                font-size: 16px;
+                width: 7px;
+                height: 7px;
             }
 
+            /* Titre mobile */
             .title {
                 font-size: 24px;
                 top: 15px;
                 left: 70px;
                 padding: 8px 12px;
             }
+
+            /* Sélecteur de langue mobile */
+            .language-selector {
+                top: 15px;
+                right: 15px;
+            }
+
+            .language-button {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+
+            /* Contenu mobile */
+            .content-section {
+                padding: 2rem 1rem;
+                margin-top: 80px;
+            }
+
+            /* Grille d'images mobile */
+            .image-gallery {
+                gap: 2rem;
+            }
+
+            .image-container {
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+            .image-container.side-by-side {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .image-container.side-by-side img.large {
+                grid-column: 1;
+            }
+
+            /* Description mobile */
+            .image-description {
+                font-size: 1rem;
+                line-height: 1.6;
+                padding: 1.5rem;
+                border-radius: 12px;
+                margin: 1.5rem 0;
+            }
+
+            /* Crédits mobile */
+            .credits {
+                font-size: 0.9rem;
+                padding: 1.5rem;
+                border-radius: 12px;
+                margin: 2rem 0;
+            }
+
+            /* Description du projet mobile */
+            .project-description {
+                gap: 1.5rem;
+            }
+
+            .project-description p {
+                font-size: 1rem;
+                line-height: 1.7;
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+
+            /* Audio mobile */
+            .audio-section {
+                padding: 1.5rem;
+                border-radius: 12px;
+                margin: 2rem 0;
+            }
+
+            .audio-section h3 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .audio-player {
+                width: 100%;
+                margin-top: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
+            /* Bouton retour très mobile */
             .back-button {
                 width: 30px;
                 height: 30px;
@@ -342,14 +434,106 @@
             }
 
             .back-button::before {
-                font-size: 14px;
+                width: 6px;
+                height: 6px;
             }
 
+            /* Titre très mobile */
             .title {
                 font-size: 20px;
                 top: 10px;
                 left: 55px;
                 padding: 6px 10px;
+            }
+
+            /* Sélecteur de langue très mobile */
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
+
+            .language-button {
+                padding: 3px 6px;
+                font-size: 0.75rem;
+            }
+
+            /* Contenu très mobile */
+            .content-section {
+                padding: 1.5rem 0.8rem;
+                margin-top: 70px;
+            }
+
+            /* Grille d'images très mobile */
+            .image-gallery {
+                gap: 1.5rem;
+            }
+
+            .image-container {
+                border-radius: 10px;
+            }
+
+            .image-container img {
+                border-radius: 10px;
+            }
+
+            /* Description très mobile */
+            .image-description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+                padding: 1.2rem;
+                border-radius: 10px;
+                margin: 1.2rem 0;
+            }
+
+            /* Crédits très mobile */
+            .credits {
+                font-size: 0.85rem;
+                padding: 1.2rem;
+                border-radius: 10px;
+                margin: 1.5rem 0;
+            }
+
+            /* Description du projet très mobile */
+            .project-description {
+                gap: 1.2rem;
+            }
+
+            .project-description p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                padding: 1.2rem;
+                border-radius: 10px;
+            }
+
+            /* Audio très mobile */
+            .audio-section {
+                padding: 1.2rem;
+                border-radius: 10px;
+                margin: 1.5rem 0;
+            }
+
+            .audio-section h3 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+        }
+
+        /* Orientation paysage sur mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .content-section {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .image-gallery {
+                gap: 1rem;
+            }
+
+            .image-description,
+            .credits,
+            .project-description p,
+            .audio-section {
+                padding: 1rem;
             }
         }
     </style>

@@ -220,7 +220,9 @@
             display: none;
         }
 
+        /* Responsive pour mobile - Version complète */
         @media (max-width: 768px) {
+            /* Bouton retour mobile */
             .back-button {
                 width: 35px;
                 height: 35px;
@@ -229,32 +231,81 @@
             }
 
             .back-button::before {
-                font-size: 16px;
+                width: 7px;
+                height: 7px;
             }
 
+            /* Titre mobile */
             .title {
                 top: 20px;
                 left: 70px;
                 font-size: 20px;
             }
-            
+
+            /* Sélecteur de langue mobile */
+            .language-selector {
+                top: 15px;
+                right: 15px;
+            }
+
+            .language-button {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+
+            /* Écran de cinéma mobile */
+            .cinema-screen {
+                padding: 2rem 1rem;
+                border-radius: 12px;
+                margin: 2rem 0;
+            }
+
+            /* Grille vidéo mobile */
             .videos-container {
-                gap: 40px;
+                gap: 2rem;
+                padding: 0 1rem;
             }
-            
+
+            .video-wrapper {
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .video-wrapper video {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+            /* Description du projet mobile */
             .project-description {
-                bottom: 60px;
-                font-size: 14px;
-                max-width: 90vw;
+                font-size: 1rem;
+                line-height: 1.7;
+                padding: 1.5rem;
+                border-radius: 12px;
+                margin: 2rem 0;
+                position: static;
+                max-width: none;
             }
-            
+
+            /* Crédits mobile */
             .credits {
-                bottom: 20px;
-                font-size: 12px;
+                font-size: 0.9rem;
+                padding: 1.5rem;
+                border-radius: 12px;
+                margin: 1rem 0;
+                position: static;
+            }
+
+            /* Flèches mobile */
+            .arrow, .arrow-back {
+                font-size: 1.5rem;
+                padding: 0.8rem;
             }
         }
 
         @media (max-width: 480px) {
+            /* Bouton retour très mobile */
             .back-button {
                 width: 30px;
                 height: 30px;
@@ -263,13 +314,86 @@
             }
 
             .back-button::before {
-                font-size: 14px;
+                width: 6px;
+                height: 6px;
             }
 
+            /* Titre très mobile */
             .title {
                 top: 15px;
                 left: 55px;
                 font-size: 18px;
+            }
+
+            /* Sélecteur de langue très mobile */
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
+
+            .language-button {
+                padding: 3px 6px;
+                font-size: 0.75rem;
+            }
+
+            /* Écran de cinéma très mobile */
+            .cinema-screen {
+                padding: 1.5rem 0.8rem;
+                border-radius: 10px;
+                margin: 1.5rem 0;
+            }
+
+            /* Grille vidéo très mobile */
+            .videos-container {
+                gap: 1.5rem;
+                padding: 0 0.8rem;
+            }
+
+            .video-wrapper {
+                border-radius: 10px;
+            }
+
+            .video-wrapper video {
+                border-radius: 10px;
+            }
+
+            /* Description du projet très mobile */
+            .project-description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                padding: 1.2rem;
+                border-radius: 10px;
+                margin: 1.5rem 0;
+            }
+
+            /* Crédits très mobile */
+            .credits {
+                font-size: 0.85rem;
+                padding: 1.2rem;
+                border-radius: 10px;
+                margin: 0.8rem 0;
+            }
+
+            /* Flèches très mobile */
+            .arrow, .arrow-back {
+                font-size: 1.2rem;
+                padding: 0.6rem;
+            }
+        }
+
+        /* Orientation paysage sur mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .cinema-screen {
+                padding: 1rem;
+            }
+
+            .videos-container {
+                gap: 1rem;
+            }
+
+            .project-description,
+            .credits {
+                padding: 1rem;
             }
         }
     </style>

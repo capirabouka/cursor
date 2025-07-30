@@ -2,7 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="msapplication-navbutton-color" content="#ffffff">
     <title>The Voice of the Edge</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -305,8 +309,9 @@
             margin-bottom: 0;
         }
 
-        /* Responsive pour mobile */
+        /* Responsive pour mobile - Version complète */
         @media (max-width: 768px) {
+            /* Bouton retour mobile */
             .back-button {
                 width: 35px;
                 height: 35px;
@@ -315,18 +320,76 @@
             }
 
             .back-button::before {
-                font-size: 16px;
+                width: 7px;
+                height: 7px;
             }
 
+            /* Titre mobile */
             .title {
                 font-size: 24px;
                 top: 15px;
                 left: 70px;
                 padding: 8px 12px;
             }
+
+            /* Sélecteur de langue mobile */
+            .language-selector {
+                top: 15px;
+                right: 15px;
+            }
+
+            .language-button {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+
+            /* Contenu mobile */
+            .content-section {
+                padding: 2rem 1rem;
+                margin-top: 80px;
+            }
+
+            /* Grille vidéo mobile */
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .video-item {
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .video-item video {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+            .video-name {
+                font-size: 1.1rem;
+                padding: 1rem;
+                border-radius: 8px;
+                margin-top: 1rem;
+            }
+
+            /* Description du projet mobile */
+            .project-description {
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .project-description p {
+                font-size: 1rem;
+                line-height: 1.7;
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
         }
 
         @media (max-width: 480px) {
+            /* Bouton retour très mobile */
             .back-button {
                 width: 30px;
                 height: 30px;
@@ -335,14 +398,127 @@
             }
 
             .back-button::before {
-                font-size: 14px;
+                width: 6px;
+                height: 6px;
             }
 
+            /* Titre très mobile */
             .title {
                 font-size: 20px;
                 top: 10px;
                 left: 55px;
                 padding: 6px 10px;
+            }
+
+            /* Sélecteur de langue très mobile */
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
+
+            .language-button {
+                padding: 3px 6px;
+                font-size: 0.75rem;
+            }
+
+            /* Contenu très mobile */
+            .content-section {
+                padding: 1.5rem 0.8rem;
+                margin-top: 70px;
+            }
+
+            /* Grille vidéo très mobile */
+            .video-grid {
+                gap: 1.5rem;
+                padding: 0 0.8rem;
+            }
+
+            .video-item {
+                border-radius: 10px;
+            }
+
+            .video-item video {
+                border-radius: 10px;
+            }
+
+            .video-name {
+                font-size: 1rem;
+                padding: 0.8rem;
+                border-radius: 6px;
+                margin-top: 0.8rem;
+            }
+
+            /* Description du projet très mobile */
+            .project-description {
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+
+            .project-description p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                padding: 1.2rem;
+                border-radius: 10px;
+            }
+        }
+
+        /* Orientation paysage sur mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .content-section {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .video-grid {
+                gap: 1rem;
+            }
+
+            .project-description p {
+                padding: 1rem;
+            }
+        }
+
+        /* Optimisations pour la barre de tâches mobile */
+        @supports (padding: max(0px)) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+
+        /* Styles pour réduire l'impact de la barre de tâches */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+            }
+
+            .back-button {
+                top: max(20px, env(safe-area-inset-top) + 5px);
+            }
+
+            .language-selector {
+                top: max(20px, env(safe-area-inset-top) + 5px);
+            }
+
+            .title {
+                top: max(15px, env(safe-area-inset-top) + 5px);
+            }
+
+            .content-section {
+                padding-top: max(2rem, env(safe-area-inset-top) + 1rem);
+            }
+        }
+
+        /* Optimisations spécifiques pour iOS */
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .back-button {
+                top: max(20px, env(safe-area-inset-top) + 5px);
+            }
+
+            .language-selector {
+                top: max(20px, env(safe-area-inset-top) + 5px);
             }
         }
     </style>

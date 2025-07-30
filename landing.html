@@ -2,7 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
     <title data-i18n="about.title">Chambre d'Echo - Anouche Lelong</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -366,97 +370,393 @@
             50% { opacity: 1; }
         }
 
-        /* Responsive */
+        /* Responsive - Version Mobile Complète */
         @media (max-width: 768px) {
+            /* Navigation mobile */
+            .main-nav {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+
+            .nav-link {
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+                text-align: center;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+            }
+
+            .home-circle {
+                width: 40px;
+                height: 40px;
+                margin: 0 auto 1rem;
+            }
+
+            .language-selector {
+                position: static;
+                margin-top: 1rem;
+            }
+
+            /* Présentation mobile */
             .presentation-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
                 padding: 2rem 1rem;
+                text-align: center;
             }
 
             .artist-name {
                 font-size: 2.5rem;
+                line-height: 1.2;
             }
 
-            .fragments-grid {
-                grid-template-columns: 1fr;
+            .artist-title {
+                font-size: 1.1rem;
+                margin: 1rem 0;
             }
 
+            .artist-description {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+                text-align: left;
+            }
+
+            /* Sections mobile */
             .about-section {
                 padding: 2rem 1rem;
             }
 
             .about-content h2 {
                 font-size: 2rem;
+                margin-bottom: 1.5rem;
             }
 
             .about-text {
                 font-size: 1rem;
+                line-height: 1.7;
             }
 
             .resonance-quote {
                 font-size: 1.1rem;
                 padding: 1.5rem;
                 margin: 1.5rem 0;
+                border-radius: 12px;
+            }
+
+            /* Grilles mobile */
+            .fragments-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .fragment-card {
                 padding: 1.5rem;
+                border-radius: 12px;
             }
 
+            .fragment-title {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .fragment-text {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* Boutons mobile */
             .enter-button {
-                padding: 0.8rem 1.5rem;
-                font-size: 0.8rem;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                border-radius: 25px;
+                margin: 1rem 0;
+            }
+
+            /* Projets mobile */
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .projects-header h2 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .project-card {
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+
+            .project-title {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .project-description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* Catégories mobile */
+            .project-categories {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .project-category {
+                padding: 2rem 1.5rem;
+                border-radius: 12px;
+            }
+
+            .category-title {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .category-description {
+                font-size: 1rem;
+                line-height: 1.6;
             }
         }
 
         @media (max-width: 480px) {
+            /* Navigation très mobile */
+            .main-nav {
+                padding: 0.8rem;
+            }
+
+            .nav-link {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .home-circle {
+                width: 35px;
+                height: 35px;
+            }
+
+            /* Présentation très mobile */
             .presentation-content {
-                padding: 1.5rem 0.5rem;
+                padding: 1.5rem 0.8rem;
                 gap: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 2rem;
+                line-height: 1.1;
+            }
+
+            .artist-title {
+                font-size: 1rem;
+                margin: 0.8rem 0;
+            }
+
+            .artist-description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+                margin-bottom: 1.2rem;
+            }
+
+            /* Sections très mobile */
+            .about-section {
+                padding: 1.5rem 0.8rem;
+            }
+
+            .about-content h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .about-text {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .resonance-quote {
+                font-size: 1rem;
+                padding: 1.2rem;
+                margin: 1.2rem 0;
+                border-radius: 10px;
+            }
+
+            /* Grilles très mobile */
+            .fragments-grid {
+                gap: 1.2rem;
+            }
+
+            .fragment-card {
+                padding: 1.2rem;
+                border-radius: 10px;
+            }
+
+            .fragment-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .fragment-text {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            /* Boutons très mobile */
+            .enter-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                border-radius: 20px;
+            }
+
+            /* Projets très mobile */
+            .projects-grid {
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+
+            .projects-header h2 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .project-card {
+                padding: 1.2rem;
+                border-radius: 10px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            /* Catégories très mobile */
+            .project-categories {
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+
+            .project-category {
+                padding: 1.5rem 1.2rem;
+                border-radius: 10px;
+            }
+
+            .category-title {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .category-description {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            /* Bouton retour mobile */
+            .back-button {
+                width: 35px;
+                height: 35px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .back-button::before {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        /* Orientation paysage sur mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .main-nav {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .nav-links {
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .presentation-content {
+                padding: 1rem;
+                gap: 1rem;
             }
 
             .artist-name {
                 font-size: 2rem;
             }
 
-            .artist-title {
-                font-size: 1rem;
-            }
-
             .artist-description {
-                font-size: 1rem;
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Optimisations pour la barre de tâches mobile */
+        @supports (padding: max(0px)) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+
+        /* Styles pour réduire l'impact de la barre de tâches */
+        @media (max-width: 768px) {
+            body {
+                /* Réduire l'espacement en haut pour compenser la barre de tâches */
+                padding-top: 0;
             }
 
-            .about-content h2 {
-                font-size: 1.8rem;
+            .main-nav {
+                /* Ajuster la navigation pour la barre de tâches */
+                padding-top: max(1rem, env(safe-area-inset-top));
             }
 
-            .about-text {
-                font-size: 0.95rem;
+            .dynamic-presentation {
+                /* Optimiser l'affichage plein écran */
+                min-height: 100vh;
+                min-height: 100dvh; /* Dynamic viewport height */
             }
 
-            .resonance-quote {
-                font-size: 1rem;
-                padding: 1rem;
-                margin: 1rem 0;
+            .about-section {
+                min-height: 100vh;
+                min-height: 100dvh;
             }
 
-            .fragment-card {
-                padding: 1rem;
+            .projects-section {
+                min-height: 100vh;
+                min-height: 100dvh;
             }
+        }
 
-            .fragment-title {
-                font-size: 1.1rem;
+        /* Optimisations spécifiques pour iOS */
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .main-nav {
+                padding-top: max(1rem, env(safe-area-inset-top));
             }
+        }
 
-            .fragment-text {
-                font-size: 0.85rem;
-            }
-
-            .enter-button {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.75rem;
+        /* Optimisations pour Android */
+        @media screen and (max-width: 768px) {
+            .main-nav {
+                padding-top: max(1rem, env(safe-area-inset-top));
             }
         }
 
@@ -892,19 +1192,74 @@
         .project-card:nth-child(6) { transition-delay: 0.6s; }
         .project-card:nth-child(7) { transition-delay: 0.7s; }
 
-        /* Responsive */
+        /* Responsive pour projets */
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                padding: 0 1rem;
             }
 
             .projects-header h2 {
                 font-size: 2.5rem;
+                margin-bottom: 2rem;
+                text-align: center;
             }
 
             .project-card {
                 padding: 1.5rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+            }
+
+            .project-title {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+
+            .project-description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .project-link {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                border-radius: 20px;
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-grid {
+                gap: 1.2rem;
+                padding: 0 0.8rem;
+            }
+
+            .projects-header h2 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .project-card {
+                padding: 1.2rem;
+                border-radius: 10px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .project-link {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+                border-radius: 18px;
             }
         }
 
@@ -971,7 +1326,7 @@
     </nav>
 
     <main>
-        <section class="dynamic-presentation">
+        <section class="dynamic-presentation" id="presentation">
             <div class="floating-fragments">
                 <div class="fragment"></div>
                 <div class="fragment"></div>
@@ -1257,15 +1612,10 @@
 
         // Fonction pour faire défiler vers une section
         function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                // Calculer la position avec un offset pour s'assurer que la section est bien visible
-                const offset = 100; // Offset en pixels
-                const elementPosition = section.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-                
+            if (sectionId === 'presentation') {
+                // Pour la section présentation, aller tout en haut
                 window.scrollTo({
-                    top: offsetPosition,
+                    top: 0,
                     behavior: 'smooth'
                 });
                 
@@ -1273,6 +1623,24 @@
                 setTimeout(() => {
                     handleScroll();
                 }, 1000);
+            } else {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    // Calculer la position avec un offset pour s'assurer que la section est bien visible
+                    const offset = 100; // Offset en pixels
+                    const elementPosition = section.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Déclencher les animations après le scroll
+                    setTimeout(() => {
+                        handleScroll();
+                    }, 1000);
+                }
             }
         }
 
@@ -1297,7 +1665,7 @@
                     
                     // Déterminer d'où on vient et positionner la caméra en conséquence
                     const referrer = document.referrer;
-                    let targetSection = 'projects'; // Par défaut : Résonances Disloquées
+                    let targetSection = 'presentation'; // Par défaut : rester en haut (Anouche Lelong)
                     
                     // Si on vient de terminal.html, aller vers "Le bruit des frontières"
                     if (referrer.includes('terminal.html')) {
@@ -1307,9 +1675,21 @@
                     else if (referrer.includes('gallery.html')) {
                         targetSection = 'borders-section';
                     }
-                    // Sinon, aller vers "Résonances Disloquées" (comportement par défaut)
-                    else {
+                    // Si on vient des pages de projets spécifiques, descendre vers "Résonances Disloquées"
+                    else if (referrer.includes('boom.html') || 
+                             referrer.includes('videos.html') || 
+                             referrer.includes('chute.html') || 
+                             referrer.includes('symphonie.html') || 
+                             referrer.includes('echo-chamber.html')) {
                         targetSection = 'projects';
+                    }
+                    // Si on vient d'index.html ou musique.html, rester en haut (Anouche Lelong)
+                    else if (referrer.includes('index.html') || referrer.includes('musique.html')) {
+                        targetSection = 'presentation';
+                    }
+                    // Pour toutes les autres pages, rester en haut par défaut
+                    else {
+                        targetSection = 'presentation';
                     }
                     
                     // Faire défiler vers la section appropriée
