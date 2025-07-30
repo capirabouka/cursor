@@ -2,7 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
     <title>Galerie - Anouche Lelong</title>
     <style>
         body {
@@ -147,6 +151,164 @@
             border-left: 2px solid rgba(255, 255, 255, 0.8);
             border-bottom: 2px solid rgba(255, 255, 255, 0.8);
             transform: rotate(45deg) translateX(1px);
+        }
+
+        /* Responsive pour mobile - Version corrigée */
+        @media (max-width: 768px) {
+            /* Canvas mobile */
+            canvas {
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
+            }
+
+            /* Vidéo mobile - taille réduite */
+            .videoContainer {
+                width: 90vw !important;
+                height: 50vw !important;
+                max-width: 800px !important;
+                max-height: 450px !important;
+                transform: translate(-50%, -50%) scale(0.7) !important;
+            }
+
+            /* Flèches de navigation mobile */
+            .nav-arrows {
+                z-index: 20;
+            }
+
+            .nav-arrow {
+                width: 50px;
+                height: 50px;
+                opacity: 0.6;
+            }
+
+            .nav-arrow.left {
+                left: 20px;
+            }
+
+            .nav-arrow.right {
+                right: 20px;
+            }
+
+            .nav-arrow::before {
+                width: 15px;
+                height: 15px;
+                border-width: 3px;
+            }
+
+            /* Barre de glissement mobile */
+            .camera-slider {
+                bottom: 20px;
+                width: 150px;
+                height: 10px;
+                background: rgba(255, 255, 255, 0.3);
+            }
+
+            .slider-ball {
+                width: 25px;
+                height: 25px;
+            }
+
+            /* Bouton retour mobile */
+            .back-button {
+                width: 35px;
+                height: 35px;
+                top: 20px;
+                left: 20px;
+            }
+
+            .back-button::before {
+                width: 7px;
+                height: 7px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Vidéo très mobile - encore plus petite */
+            .videoContainer {
+                width: 95vw !important;
+                height: 53vw !important;
+                max-width: 600px !important;
+                max-height: 340px !important;
+                transform: translate(-50%, -50%) scale(0.6) !important;
+            }
+
+            /* Flèches très mobile */
+            .nav-arrow {
+                width: 45px;
+                height: 45px;
+            }
+
+            .nav-arrow.left {
+                left: 15px;
+            }
+
+            .nav-arrow.right {
+                right: 15px;
+            }
+
+            .nav-arrow::before {
+                width: 12px;
+                height: 12px;
+                border-width: 2px;
+            }
+
+            /* Barre de glissement très mobile */
+            .camera-slider {
+                bottom: 15px;
+                width: 120px;
+                height: 8px;
+            }
+
+            .slider-ball {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Bouton retour très mobile */
+            .back-button {
+                width: 30px;
+                height: 30px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .back-button::before {
+                width: 6px;
+                height: 6px;
+            }
+        }
+
+        /* Optimisations pour la barre de tâches mobile */
+        @supports (padding: max(0px)) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+
+        /* Styles pour réduire l'impact de la barre de tâches */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+            }
+
+            .back-button {
+                top: max(20px, env(safe-area-inset-top) + 5px);
+            }
+        }
+
+        /* Support tactile pour le slider */
+        @media (max-width: 768px) {
+            .slider-ball {
+                touch-action: none;
+            }
+
+            .camera-slider {
+                touch-action: none;
+            }
         }
     </style>
 </head>
@@ -464,6 +626,14 @@
             startLeft = ballPosition;
             sliderBall.style.cursor = 'grabbing';
         });
+
+        // Support tactile pour mobile
+        sliderBall.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isSliderDragging = true;
+            startX = e.touches[0].clientX;
+            startLeft = ballPosition;
+        });
         
         // Glisser la boule
         document.addEventListener('mousemove', (e) => {
@@ -477,12 +647,33 @@
             updateBallPosition();
             updateCameraRotation();
         });
+
+        // Support tactile pour le glissement
+        document.addEventListener('touchmove', (e) => {
+            if (!isSliderDragging) return;
+            e.preventDefault();
+            
+            const deltaX = e.touches[0].clientX - startX;
+            const sliderWidth = cameraSlider.offsetWidth;
+            const deltaPercent = (deltaX / sliderWidth) * 100;
+            
+            ballPosition = Math.max(0, Math.min(100, startLeft + deltaPercent));
+            updateBallPosition();
+            updateCameraRotation();
+        });
         
         // Arrêter le glissement
         document.addEventListener('mouseup', () => {
             if (isSliderDragging) {
                 isSliderDragging = false;
                 sliderBall.style.cursor = 'grab';
+            }
+        });
+
+        // Support tactile pour arrêter le glissement
+        document.addEventListener('touchend', () => {
+            if (isSliderDragging) {
+                isSliderDragging = false;
             }
         });
 

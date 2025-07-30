@@ -2,7 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#f5f5f5">
+    <meta name="msapplication-navbutton-color" content="#f5f5f5">
     <title>Le bruit de la chute</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,8 +224,29 @@
             display: none;
         }
 
-        /* Responsive pour mobile - Version complète */
+        /* Responsive pour mobile - Version corrigée */
         @media (max-width: 768px) {
+            /* Reset complet pour mobile */
+            .cinema-screen {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                padding: 80px 1rem 2rem 1rem;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            /* Titre mobile */
+            .title {
+                position: static;
+                font-size: 24px;
+                margin-bottom: 1rem;
+                text-align: center;
+                color: #000;
+            }
+
             /* Bouton retour mobile */
             .back-button {
                 width: 35px;
@@ -235,17 +260,12 @@
                 height: 7px;
             }
 
-            /* Titre mobile */
-            .title {
-                top: 20px;
-                left: 70px;
-                font-size: 20px;
-            }
-
             /* Sélecteur de langue mobile */
             .language-selector {
-                top: 15px;
-                right: 15px;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
             }
 
             .language-button {
@@ -253,28 +273,59 @@
                 font-size: 0.8rem;
             }
 
-            /* Écran de cinéma mobile */
-            .cinema-screen {
-                padding: 2rem 1rem;
-                border-radius: 12px;
+            /* Grille vidéo mobile */
+            .videos-container {
+                width: 100%;
+                max-width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
                 margin: 2rem 0;
             }
 
-            /* Grille vidéo mobile */
-            .videos-container {
-                gap: 2rem;
-                padding: 0 1rem;
-            }
-
             .video-wrapper {
+                width: 100%;
+                max-width: 100%;
+                position: relative;
                 border-radius: 12px;
                 overflow: hidden;
+                background: #fff;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
 
             .video-wrapper video {
                 width: 100%;
                 height: auto;
+                max-height: 50vh;
+                object-fit: cover;
                 border-radius: 12px;
+            }
+
+            /* Flèches mobile */
+            .arrow, .arrow-back {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0,0,0,0.7);
+                color: white;
+                padding: 1rem;
+                border-radius: 50%;
+                font-size: 1.2rem;
+                cursor: pointer;
+                z-index: 10;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .arrow {
+                right: 10px;
+            }
+
+            .arrow-back {
+                left: 10px;
             }
 
             /* Description du projet mobile */
@@ -286,6 +337,9 @@
                 margin: 2rem 0;
                 position: static;
                 max-width: none;
+                background: rgba(255,255,255,0.9);
+                color: #000;
+                text-align: justify;
             }
 
             /* Crédits mobile */
@@ -295,17 +349,23 @@
                 border-radius: 12px;
                 margin: 1rem 0;
                 position: static;
-            }
-
-            /* Flèches mobile */
-            .arrow, .arrow-back {
-                font-size: 1.5rem;
-                padding: 0.8rem;
+                background: rgba(255,255,255,0.9);
+                color: #000;
+                text-align: center;
             }
         }
 
         @media (max-width: 480px) {
-            /* Bouton retour très mobile */
+            .cinema-screen {
+                padding: 70px 0.8rem 1.5rem 0.8rem;
+                gap: 1.5rem;
+            }
+
+            .title {
+                font-size: 20px;
+                margin-bottom: 0.8rem;
+            }
+
             .back-button {
                 width: 30px;
                 height: 30px;
@@ -318,17 +378,9 @@
                 height: 6px;
             }
 
-            /* Titre très mobile */
-            .title {
-                top: 15px;
-                left: 55px;
-                font-size: 18px;
-            }
-
-            /* Sélecteur de langue très mobile */
             .language-selector {
-                top: 10px;
-                right: 10px;
+                top: 15px;
+                right: 15px;
             }
 
             .language-button {
@@ -336,28 +388,22 @@
                 font-size: 0.75rem;
             }
 
-            /* Écran de cinéma très mobile */
-            .cinema-screen {
-                padding: 1.5rem 0.8rem;
-                border-radius: 10px;
+            .videos-container {
+                gap: 1.5rem;
                 margin: 1.5rem 0;
             }
 
-            /* Grille vidéo très mobile */
-            .videos-container {
-                gap: 1.5rem;
-                padding: 0 0.8rem;
-            }
-
-            .video-wrapper {
-                border-radius: 10px;
-            }
-
             .video-wrapper video {
-                border-radius: 10px;
+                max-height: 40vh;
             }
 
-            /* Description du projet très mobile */
+            .arrow, .arrow-back {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+
             .project-description {
                 font-size: 0.95rem;
                 line-height: 1.6;
@@ -366,34 +412,40 @@
                 margin: 1.5rem 0;
             }
 
-            /* Crédits très mobile */
             .credits {
                 font-size: 0.85rem;
                 padding: 1.2rem;
                 border-radius: 10px;
                 margin: 0.8rem 0;
             }
+        }
 
-            /* Flèches très mobile */
-            .arrow, .arrow-back {
-                font-size: 1.2rem;
-                padding: 0.6rem;
+        /* Optimisations pour la barre de tâches mobile */
+        @supports (padding: max(0px)) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
             }
         }
 
-        /* Orientation paysage sur mobile */
-        @media (max-width: 768px) and (orientation: landscape) {
+        /* Styles pour réduire l'impact de la barre de tâches */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+            }
+
+            .back-button {
+                top: max(20px, env(safe-area-inset-top) + 5px);
+            }
+
+            .language-selector {
+                top: max(20px, env(safe-area-inset-top) + 5px);
+            }
+
             .cinema-screen {
-                padding: 1rem;
-            }
-
-            .videos-container {
-                gap: 1rem;
-            }
-
-            .project-description,
-            .credits {
-                padding: 1rem;
+                padding-top: max(80px, env(safe-area-inset-top) + 60px);
             }
         }
     </style>
@@ -457,4 +509,5 @@
     <script src="translations.js"></script>
     <script src="language-persistence.js"></script>
 </body>
+</html> 
 </html> 
