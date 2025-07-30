@@ -1,0 +1,20 @@
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+  Access-Control-Allow-Headers: Content-Type
+
+/*.mp3
+  Access-Control-Allow-Origin: *
+  Content-Type: audio/mpeg
+
+/*.wav
+  Access-Control-Allow-Origin: *
+  Content-Type: audio/wav
+
+/*.aif
+  Access-Control-Allow-Origin: *
+  Content-Type: audio/aiff
+
+/*.aiff
+  Access-Control-Allow-Origin: *
+  Content-Type: audio/x-aiff 

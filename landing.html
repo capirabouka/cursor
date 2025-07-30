@@ -1099,7 +1099,7 @@
                 </div>
             </div>
 
-            <div class="project-category">
+            <div class="project-category" id="borders-section">
                 <h3 class="project-group-title" data-i18n="projects.borders">Le bruit des frontières</h3>
             </div>
 
@@ -1259,7 +1259,20 @@
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
+                // Calculer la position avec un offset pour s'assurer que la section est bien visible
+                const offset = 100; // Offset en pixels
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Déclencher les animations après le scroll
+                setTimeout(() => {
+                    handleScroll();
+                }, 1000);
             }
         }
 
@@ -1269,6 +1282,62 @@
         window.addEventListener('scroll', handleScroll);
         // Déclencher une première fois pour les éléments déjà visibles
         handleScroll();
+
+        // Détecter quand on revient à la page depuis une autre page
+        window.addEventListener('pageshow', function(event) {
+            // Si on revient d'une autre page (pas un refresh)
+            if (event.persisted || document.referrer.includes(window.location.hostname)) {
+                // Attendre un peu que la page soit chargée
+                setTimeout(() => {
+                    // S'assurer que la langue est appliquée
+                    if (window.languageManager) {
+                        const currentLang = window.languageManager.getCurrentLanguage();
+                        window.languageManager.translatePage(currentLang);
+                    }
+                    
+                    // Déterminer d'où on vient et positionner la caméra en conséquence
+                    const referrer = document.referrer;
+                    let targetSection = 'projects'; // Par défaut : Résonances Disloquées
+                    
+                    // Si on vient de terminal.html, aller vers "Le bruit des frontières"
+                    if (referrer.includes('terminal.html')) {
+                        targetSection = 'borders-section';
+                    }
+                    // Si on vient de gallery.html (qui est lié à Terminal), aller vers "Le bruit des frontières"
+                    else if (referrer.includes('gallery.html')) {
+                        targetSection = 'borders-section';
+                    }
+                    // Sinon, aller vers "Résonances Disloquées" (comportement par défaut)
+                    else {
+                        targetSection = 'projects';
+                    }
+                    
+                    // Faire défiler vers la section appropriée
+                    scrollToSection(targetSection);
+                    
+                    // Déclencher les animations
+                    handleScroll();
+                    
+                    // S'assurer que tous les éléments de la section projets sont visibles
+                    setTimeout(() => {
+                        const projectCards = document.querySelectorAll('.project-card');
+                        const projectCategories = document.querySelectorAll('.project-category');
+                        
+                        projectCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, index * 100);
+                        });
+                        
+                        projectCategories.forEach((category, index) => {
+                            setTimeout(() => {
+                                category.classList.add('visible');
+                            }, index * 200);
+                        });
+                    }, 1200);
+                }, 500);
+            }
+        });
 
         // Gestion de l'audio pour La symphonie du Déclin
         document.addEventListener('DOMContentLoaded', function() {

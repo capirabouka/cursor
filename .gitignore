@@ -1,36 +1,72 @@
-# Fichiers volumineux à exclure
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Video files
 *.mp4
 *.mov
 *.avi
 *.mkv
+*.webm
+
+# Large media files
+*.mp3
 *.wav
 *.aif
-*.aiff
-*.mp3
-*.m4a
-*.flac
-
-# Dossiers avec médias
-MUSIQUES/
-assets/videos/
-videos-/
-chambre/
-
-# Fichiers système
-.DS_Store
-Thumbs.db
-
-# Fichiers temporaires
-*.tmp
-*.temp
-*.log
-*.cache
-*.asd
-
-# Fichiers de sauvegarde
-*~
-*.bak
-*.backup
-*_backup.html
-landing_backup.html
-temp_index.html 
+*.aiff 

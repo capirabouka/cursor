@@ -1,0 +1,73 @@
+[build]
+  publish = "."
+  command = ""
+
+# Configuration pour les fichiers audio
+[[headers]]
+  for = "/*.mp3"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "audio/mpeg"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.wav"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "audio/wav"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.aif"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "audio/aiff"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.aiff"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "audio/x-aiff"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Configuration pour les images
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Configuration pour les fichiers CSS et JS
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Configuration pour les fichiers HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Configuration CORS générale
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type" 

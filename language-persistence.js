@@ -39,6 +39,8 @@ class LanguageManager {
 
         // Sauvegarder la langue
         this.setStoredLanguage(lang);
+        
+        console.log(`Langue appliquée: ${lang}`);
     }
 
     // Initialiser le gestionnaire de langue
@@ -48,6 +50,11 @@ class LanguageManager {
 
         // Configurer les événements de clic pour les liens de langue
         document.addEventListener('DOMContentLoaded', () => {
+            // Appliquer la langue une seconde fois pour s'assurer qu'elle est bien appliquée
+            setTimeout(() => {
+                this.translatePage(this.currentLang);
+            }, 100);
+
             const languageLinks = document.querySelectorAll('.language-dropdown a');
             
             languageLinks.forEach(link => {

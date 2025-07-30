@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="styles.css">
     <script src="translations.js"></script>
     <script src="script.js"></script>
+    <script src="language-persistence.js"></script>
+    <script>
+        // S'assurer que la langue est appliquée immédiatement au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Forcer l'application de la langue stockée
+            const currentLang = window.languageManager.getCurrentLanguage();
+            window.languageManager.translatePage(currentLang);
+        });
+    </script>
     <style>
         body {
             margin: 0;
@@ -376,10 +385,10 @@
                 <img src="optimized/bombom.jpg" alt="Symphonie du déclin" id="image3" class="hidden">
                 <div class="arrow" onclick="toggleImage()">→</div>
             </div>
-            <div class="image-description" style="margin-top: 20px;">
+            <div class="image-description" style="margin-top: 20px;" data-i18n="symphony.installation_description">
                 Installation/performance avec des tours de Kapla et un robot aspirateur, accompagnée de la musique « La Symphonie du déclin »
             </div>
-            <div class="credits" style="margin-top: 10px;">
+            <div class="credits" style="margin-top: 10px;" data-i18n="symphony.credits">
                 DNSEP (Diplôme National Supérieur d'Expression Plastique), juin 2024 – École supérieure des Beaux-Arts de Bordeaux
                 <div style="text-align: center; margin-top: 65px; font-size: 16px; color: #666; opacity: 0.8;">↓</div>
             </div>
@@ -397,14 +406,14 @@
         </div>
         
         <div class="project-description" style="margin-top: 80px; padding: 0 20px;">
-            <p>Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
-            <p>Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
-            <p>L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
+            <p data-i18n="symphony.project_description1">Dans ce projet sonore collectif, j'ai invité des personnes venues des quatre coins du monde à imaginer leur propre scénario d'apocalypse. Mais pas avec des mots, avec des sons.</p>
+            <p data-i18n="symphony.project_description2">Chacun·e a pris le temps de mimer vocalement ce à quoi ressemblerait, pour lui ou elle, le bruit de la fin. Explosion, silence, râle, rires, grondements, soupirs... De cette matière brute, j'ai composé une symphonie absurde qui rassemble ces visions personnelles du déclin.</p>
+            <p data-i18n="symphony.project_description3">L'installation est accompagnée d'un robot aspirateur qui, de façon mécanique et dérisoire, fait s'effondrer des tours de Kapla. Une métaphore désorientée du monde qui s'écroule, mais sans haine, sans rage, comme une farce à laquelle on assiste, un peu bête, un peu ému·e.</p>
         </div>
     </div>
 
     <div class="audio-section">
-        <div class="audio-description">
+        <div class="audio-description" data-i18n="symphony.audio_description">
             Son utilisé lors de l'installation/performance, diffusé par le robot aspirateur.
         </div>
         <div class="audio-container">
@@ -464,20 +473,8 @@
             });
         });
 
-        // Gestion du sélecteur de langue
-        document.addEventListener('DOMContentLoaded', function() {
-            const languageButton = document.querySelector('.language-button');
-            const languageLinks = document.querySelectorAll('.language-dropdown a');
-
-            languageLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const lang = this.getAttribute('data-lang');
-                    languageButton.textContent = lang.toUpperCase();
-                    translatePage(lang);
-                });
-            });
-        });
+        // Le gestionnaire de langue est maintenant géré par language-persistence.js
+        // La langue est appliquée automatiquement au chargement via language-persistence.js
 
         // Fonction pour basculer entre les images
         function toggleImage() {
