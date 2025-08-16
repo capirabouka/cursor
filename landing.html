@@ -199,7 +199,7 @@
         .artist-name {
             font-size: 3.5rem;
             font-weight: 300;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--text-color);
@@ -209,7 +209,7 @@
         .artist-name::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -20px;
             left: 0;
             width: 100px;
             height: 2px;
@@ -398,13 +398,13 @@
             }
 
             .language-selector {
-                top: 0.3rem;
-                right: 0.8rem;
+                position: static;
+                margin-left: 0.5rem;
             }
 
             .language-button {
-                font-size: 0.8rem;
-                padding: 0.2rem 0.6rem;
+                font-size: 0.6rem;
+                padding: 0.15rem 0.4rem;
             }
 
             /* Présentation mobile */
@@ -744,13 +744,13 @@
             }
 
             .language-selector {
-                top: 0.3rem !important;
-                right: 0.8rem !important;
+                position: static !important;
+                margin-left: 0.5rem !important;
             }
 
             .language-button {
-                font-size: 0.8rem !important;
-                padding: 0.2rem 0.6rem !important;
+                font-size: 0.6rem !important;
+                padding: 0.15rem 0.4rem !important;
             }
 
             .dynamic-presentation, .about-section, .projects-section {
@@ -765,12 +765,16 @@
 
             .artist-name {
                 font-size: 2rem;
-                margin-bottom: 1.5rem;
+                margin-bottom: 3rem;
+            }
+
+            .artist-name::after {
+                bottom: -20px;
             }
 
             .artist-title {
                 font-size: 1rem;
-                margin-bottom: 1.5rem;
+                margin-bottom: 2.5rem;
             }
 
             .artist-description {
@@ -825,6 +829,26 @@
             .scroll-indicator {
                 display: none !important;
             }
+
+            /* Cartes de projets plus compactes sur mobile */
+            .project-card {
+                padding: 1.2rem !important;
+                border-radius: 8px !important;
+            }
+
+            .project-card-header h3 {
+                font-size: 1rem !important;
+            }
+
+            .project-card-description {
+                font-size: 0.85rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .project-card-indicator {
+                font-size: 1rem !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -853,12 +877,16 @@
 
             .artist-name {
                 font-size: 1.8rem;
-                margin-bottom: 1.2rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .artist-name::after {
+                bottom: -18px;
             }
 
             .artist-title {
                 font-size: 0.9rem;
-                margin-bottom: 1.2rem;
+                margin-bottom: 2rem;
             }
 
             .artist-description {
@@ -907,6 +935,26 @@
 
             .presentation-content {
                 margin-bottom: 0 !important;
+            }
+
+            /* Cartes de projets encore plus compactes sur très petit mobile */
+            .project-card {
+                padding: 1rem !important;
+                border-radius: 6px !important;
+            }
+
+            .project-card-header h3 {
+                font-size: 0.9rem !important;
+            }
+
+            .project-card-description {
+                font-size: 0.8rem !important;
+                line-height: 1.3 !important;
+                margin-bottom: 0.8rem !important;
+            }
+
+            .project-card-indicator {
+                font-size: 0.9rem !important;
             }
         }
 
@@ -1465,14 +1513,13 @@
             <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
             <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
             <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
-        </div>
-        <div class="language-selector">
-            <button class="language-button">FR</button>
-            <div class="language-dropdown">
-                <a href="#" data-lang="fr">Français</a>
-                <a href="#" data-lang="en">English</a>
-                <a href="#" data-lang="es">Español</a>
-                <a href="#" data-lang="ru">Русский</a>
+            <div class="language-selector">
+                <button class="language-button">FR</button>
+                <div class="language-dropdown">
+                    <a href="#" data-lang="fr">Français</a>
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
             </div>
         </div>
     </nav>
