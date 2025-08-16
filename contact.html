@@ -146,39 +146,47 @@
 
         /* ===== BARRE DE NAVIGATION MOBILE UNIFORMISÉE (même que musique.html) ===== */
         @media (max-width: 768px) {
-            /* Barre de navigation mobile ultra-compacte (même que musique.html) */
+            body {
+                padding-top: 0;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+
             .main-nav {
-                padding: 0.3rem 1rem;
-                min-height: 40px;
+                padding: 0.3rem 1rem !important;
+                min-height: 40px !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
             }
 
             .nav-links {
-                flex-direction: row;
-                gap: 0.3rem;
-                padding: 0.3rem 0;
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-direction: row !important;
+                gap: 0.3rem !important;
+                padding: 0.3rem 0 !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
             }
 
             .nav-link {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.5rem;
-                white-space: nowrap;
+                font-size: 0.7rem !important;
+                padding: 0.2rem 0.5rem !important;
+                white-space: nowrap !important;
             }
 
             .home-circle {
-                width: 25px;
-                height: 25px;
+                width: 20px !important;
+                height: 20px !important;
             }
 
             .language-selector {
-                position: static;
-                margin-left: 0.5rem;
+                position: static !important;
+                margin-left: 0.5rem !important;
             }
 
             .language-button {
-                font-size: 0.6rem;
-                padding: 0.15rem 0.4rem;
+                font-size: 0.6rem !important;
+                padding: 0.15rem 0.4rem !important;
             }
         }
 
