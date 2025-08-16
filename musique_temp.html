@@ -371,7 +371,8 @@
         /* Nouveau système d'affichage des pistes */
         .audio-panel {
             position: absolute;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 40px;
             border-radius: 20px;
             color: #333;
@@ -383,7 +384,7 @@
             width: 90%;
             max-height: 70vh;
             overflow-y: visible;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
         }
 
         .audio-panel.visible {
@@ -872,20 +873,14 @@
 
             /* Barre audio plus petite sur mobile */
             .audio-panel .progress-container {
-                width: 80px !important;
+                width: 60px !important;
                 margin-left: 15px !important;
             }
 
             /* Commentaires des pistes décalés vers la droite sur mobile */
             .audio-panel .track-comment {
-                margin-left: 50px !important;
-                padding-left: 30px !important;
-            }
-            
-            /* Espacement uniforme et simple entre toutes les pistes sur mobile */
-            .audio-panel .track-row {
-                padding: 12px 0 !important;
-                margin: 0 !important;
+                margin-left: 30px !important;
+                padding-left: 20px !important;
             }
         }
 
@@ -1100,19 +1095,19 @@
                         name: "Arev",
                         duration: "4:21",
                         audioSrc: "MUSIQUES/mu/Arev.wav",
-                        comment: "Composition progressive - 2021"
+                        comment: "Composition progressive pour spectacle de danse contemporaine avec Joana Millet - 2021"
                     },
                     {
                         name: "Tsavuy I",
                         duration: "5:07",
                         audioSrc: "MUSIQUES/mu/Tsavuy 1.mp3",
-                        comment: "Projet musical / exposition - 2023"
+                        comment: "Proposition musicale pour compagnie de danse, thème immigration - 2022"
                     },
                     {
                         name: "Tsavuy II",
                         duration: "6:12",
                         audioSrc: "MUSIQUES/mu/Tsavuy 2.mp3",
-                        comment: "Projet musical / exposition - 2023"
+                        comment: "Projet musical pour spectacle de théâtre et de danse avec Silva Chonabyan - 2023"
                     },
                     {
                         name: "L'auréole du monde",
@@ -1128,7 +1123,7 @@
                         name: "Gate 17A", 
                         duration: "4:16",
                         audioSrc: "MUSIQUES/mu/Gate 17A.mp3",
-                        comment: "Textures aériennes - 2024"
+                        comment: "Projet musique/vidéo avec textures aériennes - 2024"
                     }
                 ]
             },
@@ -1139,7 +1134,7 @@
                         name: "Origin",
                         duration: "19:12",
                         audioSrc: "MUSIQUES/mumu/Origin.mp3",
-                        comment: "Projet musical / exposition - 2023",
+                        comment: "Projet musical pour spectacle de théâtre et de danse avec Silva Chonabyan - 2023",
                         photos: [
                             "origin.jpg"
                         ]
@@ -1148,7 +1143,7 @@
                         name: "Parasite",
                         duration: "7:13",
                         audioSrc: "MUSIQUES/mumu/Parasite.mp3",
-                        comment: "Textures urbaines - 2020",
+                        comment: "Exploration sonore des textures urbaines - 2020",
                         photos: [
                             "Loosin.jpeg",
                             "oui.png"
@@ -1158,7 +1153,7 @@
                         name: "32° Farenheit",
                         duration: "19:46",
                         audioSrc: "MUSIQUES/mumu/32° Farenheit.mp3",
-                        comment: "Performance - 2022",
+                        comment: "Piste sonore pour performance avec Tristan Morel - 2022",
                         photos: [
                             "32/ti.jpg",
                             "32/titi.jpg", 
@@ -1170,7 +1165,7 @@
                         name: "Loosin",
                         duration: "5:42",
                         audioSrc: "MUSIQUES/mumu/Loosin.mp3",
-                        comment: "Balade sonore - 2021",
+                        comment: "Balade sonore sur le thème de la dictature internationale - 2021",
                         photos: [
                             "ambiance.jpg"
                         ]
@@ -1541,7 +1536,7 @@
                             const imageCenterX = rect.left + rect.width / 2;
                             const panelWidth = 700; // Largeur max du panneau
                             const panelLeft = Math.max(20, Math.min(window.innerWidth - panelWidth - 20, imageCenterX - panelWidth / 2));
-                            const panelTop = rect.top + rect.height + 20; // 20px sous l'image, comme sur mobile
+                            const panelTop = rect.bottom + 80;
                             
                             audioPanel.style.left = `${panelLeft}px`;
                             audioPanel.style.top = `${panelTop}px`;

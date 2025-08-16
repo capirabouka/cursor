@@ -1,0 +1,5 @@
+            .audio-panel .progress-container {
+                width: 80px !important;
+                margin-left: 15px !important;
+                margin-right: 20px !important;
+            }
