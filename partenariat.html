@@ -39,27 +39,12 @@
 
         .partnership-content h2 {
             font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
             text-align: center;
-            position: relative;
-            padding-bottom: 1rem;
-            color: #2C3E50;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .partnership-content h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: #2C3E50;
-            opacity: 0.5;
+            color: var(--text-color);
+            letter-spacing: 0.05em;
+            margin-top: 4rem;
         }
 
         .partners-section {
@@ -221,26 +206,35 @@
 
         @media (max-width: 768px) {
             .partnership-content h2 {
-                font-size: 2rem;
+                font-size: 1.4rem !important;
+                margin-bottom: 1.5rem !important;
+                letter-spacing: 0.05em !important;
+                margin-top: 6rem !important;
             }
 
             .partners-section {
-                padding: 2rem 1rem;
+                padding: 3rem 1rem !important;
+                margin: 3rem 0 !important;
             }
 
             .partners-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 0.2rem !important;
+            }
+
+            .partner-title {
+                font-size: 0.9rem !important;
+                margin-bottom: 0.1rem !important;
             }
 
             .npak-logo {
-                width: 150px;
-                height: 150px;
+                width: 160px !important;
+                height: 160px !important;
             }
 
             .placeholder-logo {
-                width: 150px;
-                height: 150px;
+                width: 160px !important;
+                height: 160px !important;
             }
         }
 
