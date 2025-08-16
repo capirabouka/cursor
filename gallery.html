@@ -326,6 +326,219 @@
                 touch-action: none;
             }
         }
+
+        /* ===== VERSION MOBILE COMPLÈTEMENT REFONDUE ===== */
+        
+        /* Base mobile optimisée */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 0;
+                min-height: 100vh;
+                min-height: 100dvh;
+                overflow: hidden;
+            }
+
+            /* Header mobile compact */
+            .back-button {
+                top: 15px;
+                left: 15px;
+                width: 45px;
+                height: 45px;
+                z-index: 1001;
+            }
+
+            /* Canvas mobile optimisé */
+            canvas {
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+
+            /* Navigation mobile optimisée */
+            .nav-arrows {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .nav-arrow {
+                width: 50px;
+                height: 50px;
+                opacity: 0.6;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 50%;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                transition: all 0.3s ease;
+            }
+
+            .nav-arrow:hover {
+                opacity: 0.9;
+                transform: translateY(-50%) scale(1.1);
+            }
+
+            .nav-arrow.left {
+                left: 20px;
+            }
+
+            .nav-arrow.right {
+                right: 20px;
+            }
+
+            /* Contrôle caméra mobile */
+            .camera-slider {
+                bottom: 30px;
+                width: 180px;
+                height: 10px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 5px;
+                cursor: pointer;
+                z-index: 100;
+            }
+
+            .slider-track {
+                border-radius: 5px;
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .slider-ball {
+                width: 20px;
+                height: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                border: 2px solid rgba(0, 0, 0, 0.3);
+                border-radius: 50%;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                touch-action: none;
+            }
+
+            .slider-ball:hover {
+                background: rgba(255, 255, 255, 1);
+                transform: scale(1.1);
+            }
+
+            /* Container vidéo mobile */
+            .videoContainer {
+                width: 80vw !important;
+                height: 60vh !important;
+                max-width: 400px !important;
+                max-height: 300px !important;
+                transform: scale(0.8) !important;
+                transform-origin: center center !important;
+            }
+        }
+
+        /* Mobile très petit */
+        @media (max-width: 480px) {
+            .back-button {
+                top: 10px;
+                left: 10px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-arrow {
+                width: 45px;
+                height: 45px;
+            }
+
+            .nav-arrow.left {
+                left: 15px;
+            }
+
+            .nav-arrow.right {
+                right: 15px;
+            }
+
+            .camera-slider {
+                bottom: 25px;
+                width: 160px;
+                height: 8px;
+            }
+
+            .slider-ball {
+                width: 18px;
+                height: 18px;
+            }
+
+            .videoContainer {
+                width: 90vw !important;
+                height: 50vh !important;
+                max-width: 350px !important;
+                max-height: 250px !important;
+                transform: scale(0.7) !important;
+            }
+        }
+
+        /* Optimisations iOS spécifiques */
+        @media screen and (-webkit-min-device-pixel-ratio: 2) {
+            .back-button {
+                top: 8px;
+                left: 8px;
+            }
+
+            .nav-arrow.left {
+                left: 15px;
+            }
+
+            .nav-arrow.right {
+                right: 15px;
+            }
+
+            .camera-slider {
+                bottom: 25px;
+            }
+        }
+
+        /* Support orientation paysage mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .back-button {
+                top: 10px;
+                left: 10px;
+            }
+
+            .nav-arrow.left {
+                left: 15px;
+            }
+
+            .nav-arrow.right {
+                right: 15px;
+            }
+
+            .camera-slider {
+                bottom: 20px;
+                width: 200px;
+            }
+
+            .videoContainer {
+                width: 70vw !important;
+                height: 70vh !important;
+                max-width: 500px !important;
+                max-height: 400px !important;
+                transform: scale(0.9) !important;
+            }
+        }
+
+        /* Améliorations tactiles */
+        @media (max-width: 768px) {
+            .nav-arrow, .slider-ball, .camera-slider {
+                touch-action: none;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            .nav-arrow:active, .slider-ball:active {
+                transform: translateY(-50%) scale(0.95);
+            }
+
+            .slider-ball:active {
+                background: rgba(255, 255, 255, 0.8);
+            }
+        }
     </style>
 </head>
 <body>
@@ -710,5 +923,4 @@
         animate();
     </script>
 </body>
-</html> 
 </html> 
