@@ -817,6 +817,37 @@
                 width: 100%;
                 height: auto;
                 object-fit: cover;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .image-item:hover img,
+            .image-item:active img {
+                transform: scale(1.05);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            .image-item:active img {
+                transform: scale(1.08);
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            }
+
+            /* Instruction mobile */
+            .mobile-instruction {
+                text-align: center;
+                margin-top: 2rem;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .mobile-instruction p {
+                margin: 0;
+                font-size: 0.9rem;
+                color: #666;
+                font-style: italic;
             }
 
             /* Panneau audio mobile optimisé */
@@ -938,6 +969,11 @@
         
         <div class="image-item larger" data-image="mezac">
             <img src="mezac.jpg" alt="Meza AC" class="hover-image">
+        </div>
+        
+        <!-- Indication pour les utilisateurs -->
+        <div class="mobile-instruction">
+            <p><em>Touchez les maisons pour découvrir les compositions</em></p>
         </div>
     </div>
 
@@ -1469,6 +1505,11 @@
             console.log('Configuration des gestionnaires d\'événements...');
             document.querySelectorAll('.image-item').forEach(item => {
                 item.addEventListener('click', (e) => {
+                    // Vibration du téléphone au clic !
+                    if (navigator.vibrate) {
+                        navigator.vibrate(100); // Vibration courte de 100ms
+                    }
+                    
                     console.log('Clic sur image détecté:', item.getAttribute('data-image'));
                     const imageType = item.getAttribute('data-image');
                     const data = audioData[imageType];
