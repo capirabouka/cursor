@@ -1181,24 +1181,47 @@
         function enableFullscreenSwipe() {
             fullscreenSwipeEnabled = true;
             currentFullscreenIndex = globalCurrentIndex;
-            document.addEventListener('touchstart', handleFullscreenTouchStart);
-            document.addEventListener('touchend', handleFullscreenTouchEnd);
+            console.log('Fullscreen swipe enabled for video', currentFullscreenIndex);
+            
+            // Ajouter les événements sur le document et sur la vidéo
+            document.addEventListener('touchstart', handleFullscreenTouchStart, { passive: false });
+            document.addEventListener('touchend', handleFullscreenTouchEnd, { passive: false });
+            
+            // Ajouter aussi sur la vidéo elle-même
+            const currentVideo = document.querySelector('.video-item video[data-index="' + currentFullscreenIndex + '"]');
+            if (currentVideo) {
+                currentVideo.addEventListener('touchstart', handleFullscreenTouchStart, { passive: false });
+                currentVideo.addEventListener('touchend', handleFullscreenTouchEnd, { passive: false });
+            }
         }
         
         function disableFullscreenSwipe() {
             fullscreenSwipeEnabled = false;
+            console.log('Fullscreen swipe disabled');
+            
             document.removeEventListener('touchstart', handleFullscreenTouchStart);
             document.removeEventListener('touchend', handleFullscreenTouchEnd);
+            
+            // Retirer aussi de toutes les vidéos
+            const allVideos = document.querySelectorAll('.video-item video');
+            allVideos.forEach(video => {
+                video.removeEventListener('touchstart', handleFullscreenTouchStart);
+                video.removeEventListener('touchend', handleFullscreenTouchEnd);
+            });
         }
         
         function handleFullscreenTouchStart(e) {
             if (!fullscreenSwipeEnabled) return;
+            e.preventDefault();
             touchStartX = e.changedTouches[0].screenX;
+            console.log('Touch start:', touchStartX);
         }
         
         function handleFullscreenTouchEnd(e) {
             if (!fullscreenSwipeEnabled) return;
+            e.preventDefault();
             touchEndX = e.changedTouches[0].screenX;
+            console.log('Touch end:', touchEndX);
             handleFullscreenSwipe();
         }
         
@@ -1206,45 +1229,76 @@
             const swipeThreshold = 50;
             const diff = touchStartX - touchEndX;
             
+            console.log('Swipe detected - diff:', diff, 'threshold:', swipeThreshold);
+            
             if (Math.abs(diff) > swipeThreshold) {
                 if (diff > 0) {
                     // Swipe gauche - vidéo suivante
                     if (currentFullscreenIndex < videos.length - 1) {
                         currentFullscreenIndex++;
+                        console.log('Swiping to next video:', currentFullscreenIndex);
                         switchToFullscreenVideo(currentFullscreenIndex);
+                    } else {
+                        console.log('Already at last video');
                     }
                 } else {
                     // Swipe droite - vidéo précédente
                     if (currentFullscreenIndex > 0) {
                         currentFullscreenIndex--;
+                        console.log('Swiping to previous video:', currentFullscreenIndex);
                         switchToFullscreenVideo(currentFullscreenIndex);
+                    } else {
+                        console.log('Already at first video');
                     }
                 }
+            } else {
+                console.log('Swipe too small, ignoring');
             }
         }
         
         function switchToFullscreenVideo(index) {
+            console.log('Switching to fullscreen video:', index);
+            
             // Arrêter la vidéo actuelle
             const currentVideo = document.querySelector('.video-item video[data-index="' + currentFullscreenIndex + '"]');
             if (currentVideo) {
                 currentVideo.pause();
+                console.log('Paused current video');
             }
             
             // Passer à la nouvelle vidéo
             currentFullscreenIndex = index;
             const newVideo = document.querySelector('.video-item video[data-index="' + index + '"]');
             if (newVideo) {
+                console.log('Found new video, switching to fullscreen');
+                
                 // Sortir du plein écran actuel
                 if (document.fullscreenElement) {
-                    document.exitFullscreen();
-                }
-                
-                // Attendre un peu puis passer en plein écran avec la nouvelle vidéo
-                setTimeout(() => {
-                    newVideo.requestFullscreen().catch(err => {
-                        console.log('Erreur plein écran:', err);
+                    document.exitFullscreen().then(() => {
+                        console.log('Exited fullscreen, now entering with new video');
+                        // Attendre un peu puis passer en plein écran avec la nouvelle vidéo
+                        setTimeout(() => {
+                            newVideo.requestFullscreen().then(() => {
+                                console.log('Successfully entered fullscreen with new video');
+                            }).catch(err => {
+                                console.log('Erreur plein écran:', err);
+                            });
+                        }, 200);
+                    }).catch(err => {
+                        console.log('Erreur sortie plein écran:', err);
                     });
-                }, 100);
+                } else {
+                    // Pas en plein écran, y aller directement
+                    setTimeout(() => {
+                        newVideo.requestFullscreen().then(() => {
+                            console.log('Successfully entered fullscreen with new video');
+                        }).catch(err => {
+                            console.log('Erreur plein écran:', err);
+                        });
+                    }, 100);
+                }
+            } else {
+                console.log('New video not found');
             }
         }
 
