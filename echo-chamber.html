@@ -459,6 +459,39 @@
                 border-radius: 12px;
             }
 
+            /* Vidéos mobile - mieux centrées */
+            .video-container {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                margin-left: -30px;
+                padding: 0 20px;
+                position: relative;
+            }
+
+            .video {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                border-radius: 0;
+            }
+
+            /* Flèche mobile - rétrécie et dans le cadre */
+            .arrow {
+                position: absolute;
+                right: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                opacity: 0.7;
+                z-index: 10;
+            }
+
             /* Masquer toutes les flèches du logo en mobile */
             .scroll-arrow.left,
             .scroll-arrow.right,
@@ -581,6 +614,24 @@
                 line-height: 1.6;
                 padding: 1.2rem;
                 border-radius: 10px;
+            }
+
+            /* Vidéos très mobile - mieux centrées */
+            .video-container {
+                padding: 0 15px;
+                margin-left: -40px;
+            }
+
+            .video {
+                border-radius: 0;
+            }
+
+            /* Flèche très mobile - encore plus petite */
+            .arrow {
+                right: -2px;
+                width: 25px;
+                height: 25px;
+                opacity: 0.6;
             }
         }
 
