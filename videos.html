@@ -619,9 +619,8 @@
                 scroll-snap-type: x mandatory;
                 gap: 0;
                 padding: 2rem 0;
-                margin: 0;
+                margin: 0 auto;
                 margin-top: 6rem;
-                margin-left: 20px;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
                 -ms-overflow-style: none;
@@ -643,7 +642,7 @@
                 overflow: hidden;
                 background: transparent;
                 box-shadow: none;
-                padding: 0 20px;
+                padding: 0 10px;
                 box-sizing: border-box;
             }
 
@@ -677,7 +676,7 @@
                 gap: 8px;
                 padding: 1rem 0;
                 margin: 0;
-                margin-left: 20px;
+                margin-left: 0;
             }
 
             .indicator {
@@ -980,7 +979,7 @@
                 const itemWidth = videoGrid.offsetWidth;
                 const newIndex = Math.round(scrollPosition / itemWidth);
                 
-                if (newIndex !== currentIndex) {
+                if (newIndex !== currentIndex && newIndex >= 0 && newIndex < videos.length) {
                     currentIndex = newIndex;
                     updateIndicators(currentIndex);
                 }
