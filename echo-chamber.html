@@ -350,6 +350,17 @@
 
         /* Responsive pour mobile - Version complète */
         @media (max-width: 768px) {
+            /* Logo mobile - remonté */
+            .logo-container {
+                height: 80vh;
+                margin-top: 10px;
+            }
+
+            .logo {
+                width: 80vw;
+                height: 50vh;
+            }
+
             /* Bouton retour mobile */
             .back-button {
                 width: 35px;
@@ -365,10 +376,16 @@
 
             /* Titre mobile */
             .title {
-                font-size: 24px;
-                top: 15px;
-                left: 70px;
-                padding: 8px 12px;
+                position: static;
+                font-size: 2.5rem;
+                text-align: center;
+                margin: 0 0 2rem 0;
+                padding: 1.5rem;
+                background: none;
+                color: #000;
+                border-radius: 0;
+                backdrop-filter: none;
+                box-shadow: none;
             }
 
             /* Sélecteur de langue mobile */
@@ -441,9 +458,52 @@
                 padding: 1.5rem;
                 border-radius: 12px;
             }
+
+            /* Masquer toutes les flèches du logo en mobile */
+            .scroll-arrow.left,
+            .scroll-arrow.right,
+            .scroll-arrow.center {
+                display: none !important;
+            }
+
+            /* Flèche mobile avant le texte */
+            .mobile-scroll-arrow {
+                display: block !important;
+                text-align: center;
+                font-size: 1.2rem;
+                margin: 4rem 0 2rem 0;
+                color: rgba(0, 0, 0, 0.4);
+            }
         }
 
         @media (max-width: 480px) {
+            /* Logo très mobile - encore plus remonté */
+            .logo-container {
+                height: 70vh;
+                margin-top: -20px;
+            }
+
+            /* Masquer toutes les flèches du logo en mobile */
+            .scroll-arrow.left,
+            .scroll-arrow.right,
+            .scroll-arrow.center {
+                display: none !important;
+            }
+
+            /* Flèche mobile avant le texte */
+            .mobile-scroll-arrow {
+                display: block !important;
+                text-align: center;
+                font-size: 1rem;
+                margin: 3rem 0 1.5rem 0;
+                color: rgba(0, 0, 0, 0.3);
+            }
+
+            .logo {
+                width: 85vw;
+                height: 45vh;
+            }
+
             /* Bouton retour très mobile */
             .back-button {
                 width: 30px;
@@ -459,10 +519,9 @@
 
             /* Titre très mobile */
             .title {
-                font-size: 20px;
-                top: 10px;
-                left: 55px;
-                padding: 6px 10px;
+                font-size: 2rem;
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
             }
 
             /* Sélecteur de langue très mobile */
@@ -735,6 +794,9 @@
     </div>
 
     <div class="main-content">
+        <!-- Flèche mobile avant le texte -->
+        <div class="mobile-scroll-arrow">↓</div>
+        
         <div class="description">
             <p data-i18n="echo_chamber.description">Installation sonore combinant métal, cordes de guitare électrique, glace et chaînes suspendues.</p>
         </div>
