@@ -346,7 +346,7 @@
             /* Contenu mobile */
             .content-section {
                 padding: 2rem 1rem;
-                margin-top: 80px;
+                margin-top: 180px;
             }
 
             /* Grille vidéo mobile */
@@ -424,7 +424,7 @@
             /* Contenu très mobile */
             .content-section {
                 padding: 1.5rem 0.8rem;
-                margin-top: 70px;
+                margin-top: 80px;
             }
 
             /* Grille vidéo très mobile */
@@ -531,6 +531,7 @@
                 min-height: 100vh;
                 min-height: 100dvh;
                 overflow-x: hidden;
+                overflow-y: auto;
             }
 
             /* Header mobile compact */
@@ -549,8 +550,29 @@
                 z-index: 1001;
             }
 
+            /* Titre mobile */
+            .title {
+                position: fixed;
+                font-size: 24px;
+                top: 15px;
+                left: 70px;
+                padding: 8px 12px;
+                color: #000;
+                background: none;
+                border-radius: 0;
+                backdrop-filter: none;
+                box-shadow: none;
+                z-index: 200;
+            }
+
             /* Layout principal mobile */
-            .content-section {
+            .scene {
+                display: none !important;
+            }
+
+            /* Container principal mobile */
+            .project-description {
+                position: static;
                 width: 100%;
                 height: auto;
                 min-height: 100vh;
@@ -561,71 +583,24 @@
                 flex-direction: column;
                 gap: 2rem;
                 overflow-y: auto;
+                background: transparent;
+                border-radius: 0;
+                box-shadow: none;
+                backdrop-filter: none;
+                z-index: 1;
             }
 
-            /* Titre mobile */
-            .title {
-                position: static;
-                font-size: 2.5rem;
-                text-align: center;
-                margin: 0 0 2rem 0;
-                padding: 1.5rem;
-                background: transparent !important;
-                color: #000 !important;
-                border-radius: 0 !important;
-                backdrop-filter: none !important;
-                box-shadow: none !important;
-            }
-
-            /* Grille vidéos mobile */
-            .video-grid {
-                width: 100%;
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                margin: 0;
-            }
-
-            .video-item {
-                width: 100%;
-                position: relative;
-                border-radius: 0 !important;
-                overflow: visible !important;
-                box-shadow: none !important;
-                background: transparent !important;
-                padding: 1rem !important;
-            }
-
-            .video-item video {
-                width: 100%;
-                height: auto;
-                max-height: 50vh;
-                object-fit: cover;
-                display: block;
-                border-radius: 0 !important;
-                margin-bottom: 1rem;
-            }
-
-            .video-name {
-                font-size: 1.2rem;
-                font-weight: 600;
-                color: #000;
-                margin-bottom: 1rem;
-                text-align: center;
-            }
-
-            /* Contenu texte mobile */
             .project-description p {
                 position: static;
                 width: 100%;
                 max-width: 100%;
-                padding: 1rem !important;
-                margin: 1rem 0;
-                background: transparent !important;
+                padding: 2rem;
+                margin: 0.5rem 0;
+                background: transparent;
                 color: #000;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-                backdrop-filter: none !important;
+                border-radius: 0;
+                box-shadow: none;
+                backdrop-filter: none;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
                 hyphens: auto;
@@ -634,11 +609,130 @@
                 text-align: left;
                 font-size: 1.1rem;
                 font-weight: 400;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Carrousel vidéos mobile */
+            .video-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 0;
+                padding: 2rem 0;
+                margin: 0;
+                margin-top: 6rem;
+                margin-left: 20px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .video-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .video-item {
+                flex: 0 0 100%;
+                scroll-snap-align: start;
+                width: 100%;
+                position: relative;
+                border-radius: 0;
+                overflow: visible;
+                background: transparent;
+                box-shadow: none;
+                padding: 0 20px;
+                box-sizing: border-box;
+            }
+
+            .video-item video {
+                width: 100%;
+                height: auto;
+                max-height: 60vh;
+                object-fit: cover;
+                display: block;
+                border-radius: 0;
+            }
+
+            .video-name {
+                font-size: 1.1rem;
+                padding: 1rem 0;
+                margin: 1rem 0;
+                background: transparent;
+                color: #000;
+                text-align: center;
+                border-radius: 0;
+                box-shadow: none;
+                backdrop-filter: none;
+                font-weight: 400;
+            }
+
+            /* Indicateurs de navigation */
+            .carousel-indicators {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                padding: 1rem 0;
+                margin: 0;
+                margin-left: 20px;
+            }
+
+            .indicator {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .indicator.active {
+                background: rgba(0, 0, 0, 0.8);
+            }
+
+            /* Container vidéo mobile */
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 2000;
+                display: none;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .video-container.active {
+                display: flex;
+            }
+
+            .video-container video,
+            .video-container iframe {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .close-button {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: none;
+                font-size: 2rem;
+                cursor: pointer;
+                padding: 10px;
+                border-radius: 50%;
+                z-index: 2001;
             }
         }
 
         /* Mobile très petit */
         @media (max-width: 480px) {
+
+            
             .content-section {
                 padding: 70px 15px 15px 15px;
                 gap: 1.5rem;
@@ -668,8 +762,13 @@
 
             .project-description p {
                 padding: 1.5rem;
-                margin: 0.8rem 0;
+                margin: 0.4rem 0;
                 font-size: 1rem;
+            }
+
+            .project-description {
+                padding: 70px 15px 15px 15px;
+                gap: 1.5rem;
             }
         }
 
@@ -686,14 +785,14 @@
             }
 
             .content-section {
-                padding-top: 70px;
+                padding-top: 0px;
             }
         }
 
         /* Support orientation paysage mobile */
         @media (max-width: 768px) and (orientation: landscape) {
             .content-section {
-                padding-top: 60px;
+                padding-top: 0px;
                 gap: 1.5rem;
             }
 
@@ -729,6 +828,11 @@
     <div class="scene">
         <div class="camera" id="camera"></div>
     </div>
+    
+    <!-- Grille mobile pour les vidéos -->
+    <div class="video-grid" id="videoGrid"></div>
+    <div class="carousel-indicators" id="carouselIndicators"></div>
+    
     <div class="video-container" id="videoContainer">
         <button class="close-button" id="closeButton">&times;</button>
         <video id="videoPlayer" controls></video>
@@ -776,57 +880,139 @@
         ];
 
         const camera = document.getElementById('camera');
+        const videoGrid = document.getElementById('videoGrid');
+        const carouselIndicators = document.getElementById('carouselIndicators');
         const videoContainer = document.getElementById('videoContainer');
         const videoPlayer = document.getElementById('videoPlayer');
         const vimeoPlayer = document.getElementById('vimeoPlayer');
         const closeButton = document.getElementById('closeButton');
 
         function createVideoSpace() {
-            const verticalSpacing = 30;
-            const leftMargin = 50;
-            const maxWidth = 600;
+            // Version desktop - garder l'ancien système
+            if (window.innerWidth > 768) {
+                const verticalSpacing = 30;
+                const leftMargin = 50;
+                const maxWidth = 600;
 
-            // Créer une seule colonne à gauche
-            videos.forEach((video, i) => {
-                const x = leftMargin;
-                const y = 150 + (i * verticalSpacing);
+                // Créer une seule colonne à gauche
+                videos.forEach((video, i) => {
+                    const x = leftMargin;
+                    const y = 150 + (i * verticalSpacing);
 
-                // Créer le lien
-                const link = document.createElement('a');
-                link.href = '#';
-                link.className = 'video-link';
-                link.textContent = video.title;
-                link.style.left = `${x}px`;
-                link.style.top = `${y}px`;
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (video.type === 'vimeo') {
-                        // Afficher la vidéo Vimeo avec exactement le même format
-                        videoPlayer.style.display = 'none';
-                        vimeoPlayer.style.display = 'block';
-                        vimeoPlayer.src = video.src;
-                    } else {
-                        // Afficher la vidéo locale
-                        videoPlayer.style.display = 'block';
-                        vimeoPlayer.style.display = 'none';
-                        videoPlayer.src = video.src;
-                        videoPlayer.play();
+                    // Créer le lien
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.className = 'video-link';
+                    link.textContent = video.title;
+                    link.style.left = `${x}px`;
+                    link.style.top = `${y}px`;
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        playVideo(video);
+                    });
+                    camera.appendChild(link);
+
+                    // Créer la ligne de connexion si ce n'est pas le dernier élément
+                    if (i < videos.length - 1) {
+                        const line = document.createElement('div');
+                        line.className = 'line';
+                        line.style.width = `${verticalSpacing}px`;
+                        line.style.left = `${x + 50}px`;
+                        line.style.top = `${y + 20}px`;
+                        line.style.transform = `rotate(90deg)`;
+                        camera.appendChild(line);
                     }
-                    videoContainer.classList.add('active');
                 });
-                camera.appendChild(link);
+            } else {
+                // Version mobile - créer un carrousel
+                createMobileCarousel();
+            }
+        }
 
-                // Créer la ligne de connexion si ce n'est pas le dernier élément
-                if (i < videos.length - 1) {
-                    const line = document.createElement('div');
-                    line.className = 'line';
-                    line.style.width = `${verticalSpacing}px`;
-                    line.style.left = `${x + 50}px`;
-                    line.style.top = `${y + 20}px`;
-                    line.style.transform = `rotate(90deg)`;
-                    camera.appendChild(line);
+        function createMobileCarousel() {
+            // Créer les indicateurs
+            videos.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                carouselIndicators.appendChild(indicator);
+            });
+
+            // Créer les vidéos
+            videos.forEach((video, index) => {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item';
+                videoItem.dataset.index = index;
+                
+                const videoElement = document.createElement('video');
+                videoElement.src = video.src;
+                videoElement.preload = 'metadata';
+                
+                const videoName = document.createElement('div');
+                videoName.className = 'video-name';
+                videoName.textContent = video.title;
+                
+                videoItem.appendChild(videoElement);
+                videoItem.appendChild(videoName);
+                
+                videoItem.addEventListener('click', () => {
+                    playVideo(video);
+                });
+                
+                videoGrid.appendChild(videoItem);
+            });
+
+            // Gérer le scroll du carrousel
+            let currentIndex = 0;
+            videoGrid.addEventListener('scroll', () => {
+                const scrollPosition = videoGrid.scrollLeft;
+                const itemWidth = videoGrid.offsetWidth;
+                const newIndex = Math.round(scrollPosition / itemWidth);
+                
+                if (newIndex !== currentIndex) {
+                    currentIndex = newIndex;
+                    updateIndicators(currentIndex);
                 }
             });
+        }
+
+        function goToSlide(index) {
+            const itemWidth = videoGrid.offsetWidth;
+            videoGrid.scrollTo({
+                left: index * itemWidth,
+                behavior: 'smooth'
+            });
+            updateIndicators(index);
+        }
+
+        function updateIndicators(activeIndex) {
+            const indicators = carouselIndicators.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                if (index === activeIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        function playVideo(video) {
+            if (video.type === 'vimeo') {
+                // Afficher la vidéo Vimeo
+                videoPlayer.style.display = 'none';
+                vimeoPlayer.style.display = 'block';
+                vimeoPlayer.src = video.src;
+            } else {
+                // Afficher la vidéo locale
+                videoPlayer.style.display = 'block';
+                vimeoPlayer.style.display = 'none';
+                videoPlayer.src = video.src;
+                videoPlayer.play();
+            }
+            videoContainer.classList.add('active');
         }
 
         closeButton.addEventListener('click', () => {
