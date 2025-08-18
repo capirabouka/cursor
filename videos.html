@@ -961,6 +961,7 @@
         const videoPlayer = document.getElementById('videoPlayer');
         const vimeoPlayer = document.getElementById('vimeoPlayer');
         const closeButton = document.getElementById('closeButton');
+        let globalCurrentIndex = 0;
 
         function createVideoSpace() {
             // Version desktop - garder l'ancien système
@@ -1037,9 +1038,10 @@
                 
                 videoItem.appendChild(videoElement);
                 videoItem.appendChild(videoName);
-                
-                videoItem.addEventListener('click', () => {
-                    // Arrêter toutes les autres vidéos
+
+                // Ne pas toggler play/pause au clic sur la carte
+                // Gérer la logique via les contrôles natifs et les événements de la vidéo
+                videoElement.addEventListener('play', () => {
                     const allVideos = document.querySelectorAll('.video-item video');
                     allVideos.forEach(vid => {
                         if (vid !== videoElement) {
@@ -1047,31 +1049,21 @@
                             vid.currentTime = 0;
                         }
                     });
-                    
-                    // Lancer la vidéo cliquée
-                    if (videoElement.paused) {
-                        videoElement.play();
-                    } else {
-                        videoElement.pause();
-                    }
-                    
-                    // Détecter le passage en plein écran
-                    videoElement.addEventListener('webkitbeginfullscreen', () => {
+                });
+
+                // Détecter le passage en plein écran (iOS / autres navigateurs)
+                videoElement.addEventListener('webkitbeginfullscreen', () => {
+                    enableFullscreenSwipe();
+                });
+                videoElement.addEventListener('webkitendfullscreen', () => {
+                    disableFullscreenSwipe();
+                });
+                videoElement.addEventListener('fullscreenchange', () => {
+                    if (document.fullscreenElement === videoElement) {
                         enableFullscreenSwipe();
-                    });
-                    
-                    videoElement.addEventListener('webkitendfullscreen', () => {
+                    } else {
                         disableFullscreenSwipe();
-                    });
-                    
-                    // Pour les autres navigateurs
-                    videoElement.addEventListener('fullscreenchange', () => {
-                        if (document.fullscreenElement === videoElement) {
-                            enableFullscreenSwipe();
-                        } else {
-                            disableFullscreenSwipe();
-                        }
-                    });
+                    }
                 });
                 
                 videoGrid.appendChild(videoItem);
@@ -1079,6 +1071,7 @@
 
             // Gérer le scroll du carrousel
             let currentIndex = 0;
+            globalCurrentIndex = 0;
             videoGrid.addEventListener('scroll', () => {
                 const scrollPosition = videoGrid.scrollLeft;
                 const itemWidth = videoGrid.offsetWidth;
@@ -1093,6 +1086,7 @@
                     });
                     
                     currentIndex = newIndex;
+                    globalCurrentIndex = newIndex;
                     updateIndicators(currentIndex);
                 }
             });
@@ -1112,6 +1106,7 @@
                 behavior: 'smooth'
             });
             updateIndicators(index);
+            globalCurrentIndex = index;
         }
 
         function updateIndicators(activeIndex) {
@@ -1133,7 +1128,7 @@
         
         function enableFullscreenSwipe() {
             fullscreenSwipeEnabled = true;
-            currentFullscreenIndex = currentIndex;
+            currentFullscreenIndex = globalCurrentIndex;
             document.addEventListener('touchstart', handleFullscreenTouchStart);
             document.addEventListener('touchend', handleFullscreenTouchEnd);
         }
