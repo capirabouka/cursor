@@ -625,6 +625,8 @@
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
                 -ms-overflow-style: none;
+                width: 100%;
+                max-width: 100%;
             }
 
             .video-grid::-webkit-scrollbar {
@@ -635,9 +637,10 @@
                 flex: 0 0 100%;
                 scroll-snap-align: start;
                 width: 100%;
+                max-width: 100%;
                 position: relative;
                 border-radius: 0;
-                overflow: visible;
+                overflow: hidden;
                 background: transparent;
                 box-shadow: none;
                 padding: 0 20px;
@@ -646,9 +649,10 @@
 
             .video-item video {
                 width: 100%;
+                max-width: 100%;
                 height: auto;
-                max-height: 60vh;
-                object-fit: cover;
+                max-height: 50vh;
+                object-fit: contain;
                 display: block;
                 border-radius: 0;
             }
@@ -754,6 +758,8 @@
 
             .video-item video {
                 max-height: 40vh;
+                max-width: 100%;
+                object-fit: contain;
             }
 
             .video-name {
@@ -808,6 +814,8 @@
 
             .video-item video {
                 max-height: 35vh;
+                max-width: 100%;
+                object-fit: contain;
             }
         }
     </style>
