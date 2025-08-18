@@ -666,6 +666,21 @@
                 display: block !important;
                 border-radius: 0 !important;
                 box-sizing: border-box !important;
+                /* S'assurer que les contrôles sont visibles */
+                background: #000 !important;
+            }
+            
+            /* Forcer l'affichage des contrôles vidéo */
+            .video-item video::-webkit-media-controls {
+                display: flex !important;
+            }
+            
+            .video-item video::-webkit-media-controls-panel {
+                display: flex !important;
+            }
+            
+            .video-item video::-webkit-media-controls-play-button {
+                display: flex !important;
             }
 
             .video-name {
@@ -1027,10 +1042,12 @@
                 videoElement.src = video.src;
                 videoElement.preload = 'metadata';
                 videoElement.controls = true;
-                videoElement.muted = true;
+                videoElement.muted = false; // Permettre le son
                 videoElement.playsInline = true; // Empêche le plein écran automatique sur iOS
                 videoElement.webkitPlaysinline = true; // Pour Safari
                 videoElement.dataset.index = index; // Pour le swipe en plein écran
+                videoElement.controlsList = 'nodownload nofullscreen noremoteplayback'; // Contrôles natifs
+                videoElement.disablePictureInPicture = true; // Désactiver PiP
                 
                 const videoName = document.createElement('div');
                 videoName.className = 'video-name';
@@ -1049,6 +1066,18 @@
                             vid.currentTime = 0;
                         }
                     });
+                });
+                
+                // Forcer le comportement correct des contrôles
+                videoElement.addEventListener('volumechange', (e) => {
+                    // Empêcher que le changement de volume affecte la lecture
+                    e.stopPropagation();
+                });
+                
+                // S'assurer que les contrôles natifs fonctionnent correctement
+                videoElement.addEventListener('click', (e) => {
+                    // Laisser les contrôles natifs gérer le clic
+                    e.stopPropagation();
                 });
 
                 // Détecter le passage en plein écran (iOS / autres navigateurs)
