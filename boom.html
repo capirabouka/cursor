@@ -251,14 +251,14 @@
             }
 
             .image-container {
-                border-radius: 12px;
-                overflow: hidden;
+                border-radius: 0 !important;
+                overflow: visible !important;
             }
 
             .image-container img {
                 width: 100%;
                 height: auto;
-                border-radius: 12px;
+                border-radius: 0 !important;
             }
 
             .image-container.side-by-side {
@@ -274,17 +274,21 @@
             .image-description {
                 font-size: 1rem;
                 line-height: 1.6;
-                padding: 1.5rem;
-                border-radius: 12px;
+                padding: 1rem !important;
+                border-radius: 0 !important;
                 margin: 1.5rem 0;
+                background: transparent !important;
+                border: none !important;
             }
 
             /* Crédits mobile */
             .credits {
                 font-size: 0.9rem;
-                padding: 1.5rem;
-                border-radius: 12px;
+                padding: 1rem !important;
+                border-radius: 0 !important;
                 margin: 2rem 0;
+                background: transparent !important;
+                border: none !important;
             }
 
             /* Description du projet mobile */
@@ -295,8 +299,10 @@
             .project-description p {
                 font-size: 1rem;
                 line-height: 1.7;
-                padding: 1.5rem;
-                border-radius: 12px;
+                padding: 1rem !important;
+                border-radius: 0 !important;
+                background: transparent !important;
+                border: none !important;
             }
         }
 
@@ -344,11 +350,11 @@
             }
 
             .image-container {
-                border-radius: 10px;
+                border-radius: 0 !important;
             }
 
             .image-container img {
-                border-radius: 10px;
+                border-radius: 0 !important;
             }
 
             /* Description très mobile */
@@ -356,7 +362,7 @@
                 font-size: 0.95rem;
                 line-height: 1.5;
                 padding: 1.2rem;
-                border-radius: 10px;
+                border-radius: 0 !important;
                 margin: 1.2rem 0;
             }
 
@@ -364,7 +370,7 @@
             .credits {
                 font-size: 0.85rem;
                 padding: 1.2rem;
-                border-radius: 10px;
+                border-radius: 0 !important;
                 margin: 1.5rem 0;
             }
 
@@ -377,7 +383,7 @@
                 font-size: 0.95rem;
                 line-height: 1.6;
                 padding: 1.2rem;
-                border-radius: 10px;
+                border-radius: 0 !important;
             }
         }
 
@@ -491,11 +497,11 @@
                 text-align: center;
                 margin: 0 0 2rem 0;
                 padding: 1.5rem;
-                background: rgba(0, 0, 0, 0.8);
-                color: #fff;
-                border-radius: 15px;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                background: none;
+                color: #000;
+                border-radius: 0;
+                backdrop-filter: none;
+                box-shadow: none;
             }
 
             /* Image principale mobile */
@@ -504,8 +510,8 @@
                 height: auto;
                 max-height: 60vh;
                 object-fit: cover;
-                border-radius: 15px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+                border-radius: 0;
+                box-shadow: none;
             }
 
             /* Contenu texte mobile */
@@ -515,11 +521,11 @@
                 max-width: 100%;
                 padding: 2rem;
                 margin: 1rem 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: transparent;
                 color: #000;
-                border-radius: 15px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-                backdrop-filter: blur(10px);
+                border-radius: 0;
+                box-shadow: none;
+                backdrop-filter: none;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
                 hyphens: auto;

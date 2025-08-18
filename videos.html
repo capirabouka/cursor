@@ -570,11 +570,11 @@
                 text-align: center;
                 margin: 0 0 2rem 0;
                 padding: 1.5rem;
-                background: rgba(0, 0, 0, 0.8);
-                color: #fff;
-                border-radius: 15px;
-                backdrop-filter: blur(10px);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                background: transparent !important;
+                color: #000 !important;
+                border-radius: 0 !important;
+                backdrop-filter: none !important;
+                box-shadow: none !important;
             }
 
             /* Grille vidéos mobile */
@@ -589,11 +589,11 @@
             .video-item {
                 width: 100%;
                 position: relative;
-                border-radius: 15px;
-                overflow: hidden;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-                background: rgba(255, 255, 255, 0.95);
-                padding: 1.5rem;
+                border-radius: 0 !important;
+                overflow: visible !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                padding: 1rem !important;
             }
 
             .video-item video {
@@ -602,7 +602,7 @@
                 max-height: 50vh;
                 object-fit: cover;
                 display: block;
-                border-radius: 10px;
+                border-radius: 0 !important;
                 margin-bottom: 1rem;
             }
 
@@ -619,13 +619,13 @@
                 position: static;
                 width: 100%;
                 max-width: 100%;
-                padding: 2rem;
+                padding: 1rem !important;
                 margin: 1rem 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: transparent !important;
                 color: #000;
-                border-radius: 15px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-                backdrop-filter: blur(10px);
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
                 hyphens: auto;
