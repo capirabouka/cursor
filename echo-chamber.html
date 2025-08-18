@@ -633,6 +633,37 @@
                 height: 25px;
                 opacity: 0.6;
             }
+
+            /* Galerie mobile - swipe tactile refait */
+            .gallery {
+                margin-top: 100px;
+                overflow: hidden;
+                position: relative;
+                height: 400px;
+                margin-bottom: 50px;
+                padding: 0;
+            }
+
+            .gallery-container {
+                display: flex;
+                position: relative;
+                gap: 0;
+                transition: transform 0.3s ease;
+                touch-action: pan-y pinch-zoom;
+                animation: none !important;
+                padding: 0;
+            }
+
+            .gallery img {
+                height: 400px;
+                width: 100vw;
+                object-fit: contain;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+                flex-shrink: 0;
+                border-radius: 0;
+                background: #f5f5f5;
+            }
         }
 
         /* Orientation paysage sur mobile */
@@ -964,6 +995,102 @@
             }
             currentVideo.play();
         });
+
+        // Swipe tactile pour la galerie mobile - refait
+        if (window.innerWidth <= 768) {
+            const galleryContainer = document.querySelector('.gallery-container');
+            const images = document.querySelectorAll('.gallery img');
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+            let currentIndex = 0;
+            let startTime = 0;
+
+            // Initialiser la position
+            galleryContainer.style.transform = 'translateX(0px)';
+
+            // Touch events
+            galleryContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startTime = Date.now();
+                isDragging = true;
+                galleryContainer.style.transition = 'none';
+            });
+
+            galleryContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+                const translateX = -currentIndex * window.innerWidth + diff;
+                galleryContainer.style.transform = `translateX(${translateX}px)`;
+            });
+
+            galleryContainer.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                galleryContainer.style.transition = 'transform 0.3s ease';
+                
+                const diff = currentX - startX;
+                const duration = Date.now() - startTime;
+                const velocity = Math.abs(diff) / duration;
+                const threshold = window.innerWidth * 0.2;
+                
+                // Swipe rapide ou long
+                if (Math.abs(diff) > threshold || velocity > 0.5) {
+                    if (diff > 0 && currentIndex > 0) {
+                        currentIndex--;
+                    } else if (diff < 0 && currentIndex < images.length - 1) {
+                        currentIndex++;
+                    }
+                }
+                
+                galleryContainer.style.transform = `translateX(-${currentIndex * window.innerWidth}px)`;
+            });
+
+            // Mouse events pour desktop mobile
+            galleryContainer.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                startTime = Date.now();
+                isDragging = true;
+                galleryContainer.style.transition = 'none';
+            });
+
+            galleryContainer.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = e.clientX;
+                const diff = currentX - startX;
+                const translateX = -currentIndex * window.innerWidth + diff;
+                galleryContainer.style.transform = `translateX(${translateX}px)`;
+            });
+
+            galleryContainer.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                galleryContainer.style.transition = 'transform 0.3s ease';
+                
+                const diff = currentX - startX;
+                const duration = Date.now() - startTime;
+                const velocity = Math.abs(diff) / duration;
+                const threshold = window.innerWidth * 0.2;
+                
+                if (Math.abs(diff) > threshold || velocity > 0.5) {
+                    if (diff > 0 && currentIndex > 0) {
+                        currentIndex--;
+                    } else if (diff < 0 && currentIndex < images.length - 1) {
+                        currentIndex++;
+                    }
+                }
+                
+                galleryContainer.style.transform = `translateX(-${currentIndex * window.innerWidth}px)`;
+            });
+
+            // Empêcher la sélection de texte
+            galleryContainer.addEventListener('selectstart', (e) => {
+                e.preventDefault();
+            });
+        }
     </script>
 </body>
 </html> 
