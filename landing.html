@@ -1895,18 +1895,40 @@
                     
                     // Si on a un paramètre project dans l'URL, centrer la caméra sur ce projet
                     if (projectParam) {
+                        console.log('Project param found:', projectParam);
                         // Trouver le projet correspondant et le centrer
                         const targetProject = document.querySelector(`[data-project="${projectParam}"]`);
+                        console.log('Target project found:', targetProject);
+                        
                         if (targetProject) {
+                            console.log('Scrolling to projects section first...');
                             // Faire défiler vers la section projets d'abord
                             scrollToSection('projects');
                             
                             // Puis centrer sur le projet spécifique
                             setTimeout(() => {
-                                targetProject.scrollIntoView({ 
-                                    behavior: 'smooth', 
-                                    block: 'center' 
-                                });
+                                console.log('Scrolling to target project:', targetProject);
+                                
+                                // Sur mobile, utiliser une approche différente pour le scroll
+                                if (window.innerWidth <= 768) {
+                                    // Calculer la position exacte du projet
+                                    const projectRect = targetProject.getBoundingClientRect();
+                                    const scrollTop = window.pageYOffset + projectRect.top - (window.innerHeight / 2) + (projectRect.height / 2);
+                                    
+                                    console.log('Mobile scroll - Project position:', projectRect.top, 'Scroll to:', scrollTop);
+                                    
+                                    // Scroll instantané sur mobile
+                                    window.scrollTo({
+                                        top: scrollTop,
+                                        behavior: 'auto'
+                                    });
+                                } else {
+                                    // Scroll smooth sur desktop
+                                    targetProject.scrollIntoView({ 
+                                        behavior: 'smooth', 
+                                        block: 'center' 
+                                    });
+                                }
                                 
                                 // Ajouter un effet de surbrillance temporaire
                                 targetProject.style.transition = 'all 0.1s ease';
@@ -1919,6 +1941,7 @@
                                 }, 300);
                             }, 100);
                         } else {
+                            console.log('Target project not found, defaulting to projects section');
                             targetSection = 'projects';
                         }
                     } else {
