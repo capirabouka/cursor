@@ -628,6 +628,16 @@
                 max-width: 100%;
             }
 
+            /* Masquer le système desktop en mobile */
+            .scene {
+                display: none !important;
+            }
+
+            /* Masquer le container vidéo desktop en mobile */
+            .video-container {
+                display: none !important;
+            }
+
             .video-grid::-webkit-scrollbar {
                 display: none;
             }
@@ -1015,6 +1025,8 @@
                 const videoElement = document.createElement('video');
                 videoElement.src = video.src;
                 videoElement.preload = 'metadata';
+                videoElement.controls = true;
+                videoElement.muted = true;
                 
                 const videoName = document.createElement('div');
                 videoName.className = 'video-name';
@@ -1024,7 +1036,9 @@
                 videoItem.appendChild(videoName);
                 
                 videoItem.addEventListener('click', () => {
-                    playVideo(video);
+                    // En mobile, on ne joue pas la vidéo en plein écran
+                    // On peut juste précharger ou afficher un message
+                    console.log('Vidéo cliquée:', video.title);
                 });
                 
                 videoGrid.appendChild(videoItem);
