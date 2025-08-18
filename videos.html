@@ -682,6 +682,14 @@
             .video-item video::-webkit-media-controls-play-button {
                 display: flex !important;
             }
+            
+            .video-item video::-webkit-media-controls-mute-button {
+                display: flex !important;
+            }
+            
+            .video-item video::-webkit-media-controls-volume-slider {
+                display: flex !important;
+            }
 
             .video-name {
                 font-size: 1.1rem !important;
@@ -1049,6 +1057,10 @@
                 videoElement.controlsList = 'nodownload nofullscreen noremoteplayback'; // Contrôles natifs
                 videoElement.disablePictureInPicture = true; // Désactiver PiP
                 
+                // Forcer le démutage
+                videoElement.muted = false;
+                videoElement.volume = 1.0;
+                
                 const videoName = document.createElement('div');
                 videoName.className = 'video-name';
                 videoName.textContent = video.title;
@@ -1078,6 +1090,17 @@
                 videoElement.addEventListener('click', (e) => {
                     // Laisser les contrôles natifs gérer le clic
                     e.stopPropagation();
+                });
+                
+                // S'assurer que le son reste activé
+                videoElement.addEventListener('loadedmetadata', () => {
+                    videoElement.muted = false;
+                    videoElement.volume = 1.0;
+                });
+                
+                videoElement.addEventListener('canplay', () => {
+                    videoElement.muted = false;
+                    videoElement.volume = 1.0;
                 });
 
                 // Détecter le passage en plein écran (iOS / autres navigateurs)
