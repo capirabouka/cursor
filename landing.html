@@ -1889,32 +1889,66 @@
                     }
                     
                     // Déterminer d'où on vient et positionner la caméra en conséquence
-                    const referrer = document.referrer;
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const projectParam = urlParams.get('project');
                     let targetSection = 'presentation'; // Par défaut : rester en haut (Anouche Lelong)
                     
-                    // Si on vient de terminal.html, aller vers "Le bruit des frontières"
-                    if (referrer.includes('terminal.html')) {
-                        targetSection = 'borders-section';
-                    }
-                    // Si on vient de gallery.html (qui est lié à Terminal), aller vers "Le bruit des frontières"
-                    else if (referrer.includes('gallery.html')) {
-                        targetSection = 'borders-section';
-                    }
-                    // Si on vient des pages de projets spécifiques, descendre vers "Résonances Disloquées"
-                    else if (referrer.includes('boom.html') || 
-                             referrer.includes('videos.html') || 
-                             referrer.includes('chute.html') || 
-                             referrer.includes('symphonie.html') || 
-                             referrer.includes('echo-chamber.html')) {
-                        targetSection = 'projects';
-                    }
-                    // Si on vient d'index.html ou musique.html, rester en haut (Anouche Lelong)
-                    else if (referrer.includes('index.html') || referrer.includes('musique.html')) {
-                        targetSection = 'presentation';
-                    }
-                    // Pour toutes les autres pages, rester en haut par défaut
-                    else {
-                        targetSection = 'presentation';
+                    // Si on a un paramètre project dans l'URL, centrer la caméra sur ce projet
+                    if (projectParam) {
+                        // Trouver le projet correspondant et le centrer
+                        const targetProject = document.querySelector(`[data-project="${projectParam}"]`);
+                        if (targetProject) {
+                            // Faire défiler vers la section projets d'abord
+                            scrollToSection('projects');
+                            
+                            // Puis centrer sur le projet spécifique
+                            setTimeout(() => {
+                                targetProject.scrollIntoView({ 
+                                    behavior: 'smooth', 
+                                    block: 'center' 
+                                });
+                                
+                                // Ajouter un effet de surbrillance temporaire
+                                targetProject.style.transition = 'all 0.1s ease';
+                                targetProject.style.transform = 'scale(1.05)';
+                                targetProject.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+                                
+                                setTimeout(() => {
+                                    targetProject.style.transform = 'scale(1)';
+                                    targetProject.style.boxShadow = '';
+                                }, 300);
+                            }, 100);
+                        } else {
+                            targetSection = 'projects';
+                        }
+                    } else {
+                        // Ancienne logique basée sur le referrer si pas de paramètre project
+                        const referrer = document.referrer;
+                        
+                        // Si on vient de terminal.html, aller vers "Le bruit des frontières"
+                        if (referrer.includes('terminal.html')) {
+                            targetSection = 'borders-section';
+                        }
+                        // Si on vient de gallery.html (qui est lié à Terminal), aller vers "Le bruit des frontières"
+                        else if (referrer.includes('gallery.html')) {
+                            targetSection = 'borders-section';
+                        }
+                        // Si on vient des pages de projets spécifiques, descendre vers "Résonances Disloquées"
+                        else if (referrer.includes('boom.html') || 
+                                 referrer.includes('videos.html') || 
+                                 referrer.includes('chute.html') || 
+                                 referrer.includes('symphonie.html') || 
+                                 referrer.includes('echo-chamber.html')) {
+                            targetSection = 'projects';
+                        }
+                        // Si on vient d'index.html ou musique.html, rester en haut (Anouche Lelong)
+                        else if (referrer.includes('index.html') || referrer.includes('musique.html')) {
+                            targetSection = 'presentation';
+                        }
+                        // Pour toutes les autres pages, rester en haut par défaut
+                        else {
+                            targetSection = 'presentation';
+                        }
                     }
                     
                     // Faire défiler vers la section appropriée
