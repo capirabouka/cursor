@@ -466,6 +466,27 @@
                 transition: transform 0.3s ease;
             }
 
+            /* Indicateurs de swipe mobile */
+            .video-swipe-indicators {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 15px;
+            }
+
+            .video-indicator {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.3);
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .video-indicator.active {
+                background: rgba(0, 0, 0, 0.8);
+            }
+
             /* Cacher la flèche sur mobile */
             .arrow {
                 display: none !important;
@@ -631,6 +652,17 @@
             /* Système de swipe des vidéos très mobile */
             .video-container .video {
                 max-height: 40vh;
+            }
+
+            /* Indicateurs de swipe très mobile */
+            .video-swipe-indicators {
+                margin-top: 10px;
+                gap: 6px;
+            }
+
+            .video-indicator {
+                width: 6px;
+                height: 6px;
             }
 
             .project-description p {
@@ -913,6 +945,11 @@
                     <source src="chambre/vid-b.mp4" type="video/mp4">
                 </video>
                 <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWFycm93LXJpZ2h0Ij48bGluZSB4MT0iNSIgeTE9IjEyIiB4Mj0iMTkiIHkyPSIxMiI+PC9saW5lPjxwb2x5bGluZSBwb2ludHM9IjEyIDUgMTkgMTIgMTIgMTkiPjwvcG9seWxpbmU+PC9zdmc+" alt="Flèche" class="arrow" id="nextVideo">
+                <!-- Indicateurs de swipe pour mobile -->
+                <div class="video-swipe-indicators">
+                    <span class="video-indicator active"></span>
+                    <span class="video-indicator"></span>
+                </div>
             </div>
         </div>
 
@@ -1120,6 +1157,7 @@
         if (window.innerWidth <= 768) {
             const videoContainer = document.querySelector('.video-container');
             const currentVideo = document.getElementById('currentVideo');
+            const indicators = document.querySelectorAll('.video-indicator');
             let startX = 0;
             let currentX = 0;
             let isDragging = false;
@@ -1137,6 +1175,11 @@
                     currentVideo.classList.remove('small');
                 }
                 currentVideo.play();
+
+                // Mettre à jour les indicateurs
+                indicators.forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === index);
+                });
             }
 
             // Touch events pour le swipe des vidéos
@@ -1202,6 +1245,16 @@
             videoContainer.addEventListener('selectstart', (e) => {
                 e.preventDefault();
             });
+
+            // Gestionnaires pour les indicateurs (clics)
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', function() {
+                    changeVideo(index);
+                });
+            });
+
+            // Initialiser la première vidéo
+            changeVideo(0);
         }
     </script>
 </body>
