@@ -178,18 +178,51 @@
 
         .arrow {
             position: absolute;
-            right: -50px;
+            right: -30px;
             top: 50%;
             transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
+            width: 0;
+            height: 0;
             cursor: pointer;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
+            border-left: 12px solid rgba(0, 0, 0, 0.3);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .arrow:hover {
-            opacity: 1;
+            border-left-color: rgba(0, 0, 0, 0.6);
+            transform: translateY(-50%) translateX(3px);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+
+
+        /* Indicateurs de swipe pour desktop */
+        .video-swipe-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .video-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .video-indicator.active {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .video-indicator:hover {
+            background: rgba(0, 0, 0, 0.6);
         }
 
         .gallery {
@@ -304,11 +337,8 @@
         .scroll-indicator {
             position: absolute;
             bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
+            left: 50%;
+            transform: translateX(-50%);
             opacity: 0.7;
             transition: opacity 0.3s ease;
         }
@@ -323,16 +353,8 @@
             animation: gradientShift 3s ease-in-out infinite;
         }
 
-        .scroll-arrow.left {
-            animation-delay: 0s;
-        }
-
         .scroll-arrow.center {
             animation-delay: 0.75s;
-        }
-
-        .scroll-arrow.right {
-            animation-delay: 1.5s;
         }
 
         @keyframes gradientShift {
@@ -346,6 +368,11 @@
 
         .logo-container:hover .scroll-indicator {
             opacity: 0.6;
+        }
+
+        /* Cacher la flèche mobile sur desktop */
+        .mobile-scroll-arrow {
+            display: none;
         }
 
         /* Responsive pour mobile - Version complète */
@@ -519,22 +546,7 @@
                 border-radius: 0;
             }
 
-            /* Flèche mobile - rétrécie et dans le cadre */
-            .arrow {
-                position: absolute;
-                right: 0px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 30px;
-                height: 30px;
-                cursor: pointer;
-                opacity: 0.7;
-                z-index: 10;
-            }
-
             /* Masquer toutes les flèches du logo en mobile */
-            .scroll-arrow.left,
-            .scroll-arrow.right,
             .scroll-arrow.center {
                 display: none !important;
             }
@@ -557,8 +569,6 @@
             }
 
             /* Masquer toutes les flèches du logo en mobile */
-            .scroll-arrow.left,
-            .scroll-arrow.right,
             .scroll-arrow.center {
                 display: none !important;
             }
@@ -925,9 +935,7 @@
     <div class="logo-container">
                         <img src="chambre/optimized/assiette.jpg" alt="Logo" class="logo" id="audioToggle">
         <div class="scroll-indicator">
-            <div class="scroll-arrow left">↓</div>
-            <div class="scroll-arrow center">↓</div>
-            <div class="scroll-arrow right">↓</div>
+                            <div class="scroll-arrow center">↓</div>
         </div>
     </div>
 
@@ -944,7 +952,7 @@
                 <video id="currentVideo" class="video" controls>
                     <source src="chambre/vid-b.mp4" type="video/mp4">
                 </video>
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWFycm93LXJpZ2h0Ij48bGluZSB4MT0iNSIgeTE9IjEyIiB4Mj0iMTkiIHkyPSIxMiI+PC9saW5lPjxwb2x5bGluZSBwb2ludHM9IjEyIDUgMTkgMTIgMTIgMTkiPjwvcG9seWxpbmU+PC9zdmc+" alt="Flèche" class="arrow" id="nextVideo">
+                <div class="arrow" id="nextVideo"></div>
             </div>
         </div>
         
@@ -1056,6 +1064,33 @@
                 currentVideo.classList.remove('small');
             }
             currentVideo.play();
+
+            // Mettre à jour les indicateurs desktop
+            updateDesktopIndicators();
+        });
+
+        // Fonction pour mettre à jour les indicateurs desktop
+        function updateDesktopIndicators() {
+            const indicators = document.querySelectorAll('.video-indicator');
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === currentVideoIndex);
+            });
+        }
+
+        // Gestionnaires pour les indicateurs desktop (clics)
+        document.querySelectorAll('.video-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentVideoIndex = index;
+                currentVideo.src = videos[index];
+                currentVideo.load();
+                if (index === 1) {
+                    currentVideo.classList.add('small');
+                } else {
+                    currentVideo.classList.remove('small');
+                }
+                currentVideo.play();
+                updateDesktopIndicators();
+            });
         });
 
         // Swipe tactile pour la galerie mobile - refait
@@ -1254,9 +1289,12 @@
                 });
             });
 
-            // Initialiser la première vidéo
-            changeVideo(0);
+                    // Initialiser la première vidéo
+        changeVideo(0);
         }
+
+        // Initialiser les indicateurs desktop
+        updateDesktopIndicators();
     </script>
 </body>
 </html> 
