@@ -452,6 +452,25 @@
                 gap: 1.5rem;
             }
 
+            /* Système de swipe des vidéos mobile - UNIQUEMENT mobile */
+            .video-container {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .video-container .video {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                max-height: 50vh;
+                transition: transform 0.3s ease;
+            }
+
+            /* Cacher la flèche sur mobile */
+            .arrow {
+                display: none !important;
+            }
+
             .project-description p {
                 font-size: 1rem;
                 line-height: 1.7;
@@ -607,6 +626,11 @@
             /* Description du projet très mobile */
             .project-description {
                 gap: 1.2rem;
+            }
+
+            /* Système de swipe des vidéos très mobile */
+            .video-container .video {
+                max-height: 40vh;
             }
 
             .project-description p {
@@ -1088,6 +1112,94 @@
 
             // Empêcher la sélection de texte
             galleryContainer.addEventListener('selectstart', (e) => {
+                e.preventDefault();
+            });
+        }
+
+        // Système de swipe des vidéos UNIQUEMENT pour mobile
+        if (window.innerWidth <= 768) {
+            const videoContainer = document.querySelector('.video-container');
+            const currentVideo = document.getElementById('currentVideo');
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+            let currentVideoIndex = 0;
+            const videos = ['chambre/vid-b.mp4', 'chambre/vid-c.mp4'];
+
+            // Fonction pour changer de vidéo
+            function changeVideo(index) {
+                currentVideoIndex = index;
+                currentVideo.src = videos[index];
+                currentVideo.load();
+                if (index === 1) {
+                    currentVideo.classList.add('small');
+                } else {
+                    currentVideo.classList.remove('small');
+                }
+                currentVideo.play();
+            }
+
+            // Touch events pour le swipe des vidéos
+            videoContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            videoContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = e.touches[0].clientX;
+            });
+
+            videoContainer.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const diffX = currentX - startX;
+                const threshold = videoContainer.offsetWidth * 0.2; // 20% de la largeur
+                
+                if (Math.abs(diffX) > threshold) {
+                    if (diffX > 0 && currentVideoIndex > 0) {
+                        // Swipe vers la droite - vidéo précédente
+                        changeVideo(currentVideoIndex - 1);
+                    } else if (diffX < 0 && currentVideoIndex < 1) {
+                        // Swipe vers la gauche - vidéo suivante
+                        changeVideo(currentVideoIndex + 1);
+                    }
+                }
+            });
+
+            // Mouse events pour desktop mobile
+            videoContainer.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+                e.preventDefault();
+            });
+
+            videoContainer.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = e.clientX;
+            });
+
+            videoContainer.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const diffX = currentX - startX;
+                const threshold = videoContainer.offsetWidth * 0.2;
+                
+                if (Math.abs(diffX) > threshold) {
+                    if (diffX > 0 && currentVideoIndex > 0) {
+                        changeVideo(currentVideoIndex - 1);
+                    } else if (diffX < 0 && currentVideoIndex < 1) {
+                        changeVideo(currentVideoIndex + 1);
+                    }
+                }
+            });
+
+            // Empêcher la sélection de texte pendant le swipe
+            videoContainer.addEventListener('selectstart', (e) => {
                 e.preventDefault();
             });
         }
