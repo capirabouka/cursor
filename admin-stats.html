@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Anouche Lelong</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #00ff41;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff41;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #00ff41;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2em;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .visitors-list {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff41;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .visitors-list h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ff41;
+            font-size: 1.5em;
+        }
+
+        .visitor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .visitor-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .visitor-location {
+            font-weight: bold;
+            color: #00ff41;
+        }
+
+        .visitor-time {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .visitor-ip {
+            font-family: monospace;
+            color: #666;
+        }
+
+        .map-container {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff41;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .map-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ff41;
+            font-size: 1.5em;
+        }
+
+        #world-map {
+            width: 100%;
+            height: 400px;
+            background: #1a1a2e;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #00ff41;
+            color: #000;
+        }
+
+        .refresh-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 5px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .visitor-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 DASHBOARD ADMIN</h1>
+            <p>Statistiques des visiteurs - Accès restreint</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="total-visits">0</div>
+                <div class="stat-label">Total Visites</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="unique-visitors">0</div>
+                <div class="stat-label">Visiteurs Uniques</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="countries-count">0</div>
+                <div class="stat-label">Pays</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="today-visits">0</div>
+                <div class="stat-label">Visites Aujourd'hui</div>
+            </div>
+        </div>
+
+        <div class="visitors-list">
+            <h3>📊 Derniers Visiteurs</h3>
+            <div id="visitors-container">
+                <!-- Les visiteurs seront affichés ici -->
+            </div>
+        </div>
+
+        <div class="map-container">
+            <h3>🌍 Carte des Visiteurs</h3>
+            <div id="world-map">
+                Carte en cours de chargement...
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="refreshStats()">🔄 Actualiser</button>
+            <button class="btn" onclick="exportData()">📥 Exporter</button>
+            <button class="btn" onclick="clearData()">🗑️ Effacer</button>
+        </div>
+        
+        <div class="controls" style="margin-top: 20px;">
+            <button class="btn" onclick="changePassword()">🔐 Changer Mot de Passe</button>
+            <button class="btn" onclick="generateNewSecretPath()">🔑 Nouvelle URL Secrète</button>
+        </div>
+
+        <div class="refresh-info">
+            <p>Dernière mise à jour: <span id="last-update">-</span></p>
+            <p>Prochaine mise à jour automatique dans <span id="next-update">-</span> secondes</p>
+        </div>
+    </div>
+
+    <script src="admin-config.js"></script>
+    <script src="admin-stats.js"></script>
+</body>
+</html>

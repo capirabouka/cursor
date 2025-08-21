@@ -8,18 +8,19 @@
     <meta name="theme-color" content="#000000">
     <meta name="msapplication-navbutton-color" content="#000000">
     <title>Galerie - Anouche Lelong</title>
+    <script src="visitor-tracker.js"></script>
     <style>
         body {
             margin: 0;
             overflow: hidden;
         }
+        
         canvas {
             display: block;
             width: 100vw;
             height: 100vh;
         }
 
-        
         /* Flèches de navigation discrètes */
         .nav-arrows {
             position: fixed;
@@ -153,27 +154,12 @@
             transform: rotate(45deg) translateX(1px);
         }
 
-        /* Responsive pour mobile - Version corrigée */
+        /* Responsive pour mobile */
         @media (max-width: 768px) {
-            /* Canvas mobile */
             canvas {
                 width: 100vw;
                 height: 100vh;
                 height: 100dvh;
-            }
-
-            /* Vidéo mobile - taille réduite */
-            .videoContainer {
-                width: 90vw !important;
-                height: 50vw !important;
-                max-width: 800px !important;
-                max-height: 450px !important;
-                transform: translate(-50%, -50%) scale(0.7) !important;
-            }
-
-            /* Flèches de navigation mobile */
-            .nav-arrows {
-                z-index: 20;
             }
 
             .nav-arrow {
@@ -196,7 +182,6 @@
                 border-width: 3px;
             }
 
-            /* Barre de glissement mobile */
             .camera-slider {
                 bottom: 20px;
                 width: 150px;
@@ -209,7 +194,6 @@
                 height: 25px;
             }
 
-            /* Bouton retour mobile */
             .back-button {
                 width: 35px;
                 height: 35px;
@@ -224,16 +208,6 @@
         }
 
         @media (max-width: 480px) {
-            /* Vidéo très mobile - encore plus petite */
-            .videoContainer {
-                width: 95vw !important;
-                height: 53vw !important;
-                max-width: 600px !important;
-                max-height: 340px !important;
-                transform: translate(-50%, -50%) scale(0.6) !important;
-            }
-
-            /* Flèches très mobile */
             .nav-arrow {
                 width: 45px;
                 height: 45px;
@@ -253,7 +227,6 @@
                 border-width: 2px;
             }
 
-            /* Barre de glissement très mobile */
             .camera-slider {
                 bottom: 15px;
                 width: 120px;
@@ -265,7 +238,6 @@
                 height: 20px;
             }
 
-            /* Bouton retour très mobile */
             .back-button {
                 width: 30px;
                 height: 30px;
@@ -276,216 +248,6 @@
             .back-button::before {
                 width: 6px;
                 height: 6px;
-            }
-        }
-
-        /* Optimisations pour la barre de tâches mobile */
-        @supports (padding: max(0px)) {
-            body {
-                padding-top: env(safe-area-inset-top);
-                padding-bottom: env(safe-area-inset-bottom);
-                padding-left: env(safe-area-inset-left);
-                padding-right: env(safe-area-inset-right);
-            }
-        }
-
-        /* Styles pour réduire l'impact de la barre de tâches */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 0;
-                min-height: 100vh;
-                min-height: 100dvh;
-            }
-
-            .back-button {
-                top: 10px;
-                left: 10px;
-            }
-
-            canvas {
-                min-height: 100vh;
-                min-height: 100dvh;
-            }
-        }
-
-        /* Optimisations spécifiques pour iOS */
-        @media screen and (-webkit-min-device-pixel-ratio: 2) {
-            .back-button {
-                top: 5px;
-                left: 5px;
-            }
-        }
-
-        /* Support tactile pour le slider */
-        @media (max-width: 768px) {
-            .slider-ball {
-                touch-action: none;
-            }
-
-            .camera-slider {
-                touch-action: none;
-            }
-        }
-
-        /* ===== VERSION MOBILE COMPLÈTEMENT REFONDUE ===== */
-        
-        /* Base mobile optimisée */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 0;
-                min-height: 100vh;
-                min-height: 100dvh;
-                overflow: hidden;
-            }
-
-            /* Header mobile compact */
-            .back-button {
-                top: 15px;
-                left: 15px;
-                width: 45px;
-                height: 45px;
-                z-index: 1001;
-            }
-
-            /* Canvas mobile optimisé */
-            canvas {
-                width: 100vw;
-                height: 100vh;
-                height: 100dvh;
-                min-height: 100vh;
-                min-height: 100dvh;
-            }
-
-            /* Navigation mobile optimisée */
-            .nav-arrows {
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .nav-arrow {
-                width: 50px;
-                height: 50px;
-                opacity: 0.6;
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 50%;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-                transition: all 0.3s ease;
-            }
-
-            .nav-arrow:hover {
-                opacity: 0.9;
-                transform: translateY(-50%) scale(1.1);
-            }
-
-            .nav-arrow.left {
-                left: 20px;
-            }
-
-            .nav-arrow.right {
-                right: 20px;
-            }
-
-            /* Contrôle caméra mobile */
-            .camera-slider {
-                bottom: 30px;
-                width: 180px;
-                height: 10px;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 5px;
-                cursor: pointer;
-                z-index: 100;
-            }
-
-            .slider-track {
-                border-radius: 5px;
-                background: rgba(255, 255, 255, 0.2);
-            }
-
-            .slider-ball {
-                width: 20px;
-                height: 20px;
-                background: rgba(255, 255, 255, 0.9);
-                border: 2px solid rgba(0, 0, 0, 0.3);
-                border-radius: 50%;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-                touch-action: none;
-            }
-
-            .slider-ball:hover {
-                background: rgba(255, 255, 255, 1);
-                transform: scale(1.1);
-            }
-
-            /* Container vidéo mobile */
-            .videoContainer {
-                width: 80vw !important;
-                height: 60vh !important;
-                max-width: 400px !important;
-                max-height: 300px !important;
-                transform: scale(0.8) !important;
-                transform-origin: center center !important;
-            }
-        }
-
-        /* Mobile très petit */
-        @media (max-width: 480px) {
-            .back-button {
-                top: 10px;
-                left: 10px;
-                width: 40px;
-                height: 40px;
-            }
-
-            .nav-arrow {
-                width: 45px;
-                height: 45px;
-            }
-
-            .nav-arrow.left {
-                left: 15px;
-            }
-
-            .nav-arrow.right {
-                right: 15px;
-            }
-
-            .camera-slider {
-                bottom: 25px;
-                width: 160px;
-                height: 8px;
-            }
-
-            .slider-ball {
-                width: 18px;
-                height: 18px;
-            }
-
-            .videoContainer {
-                width: 90vw !important;
-                height: 50vh !important;
-                max-width: 350px !important;
-                max-height: 250px !important;
-                transform: scale(0.7) !important;
-            }
-        }
-
-        /* Optimisations iOS spécifiques */
-        @media screen and (-webkit-min-device-pixel-ratio: 2) {
-            .back-button {
-                top: 8px;
-                left: 8px;
-            }
-
-            .nav-arrow.left {
-                left: 15px;
-            }
-
-            .nav-arrow.right {
-                right: 15px;
-            }
-
-            .camera-slider {
-                bottom: 25px;
             }
         }
 
@@ -507,36 +269,6 @@
             .camera-slider {
                 bottom: 20px;
                 width: 200px;
-            }
-
-            .videoContainer {
-                width: 70vw !important;
-                height: 70vh !important;
-                max-width: 500px !important;
-                max-height: 400px !important;
-                transform: scale(0.9) !important;
-            }
-        }
-
-        /* Améliorations tactiles */
-        @media (max-width: 768px) {
-            .nav-arrow, .slider-ball, .camera-slider {
-                touch-action: none;
-                -webkit-tap-highlight-color: transparent;
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                -khtml-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-
-            .nav-arrow:active, .slider-ball:active {
-                transform: translateY(-50%) scale(0.95);
-            }
-
-            .slider-ball:active {
-                background: rgba(255, 255, 255, 0.8);
             }
         }
     </style>
@@ -560,137 +292,85 @@
     <canvas id="canvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
     <script>
-
+        // ===== CONFIGURATION MODULAIRE =====
+        // Modifiez ces valeurs pour personnaliser l'expérience
         
-        // Initialisation de la scène
+        const CONFIG = {
+            // Taille des écrans
+            screenSize: 5,
+            screenDistance: 3,
+            
+            // Texte personnalisable
+            text: {
+                content: `Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.`,
+                font: '300 36px "Helvetica Neue", Helvetica, Arial, sans-serif',
+                color: '#ffffff',
+                backgroundColor: '#000000',
+                lineHeight: 52,
+                startY: 650,
+                // Marges pour le découpage du texte
+                margins: {
+                    desktop: 100,
+                    mobile: 1  // Marges ultra réduites sur mobile pour texte très long
+                }
+            },
+            
+            // Vidéo Vimeo
+            video: {
+                url: 'https://player.vimeo.com/video/1100817715?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0&dnt=1&sidedock=0&pip=0&controls=1&loop=1&muted=0&transparent=0&autopause=0&showinfo=0&rel=0&color=ffffff&background=000000'
+            },
+            
+            // Images
+            images: {
+                left: 'ftau.jpg',
+                right: 'foto.jpg'
+            }
+        };
+
+        // ===== INITIALISATION =====
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
 
-        // Création de la caméra
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 0, 0);
 
-        // Création du renderer
         const renderer = new THREE.WebGLRenderer({
             canvas: document.getElementById('canvas'),
             antialias: true
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        // Création des écrans
-        const screenSize = 5;
-        const screenDistance = 3;
-
-        // Écran central (vidéo Vimeo fixe dans l'espace 3D)
-        const videoContainer = document.createElement('div');
-        videoContainer.style.cssText = `
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: 95vw;
-            height: 53vw;
-            max-width: 1600px;
-            max-height: 900px;
-            pointer-events: none;
-            z-index: 10;
-        `;
+        // ===== FONCTIONS MODULAIRES =====
         
-        const vimeoIframe = document.createElement('iframe');
-        vimeoIframe.src = 'https://player.vimeo.com/video/1100817715?h=your_hash_here&autoplay=1&title=0&byline=0&portrait=0&dnt=1&sidedock=0&pip=0&controls=1&loop=1&muted=0&transparent=0&autopause=0&showinfo=0&rel=0&color=ffffff&background=000000';
-        vimeoIframe.style.cssText = `
-            width: 100%;
-            height: 100%;
-            border: none;
-            pointer-events: auto;
-        `;
-        vimeoIframe.allow = 'autoplay; fullscreen; picture-in-picture';
-        vimeoIframe.allowFullscreen = true;
-        
-        videoContainer.appendChild(vimeoIframe);
-        document.body.appendChild(videoContainer);
-        
-        // Créer un écran transparent pour la vidéo dans Three.js
-        const videoGeometry = new THREE.PlaneGeometry(screenSize, screenSize * 9/16);
-        const videoMaterial = new THREE.MeshBasicMaterial({ 
-            transparent: true,
-            opacity: 0,
-            side: THREE.DoubleSide 
-        });
-        const videoScreen = new THREE.Mesh(videoGeometry, videoMaterial);
-        videoScreen.position.z = -screenDistance * 2; // Plus loin de la caméra
-        scene.add(videoScreen);
-        
-        // Fonction pour afficher la vidéo seulement quand on regarde vers l'avant
-        const updateVideoPosition = () => {
-            const cameraRotation = camera.rotation.y;
-            if (Math.abs(cameraRotation) < 0.5) {
-                // Face à la vidéo - l'afficher
-                videoContainer.style.display = 'block';
-            } else {
-                // Pas face à la vidéo - la cacher
-                videoContainer.style.display = 'none';
-            }
-        };
-
-        // Écran gauche (image)
-        const leftImageTexture = new THREE.TextureLoader().load('ftau.jpg');
-        const leftMaterial = new THREE.MeshBasicMaterial({
-            map: leftImageTexture,
-            side: THREE.DoubleSide
-        });
-        const leftScreen = new THREE.Mesh(
-            new THREE.PlaneGeometry(screenSize * 2, screenSize * 2 * 9/16),
-            leftMaterial
-        );
-        leftScreen.position.x = -screenDistance * 2.5;
-        leftScreen.rotation.y = Math.PI/2;
-        scene.add(leftScreen);
-
-        // Écran droit (image)
-        const rightImageTexture = new THREE.TextureLoader().load('foto.jpg');
-        const rightMaterial = new THREE.MeshBasicMaterial({
-            map: rightImageTexture,
-            side: THREE.DoubleSide
-        });
-        const rightScreen = new THREE.Mesh(
-            new THREE.PlaneGeometry(screenSize * 2, screenSize * 2 * 9/16),
-            rightMaterial
-        );
-        rightScreen.position.x = screenDistance * 2.5;
-        rightScreen.rotation.y = -Math.PI/2;
-        scene.add(rightScreen);
-
-        // Écran arrière (texte sur les passeports)
-        const createTextCanvas = () => {
+        // Fonction pour créer le texte avec marges adaptatives
+        function createTextCanvas() {
             const canvas = document.createElement('canvas');
             canvas.width = 2048;
             canvas.height = 2048;
             const ctx = canvas.getContext('2d');
             
-            // Amélioration de la qualité du rendu
-            ctx.imageSmoothingEnabled = false;
-            
-            // Fond noir
-            ctx.fillStyle = '#000000';
+            // Fond
+            ctx.fillStyle = CONFIG.text.backgroundColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Texte blanc avec police minimaliste et précise
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '300 36px "Helvetica Neue", Helvetica, Arial, sans-serif';
+            // Texte
+            ctx.fillStyle = CONFIG.text.color;
+            ctx.font = CONFIG.text.font;
             ctx.textAlign = 'center';
             
-            const text = `Installation composée de deux passeports imprimés à grande échelle (2 m sur 3 m), l'un français, l'autre russe, exposés dans des espaces publics ou frontaliers. Ce projet interroge la manière dont des documents censés garantir l'identité deviennent des instruments de séparation. Il raconte une histoire d'amour traversée par des régimes de visas, des territoires, des délais et des justificatifs, révélant comment la liberté de circulation, loin d'être un droit universel, demeure un privilège accordé selon la géographie du pouvoir. L'amour ici n'est pas un prétexte : il est le point de départ, la voix qui insiste, qui attend, qui persiste malgré les mois d'incertitude et les preuves à fournir. En déplaçant ces objets administratifs hors de leur contexte, ce projet rend visible l'absurde et la violence des frontières invisibles, et montre que l'amour, lorsqu'il se heurte à la bureaucratie, devient un acte politique malgré lui.`;
-            
             // Découpage du texte en lignes
-            const words = text.split(' ');
+            const words = CONFIG.text.content.split(' ');
             const lines = [];
             let currentLine = words[0];
+            
+            // Marges adaptatives selon mobile/desktop
+            const isMobile = window.innerWidth <= 768 || window.innerHeight <= 768;
+            const textMargin = isMobile ? CONFIG.text.margins.mobile : CONFIG.text.margins.desktop;
             
             for (let i = 1; i < words.length; i++) {
                 const word = words[i];
                 const width = ctx.measureText(currentLine + ' ' + word).width;
-                if (width < canvas.width - 100) {
+                if (width < canvas.width - textMargin) {
                     currentLine += ' ' + word;
                 } else {
                     lines.push(currentLine);
@@ -699,41 +379,134 @@
             }
             lines.push(currentLine);
             
-            // Affichage du texte centré
-            const lineHeight = 52;
-            const startY = 650;
+            // Affichage du texte
             const centerX = canvas.width / 2;
-            
             lines.forEach((line, index) => {
-                ctx.fillText(line, centerX, startY + index * lineHeight);
+                ctx.fillText(line, centerX, CONFIG.text.startY + index * CONFIG.text.lineHeight);
             });
             
             return canvas;
-        };
-        
-        const textCanvas = createTextCanvas();
-        const textTexture = new THREE.CanvasTexture(textCanvas);
-        const textMaterial = new THREE.MeshBasicMaterial({
-            map: textTexture,
-            side: THREE.DoubleSide
-        });
-        const textScreen = new THREE.Mesh(
-            new THREE.PlaneGeometry(screenSize * 3, screenSize * 3),
-            textMaterial
-        );
-        textScreen.position.z = screenDistance * 3;
-        textScreen.rotation.y = Math.PI;
-        scene.add(textScreen);
+        }
 
-        // Gestionnaires de double-clic pour recentrer la caméra
+        // Fonction pour créer la vidéo
+        function createVideo() {
+            const videoContainer = document.createElement('div');
+            videoContainer.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.8);
+                width: 95vw;
+                height: 53vw;
+                max-width: 1600px;
+                max-height: 900px;
+                pointer-events: none;
+                z-index: 10;
+            `;
+            
+            const vimeoIframe = document.createElement('iframe');
+            vimeoIframe.src = CONFIG.video.url;
+            vimeoIframe.style.cssText = `
+                width: 100%;
+                height: 100%;
+                border: none;
+                pointer-events: auto;
+            `;
+            vimeoIframe.allow = 'autoplay; fullscreen; picture-in-picture';
+            vimeoIframe.allowFullscreen = true;
+            
+            videoContainer.appendChild(vimeoIframe);
+            document.body.appendChild(videoContainer);
+            
+            // Écran transparent dans Three.js
+            const videoGeometry = new THREE.PlaneGeometry(CONFIG.screenSize, CONFIG.screenSize * 9/16);
+            const videoMaterial = new THREE.MeshBasicMaterial({ 
+                transparent: true,
+                opacity: 0,
+                side: THREE.DoubleSide 
+            });
+            const videoScreen = new THREE.Mesh(videoGeometry, videoMaterial);
+            videoScreen.position.z = -CONFIG.screenDistance * 2;
+            scene.add(videoScreen);
+            
+            return videoContainer;
+        }
+
+        // Fonction pour créer les images
+        function createImages() {
+            // Image gauche
+            const leftImageTexture = new THREE.TextureLoader().load(CONFIG.images.left);
+            const leftMaterial = new THREE.MeshBasicMaterial({
+                map: leftImageTexture,
+                side: THREE.DoubleSide
+            });
+            const leftScreen = new THREE.Mesh(
+                new THREE.PlaneGeometry(CONFIG.screenSize * 2, CONFIG.screenSize * 2 * 9/16),
+                leftMaterial
+            );
+            leftScreen.position.x = -CONFIG.screenDistance * 2.5;
+            leftScreen.rotation.y = Math.PI/2;
+            scene.add(leftScreen);
+
+            // Image droite
+            const rightImageTexture = new THREE.TextureLoader().load(CONFIG.images.right);
+            const rightMaterial = new THREE.MeshBasicMaterial({
+                map: rightImageTexture,
+                side: THREE.DoubleSide
+            });
+            const rightScreen = new THREE.Mesh(
+                new THREE.PlaneGeometry(CONFIG.screenSize * 2, CONFIG.screenSize * 2 * 9/16),
+                rightMaterial
+            );
+            rightScreen.position.x = CONFIG.screenDistance * 2.5;
+            rightScreen.rotation.y = -Math.PI/2;
+            scene.add(rightScreen);
+        }
+
+        // Fonction pour créer le texte
+        function createText() {
+            const textCanvas = createTextCanvas();
+            const textTexture = new THREE.CanvasTexture(textCanvas);
+            const textMaterial = new THREE.MeshBasicMaterial({
+                map: textTexture,
+                side: THREE.DoubleSide
+            });
+            const textScreen = new THREE.Mesh(
+                new THREE.PlaneGeometry(CONFIG.screenSize * 3, CONFIG.screenSize * 3),
+                textMaterial
+            );
+            textScreen.position.z = CONFIG.screenDistance * 3;
+            textScreen.rotation.y = Math.PI;
+            scene.add(textScreen);
+        }
+
+        // ===== CRÉATION DE LA SCÈNE =====
+        const videoContainer = createVideo();
+        createImages();
+        createText();
+
+        // ===== GESTION DE LA VIDÉO =====
+        function updateVideoPosition() {
+            const cameraRotation = camera.rotation.y;
+            if (Math.abs(cameraRotation) < 0.5) {
+                videoContainer.style.display = 'block';
+            } else {
+                videoContainer.style.display = 'none';
+            }
+        }
+
+        // ===== CONTRÔLES DE LA CAMÉRA =====
+        let isDragging = false;
+        let previousMousePosition = { x: 0 };
+        const maxRotation = Math.PI;
+
+        // Gestionnaires de clic pour recentrer la caméra
         let doubleClickTimeout;
         
-        // Fonction pour gérer le double-clic
         function handleDoubleClick(targetRotation) {
             camera.rotation.y = targetRotation;
         }
         
-        // Fonction pour gérer le clic simple et détecter le double-clic
         function handleClick(targetRotation) {
             if (doubleClickTimeout) {
                 clearTimeout(doubleClickTimeout);
@@ -746,11 +519,7 @@
             }
         }
 
-        // Contrôles de la caméra (rotation horizontale)
-        let isDragging = false;
-        let previousMousePosition = { x: 0 };
-        const maxRotation = Math.PI; // 180 degrés
-
+        // Contrôles souris
         document.addEventListener('mousedown', (e) => {
             isDragging = true;
             previousMousePosition = { x: e.clientX };
@@ -758,15 +527,9 @@
 
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
-
-            const deltaMove = {
-                x: e.clientX - previousMousePosition.x
-            };
-
-            // Rotation plus fluide avec une limite de 180 degrés
+            const deltaMove = { x: e.clientX - previousMousePosition.x };
             camera.rotation.y = Math.max(-maxRotation, Math.min(maxRotation, 
                 camera.rotation.y - deltaMove.x * 0.005));
-
             previousMousePosition = { x: e.clientX };
         });
 
@@ -774,81 +537,64 @@
             isDragging = false;
         });
 
-        // Gestionnaires de clic pour recentrer la caméra
+        // Clics sur le canvas
         document.addEventListener('click', (e) => {
-            // Vérifier si le clic est sur le canvas
             if (e.target.id === 'canvas') {
                 const rect = e.target.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const centerX = rect.width / 2;
                 
-                // Déterminer la zone cliquée et la rotation correspondante
                 if (x < rect.width * 0.3) {
-                    // Zone gauche - image de gauche
                     handleClick(Math.PI/2);
                 } else if (x > rect.width * 0.7) {
-                    // Zone droite - image de droite
                     handleClick(-Math.PI/2);
                 } else {
-                    // Zone centrale - vidéo ou texte (selon la rotation actuelle)
                     if (Math.abs(camera.rotation.y) < 0.5) {
-                        // Face à la vidéo - recentrer la caméra
                         handleClick(0);
                     } else if (Math.abs(camera.rotation.y - Math.PI) < 0.5) {
-                        // Face au texte
                         handleClick(Math.PI);
                     }
                 }
             }
         });
 
-        // Contrôles des flèches de navigation pour tourner sur chaque face
+        // ===== FLÈCHES DE NAVIGATION =====
         const leftArrow = document.querySelector('.nav-arrow.left');
         const rightArrow = document.querySelector('.nav-arrow.right');
         
-        // Positions des faces du cube 3D
-        const faces = [
-            0,           // Avant (vidéo)
-            Math.PI/2,   // Gauche (photo)
-            Math.PI,     // Arrière (texte)
-            -Math.PI/2   // Droite (photo)
-        ];
+        const faces = [0, Math.PI/2, Math.PI, -Math.PI/2];
         let currentFaceIndex = 0;
         
         leftArrow.addEventListener('click', () => {
-            // Tourner vers la face suivante (sens anti-horaire)
             currentFaceIndex = (currentFaceIndex + 1) % faces.length;
             camera.rotation.y = faces[currentFaceIndex];
         });
         
         rightArrow.addEventListener('click', () => {
-            // Tourner vers la face précédente (sens horaire)
             currentFaceIndex = (currentFaceIndex - 1 + faces.length) % faces.length;
             camera.rotation.y = faces[currentFaceIndex];
         });
-        
-        // Gestion de la barre de glissement de caméra
+
+        // ===== SLIDER DE CAMÉRA =====
         const cameraSlider = document.getElementById('cameraSlider');
         const sliderBall = document.getElementById('sliderBall');
         let isSliderDragging = false;
         let startX = 0;
         let startLeft = 0;
-        
-        // Position initiale de la boule (centre)
-        let ballPosition = 50; // 50% = centre
-        updateBallPosition();
-        
+        let ballPosition = 50;
+
         function updateBallPosition() {
             sliderBall.style.left = ballPosition + '%';
         }
-        
+
         function updateCameraRotation() {
-            // Convertir la position de la boule (0-100%) en rotation de caméra (-π à π)
             const rotation = (ballPosition - 50) / 50 * Math.PI;
             camera.rotation.y = rotation;
         }
-        
-        // Démarrer le glissement
+
+        updateBallPosition();
+
+        // Gestionnaires du slider
         sliderBall.addEventListener('mousedown', (e) => {
             isSliderDragging = true;
             startX = e.clientX;
@@ -856,42 +602,34 @@
             sliderBall.style.cursor = 'grabbing';
         });
 
-        // Support tactile pour mobile
         sliderBall.addEventListener('touchstart', (e) => {
             e.preventDefault();
             isSliderDragging = true;
             startX = e.touches[0].clientX;
             startLeft = ballPosition;
         });
-        
-        // Glisser la boule
+
         document.addEventListener('mousemove', (e) => {
             if (!isSliderDragging) return;
-            
             const deltaX = e.clientX - startX;
             const sliderWidth = cameraSlider.offsetWidth;
             const deltaPercent = (deltaX / sliderWidth) * 100;
-            
             ballPosition = Math.max(0, Math.min(100, startLeft + deltaPercent));
             updateBallPosition();
             updateCameraRotation();
         });
 
-        // Support tactile pour le glissement
         document.addEventListener('touchmove', (e) => {
             if (!isSliderDragging) return;
             e.preventDefault();
-            
             const deltaX = e.touches[0].clientX - startX;
             const sliderWidth = cameraSlider.offsetWidth;
             const deltaPercent = (deltaX / sliderWidth) * 100;
-            
             ballPosition = Math.max(0, Math.min(100, startLeft + deltaPercent));
             updateBallPosition();
             updateCameraRotation();
         });
-        
-        // Arrêter le glissement
+
         document.addEventListener('mouseup', () => {
             if (isSliderDragging) {
                 isSliderDragging = false;
@@ -899,28 +637,38 @@
             }
         });
 
-        // Support tactile pour arrêter le glissement
         document.addEventListener('touchend', () => {
             if (isSliderDragging) {
                 isSliderDragging = false;
             }
         });
 
-        // Animation
+        // ===== ANIMATION ET REDIMENSIONNEMENT =====
         function animate() {
             requestAnimationFrame(animate);
-            updateVideoPosition(); // Mettre à jour la position de la vidéo selon la perspective 3D
+            updateVideoPosition();
             renderer.render(scene, camera);
         }
 
-        // Gestion du redimensionnement
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Recréer le texte quand la taille change pour adapter les marges
+            const newIsMobile = window.innerWidth <= 768 || window.innerHeight <= 768;
+            const currentIsMobile = window.innerWidth <= 768 || window.innerHeight <= 768;
+            
+            if (newIsMobile !== currentIsMobile) {
+                // Nettoyer l'ancien texte
+                scene.children = scene.children.filter(child => child.geometry.type !== 'PlaneGeometry' || child.position.z !== CONFIG.screenDistance * 3);
+                
+                // Recréer le texte avec les bonnes marges
+                createText();
+            }
         });
 
         animate();
     </script>
 </body>
-</html> 
+</html> </html> 

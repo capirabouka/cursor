@@ -185,44 +185,52 @@
 
         .arrow {
             position: absolute;
-            right: -80px;
+            right: -15px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 24px;
-            color: #666;
+            width: 0;
+            height: 0;
             cursor: pointer;
-            transition: color 0.3s ease;
+            border-left: 12px solid rgba(0, 0, 0, 0.3);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 20;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .arrow:hover {
-            color: #000;
+            border-left-color: rgba(0, 0, 0, 0.6);
+            transform: translateY(-50%) translateX(3px);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
-        .arrow-back {
-            position: absolute;
-            left: -80px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 24px;
-            color: #666;
+        /* Indicateurs de swipe pour desktop */
+        .video-swipe-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .video-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
             cursor: pointer;
-            transition: color 0.3s ease;
-            z-index: 20;
-            display: none;
+            transition: background 0.3s ease;
         }
 
-        .arrow-back:hover {
-            color: #000;
+        .video-indicator.active {
+            background: rgba(0, 0, 0, 0.8);
         }
 
-        .video-wrapper.hidden {
-            display: none;
+        .video-indicator:hover {
+            background: rgba(0, 0, 0, 0.6);
         }
 
-        .arrow.hidden {
-            display: none;
-        }
+
 
         /* Responsive pour mobile - Version corrigée */
         @media (max-width: 768px) {
@@ -576,21 +584,19 @@
         </div>
         
         <div class="videos-container">
-            <div class="video-wrapper" id="first-video">
-                <div class="arrow" onclick="showSecondVideo()">→</div>
-                <video controls>
+            <div class="video-wrapper">
+                <video id="currentVideo" controls>
                     <source src="incendiel.mp4" type="video/mp4">
                     Votre navigateur ne supporte pas la lecture de vidéos.
                 </video>
+                <div class="arrow" id="nextVideo"></div>
             </div>
-            
-            <div class="video-wrapper hidden" id="second-video">
-                <div class="arrow-back" onclick="showFirstVideo()">←</div>
-                <video controls>
-                    <source src="https://raw.githubusercontent.com/capirabouka/cursor/main/effondrement.mp4" type="video/mp4">
-                    Votre navigateur ne supporte pas la lecture de vidéos.
-                </video>
-            </div>
+        </div>
+        
+        <!-- Indicateurs de swipe pour desktop -->
+        <div class="video-swipe-indicators">
+            <span class="video-indicator active"></span>
+            <span class="video-indicator"></span>
         </div>
         
         <div class="project-description" data-i18n="fall.project_description">
@@ -602,19 +608,43 @@
     </div>
 
     <script>
-        function showSecondVideo() {
-            document.getElementById('first-video').classList.add('hidden');
-            document.getElementById('second-video').classList.remove('hidden');
-            document.querySelector('.arrow').style.display = 'none';
-            document.querySelector('.arrow-back').style.display = 'block';
+        const currentVideo = document.getElementById('currentVideo');
+        const nextVideo = document.getElementById('nextVideo');
+        let currentVideoIndex = 0;
+        const videos = ['incendiel.mp4', 'https://raw.githubusercontent.com/capirabouka/cursor/main/effondrement.mp4'];
+
+        // Gestion des vidéos
+        nextVideo.addEventListener('click', () => {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            currentVideo.src = videos[currentVideoIndex];
+            currentVideo.load();
+            currentVideo.play();
+
+            // Mettre à jour les indicateurs desktop
+            updateDesktopIndicators();
+        });
+
+        // Fonction pour mettre à jour les indicateurs desktop
+        function updateDesktopIndicators() {
+            const indicators = document.querySelectorAll('.video-indicator');
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === currentVideoIndex);
+            });
         }
-        
-        function showFirstVideo() {
-            document.getElementById('first-video').classList.remove('hidden');
-            document.getElementById('second-video').classList.add('hidden');
-            document.querySelector('.arrow').style.display = 'block';
-            document.querySelector('.arrow-back').style.display = 'none';
-        }
+
+        // Gestionnaires pour les indicateurs desktop (clics)
+        document.querySelectorAll('.video-indicator').forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentVideoIndex = index;
+                currentVideo.src = videos[index];
+                currentVideo.load();
+                currentVideo.play();
+                updateDesktopIndicators();
+            });
+        });
+
+        // Initialiser les indicateurs desktop
+        updateDesktopIndicators();
     </script>
     <script src="translations.js"></script>
     <script src="language-persistence.js"></script>

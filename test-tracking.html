@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tracking - Anouche Lelong</title>
+    <script src="visitor-tracker.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        .btn:hover { background: #0056b3; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test du Système de Tracking</h1>
+        
+        <div class="status info">
+            Cette page teste le système de tracking des visiteurs. 
+            Ouvrez la console du navigateur (F12) pour voir les détails.
+        </div>
+        
+        <h2>📊 Vérification du Tracking</h2>
+        
+        <div id="tracking-status" class="status warning">
+            Vérification en cours...
+        </div>
+        
+        <div id="visitor-data" style="display: none;">
+            <h3>📋 Données du Visiteur</h3>
+            <pre id="data-display"></pre>
+        </div>
+        
+        <div id="stats-display" style="display: none;">
+            <h3>📈 Statistiques Locales</h3>
+            <pre id="stats-data"></pre>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <button class="btn" onclick="checkTracking()">🔄 Vérifier le Tracking</button>
+            <button class="btn" onclick="showLocalStats()">📊 Voir les Stats Locales</button>
+            <button class="btn" onclick="clearLocalData()">🗑️ Effacer les Données</button>
+            <button class="btn" onclick="testAdminAccess()">🔒 Tester l'Accès Admin</button>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #e9ecef; border-radius: 5px;">
+            <h3>🔗 Liens Utiles</h3>
+            <p><strong>Page d'administration :</strong> <a href="admin-stats.html" target="_blank">admin-stats.html</a></p>
+            <p><strong>Documentation :</strong> <a href="README-ADMIN.md" target="_blank">README-ADMIN.md</a></p>
+            <p><strong>Configuration :</strong> <a href="admin-config.js" target="_blank">admin-config.js</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Fonction de vérification du tracking
+        function checkTracking() {
+            const statusDiv = document.getElementById('tracking-status');
+            const visitorDiv = document.getElementById('visitor-data');
+            const dataDisplay = document.getElementById('data-display');
+            
+            try {
+                // Vérifier si le tracker est chargé
+                if (typeof VisitorTracker === 'undefined') {
+                    statusDiv.className = 'status warning';
+                    statusDiv.innerHTML = '❌ Le script de tracking n\'est pas chargé correctement';
+                    return;
+                }
+                
+                // Vérifier les données dans localStorage
+                const stats = localStorage.getItem('visitorStats');
+                if (!stats) {
+                    statusDiv.className = 'status warning';
+                    statusDiv.innerHTML = '⚠️ Aucune donnée de tracking trouvée. Le tracking pourrait ne pas fonctionner.';
+                    return;
+                }
+                
+                const statsData = JSON.parse(stats);
+                if (statsData.visitors && statsData.visitors.length > 0) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = `✅ Tracking fonctionnel ! ${statsData.visitors.length} visite(s) enregistrée(s)`;
+                    
+                    // Afficher les données du dernier visiteur
+                    const lastVisitor = statsData.visitors[0];
+                    dataDisplay.textContent = JSON.stringify(lastVisitor, null, 2);
+                    visitorDiv.style.display = 'block';
+                } else {
+                    statusDiv.className = 'status warning';
+                    statusDiv.innerHTML = '⚠️ Le tracking semble fonctionner mais aucune visite n\'est encore enregistrée';
+                }
+                
+            } catch (error) {
+                statusDiv.className = 'status warning';
+                statusDiv.innerHTML = `❌ Erreur lors de la vérification : ${error.message}`;
+            }
+        }
+        
+        // Afficher les statistiques locales
+        function showLocalStats() {
+            const statsDiv = document.getElementById('stats-display');
+            const statsData = document.getElementById('stats-data');
+            
+            try {
+                const stats = localStorage.getItem('visitorStats');
+                if (stats) {
+                    const parsedStats = JSON.parse(stats);
+                    statsData.textContent = JSON.stringify(parsedStats, null, 2);
+                    statsDiv.style.display = 'block';
+                } else {
+                    alert('Aucune donnée de statistiques trouvée');
+                }
+            } catch (error) {
+                alert(`Erreur : ${error.message}`);
+            }
+        }
+        
+        // Effacer les données locales
+        function clearLocalData() {
+            if (confirm('Êtes-vous sûr de vouloir effacer toutes les données de tracking ?')) {
+                localStorage.removeItem('visitorStats');
+                alert('Données effacées. Rechargez la page pour tester à nouveau.');
+                location.reload();
+            }
+        }
+        
+        // Tester l'accès à l'administration
+        function testAdminAccess() {
+            try {
+                // Vérifier si la config admin est chargée
+                if (typeof ADMIN_CONFIG === 'undefined') {
+                    alert('Configuration admin non chargée. Vérifiez que admin-config.js est accessible.');
+                    return;
+                }
+                
+                const config = ADMIN_CONFIG;
+                alert(`Configuration admin chargée :
+                
+URL secrète : ${config.secretPath}
+Mot de passe : ${config.password ? 'Configuré' : 'Non configuré'}
+Session : ${config.sessionDuration}h
+Limites : ${config.limits.maxVisitors} visiteurs max`);
+                
+            } catch (error) {
+                alert(`Erreur lors du test : ${error.message}`);
+            }
+        }
+        
+        // Vérification automatique au chargement
+        window.addEventListener('load', () => {
+            setTimeout(checkTracking, 2000); // Attendre 2 secondes pour le tracking
+        });
+        
+        // Simuler une visite pour tester
+        setTimeout(() => {
+            console.log('🧪 Test de tracking en cours...');
+            if (typeof VisitorTracker !== 'undefined') {
+                console.log('✅ VisitorTracker chargé avec succès');
+            } else {
+                console.log('❌ VisitorTracker non trouvé');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
