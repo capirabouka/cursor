@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vrai Tracker de Visiteurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .visitor-item {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .visitor-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .visitor-detail {
+            font-size: 0.8em;
+            color: #666;
+        }
+        .visitor-value {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test du Vrai Tracker de Visiteurs</h1>
+    
+    <div class="test-section">
+        <h2>📊 État du Tracker</h2>
+        <p>Vérifiez que le tracker de visiteurs fonctionne correctement :</p>
+        <button class="test-button" onclick="testTrackerStatus()">Vérifier le statut</button>
+        <button class="test-button" onclick="testDataCollection()">Tester la collecte</button>
+        <button class="test-button" onclick="showCurrentData()">Afficher les données actuelles</button>
+        <div id="tracker-status"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌍 Test de Géolocalisation</h2>
+        <p>Testez la détection de votre localisation :</p>
+        <button class="test-button" onclick="testGeolocation()">Tester la géolocalisation</button>
+        <div id="geolocation-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 Informations du Navigateur</h2>
+        <p>Vérifiez les informations collectées sur votre appareil :</p>
+        <button class="test-button" onclick="showBrowserInfo()">Afficher les infos navigateur</button>
+        <div id="browser-info"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📈 Statistiques en Temps Réel</h2>
+        <p>Voir les statistiques collectées :</p>
+        <button class="test-button" onclick="showRealTimeStats()">Afficher les stats</button>
+        <button class="test-button" onclick="exportTestData()">Exporter les données</button>
+        <div id="real-time-stats"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔍 Derniers Visiteurs</h2>
+        <p>Liste des visiteurs détectés :</p>
+        <button class="test-button" onclick="showRecentVisitors()">Afficher les visiteurs</button>
+        <div id="recent-visitors"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🚀 Test Complet</h2>
+        <p>Lancer tous les tests d'un coup :</p>
+        <button class="test-button" onclick="runAllRealTests()" style="background: #28a745;">Lancer tous les tests</button>
+        <div id="all-tests-result"></div>
+    </div>
+
+    <script src="real-visitor-tracker.js"></script>
+    <script>
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function testTrackerStatus() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    showResult('tracker-status', 
+                        `✅ Tracker actif !<br>
+                         Total visites: ${stats.totalVisits}<br>
+                         Visiteurs uniques: ${stats.uniqueVisitors}<br>
+                         Pays: ${stats.countries.length}<br>
+                         Créé le: ${new Date(stats.created).toLocaleString('fr-FR')}`, 
+                        'success');
+                } else {
+                    showResult('tracker-status', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('tracker-status', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testDataCollection() {
+            try {
+                if (window.realVisitorTracker) {
+                    // Forcer une nouvelle collecte de données
+                    window.realVisitorTracker.trackCurrentVisit();
+                    showResult('tracker-status', '✅ Collecte de données déclenchée', 'success');
+                    
+                    // Attendre un peu et afficher les nouvelles stats
+                    setTimeout(() => {
+                        const stats = window.realVisitorTracker.getStats();
+                        showResult('tracker-status', 
+                            `✅ Données mises à jour !<br>
+                             Total visites: ${stats.totalVisits}<br>
+                             Dernière mise à jour: ${new Date(stats.lastUpdated).toLocaleString('fr-FR')}`, 
+                            'success');
+                    }, 2000);
+                } else {
+                    showResult('tracker-status', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('tracker-status', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        async function testGeolocation() {
+            try {
+                showResult('geolocation-result', '🔄 Test de géolocalisation en cours...', 'info');
+                
+                if (window.realVisitorTracker) {
+                    const visitorData = await window.realVisitorTracker.collectVisitorData();
+                    
+                    let result = `✅ Géolocalisation réussie !<br><br>`;
+                    result += `<strong>IP:</strong> ${visitorData.ip}<br>`;
+                    result += `<strong>Pays:</strong> ${visitorData.country}<br>`;
+                    result += `<strong>Ville:</strong> ${visitorData.city}<br>`;
+                    result += `<strong>Région:</strong> ${visitorData.region}<br>`;
+                    result += `<strong>Timezone:</strong> ${visitorData.timezone}<br>`;
+                    
+                    showResult('geolocation-result', result, 'success');
+                } else {
+                    showResult('geolocation-result', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('geolocation-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showBrowserInfo() {
+            try {
+                if (window.realVisitorTracker) {
+                    const visitorData = window.realVisitorTracker.collectVisitorData();
+                    
+                    let result = `✅ Informations collectées !<br><br>`;
+                    result += `<strong>Navigateur:</strong> ${visitorData.browser}<br>`;
+                    result += `<strong>Appareil:</strong> ${visitorData.device}<br>`;
+                    result += `<strong>Mobile:</strong> ${visitorData.isMobile ? 'Oui' : 'Non'}<br>`;
+                    result += `<strong>Langue:</strong> ${visitorData.language}<br>`;
+                    result += `<strong>Résolution:</strong> ${visitorData.screenResolution}<br>`;
+                    result += `<strong>Viewport:</strong> ${visitorData.viewportSize}<br>`;
+                    result += `<strong>Platform:</strong> ${visitorData.platform}<br>`;
+                    result += `<strong>User Agent:</strong> ${visitorData.userAgent.substring(0, 100)}...<br>`;
+                    
+                    showResult('browser-info', result, 'success');
+                } else {
+                    showResult('browser-info', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('browser-info', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showRealTimeStats() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    
+                    let result = `📊 Statistiques en temps réel :<br><br>`;
+                    result += `<strong>Total visites:</strong> ${stats.totalVisits}<br>`;
+                    result += `<strong>Visiteurs uniques:</strong> ${stats.uniqueVisitors}<br>`;
+                    result += `<strong>Pays différents:</strong> ${stats.countries.length}<br>`;
+                    result += `<strong>Visites aujourd'hui:</strong> ${window.realVisitorTracker.getTodayVisits()}<br>`;
+                    result += `<strong>Visites cette semaine:</strong> ${window.realVisitorTracker.getThisWeekVisits()}<br>`;
+                    result += `<strong>Visites ce mois:</strong> ${window.realVisitorTracker.getThisMonthVisits()}<br>`;
+                    result += `<strong>Dernière visite:</strong> ${stats.lastVisit ? new Date(stats.lastVisit).toLocaleString('fr-FR') : 'Aucune'}<br>`;
+                    result += `<strong>Créé le:</strong> ${new Date(stats.created).toLocaleString('fr-FR')}<br>`;
+                    result += `<strong>Dernière mise à jour:</strong> ${new Date(stats.lastUpdated).toLocaleString('fr-FR')}<br>`;
+                    
+                    showResult('real-time-stats', result, 'success');
+                } else {
+                    showResult('real-time-stats', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('real-time-stats', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showRecentVisitors() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    const recentVisitors = stats.visitors.slice(0, 10); // 10 derniers
+                    
+                    if (recentVisitors.length === 0) {
+                        showResult('recent-visitors', 'ℹ️ Aucun visiteur enregistré pour le moment', 'info');
+                        return;
+                    }
+                    
+                    let result = `<h4>👥 ${recentVisitors.length} derniers visiteurs :</h4>`;
+                    
+                    recentVisitors.forEach((visitor, index) => {
+                        const date = new Date(visitor.timestamp).toLocaleString('fr-FR');
+                        result += `
+                            <div class="visitor-item">
+                                <div class="visitor-info">
+                                    <div>
+                                        <div class="visitor-detail">Visiteur #${visitor.id}</div>
+                                        <div class="visitor-value">${visitor.city}, ${visitor.country}</div>
+                                        <div class="visitor-detail">${date}</div>
+                                    </div>
+                                    <div>
+                                        <div class="visitor-detail">IP: ${visitor.ip}</div>
+                                        <div class="visitor-detail">Navigateur: ${visitor.browser}</div>
+                                        <div class="visitor-detail">Appareil: ${visitor.device}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    showResult('recent-visitors', result, 'success');
+                } else {
+                    showResult('recent-visitors', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('recent-visitors', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function exportTestData() {
+            try {
+                if (window.realVisitorTracker) {
+                    const data = window.realVisitorTracker.exportData();
+                    
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `test-visitor-data-${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    showResult('real-time-stats', '✅ Données exportées avec succès !', 'success');
+                } else {
+                    showResult('real-time-stats', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('real-time-stats', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function runAllRealTests() {
+            showResult('all-tests-result', '🔄 Lancement de tous les tests...', 'info');
+            
+            setTimeout(() => {
+                testTrackerStatus();
+                testDataCollection();
+                testGeolocation();
+                showBrowserInfo();
+                showRealTimeStats();
+                showRecentVisitors();
+                
+                showResult('all-tests-result', '✅ Tous les tests ont été lancés. Vérifiez les résultats ci-dessus.', 'success');
+            }, 500);
+        }
+
+        // Tests automatiques au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showResult('all-tests-result', 'ℹ️ Page chargée. Cliquez sur "Lancer tous les tests" pour vérifier le tracker.', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,209 +1,314 @@
-// Script d'administration pour le compteur de vues et géolocalisation
-class VisitorTracker {
+// Script principal pour la page admin
+class AdminStats {
     constructor() {
-        this.stats = this.loadStats();
-        this.updateInterval = null;
-        this.countdownInterval = null;
+        this.stats = {
+            totalVisits: 0,
+            uniqueVisitors: 0,
+            countriesCount: 0,
+            todayVisits: 0
+        };
+        this.visitors = [];
+        this.autoRefreshInterval = null;
         this.init();
     }
 
     init() {
-        this.updateDisplay();
+        this.loadStats();
+        this.loadVisitors();
         this.startAutoRefresh();
         this.updateLastUpdate();
-        this.startCountdown();
+        this.setupEventListeners();
     }
 
     loadStats() {
-        const saved = localStorage.getItem('visitorStats');
-        if (saved) {
-            return JSON.parse(saved);
-        }
-        return {
-            totalVisits: 0,
-            uniqueVisitors: new Set(),
-            visitors: [],
-            countries: new Set(),
-            lastVisit: null,
-            created: new Date().toISOString()
-        };
-    }
-
-    saveStats() {
-        const statsToSave = {
-            ...this.stats,
-            uniqueVisitors: Array.from(this.stats.uniqueVisitors),
-            countries: Array.from(this.stats.countries)
-        };
-        localStorage.setItem('visitorStats', JSON.stringify(statsToSave));
-    }
-
-    addVisitor(visitorData) {
-        // Ajouter la visite
-        this.stats.totalVisits++;
-        
-        // Ajouter le visiteur unique
-        this.stats.uniqueVisitors.add(visitorData.ip);
-        
-        // Ajouter le pays
-        if (visitorData.country) {
-            this.stats.countries.add(visitorData.country);
+        // Charger les vraies statistiques des visiteurs
+        if (window.realVisitorTracker) {
+            const realStats = window.realVisitorTracker.getStats();
+            if (realStats) {
+                this.stats = {
+                    totalVisits: realStats.totalVisits || 0,
+                    uniqueVisitors: realStats.uniqueVisitors || 0,
+                    countriesCount: realStats.countries ? realStats.countries.length : 0,
+                    todayVisits: window.realVisitorTracker.getTodayVisits() || 0
+                };
+            } else {
+                this.stats = {
+                    totalVisits: 0,
+                    uniqueVisitors: 0,
+                    countriesCount: 0,
+                    todayVisits: 0
+                };
+            }
+        } else {
+            // Fallback si le tracker n'est pas disponible
+            this.stats = {
+                totalVisits: 0,
+                uniqueVisitors: 0,
+                countriesCount: 0,
+                todayVisits: 0
+            };
         }
         
-        // Ajouter les détails du visiteur
-        this.stats.visitors.unshift({
-            ...visitorData,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Garder seulement les 100 derniers visiteurs
-        if (this.stats.visitors.length > 100) {
-            this.stats.visitors = this.stats.visitors.slice(0, 100);
+        this.updateStatsDisplay();
+    }
+
+    loadVisitors() {
+        // Charger les vrais visiteurs
+        if (window.realVisitorTracker) {
+            const realStats = window.realVisitorTracker.getStats();
+            if (realStats && realStats.visitors) {
+                this.visitors = realStats.visitors;
+            } else {
+                this.visitors = [];
+            }
+        } else {
+            this.visitors = [];
         }
         
-        this.stats.lastVisit = new Date().toISOString();
-        this.saveStats();
-        this.updateDisplay();
+        this.updateVisitorsDisplay();
     }
 
-    updateDisplay() {
-        // Mettre à jour les statistiques principales
-        document.getElementById('total-visits').textContent = this.stats.totalVisits;
-        document.getElementById('unique-visitors').textContent = this.stats.uniqueVisitors.size;
-        document.getElementById('countries-count').textContent = this.stats.countries.size;
+    generateSampleVisitors() {
+        const countries = ['France', 'États-Unis', 'Allemagne', 'Royaume-Uni', 'Canada', 'Australie', 'Japon', 'Brésil', 'Inde', 'Russie'];
+        const cities = ['Paris', 'New York', 'Berlin', 'Londres', 'Toronto', 'Sydney', 'Tokyo', 'São Paulo', 'Mumbai', 'Moscou'];
         
-        // Calculer les visites d'aujourd'hui
-        const today = new Date().toDateString();
-        const todayVisits = this.stats.visitors.filter(visitor => 
-            new Date(visitor.timestamp).toDateString() === today
-        ).length;
-        document.getElementById('today-visits').textContent = todayVisits;
+        const visitors = [];
+        for (let i = 0; i < 20; i++) {
+            const countryIndex = Math.floor(Math.random() * countries.length);
+            const timestamp = Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000; // 7 derniers jours
+            
+            visitors.push({
+                id: i + 1,
+                country: countries[countryIndex],
+                city: cities[countryIndex],
+                timestamp: timestamp,
+                ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
+                userAgent: this.getRandomUserAgent()
+            });
+        }
         
-        // Mettre à jour la liste des visiteurs
-        this.updateVisitorsList();
-        
-        // Mettre à jour la carte
-        this.updateMap();
+        return visitors.sort((a, b) => b.timestamp - a.timestamp);
     }
 
-    updateVisitorsList() {
+    getRandomUserAgent() {
+        const userAgents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15',
+            'Mozilla/5.0 (Android 11; Mobile; rv:68.0) Gecko/68.0 Firefox/88.0'
+        ];
+        return userAgents[Math.floor(Math.random() * userAgents.length)];
+    }
+
+    updateStatsDisplay() {
+        document.getElementById('total-visits').textContent = this.stats.totalVisits.toLocaleString();
+        document.getElementById('unique-visitors').textContent = this.stats.uniqueVisitors.toLocaleString();
+        document.getElementById('countries-count').textContent = this.stats.countriesCount.toLocaleString();
+        document.getElementById('today-visits').textContent = this.stats.todayVisits.toLocaleString();
+    }
+
+    updateVisitorsDisplay() {
         const container = document.getElementById('visitors-container');
-        const recentVisitors = this.stats.visitors.slice(0, 20); // 20 derniers
+        if (!container) return;
+
+        container.innerHTML = '';
         
-        if (recentVisitors.length === 0) {
-            container.innerHTML = '<p style="text-align: center; color: #666;">Aucun visiteur pour le moment</p>';
-            return;
-        }
+        // Afficher les 10 derniers visiteurs
+        const recentVisitors = this.visitors.slice(0, 10);
         
-        container.innerHTML = recentVisitors.map(visitor => `
-            <div class="visitor-item">
+        recentVisitors.forEach(visitor => {
+            const visitorElement = document.createElement('div');
+            visitorElement.className = 'visitor-item';
+            
+            const date = new Date(visitor.timestamp);
+            const timeString = date.toLocaleString('fr-FR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            visitorElement.innerHTML = `
                 <div class="visitor-info">
-                    <div class="visitor-location">
-                        ${visitor.country || 'Inconnu'} ${visitor.city ? `- ${visitor.city}` : ''}
-                    </div>
-                    <div class="visitor-time">
-                        ${new Date(visitor.timestamp).toLocaleString('fr-FR')}
-                    </div>
+                    <div class="visitor-location">${visitor.city}, ${visitor.country}</div>
+                    <div class="visitor-time">${timeString}</div>
                 </div>
                 <div class="visitor-ip">${visitor.ip}</div>
-            </div>
-        `).join('');
-    }
-
-    updateMap() {
-        const mapContainer = document.getElementById('world-map');
-        const countries = Array.from(this.stats.countries);
-        
-        if (countries.length === 0) {
-            mapContainer.innerHTML = '<p>Aucune donnée de localisation disponible</p>';
-            return;
-        }
-        
-        // Créer une représentation simple de la carte
-        const mapContent = `
-            <div style="text-align: center;">
-                <h4>Pays des visiteurs:</h4>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
-                    ${countries.map(country => `
-                        <span style="
-                            background: rgba(0, 255, 65, 0.2); 
-                            padding: 5px 10px; 
-                            border-radius: 15px; 
-                            border: 1px solid #00ff41;
-                            font-size: 0.9em;
-                        ">${country}</span>
-                    `).join('')}
-                </div>
-                <p style="margin-top: 20px; color: #888;">
-                    Total: ${countries.length} pays différents
-                </p>
-            </div>
-        `;
-        
-        mapContainer.innerHTML = mapContent;
-    }
-
-    startAutoRefresh() {
-        // Actualiser toutes les 30 secondes
-        this.updateInterval = setInterval(() => {
-            this.updateDisplay();
-            this.updateLastUpdate();
-        }, 30000);
-    }
-
-    startCountdown() {
-        this.countdownInterval = setInterval(() => {
-            const now = new Date();
-            const nextUpdate = new Date(now.getTime() + 30000); // 30 secondes
-            const timeLeft = Math.ceil((nextUpdate - now) / 1000);
-            document.getElementById('next-update').textContent = timeLeft;
-        }, 1000);
+            `;
+            
+            container.appendChild(visitorElement);
+        });
     }
 
     updateLastUpdate() {
         const now = new Date();
         document.getElementById('last-update').textContent = now.toLocaleString('fr-FR');
+        
+        // Calculer la prochaine mise à jour
+        const nextUpdate = new Date(now.getTime() + ADMIN_CONFIG.AUTO_REFRESH_INTERVAL);
+        document.getElementById('next-update').textContent = Math.ceil(ADMIN_CONFIG.AUTO_REFRESH_INTERVAL / 1000);
+    }
+
+    startAutoRefresh() {
+        this.autoRefreshInterval = setInterval(() => {
+            this.refreshStats();
+        }, ADMIN_CONFIG.AUTO_REFRESH_INTERVAL);
+    }
+
+    stopAutoRefresh() {
+        if (this.autoRefreshInterval) {
+            clearInterval(this.autoRefreshInterval);
+            this.autoRefreshInterval = null;
+        }
+    }
+
+    refreshStats() {
+        // Recharger les vraies données
+        this.loadStats();
+        this.loadVisitors();
+        this.updateStatsDisplay();
+        this.updateVisitorsDisplay();
+        this.updateLastUpdate();
+    }
+
+    addNewVisitor() {
+        const countries = ['France', 'États-Unis', 'Allemagne', 'Royaume-Uni', 'Canada', 'Australie', 'Japon', 'Brésil', 'Inde', 'Russie'];
+        const cities = ['Paris', 'New York', 'Berlin', 'Londres', 'Toronto', 'Sydney', 'Tokyo', 'São Paulo', 'Mumbai', 'Moscou'];
+        
+        const countryIndex = Math.floor(Math.random() * countries.length);
+        const newVisitor = {
+            id: this.visitors.length + 1,
+            country: countries[countryIndex],
+            city: cities[countryIndex],
+            timestamp: Date.now(),
+            ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
+            userAgent: this.getRandomUserAgent()
+        };
+        
+        this.visitors.unshift(newVisitor);
+        
+        // Limiter le nombre de visiteurs stockés
+        if (this.visitors.length > 100) {
+            this.visitors = this.visitors.slice(0, 100);
+        }
+    }
+
+    saveStats() {
+        localStorage.setItem('admin_stats', JSON.stringify(this.stats));
+    }
+
+    saveVisitors() {
+        localStorage.setItem('admin_visitors', JSON.stringify(this.visitors));
+    }
+
+    setupEventListeners() {
+        // Gestionnaire pour le bouton d'export
+        const exportBtn = document.querySelector('button[onclick="exportData()"]');
+        if (exportBtn) {
+            exportBtn.onclick = () => this.exportData();
+        }
+        
+        // Gestionnaire pour le bouton de nettoyage
+        const clearBtn = document.querySelector('button[onclick="clearData()"]');
+        if (clearBtn) {
+            clearBtn.onclick = () => this.clearData();
+        }
+    }
+
+    exportData() {
+        let data;
+        
+        if (window.realVisitorTracker) {
+            // Exporter les vraies données
+            data = window.realVisitorTracker.exportData();
+            data.securityStats = getSecurityStats();
+        } else {
+            // Fallback avec les données actuelles
+            data = {
+                stats: this.stats,
+                visitors: this.visitors,
+                exportDate: new Date().toISOString(),
+                securityStats: getSecurityStats(),
+                note: "Données limitées - tracker non disponible"
+            };
+        }
+        
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `real-visitor-stats-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        alert('Données réelles exportées avec succès !');
+    }
+
+    clearData() {
+        if (confirm('Êtes-vous sûr de vouloir effacer toutes les données ? Cette action est irréversible.')) {
+            localStorage.removeItem('admin_stats');
+            localStorage.removeItem('admin_visitors');
+            localStorage.removeItem('admin_access_attempts');
+            
+            // Recharger la page
+            window.location.reload();
+        }
     }
 
     destroy() {
-        if (this.updateInterval) clearInterval(this.updateInterval);
-        if (this.countdownInterval) clearInterval(this.countdownInterval);
+        this.stopAutoRefresh();
     }
 }
 
 // Fonctions globales pour les boutons
 function refreshStats() {
-    tracker.updateDisplay();
-    tracker.updateLastUpdate();
-}
-
-function exportData() {
-    const dataStr = JSON.stringify(tracker.stats, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `visitor-stats-${new Date().toISOString().split('T')[0]}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-}
-
-function clearData() {
-    if (confirm('Êtes-vous sûr de vouloir effacer toutes les données ? Cette action est irréversible.')) {
-        localStorage.removeItem('visitorStats');
-        location.reload();
+    if (window.adminStats) {
+        window.adminStats.refreshStats();
     }
 }
 
-// Initialiser le tracker
-let tracker;
-document.addEventListener('DOMContentLoaded', () => {
-    tracker = new VisitorTracker();
+function exportData() {
+    if (window.adminStats) {
+        window.adminStats.exportData();
+    }
+}
+
+function clearData() {
+    if (window.adminStats) {
+        window.adminStats.clearData();
+    }
+}
+
+function changePassword() {
+    changeSecretCode();
+}
+
+function generateNewSecretPath() {
+    if (window.generateNewSecretPath) {
+        window.generateNewSecretPath();
+    }
+}
+
+// Initialiser les statistiques admin quand la page est chargée
+let adminStats;
+document.addEventListener('DOMContentLoaded', function() {
+    // Attendre que l'authentification soit vérifiée
+    setTimeout(() => {
+        if (document.querySelector('.container').style.display !== 'none') {
+            adminStats = new AdminStats();
+            window.adminStats = adminStats;
+        }
+    }, 1000);
 });
 
-// Nettoyer à la fermeture de la page
-window.addEventListener('beforeunload', () => {
-    if (tracker) {
-        tracker.destroy();
+// Nettoyer lors de la fermeture de la page
+window.addEventListener('beforeunload', function() {
+    if (adminStats) {
+        adminStats.destroy();
     }
 });

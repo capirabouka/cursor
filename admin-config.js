@@ -1,150 +1,131 @@
-// Configuration de sécurité pour la page d'administration
+// Configuration admin
 const ADMIN_CONFIG = {
-    // URL secrète pour accéder à l'admin (changez ceci !)
-    secretPath: '/admin-stats-secret-2024',
+    // Code d'accès secret (8 caractères)
+    SECRET_CODE: 'NPK2024',
     
-    // Mot de passe optionnel (laissez vide pour désactiver)
-    password: '',
+    // Paramètres de session
+    SESSION_TIMEOUT: 30 * 60 * 1000, // 30 minutes
     
-    // Liste des IPs autorisées (optionnel, laissez vide pour désactiver)
-    allowedIPs: [],
+    // Paramètres de sécurité
+    MAX_LOGIN_ATTEMPTS: 5,
+    LOCKOUT_DURATION: 15 * 60 * 1000, // 15 minutes
     
-    // Clé de session (changez ceci !)
-    sessionKey: 'admin_session_2024_secret_key',
+    // Paramètres de l'interface
+    AUTO_REFRESH_INTERVAL: 30 * 1000, // 30 secondes
     
-    // Durée de la session en heures
-    sessionDuration: 24,
-    
-    // Services de géolocalisation à utiliser
-    geoServices: {
-        ipService: 'https://api.ipify.org?format=json',
-        locationService: 'https://ipapi.co/json/'
-    },
-    
-    // Limites de stockage
-    limits: {
-        maxVisitors: 1000,
-        maxPageViews: 1000,
-        maxLinkClicks: 100
+    // Messages d'erreur
+    MESSAGES: {
+        CODE_INCORRECT: 'Code incorrect',
+        TOO_MANY_ATTEMPTS: 'Trop de tentatives. Réessayez dans 15 minutes.',
+        SESSION_EXPIRED: 'Session expirée. Veuillez vous reconnecter.',
+        ACCESS_DENIED: 'Accès refusé'
     }
 };
 
-// Fonction de vérification d'accès
-function checkAdminAccess() {
-    // Vérifier si on est sur la page d'admin
-    if (!window.location.pathname.includes('admin-stats')) {
-        return true;
-    }
-    
-    // Vérifier la session
-    const session = getSession();
-    if (session && session.expires > Date.now()) {
-        return true;
-    }
-    
-    // Vérifier le mot de passe si configuré
-    if (ADMIN_CONFIG.password) {
-        const inputPassword = prompt('Mot de passe requis pour accéder à l\'administration:');
-        if (inputPassword === ADMIN_CONFIG.password) {
-            createSession();
-            return true;
-        } else {
-            alert('Accès refusé');
-            window.location.href = '/';
-            return false;
+// Fonction pour changer le code secret
+function changeSecretCode() {
+    const newCode = prompt('Nouveau code secret (8 caractères) :');
+    if (newCode && newCode.length === 8) {
+        if (confirm('Êtes-vous sûr de vouloir changer le code secret ?')) {
+            ADMIN_CONFIG.SECRET_CODE = newCode;
+            alert('Code secret modifié avec succès !');
         }
-    }
-    
-    // Vérifier l'IP si configuré
-    if (ADMIN_CONFIG.allowedIPs.length > 0) {
-        // Cette vérification nécessite un serveur backend
-        // Pour l'instant, on utilise seulement la session
-    }
-    
-    return true;
-}
-
-// Gestion des sessions
-function createSession() {
-    const session = {
-        created: Date.now(),
-        expires: Date.now() + (ADMIN_CONFIG.sessionDuration * 60 * 60 * 1000)
-    };
-    localStorage.setItem(ADMIN_CONFIG.sessionKey, JSON.stringify(session));
-}
-
-function getSession() {
-    try {
-        const session = localStorage.getItem(ADMIN_CONFIG.sessionKey);
-        return session ? JSON.parse(session) : null;
-    } catch (error) {
-        return null;
-    }
-}
-
-function clearSession() {
-    localStorage.removeItem(ADMIN_CONFIG.sessionKey);
-}
-
-// Fonction de déconnexion
-function logout() {
-    clearSession();
-    alert('Session fermée');
-    window.location.href = '/';
-}
-
-// Vérifier l'accès au chargement de la page
-document.addEventListener('DOMContentLoaded', () => {
-    if (!checkAdminAccess()) {
-        return;
-    }
-    
-    // Ajouter le bouton de déconnexion si on est sur la page admin
-    if (window.location.pathname.includes('admin-stats')) {
-        addLogoutButton();
-    }
-});
-
-function addLogoutButton() {
-    const header = document.querySelector('.header');
-    if (header) {
-        const logoutBtn = document.createElement('button');
-        logoutBtn.textContent = '🚪 Déconnexion';
-        logoutBtn.className = 'btn';
-        logoutBtn.style.position = 'absolute';
-        logoutBtn.style.top = '20px';
-        logoutBtn.style.right = '20px';
-        logoutBtn.onclick = logout;
-        
-        header.style.position = 'relative';
-        header.appendChild(logoutBtn);
-    }
-}
-
-// Fonction pour changer le mot de passe
-function changePassword() {
-    const newPassword = prompt('Nouveau mot de passe:');
-    if (newPassword && newPassword.length >= 4) {
-        ADMIN_CONFIG.password = newPassword;
-        alert('Mot de passe mis à jour');
-        // En production, sauvegardez ceci dans un fichier de configuration sécurisé
-    } else {
-        alert('Mot de passe invalide (minimum 4 caractères)');
+    } else if (newCode !== null) {
+        alert('Le code doit faire exactement 8 caractères');
     }
 }
 
 // Fonction pour générer une nouvelle URL secrète
 function generateNewSecretPath() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '/admin-';
-    for (let i = 0; i < 20; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substring(2, 10);
+    const newPath = `admin-${timestamp}-${randomString}.html`;
+    
+    if (confirm(`Nouvelle URL secrète générée : ${newPath}\n\nVoulez-vous créer ce fichier ?`)) {
+        // Ici on pourrait créer un nouveau fichier admin avec un nouveau code
+        alert('Fonctionnalité en développement');
     }
-    ADMIN_CONFIG.secretPath = result;
-    alert(`Nouvelle URL secrète: ${result}\n\n⚠️ Notez-la et changez-la dans le fichier admin-config.js !`);
 }
 
-// Exposer les fonctions globalement
+// Fonction pour vérifier la sécurité
+function checkSecurity() {
+    const session = JSON.parse(localStorage.getItem('admin_session') || '{}');
+    const now = Date.now();
+    
+    if (session.timestamp && (now - session.timestamp > ADMIN_CONFIG.SESSION_TIMEOUT)) {
+        localStorage.removeItem('admin_session');
+        return false;
+    }
+    
+    return true;
+}
+
+// Fonction pour logger les tentatives d'accès
+function logAccessAttempt(success, ip = 'unknown') {
+    const attempts = JSON.parse(localStorage.getItem('admin_access_attempts') || '[]');
+    const now = Date.now();
+    
+    // Nettoyer les anciennes tentatives
+    const recentAttempts = attempts.filter(attempt => 
+        now - attempt.timestamp < ADMIN_CONFIG.LOCKOUT_DURATION
+    );
+    
+    recentAttempts.push({
+        timestamp: now,
+        success: success,
+        ip: ip
+    });
+    
+    localStorage.setItem('admin_access_attempts', JSON.stringify(recentAttempts));
+    
+    // Vérifier si on doit bloquer l'accès
+    const failedAttempts = recentAttempts.filter(attempt => !attempt.success);
+    if (failedAttempts.length >= ADMIN_CONFIG.MAX_LOGIN_ATTEMPTS) {
+        return false; // Accès bloqué
+    }
+    
+    return true; // Accès autorisé
+}
+
+// Fonction pour obtenir les statistiques de sécurité
+function getSecurityStats() {
+    const attempts = JSON.parse(localStorage.getItem('admin_access_attempts') || '[]');
+    const now = Date.now();
+    
+    const recentAttempts = attempts.filter(attempt => 
+        now - attempt.timestamp < 24 * 60 * 60 * 1000 // 24 heures
+    );
+    
+    return {
+        totalAttempts: recentAttempts.length,
+        failedAttempts: recentAttempts.filter(a => !a.success).length,
+        successfulAttempts: recentAttempts.filter(a => a.success).length,
+        lastAttempt: recentAttempts.length > 0 ? new Date(recentAttempts[recentAttempts.length - 1].timestamp) : null
+    };
+}
+
+// Fonction pour nettoyer les logs anciens
+function cleanupOldLogs() {
+    const attempts = JSON.parse(localStorage.getItem('admin_access_attempts') || '[]');
+    const now = Date.now();
+    
+    // Garder seulement les logs des 7 derniers jours
+    const recentAttempts = attempts.filter(attempt => 
+        now - attempt.timestamp < 7 * 24 * 60 * 60 * 1000
+    );
+    
+    localStorage.setItem('admin_access_attempts', JSON.stringify(recentAttempts));
+}
+
+// Nettoyer les anciens logs au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    cleanupOldLogs();
+});
+
+// Exporter les fonctions pour utilisation globale
 window.ADMIN_CONFIG = ADMIN_CONFIG;
-window.changePassword = changePassword;
+window.changeSecretCode = changeSecretCode;
 window.generateNewSecretPath = generateNewSecretPath;
+window.checkSecurity = checkSecurity;
+window.logAccessAttempt = logAccessAttempt;
+window.getSecurityStats = getSecurityStats;

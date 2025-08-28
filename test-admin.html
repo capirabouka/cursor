@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Admin System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test du Système d'Authentification Admin</h1>
+    
+    <div class="test-section">
+        <h2>📋 Vérification des fichiers</h2>
+        <p>Vérifiez que tous les fichiers nécessaires sont présents :</p>
+        <ul>
+            <li>✅ <code>admin-auth.js</code> - Système d'authentification</li>
+            <li>✅ <code>admin-config.js</code> - Configuration</li>
+            <li>✅ <code>admin-stats.js</code> - Statistiques admin</li>
+            <li>✅ <code>admin-stats.html</code> - Page admin</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>🔑 Test du code secret</h2>
+        <p>Code secret actuel : <strong>NPK2024</strong></p>
+        <button class="test-button" onclick="testSecretCode()">Tester le code secret</button>
+        <div id="code-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Test de redirection</h2>
+        <p>Testez la redirection vers la page admin :</p>
+        <button class="test-button" onclick="testRedirect()">Tester la redirection</button>
+        <div id="redirect-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Test des statistiques</h2>
+        <p>Vérifiez que les statistiques se chargent correctement :</p>
+        <button class="test-button" onclick="testStats()">Tester les statistiques</button>
+        <div id="stats-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔒 Test de session</h2>
+        <p>Vérifiez la gestion des sessions :</p>
+        <button class="test-button" onclick="testSession()">Tester la session</button>
+        <div id="session-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 Test responsive</h2>
+        <p>Testez l'interface sur différents écrans :</p>
+        <button class="test-button" onclick="testResponsive()">Tester responsive</button>
+        <div id="responsive-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🚀 Test complet</h2>
+        <p>Lancez tous les tests d'un coup :</p>
+        <button class="test-button" onclick="runAllTests()" style="background: #28a745;">Lancer tous les tests</button>
+        <div id="all-tests-result"></div>
+    </div>
+
+    <script src="admin-config.js"></script>
+    <script>
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function testSecretCode() {
+            try {
+                if (window.ADMIN_CONFIG && ADMIN_CONFIG.SECRET_CODE === 'NPK2024') {
+                    showResult('code-test-result', '✅ Code secret configuré correctement', 'success');
+                } else {
+                    showResult('code-test-result', '❌ Code secret non configuré ou incorrect', 'error');
+                }
+            } catch (error) {
+                showResult('code-test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testRedirect() {
+            try {
+                // Simuler le clic sur le petit rond
+                const testCode = prompt('Entrez le code secret pour tester :');
+                if (testCode === 'NPK2024') {
+                    showResult('redirect-test-result', '✅ Code correct ! Redirection vers admin-stats.html', 'success');
+                    // Optionnel : rediriger réellement
+                    if (confirm('Voulez-vous aller sur la page admin ?')) {
+                        window.location.href = 'admin-stats.html';
+                    }
+                } else if (testCode !== null) {
+                    showResult('redirect-test-result', '❌ Code incorrect', 'error');
+                } else {
+                    showResult('redirect-test-result', 'ℹ️ Test annulé', 'info');
+                }
+            } catch (error) {
+                showResult('redirect-test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testStats() {
+            try {
+                if (window.ADMIN_CONFIG) {
+                    showResult('stats-test-result', '✅ Configuration admin chargée', 'success');
+                } else {
+                    showResult('stats-test-result', '❌ Configuration admin non chargée', 'error');
+                }
+            } catch (error) {
+                showResult('stats-test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testSession() {
+            try {
+                // Test du localStorage
+                const testData = { test: true, timestamp: Date.now() };
+                localStorage.setItem('admin_test', JSON.stringify(testData));
+                const retrieved = JSON.parse(localStorage.getItem('admin_test'));
+                
+                if (retrieved && retrieved.test) {
+                    localStorage.removeItem('admin_test');
+                    showResult('session-test-result', '✅ localStorage fonctionne correctement', 'success');
+                } else {
+                    showResult('session-test-result', '❌ localStorage ne fonctionne pas', 'error');
+                }
+            } catch (error) {
+                showResult('session-test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testResponsive() {
+            const width = window.innerWidth;
+            let device = '';
+            
+            if (width < 768) {
+                device = 'Mobile';
+            } else if (width < 1024) {
+                device = 'Tablet';
+            } else {
+                device = 'Desktop';
+            }
+            
+            showResult('responsive-test-result', `✅ Taille d'écran détectée : ${device} (${width}px)`, 'success');
+        }
+
+        function runAllTests() {
+            showResult('all-tests-result', '🔄 Lancement de tous les tests...', 'info');
+            
+            setTimeout(() => {
+                testSecretCode();
+                testStats();
+                testSession();
+                testResponsive();
+                
+                showResult('all-tests-result', '✅ Tous les tests ont été lancés. Vérifiez les résultats ci-dessus.', 'success');
+            }, 500);
+        }
+
+        // Tests automatiques au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showResult('all-tests-result', 'ℹ️ Page chargée. Cliquez sur "Lancer tous les tests" pour vérifier le système.', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
