@@ -3,6 +3,8 @@ class RealVisitorTracker {
     constructor() {
         this.stats = this.loadStats();
         this.currentVisitor = null;
+        this.sessionId = this.getOrCreateSessionId();
+        this.deviceFingerprint = this.generateDeviceFingerprint();
         this.init();
     }
 
@@ -11,16 +13,58 @@ class RealVisitorTracker {
         this.setupPeriodicUpdates();
     }
 
+    getOrCreateSessionId() {
+        // Créer ou récupérer un ID de session persistant
+        let sessionId = localStorage.getItem('visitor_session_id');
+        if (!sessionId) {
+            sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('visitor_session_id', sessionId);
+        }
+        return sessionId;
+    }
+
+    generateDeviceFingerprint() {
+        // Créer une empreinte unique de l'appareil
+        const components = [
+            navigator.userAgent,
+            navigator.language,
+            navigator.platform,
+            screen.width + 'x' + screen.height,
+            screen.colorDepth,
+            navigator.hardwareConcurrency || 'unknown',
+            navigator.deviceMemory || 'unknown',
+            new Date().getTimezoneOffset(),
+            navigator.cookieEnabled ? '1' : '0',
+            navigator.doNotTrack || '0'
+        ];
+        
+        // Créer un hash simple de ces composants
+        const fingerprint = components.join('|');
+        return this.simpleHash(fingerprint);
+    }
+
+    simpleHash(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return Math.abs(hash).toString(36);
+    }
+
     async trackCurrentVisit() {
         try {
             // Collecter les vraies informations du visiteur
             const visitorData = await this.collectVisitorData();
             
-            // Vérifier si c'est un nouveau visiteur
+            // Vérifier si c'est un nouveau visiteur ou une actualisation
             if (this.isNewVisitor(visitorData)) {
                 this.addNewVisitor(visitorData);
+            } else if (this.isNewSession(visitorData)) {
+                this.updateExistingVisitor(visitorData, true); // Nouvelle session
             } else {
-                this.updateExistingVisitor(visitorData);
+                this.updateExistingVisitor(visitorData, false); // Même session
             }
 
             // Sauvegarder les statistiques
@@ -50,7 +94,9 @@ class RealVisitorTracker {
             viewportSize: `${window.innerWidth}x${window.innerHeight}`,
             referrer: document.referrer || 'direct',
             currentPage: window.location.pathname,
-            sessionId: this.generateSessionId()
+            sessionId: this.sessionId,
+            deviceFingerprint: this.deviceFingerprint,
+            isRefresh: this.isPageRefresh()
         };
 
         // Essayer d'obtenir la vraie IP et localisation
@@ -74,6 +120,21 @@ class RealVisitorTracker {
         visitorData.isMobile = /Mobile|Android|iPhone|iPad/.test(navigator.userAgent);
 
         return visitorData;
+    }
+
+    isPageRefresh() {
+        // Détecter si c'est un refresh de page
+        const navigation = performance.getEntriesByType('navigation')[0];
+        if (navigation) {
+            return navigation.type === 'reload';
+        }
+        
+        // Fallback : vérifier si on vient de la même page
+        const currentUrl = window.location.href;
+        const lastUrl = sessionStorage.getItem('last_visited_url');
+        sessionStorage.setItem('last_visited_url', currentUrl);
+        
+        return lastUrl === currentUrl;
     }
 
     async getIPAndLocation() {
@@ -160,25 +221,41 @@ class RealVisitorTracker {
         return 'Unknown';
     }
 
-    generateSessionId() {
-        return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    }
-
     isNewVisitor(visitorData) {
-        // Vérifier par IP et User-Agent
+        // Nouvelle logique : utiliser l'empreinte de l'appareil ET l'IP
         const existingVisitor = this.stats.visitors.find(v => 
-            v.ip === visitorData.ip && 
-            v.userAgent === visitorData.userAgent
+            v.deviceFingerprint === visitorData.deviceFingerprint &&
+            v.ip === visitorData.ip
         );
         
         return !existingVisitor;
+    }
+
+    isNewSession(visitorData) {
+        // Vérifier si c'est une nouvelle session (même visiteur, nouvelle session)
+        const existingVisitor = this.stats.visitors.find(v => 
+            v.deviceFingerprint === visitorData.deviceFingerprint &&
+            v.ip === visitorData.ip
+        );
+        
+        if (existingVisitor) {
+            // Vérifier si la session a changé
+            return existingVisitor.sessionId !== visitorData.sessionId;
+        }
+        
+        return false;
     }
 
     addNewVisitor(visitorData) {
         // Ajouter le nouveau visiteur
         this.stats.visitors.unshift({
             id: this.stats.visitors.length + 1,
-            ...visitorData
+            ...visitorData,
+            visitCount: 1,
+            firstVisit: visitorData.timestamp,
+            lastVisit: visitorData.timestamp,
+            sessions: [visitorData.sessionId],
+            pagesVisited: [visitorData.currentPage]
         });
 
         // Incrémenter les compteurs
@@ -200,14 +277,19 @@ class RealVisitorTracker {
         // Mettre à jour la dernière visite
         this.stats.lastVisit = visitorData.timestamp;
         
-        console.log('Nouveau visiteur détecté:', visitorData);
+        console.log('🆕 Nouveau visiteur détecté:', {
+            device: visitorData.device,
+            browser: visitorData.browser,
+            ip: visitorData.ip,
+            fingerprint: visitorData.deviceFingerprint
+        });
     }
 
-    updateExistingVisitor(visitorData) {
-        // Trouver le visiteur existant
+    updateExistingVisitor(visitorData, isNewSession = false) {
+        // Trouver le visiteur existant avec la nouvelle logique
         const existingVisitor = this.stats.visitors.find(v => 
-            v.ip === visitorData.ip && 
-            v.userAgent === visitorData.userAgent
+            v.deviceFingerprint === visitorData.deviceFingerprint &&
+            v.ip === visitorData.ip
         );
 
         if (existingVisitor) {
@@ -220,10 +302,23 @@ class RealVisitorTracker {
             if (!existingVisitor.pagesVisited.includes(visitorData.currentPage)) {
                 existingVisitor.pagesVisited.push(visitorData.currentPage);
             }
+
+            // Gérer les sessions
+            if (isNewSession && !existingVisitor.sessions.includes(visitorData.sessionId)) {
+                existingVisitor.sessions.push(visitorData.sessionId);
+                console.log('🔄 Nouvelle session pour un visiteur existant');
+            }
+
+            // Ne pas incrémenter le total des visites pour les refreshes
+            if (!visitorData.isRefresh) {
+                this.stats.totalVisits++;
+                console.log('📊 Visite mise à jour (pas de refresh)');
+            } else {
+                console.log('🔄 Refresh détecté - pas de nouvelle visite comptée');
+            }
         }
 
-        // Incrémenter le total des visites
-        this.stats.totalVisits++;
+        // Mettre à jour la dernière visite
         this.stats.lastVisit = visitorData.timestamp;
     }
 
@@ -269,9 +364,10 @@ class RealVisitorTracker {
     }
 
     setupPeriodicUpdates() {
-        // Mettre à jour les stats toutes les 5 minutes
+        // Mettre à jour les stats toutes les 5 minutes (pas à chaque refresh)
         setInterval(() => {
-            this.trackCurrentVisit();
+            // Ne pas tracker automatiquement, seulement si demandé
+            console.log('⏰ Mise à jour périodique des stats');
         }, 5 * 60 * 1000);
     }
 
@@ -283,18 +379,33 @@ class RealVisitorTracker {
     getTodayVisits() {
         const today = new Date().toDateString();
         return this.stats.visitors.filter(v => 
-            new Date(v.timestamp).toDateString() === today
+            new Date(v.lastVisit).toDateString() === today
         ).length;
     }
 
     getThisWeekVisits() {
         const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
-        return this.stats.visitors.filter(v => v.timestamp > weekAgo).length;
+        return this.stats.visitors.filter(v => v.lastVisit > weekAgo).length;
     }
 
     getThisMonthVisits() {
         const monthAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
-        return this.stats.visitors.filter(v => v.timestamp > monthAgo).length;
+        return this.stats.visitors.filter(v => v.lastVisit > monthAgo).length;
+    }
+
+    getRefreshCount() {
+        // Compter combien de refreshes ont été détectés
+        return this.stats.visitors.filter(v => v.isRefresh).length;
+    }
+
+    // Fonction pour forcer la détection d'un nouveau visiteur (test)
+    forceNewVisitorDetection() {
+        // Générer une nouvelle empreinte d'appareil
+        this.deviceFingerprint = this.generateDeviceFingerprint();
+        console.log('🔄 Nouvelle empreinte d\'appareil générée:', this.deviceFingerprint);
+        
+        // Forcer un nouveau tracking
+        this.trackCurrentVisit();
     }
 
     exportData() {
@@ -307,7 +418,8 @@ class RealVisitorTracker {
                 countriesCount: this.stats.countries.length,
                 todayVisits: this.getTodayVisits(),
                 thisWeekVisits: this.getThisWeekVisits(),
-                thisMonthVisits: this.getThisMonthVisits()
+                thisMonthVisits: this.getThisMonthVisits(),
+                refreshCount: this.getRefreshCount()
             }
         };
     }
@@ -327,4 +439,11 @@ function getRealVisitorStats() {
 
 function exportRealVisitorData() {
     return realVisitorTracker ? realVisitorTracker.exportData() : null;
+}
+
+// Fonction de test pour forcer la détection d'un nouveau visiteur
+function forceNewVisitor() {
+    if (realVisitorTracker) {
+        realVisitorTracker.forceNewVisitorDetection();
+    }
 }

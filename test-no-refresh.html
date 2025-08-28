@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Pas de Comptage des Refreshes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .stats-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test - Pas de Comptage des Refreshes</h1>
+    
+    <div class="warning">
+        <strong>⚠️ Important :</strong> Cette page teste le nouveau système qui ne compte plus les actualisations (F5) comme de nouvelles visites.
+    </div>
+
+    <div class="test-section">
+        <h2>📊 État Actuel des Statistiques</h2>
+        <p>Vérifiez vos statistiques actuelles :</p>
+        <button class="test-button" onclick="showCurrentStats()">Afficher les stats actuelles</button>
+        <div id="current-stats"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔄 Test des Refreshes</h2>
+        <p>Instructions de test :</p>
+        <ol>
+            <li><strong>Notez vos stats actuelles</strong> ci-dessus</li>
+            <li><strong>Appuyez sur F5</strong> (ou actualisez la page)</li>
+            <li><strong>Vérifiez que les stats n'ont pas changé</strong></li>
+            <li><strong>Répétez plusieurs fois</strong> pour confirmer</li>
+        </ol>
+        
+        <div class="warning">
+            <strong>🎯 Objectif :</strong> Les chiffres ne doivent PAS augmenter à chaque actualisation !
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔍 Détails du Système</h2>
+        <p>Le nouveau système détecte automatiquement :</p>
+        <ul>
+            <li>✅ <strong>Nouveaux visiteurs</strong> (IP + navigateur différents)</li>
+            <li>✅ <strong>Nouvelles sessions</strong> (même visiteur, nouvelle session)</li>
+            <li>❌ <strong>Refreshes de page</strong> (F5, Ctrl+R, etc.)</li>
+            <li>❌ <strong>Actualisations</strong> (bouton actualiser du navigateur)</li>
+        </ul>
+        
+        <button class="test-button" onclick="showSystemDetails()">Afficher les détails techniques</button>
+        <div id="system-details"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Test Manuel</h2>
+        <p>Testez manuellement le système :</p>
+        <button class="test-button" onclick="forceNewVisit()">Simuler une nouvelle visite</button>
+        <button class="test-button" onclick="checkRefreshDetection()">Vérifier la détection des refreshes</button>
+        <button class="test-button" onclick="resetStats()">Réinitialiser les stats (test uniquement)</button>
+        <div id="manual-test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📱 Test sur Autres Appareils</h2>
+        <p>Pour un test complet :</p>
+        <ul>
+            <li>Testez sur votre téléphone (IP différente)</li>
+            <li>Testez sur un autre navigateur</li>
+            <li>Testez en mode navigation privée</li>
+            <li>Testez depuis un autre réseau (4G vs WiFi)</li>
+        </ul>
+        
+        <button class="test-button" onclick="showDeviceInfo()">Afficher les infos de votre appareil</button>
+        <div id="device-info"></div>
+    </div>
+
+    <script src="real-visitor-tracker.js"></script>
+    <script>
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function showCurrentStats() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    
+                    let result = `<div class="stats-display">`;
+                    result += `<strong>📊 Statistiques actuelles :</strong><br><br>`;
+                    result += `Total visites: ${stats.totalVisits}<br>`;
+                    result += `Visiteurs uniques: ${stats.uniqueVisitors}<br>`;
+                    result += `Pays différents: ${stats.countries.length}<br>`;
+                    result += `Visites aujourd'hui: ${window.realVisitorTracker.getTodayVisits()}<br>`;
+                    result += `Refreshes détectés: ${window.realVisitorTracker.getRefreshCount()}<br>`;
+                    result += `Dernière mise à jour: ${new Date(stats.lastUpdated).toLocaleString('fr-FR')}<br>`;
+                    result += `</div>`;
+                    
+                    showResult('current-stats', result, 'success');
+                } else {
+                    showResult('current-stats', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('current-stats', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showSystemDetails() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    const recentVisitors = stats.visitors.slice(0, 3); // 3 derniers
+                    
+                    let result = `<div class="stats-display">`;
+                    result += `<strong>🔍 Détails techniques :</strong><br><br>`;
+                    result += `<strong>Session ID actuel:</strong> ${window.realVisitorTracker.sessionId}<br><br>`;
+                    
+                    if (recentVisitors.length > 0) {
+                        result += `<strong>3 derniers visiteurs :</strong><br>`;
+                        recentVisitors.forEach((visitor, index) => {
+                            const date = new Date(visitor.timestamp).toLocaleString('fr-FR');
+                            result += `${index + 1}. ${visitor.city}, ${visitor.country} - ${date}<br>`;
+                            result += `   IP: ${visitor.ip} | Sessions: ${visitor.sessions ? visitor.sessions.length : 1}<br>`;
+                        });
+                    }
+                    
+                    result += `</div>`;
+                    
+                    showResult('system-details', result, 'success');
+                } else {
+                    showResult('system-details', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('system-details', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function forceNewVisit() {
+            try {
+                if (window.realVisitorTracker) {
+                    // Forcer un nouveau tracking
+                    window.realVisitorTracker.trackCurrentVisit();
+                    showResult('manual-test-result', '✅ Nouvelle visite forcée. Vérifiez les stats !', 'success');
+                    
+                    // Mettre à jour l'affichage
+                    setTimeout(() => {
+                        showCurrentStats();
+                    }, 1000);
+                } else {
+                    showResult('manual-test-result', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('manual-test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function checkRefreshDetection() {
+            try {
+                if (window.realVisitorTracker) {
+                    const isRefresh = window.realVisitorTracker.isPageRefresh();
+                    showResult('manual-test-result', 
+                        isRefresh ? '🔄 Refresh détecté - pas de nouvelle visite comptée' : '📊 Pas de refresh - visite normale', 
+                        isRefresh ? 'info' : 'success');
+                } else {
+                    showResult('manual-test-result', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('manual-test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function resetStats() {
+            if (confirm('⚠️ Êtes-vous sûr de vouloir réinitialiser toutes les statistiques ? Cette action est irréversible !')) {
+                try {
+                    localStorage.removeItem('real_visitor_stats');
+                    localStorage.removeItem('visitor_session_id');
+                    
+                    // Recharger la page pour réinitialiser
+                    window.location.reload();
+                } catch (error) {
+                    showResult('manual-test-result', `❌ Erreur : ${error.message}`, 'error');
+                }
+            }
+        }
+
+        function showDeviceInfo() {
+            try {
+                let result = `<div class="stats-display">`;
+                result += `<strong>📱 Informations de votre appareil :</strong><br><br>`;
+                result += `Navigateur: ${navigator.userAgent.split(' ').pop()}<br>`;
+                result += `Platform: ${navigator.platform}<br>`;
+                result += `Langue: ${navigator.language}<br>`;
+                result += `Résolution: ${screen.width}x${screen.height}<br>`;
+                result += `Viewport: ${window.innerWidth}x${window.innerHeight}<br>`;
+                result += `Cookies activés: ${navigator.cookieEnabled ? 'Oui' : 'Non'}<br>`;
+                result += `Do Not Track: ${navigator.doNotTrack || 'Non défini'}<br>`;
+                result += `</div>`;
+                
+                showResult('device-info', result, 'success');
+            } catch (error) {
+                showResult('device-info', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        // Test automatique au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showResult('current-stats', 'ℹ️ Page chargée. Cliquez sur "Afficher les stats actuelles" pour commencer le test.', 'info');
+            }, 1000);
+        });
+
+        // Afficher un message quand on actualise
+        window.addEventListener('beforeunload', function() {
+            console.log('🔄 Page en cours d\'actualisation - le système devrait détecter cela comme un refresh');
+        });
+    </script>
+</body>
+</html>

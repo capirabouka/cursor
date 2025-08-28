@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test du Bouton Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-simulation {
+            background: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .admin-access {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+            display: inline-block;
+        }
+        .admin-access:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.2);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .code-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test du Bouton Admin</h1>
+    
+    <div class="test-section">
+        <h2>🔍 Simulation de la Navigation</h2>
+        <p>Voici une simulation de votre barre de navigation avec le petit rond discret :</p>
+        
+        <div class="nav-simulation">
+            <div class="nav-links">
+                <a href="#" class="nav-link">Projets</a>
+                <a href="#" class="nav-link">Musiques</a>
+                <a href="#" class="nav-link">Bibliographie</a>
+                <a href="#" class="nav-link">Engagement</a>
+                <a href="#" class="nav-link">Partenariat</a>
+                <a href="#" class="nav-link">Contact</a>
+                <div class="admin-access" onclick="testAdminAccess()" title="Accès admin"></div>
+                <div style="margin-left: auto;">
+                    <button style="background: #666; color: white; border: none; padding: 5px 10px; border-radius: 4px;">FR</button>
+                </div>
+            </div>
+        </div>
+        
+        <p><strong>Le petit rond discret est à droite de "Contact"</strong> - cliquez dessus pour tester !</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔑 Test de la Fonction Admin</h2>
+        <p>Testez directement la fonction d'authentification :</p>
+        <button class="test-button" onclick="testAdminAccess()">Tester l'accès admin</button>
+        <button class="test-button" onclick="testWithWrongCode()">Tester avec un mauvais code</button>
+        <button class="test-button" onclick="testCancel()">Tester l'annulation</button>
+        <div id="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Code Secret</h2>
+        <p>Le code d'accès admin est :</p>
+        <div class="code-display">NPK2024</div>
+        <p><small>⚠️ Changez ce code dans admin-config.js avant de déployer en production !</small></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Dépannage</h2>
+        <p>Si le bouton ne fonctionne pas :</p>
+        <ol>
+            <li>Vérifiez que la console du navigateur n'a pas d'erreurs</li>
+            <li>Assurez-vous que la fonction showAdminAccess() est bien définie</li>
+            <li>Vérifiez que le CSS .admin-access est bien appliqué</li>
+            <li>Testez sur différents navigateurs</li>
+        </ol>
+        
+        <button class="test-button" onclick="checkConsole()">Vérifier la console</button>
+        <button class="test-button" onclick="checkFunction()">Vérifier la fonction</button>
+        <div id="debug-result"></div>
+    </div>
+
+    <script>
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function testAdminAccess() {
+            try {
+                const code = prompt('Code d\'accès admin :');
+                if (code === 'NPK2024') {
+                    showResult('test-result', '✅ Code correct ! Redirection vers admin-stats.html', 'success');
+                    
+                    // Optionnel : rediriger réellement
+                    if (confirm('Voulez-vous aller sur la page admin ?')) {
+                        window.location.href = 'admin-stats.html';
+                    }
+                } else if (code !== null) {
+                    showResult('test-result', '❌ Code incorrect', 'error');
+                } else {
+                    showResult('test-result', 'ℹ️ Test annulé', 'info');
+                }
+            } catch (error) {
+                showResult('test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testWithWrongCode() {
+            try {
+                const code = prompt('Code d\'accès admin (testez avec un mauvais code) :');
+                if (code === 'NPK2024') {
+                    showResult('test-result', '✅ Code correct !', 'success');
+                } else if (code !== null) {
+                    showResult('test-result', '❌ Code incorrect - comportement normal', 'error');
+                } else {
+                    showResult('test-result', 'ℹ️ Test annulé', 'info');
+                }
+            } catch (error) {
+                showResult('test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function testCancel() {
+            try {
+                const code = prompt('Code d\'accès admin (cliquez sur Annuler) :');
+                if (code === null) {
+                    showResult('test-result', '✅ Annulation détectée - comportement normal', 'success');
+                } else {
+                    showResult('test-result', `ℹ️ Code saisi : ${code}`, 'info');
+                }
+            } catch (error) {
+                showResult('test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function checkConsole() {
+            try {
+                // Vérifier si la fonction existe
+                if (typeof showAdminAccess === 'function') {
+                    showResult('debug-result', '✅ Fonction showAdminAccess() trouvée', 'success');
+                } else {
+                    showResult('debug-result', '❌ Fonction showAdminAccess() non trouvée', 'error');
+                }
+                
+                // Vérifier la console
+                console.log('Test de la console - si vous voyez ce message, la console fonctionne');
+                showResult('debug-result', '✅ Console vérifiée - regardez la console du navigateur', 'success');
+                
+            } catch (error) {
+                showResult('debug-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function checkFunction() {
+            try {
+                // Vérifier si la fonction existe
+                if (typeof showAdminAccess === 'function') {
+                    const functionString = showAdminAccess.toString();
+                    showResult('debug-result', 
+                        `✅ Fonction showAdminAccess() trouvée<br>
+                         <strong>Code :</strong><br>
+                         <code>${functionString.substring(0, 200)}...</code>`, 
+                        'success');
+                } else {
+                    showResult('debug-result', '❌ Fonction showAdminAccess() non trouvée', 'error');
+                }
+            } catch (error) {
+                showResult('debug-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        // Test automatique au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showResult('test-result', 'ℹ️ Page chargée. Testez le bouton admin ci-dessus !', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Détection Multi-Appareils</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .stats-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .device-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .fingerprint-display {
+            background: #f3e5f5;
+            border: 1px solid #e1bee7;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test - Détection Multi-Appareils</h1>
+    
+    <div class="warning">
+        <strong>🎯 Objectif :</strong> Cette page teste le nouveau système qui devrait détecter chaque appareil comme un visiteur unique, même sur le même réseau WiFi.
+    </div>
+
+    <div class="test-section">
+        <h2>📱 Informations de Votre Appareil Actuel</h2>
+        <p>Vérifiez les caractéristiques uniques de votre appareil :</p>
+        <button class="test-button" onclick="showCurrentDeviceInfo()">Afficher les infos de l'appareil</button>
+        <button class="test-button" onclick="showDeviceFingerprint()">Afficher l'empreinte de l'appareil</button>
+        <div id="current-device-info"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Statistiques Actuelles</h2>
+        <p>Vérifiez vos statistiques actuelles :</p>
+        <button class="test-button" onclick="showCurrentStats()">Afficher les stats actuelles</button>
+        <div id="current-stats"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Test de Détection</h2>
+        <p>Testez la détection de nouveaux visiteurs :</p>
+        <button class="test-button" onclick="forceNewVisitor()">Forcer la détection d'un nouveau visiteur</button>
+        <button class="test-button" onclick="simulateDifferentDevice()">Simuler un appareil différent</button>
+        <button class="test-button" onclick="checkVisitorDetection()">Vérifier la détection</button>
+        <div id="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔍 Détails des Visiteurs</h2>
+        <p>Voir les détails de tous les visiteurs détectés :</p>
+        <button class="test-button" onclick="showAllVisitors()">Afficher tous les visiteurs</button>
+        <button class="test-button" onclick="showVisitorComparison()">Comparer les visiteurs</button>
+        <div id="visitors-details"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Instructions de Test Multi-Appareils</h2>
+        <p><strong>Pour tester sur 3 appareils différents :</strong></p>
+        <ol>
+            <li><strong>Appareil 1 :</strong> Ouvrez cette page sur votre ordinateur principal</li>
+            <li><strong>Appareil 2 :</strong> Ouvrez cette page sur votre téléphone (même WiFi)</li>
+            <li><strong>Appareil 3 :</strong> Ouvrez cette page sur un autre ordinateur/tablette</li>
+            <li><strong>Vérifiez :</strong> Chaque appareil devrait être compté comme un visiteur unique</li>
+        </ol>
+        
+        <div class="warning">
+            <strong>💡 Conseil :</strong> Utilisez des navigateurs différents (Chrome, Firefox, Safari) pour maximiser les différences.
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Dépannage</h2>
+        <p>Si les appareils ne sont pas détectés séparément :</p>
+        <ul>
+            <li>Vérifiez que chaque appareil a un navigateur différent</li>
+            <li>Assurez-vous que les appareils ont des résolutions d'écran différentes</li>
+            <li>Testez en mode navigation privée sur certains appareils</li>
+            <li>Vérifiez la console pour les messages de détection</li>
+        </ul>
+        
+        <button class="test-button" onclick="debugDetection()">Déboguer la détection</button>
+        <div id="debug-result"></div>
+    </div>
+
+    <script src="real-visitor-tracker.js"></script>
+    <script>
+        function showResult(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function showCurrentDeviceInfo() {
+            try {
+                let result = `<div class="device-info">`;
+                result += `<strong>📱 Caractéristiques de votre appareil :</strong><br><br>`;
+                result += `Navigateur: ${navigator.userAgent.split(' ').pop()}<br>`;
+                result += `Platform: ${navigator.platform}<br>`;
+                result += `Langue: ${navigator.language}<br>`;
+                result += `Résolution: ${screen.width}x${screen.height}<br>`;
+                result += `Profondeur de couleur: ${screen.colorDepth} bits<br>`;
+                result += `Cœurs CPU: ${navigator.hardwareConcurrency || 'Inconnu'}<br>`;
+                result += `Mémoire: ${navigator.deviceMemory || 'Inconnue'} GB<br>`;
+                result += `Timezone: ${new Date().getTimezoneOffset()} minutes<br>`;
+                result += `Cookies: ${navigator.cookieEnabled ? 'Activés' : 'Désactivés'}<br>`;
+                result += `Do Not Track: ${navigator.doNotTrack || 'Non défini'}<br>`;
+                result += `</div>`;
+                
+                showResult('current-device-info', result, 'success');
+            } catch (error) {
+                showResult('current-device-info', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showDeviceFingerprint() {
+            try {
+                if (window.realVisitorTracker) {
+                    const fingerprint = window.realVisitorTracker.deviceFingerprint;
+                    let result = `<div class="fingerprint-display">`;
+                    result += `<strong>🔐 Empreinte de l'appareil :</strong><br><br>`;
+                    result += `<code>${fingerprint}</code><br><br>`;
+                    result += `<small>Cette empreinte est unique à votre appareil et est utilisée pour identifier les visiteurs uniques.</small>`;
+                    result += `</div>`;
+                    
+                    showResult('current-device-info', result, 'success');
+                } else {
+                    showResult('current-device-info', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('current-device-info', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showCurrentStats() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    
+                    let result = `<div class="stats-display">`;
+                    result += `<strong>📊 Statistiques actuelles :</strong><br><br>`;
+                    result += `Total visites: ${stats.totalVisits}<br>`;
+                    result += `Visiteurs uniques: ${stats.uniqueVisitors}<br>`;
+                    result += `Pays différents: ${stats.countries.length}<br>`;
+                    result += `Visites aujourd'hui: ${window.realVisitorTracker.getTodayVisits()}<br>`;
+                    result += `Refreshes détectés: ${window.realVisitorTracker.getRefreshCount()}<br>`;
+                    result += `Dernière mise à jour: ${new Date(stats.lastUpdated).toLocaleString('fr-FR')}<br>`;
+                    result += `</div>`;
+                    
+                    showResult('current-stats', result, 'success');
+                } else {
+                    showResult('current-stats', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('current-stats', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function forceNewVisitor() {
+            try {
+                if (window.realVisitorTracker) {
+                    // Forcer la détection d'un nouveau visiteur
+                    window.realVisitorTracker.forceNewVisitorDetection();
+                    showResult('test-result', '✅ Nouveau visiteur forcé ! Vérifiez les stats.', 'success');
+                    
+                    // Mettre à jour l'affichage
+                    setTimeout(() => {
+                        showCurrentStats();
+                    }, 1000);
+                } else {
+                    showResult('test-result', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function simulateDifferentDevice() {
+            try {
+                // Simuler un appareil différent en modifiant temporairement les propriétés
+                const originalUserAgent = navigator.userAgent;
+                const originalPlatform = navigator.platform;
+                
+                // Modifier temporairement (simulation)
+                Object.defineProperty(navigator, 'userAgent', {
+                    value: originalUserAgent + ' [SIMULATED]',
+                    configurable: true
+                });
+                
+                Object.defineProperty(navigator, 'platform', {
+                    value: originalPlatform + ' [SIMULATED]',
+                    configurable: true
+                });
+                
+                showResult('test-result', '🔄 Appareil simulé. Maintenant forcez une nouvelle visite !', 'info');
+                
+                // Restaurer après 5 secondes
+                setTimeout(() => {
+                    Object.defineProperty(navigator, 'userAgent', {
+                        value: originalUserAgent,
+                        configurable: true
+                    });
+                    Object.defineProperty(navigator, 'platform', {
+                        value: originalPlatform,
+                        configurable: true
+                    });
+                    showResult('test-result', '✅ Appareil restauré à l\'état normal.', 'success');
+                }, 5000);
+                
+            } catch (error) {
+                showResult('test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function checkVisitorDetection() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    const currentFingerprint = window.realVisitorTracker.deviceFingerprint;
+                    
+                    // Vérifier si cet appareil est déjà dans les stats
+                    const existingVisitor = stats.visitors.find(v => 
+                        v.deviceFingerprint === currentFingerprint
+                    );
+                    
+                    if (existingVisitor) {
+                        showResult('test-result', 
+                            `✅ Appareil déjà détecté !<br>
+                             Visiteur #${existingVisitor.id} - ${existingVisitor.device} ${existingVisitor.browser}<br>
+                             Visites: ${existingVisitor.visitCount} | Dernière: ${new Date(existingVisitor.lastVisit).toLocaleString('fr-FR')}`, 
+                            'success');
+                    } else {
+                        showResult('test-result', '❌ Appareil non encore détecté. Forcez une nouvelle visite !', 'error');
+                    }
+                } else {
+                    showResult('test-result', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('test-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showAllVisitors() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    
+                    if (stats.visitors.length === 0) {
+                        showResult('visitors-details', 'ℹ️ Aucun visiteur détecté pour le moment.', 'info');
+                        return;
+                    }
+                    
+                    let result = `<div class="stats-display">`;
+                    result += `<strong>👥 Tous les visiteurs détectés (${stats.visitors.length}) :</strong><br><br>`;
+                    
+                    stats.visitors.forEach((visitor, index) => {
+                        const date = new Date(visitor.timestamp).toLocaleString('fr-FR');
+                        result += `<strong>Visiteur #${visitor.id}:</strong><br>`;
+                        result += `  📱 ${visitor.device} ${visitor.browser}<br>`;
+                        result += `  🌍 ${visitor.city}, ${visitor.country}<br>`;
+                        result += `  📅 ${date}<br>`;
+                        result += `  🔐 Empreinte: ${visitor.deviceFingerprint.substring(0, 10)}...<br>`;
+                        result += `  📊 Visites: ${visitor.visitCount || 1}<br><br>`;
+                    });
+                    
+                    result += `</div>`;
+                    
+                    showResult('visitors-details', result, 'success');
+                } else {
+                    showResult('visitors-details', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('visitors-details', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function showVisitorComparison() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    
+                    if (stats.visitors.length < 2) {
+                        showResult('visitors-details', 'ℹ️ Il faut au moins 2 visiteurs pour comparer.', 'info');
+                        return;
+                    }
+                    
+                    let result = `<div class="stats-display">`;
+                    result += `<strong>🔍 Comparaison des visiteurs :</strong><br><br>`;
+                    
+                    // Comparer les 2 premiers visiteurs
+                    const visitor1 = stats.visitors[0];
+                    const visitor2 = stats.visitors[1];
+                    
+                    result += `<strong>Visiteur 1:</strong> ${visitor1.device} ${visitor1.browser}<br>`;
+                    result += `<strong>Visiteur 2:</strong> ${visitor2.device} ${visitor2.browser}<br><br>`;
+                    
+                    result += `<strong>Différences détectées :</strong><br>`;
+                    result += `- Appareil: ${visitor1.device !== visitor2.device ? '✅ Différent' : '❌ Identique'}<br>`;
+                    result += `- Navigateur: ${visitor1.browser !== visitor2.browser ? '✅ Différent' : '❌ Identique'}<br>`;
+                    result += `- Résolution: ${visitor1.screenResolution !== visitor2.screenResolution ? '✅ Différente' : '❌ Identique'}<br>`;
+                    result += `- Empreinte: ${visitor1.deviceFingerprint !== visitor2.deviceFingerprint ? '✅ Différente' : '❌ Identique'}<br>`;
+                    
+                    result += `</div>`;
+                    
+                    showResult('visitors-details', result, 'success');
+                } else {
+                    showResult('visitors-details', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('visitors-details', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        function debugDetection() {
+            try {
+                if (window.realVisitorTracker) {
+                    const stats = window.realVisitorTracker.getStats();
+                    const currentFingerprint = window.realVisitorTracker.deviceFingerprint;
+                    
+                    let result = `<div class="stats-display">`;
+                    result += `<strong>🔧 Débogage de la détection :</strong><br><br>`;
+                    result += `Empreinte actuelle: ${currentFingerprint}<br>`;
+                    result += `Visiteurs enregistrés: ${stats.visitors.length}<br><br>`;
+                    
+                    if (stats.visitors.length > 0) {
+                        result += `<strong>Empreintes enregistrées :</strong><br>`;
+                        stats.visitors.forEach((visitor, index) => {
+                            result += `${index + 1}. ${visitor.deviceFingerprint} (${visitor.device} ${visitor.browser})<br>`;
+                        });
+                    }
+                    
+                    result += `</div>`;
+                    
+                    showResult('debug-result', result, 'success');
+                } else {
+                    showResult('debug-result', '❌ Tracker non disponible', 'error');
+                }
+            } catch (error) {
+                showResult('debug-result', `❌ Erreur : ${error.message}`, 'error');
+            }
+        }
+
+        // Test automatique au chargement
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                showResult('current-stats', 'ℹ️ Page chargée. Commencez par afficher les infos de votre appareil !', 'info');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
