@@ -222,20 +222,18 @@ class RealVisitorTracker {
     }
 
     isNewVisitor(visitorData) {
-        // Nouvelle logique : utiliser l'empreinte de l'appareil ET l'IP
+        // Logique simplifiée : compter uniquement les adresses IP différentes
         const existingVisitor = this.stats.visitors.find(v => 
-            v.deviceFingerprint === visitorData.deviceFingerprint &&
-            v.ip === visitorData.ip
+            v.ip === visitorData.ip && v.ip !== 'unknown'
         );
         
         return !existingVisitor;
     }
 
     isNewSession(visitorData) {
-        // Vérifier si c'est une nouvelle session (même visiteur, nouvelle session)
+        // Vérifier si c'est une nouvelle session (même IP, nouvelle session)
         const existingVisitor = this.stats.visitors.find(v => 
-            v.deviceFingerprint === visitorData.deviceFingerprint &&
-            v.ip === visitorData.ip
+            v.ip === visitorData.ip && v.ip !== 'unknown'
         );
         
         if (existingVisitor) {
@@ -286,10 +284,9 @@ class RealVisitorTracker {
     }
 
     updateExistingVisitor(visitorData, isNewSession = false) {
-        // Trouver le visiteur existant avec la nouvelle logique
+        // Trouver le visiteur existant basé sur l'IP uniquement
         const existingVisitor = this.stats.visitors.find(v => 
-            v.deviceFingerprint === visitorData.deviceFingerprint &&
-            v.ip === visitorData.ip
+            v.ip === visitorData.ip && v.ip !== 'unknown'
         );
 
         if (existingVisitor) {

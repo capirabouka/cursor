@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Anouche Lelong</title>
+    <title>Visiteurs Réels - Anouche Lelong</title>
     <style>
         * {
             margin: 0;
@@ -12,242 +12,213 @@
         }
 
         body {
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
-            color: #00ff41;
+            font-family: 'Arial', sans-serif;
+            background: white;
+            color: black;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            border: 2px solid #00ff41;
-            border-radius: 10px;
-            background: rgba(0, 255, 65, 0.1);
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px #00ff41;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #00ff41;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.3);
-        }
-
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            color: #00ff41;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 1.2em;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .visitors-list {
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #00ff41;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .visitors-list h3 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #00ff41;
-            font-size: 1.5em;
-        }
-
-        .visitor-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
-            margin-bottom: 10px;
-        }
-
-        .visitor-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .visitor-location {
-            font-weight: bold;
-            color: #00ff41;
-        }
-
-        .visitor-time {
-            font-size: 0.9em;
-            color: #888;
-        }
-
-        .visitor-ip {
-            font-family: monospace;
-            color: #666;
-        }
-
-        .map-container {
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid #00ff41;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .map-container h3 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #00ff41;
-            font-size: 1.5em;
-        }
-
-        #world-map {
+            max-width: 600px;
             width: 100%;
-            height: 400px;
-            background: #1a1a2e;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
         }
 
-        .controls {
-            text-align: center;
-            margin-top: 20px;
+        .title {
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            font-weight: 300;
+            color: #333;
         }
 
-        .btn {
-            background: transparent;
-            border: 2px solid #00ff41;
-            color: #00ff41;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #00ff41;
+        .visitor-count {
+            font-size: 8em;
+            font-weight: bold;
             color: #000;
+            margin-bottom: 20px;
+            line-height: 1;
         }
 
-        .refresh-info {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0, 255, 65, 0.1);
+        .visitor-label {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .details {
+            font-size: 1.2em;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        .ip-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+
+        .refresh-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: #000;
+            color: white;
+            border: none;
             border-radius: 5px;
-            border: 1px solid rgba(0, 255, 65, 0.3);
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #333;
+        }
+
+        .last-update {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #999;
         }
 
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .visitor-count {
+                font-size: 6em;
             }
             
-            .visitor-item {
-                flex-direction: column;
-                text-align: center;
+            .title {
+                font-size: 2em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🔒 DASHBOARD ADMIN</h1>
-            <p>Statistiques des visiteurs - Accès restreint</p>
+        <h1 class="title">Visiteurs Uniques</h1>
+        
+        <div class="visitor-count" id="unique-visitors">0</div>
+        <div class="visitor-label">Adresses IP Différentes</div>
+        
+        <div class="details">
+            <div>Total des visites: <span id="total-visits">0</span></div>
+            <div>Visites aujourd'hui: <span id="today-visits">0</span></div>
+            <div>Pays différents: <span id="countries-count">0</span></div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="total-visits">0</div>
-                <div class="stat-label">Total Visites</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="unique-visitors">0</div>
-                <div class="stat-label">Visiteurs Uniques</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="countries-count">0</div>
-                <div class="stat-label">Pays</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="today-visits">0</div>
-                <div class="stat-label">Visites Aujourd'hui</div>
-            </div>
+        <div class="ip-info">
+            <strong>Détection basée sur:</strong><br>
+            • Adresse IP unique<br>
+            • Empreinte de l'appareil<br>
+            • Session de navigation
         </div>
 
-        <div class="visitors-list">
-            <h3>📊 Derniers Visiteurs</h3>
-            <div id="visitors-container">
-                <!-- Les visiteurs seront affichés ici -->
-            </div>
-        </div>
-
-        <div class="map-container">
-            <h3>🌍 Carte des Visiteurs</h3>
-            <div id="world-map">
-                Carte en cours de chargement...
-            </div>
-        </div>
-
-        <div class="controls">
-            <button class="btn" onclick="refreshStats()">🔄 Actualiser</button>
-            <button class="btn" onclick="exportData()">📥 Exporter</button>
-            <button class="btn" onclick="clearData()">🗑️ Effacer</button>
+        <div style="margin-top: 30px;">
+            <button class="refresh-btn" onclick="refreshStats()">Actualiser</button>
+            <button class="refresh-btn" onclick="goBackToSite()" style="margin-left: 15px; background: #666;">Retour au site</button>
         </div>
         
-        <div class="controls" style="margin-top: 20px;">
-            <button class="btn" onclick="changePassword()">🔐 Changer Mot de Passe</button>
-            <button class="btn" onclick="generateNewSecretPath()">🔑 Nouvelle URL Secrète</button>
-        </div>
-
-        <div class="refresh-info">
-            <p>Dernière mise à jour: <span id="last-update">-</span></p>
-            <p>Prochaine mise à jour automatique dans <span id="next-update">-</span> secondes</p>
+        <div class="last-update">
+            Dernière mise à jour: <span id="last-update">-</span>
         </div>
     </div>
 
     <script src="admin-auth.js"></script>
     <script src="admin-config.js"></script>
-    <script src="admin-stats.js"></script>
     <script src="real-visitor-tracker.js"></script>
+    <script>
+        // Script simplifié pour afficher les vrais chiffres
+        class SimpleVisitorStats {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.loadStats();
+                this.updateDisplay();
+                this.startAutoRefresh();
+            }
+
+            loadStats() {
+                // Charger les vraies statistiques des visiteurs
+                if (window.realVisitorTracker) {
+                    const realStats = window.realVisitorTracker.getStats();
+                    if (realStats) {
+                        this.stats = {
+                            totalVisits: realStats.totalVisits || 0,
+                            uniqueVisitors: realStats.uniqueVisitors || 0,
+                            countriesCount: realStats.countries ? realStats.countries.length : 0,
+                            todayVisits: window.realVisitorTracker.getTodayVisits() || 0
+                        };
+                    } else {
+                        this.stats = {
+                            totalVisits: 0,
+                            uniqueVisitors: 0,
+                            countriesCount: 0,
+                            todayVisits: 0
+                        };
+                    }
+                } else {
+                    // Fallback si le tracker n'est pas disponible
+                    this.stats = {
+                        totalVisits: 0,
+                        uniqueVisitors: 0,
+                        countriesCount: 0,
+                        todayVisits: 0
+                    };
+                }
+            }
+
+            updateDisplay() {
+                document.getElementById('unique-visitors').textContent = this.stats.uniqueVisitors.toLocaleString();
+                document.getElementById('total-visits').textContent = this.stats.totalVisits.toLocaleString();
+                document.getElementById('today-visits').textContent = this.stats.todayVisits.toLocaleString();
+                document.getElementById('countries-count').textContent = this.stats.countriesCount.toLocaleString();
+                
+                const now = new Date();
+                document.getElementById('last-update').textContent = now.toLocaleString('fr-FR');
+            }
+
+            refreshStats() {
+                this.loadStats();
+                this.updateDisplay();
+            }
+
+            startAutoRefresh() {
+                // Actualiser toutes les 30 secondes
+                setInterval(() => {
+                    this.refreshStats();
+                }, 30000);
+            }
+        }
+
+        // Fonction globale pour le bouton
+        function refreshStats() {
+            if (window.simpleStats) {
+                window.simpleStats.refreshStats();
+            }
+        }
+
+        // Fonction pour retourner au site
+        function goBackToSite() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialiser les statistiques quand la page est chargée
+        let simpleStats;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Attendre que l'authentification soit vérifiée
+            setTimeout(() => {
+                simpleStats = new SimpleVisitorStats();
+                window.simpleStats = simpleStats;
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
