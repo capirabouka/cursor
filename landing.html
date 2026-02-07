@@ -475,8 +475,21 @@
             transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
         }
 
+        .actualite-panel:hover .actualite-panel-close,
         .actualite-panel.is-open .actualite-panel-close {
             display: flex;
+        }
+
+        .actualite-panel.actualite-panel--force-closed .actualite-panel-content {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            padding: 0 !important;
+        }
+
+        .actualite-panel.actualite-panel--force-closed {
+            width: 56px !important;
+            height: 260px !important;
         }
 
         .actualite-panel-close:hover {
@@ -579,8 +592,8 @@
 
         @media (max-width: 768px) {
             .actualite-panel {
-                width: 48px;
-                height: 220px;
+                width: 44px;
+                height: 200px;
             }
 
             .actualite-panel::before {
@@ -588,13 +601,20 @@
             }
 
             .actualite-panel:hover {
-                width: min(480px, 94vw);
-                height: 92vh;
+                width: min(360px, 82vw);
+                height: 72vh;
+                max-height: 520px;
             }
 
             .actualite-panel.is-open {
-                width: min(480px, 94vw);
-                height: 92vh;
+                width: min(360px, 82vw);
+                height: 72vh;
+                max-height: 520px;
+            }
+
+            .actualite-panel.actualite-panel--force-closed {
+                width: 44px !important;
+                height: 200px !important;
             }
 
             .actualite-panel-label {
@@ -614,6 +634,19 @@
 
             .actualite-panel .actualite-photos {
                 grid-template-columns: 1fr;
+            }
+
+            .actualite-panel:hover .actualite-panel-content,
+            .actualite-panel.is-open .actualite-panel-content {
+                padding: 1rem 1rem 1rem 0.75rem;
+            }
+
+            .actualite-panel .actualite-panel-title {
+                font-size: 1.35rem !important;
+            }
+
+            .actualite-panel .actualite-panel-description {
+                font-size: 0.82rem !important;
             }
         }
 
@@ -1873,7 +1906,7 @@
         <div class="actualite-panel" id="actualite-panel">
             <div class="actualite-panel-label">ACTUALITÉ</div>
             <div class="actualite-panel-content">
-                <button class="actualite-panel-close" id="actualite-close" aria-label="Fermer">&times;</button>
+                <button type="button" class="actualite-panel-close" id="actualite-close" aria-label="Fermer">&times;</button>
                 <h3 class="actualite-panel-title">Mondes Fluides</h3>
                 <p class="actualite-panel-description">Le projet s’articule autour de la matière sonore et de la relation entre matériaux humains et matières naturelles. Il repose sur l’enregistrement, l’amplification et la rediffusion de sons issus de milieux naturels (glace, eau, vent, océans) ainsi que de dispositifs matériels conçus par l’homme. Ces pratiques interrogent la manière dont une société matérialiste tente de se fixer dans un monde fondamentalement fluide. Le travail se déploie à travers des installations et des actions in situ, pensées pour des espaces d’exposition comme pour des environnements extérieurs, parfois sans public direct. En croisant recherche artistique, collaborations scientifiques et enjeux géopolitiques de l’environnement, le projet cherche à rendre perceptibles des transformations invisibles et à constituer des formes d’archives sensibles du monde en mutation.</p>
                 <div class="actualite-panel-media">
@@ -2166,11 +2199,12 @@
 
         // Le gestionnaire de langue est maintenant géré par language-persistence.js
 
-        // Panneau actualité : survol = agrandir (desktop), clic = ouvrir/fermer (mobile)
+        // Panneau actualité : survol = agrandir (desktop), clic = ouvrir/fermer (mobile), swipe droite = fermer (mobile)
         (function() {
             var panel = document.getElementById('actualite-panel');
             var closeBtn = document.getElementById('actualite-close');
             var label = panel ? panel.querySelector('.actualite-panel-label') : null;
+            var content = panel ? panel.querySelector('.actualite-panel-content') : null;
 
             function isTouch() {
                 return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -2179,6 +2213,7 @@
             function togglePanel(e) {
                 if (!panel) return;
                 if (e) e.stopPropagation();
+                panel.classList.remove('actualite-panel--force-closed');
                 panel.classList.toggle('is-open');
                 if (panel.classList.contains('is-open')) {
                     document.body.style.overflow = 'hidden';
@@ -2188,11 +2223,14 @@
             }
 
             function closePanel(e) {
-                if (e) e.stopPropagation();
-                if (panel && panel.classList.contains('is-open')) {
-                    panel.classList.remove('is-open');
-                    document.body.style.overflow = '';
+                if (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
                 }
+                if (!panel) return;
+                panel.classList.remove('is-open');
+                panel.classList.add('actualite-panel--force-closed');
+                document.body.style.overflow = '';
             }
 
             if (panel && label) {
@@ -2203,7 +2241,20 @@
                     }
                 });
             }
-            if (closeBtn) closeBtn.addEventListener('click', closePanel);
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    closePanel(e);
+                });
+                closeBtn.addEventListener('touchend', function(e) {
+                    closePanel(e);
+                }, { passive: false });
+            }
+
+            panel && panel.addEventListener('mouseleave', function() {
+                panel.classList.remove('actualite-panel--force-closed');
+            });
+
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && panel && panel.classList.contains('is-open')) closePanel();
             });
@@ -2211,6 +2262,22 @@
                 if (!panel || !panel.classList.contains('is-open')) return;
                 if (isTouch() && !panel.contains(e.target)) closePanel();
             });
+
+            // Swipe droite pour fermer (mobile uniquement)
+            if (panel && content && isTouch()) {
+                var touchStartX = 0;
+                var minSwipe = 60;
+                content.addEventListener('touchstart', function(e) {
+                    touchStartX = e.touches[0].clientX;
+                }, { passive: true });
+                content.addEventListener('touchend', function(e) {
+                    if (!panel.classList.contains('is-open')) return;
+                    var touchEndX = e.changedTouches[0].clientX;
+                    if (touchEndX - touchStartX > minSwipe) {
+                        closePanel(e);
+                    }
+                }, { passive: true });
+            }
         })();
 
         // Ajouter l'écouteur d'événement de défilement
