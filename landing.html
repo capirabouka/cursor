@@ -598,10 +598,22 @@
 
             .actualite-panel:not(.is-open) {
                 box-shadow: none !important;
+                background: linear-gradient(to right, transparent 0%, rgba(12,12,14,0.3) 45%, rgba(10,10,13,0.75) 75%, #0a0a0d 100%) !important;
+                border: none !important;
+            }
+
+            .actualite-panel:not(.is-open)::before {
+                display: none !important;
             }
 
             .actualite-panel::before {
                 width: 2px;
+            }
+
+            .actualite-panel:hover,
+            .actualite-panel.is-open {
+                background: linear-gradient(165deg, #0c0c0e 0%, #12121a 50%, #0a0a0d 100%) !important;
+                border-color: rgba(255,255,255,0.06) !important;
             }
 
             .actualite-panel:hover {
@@ -621,12 +633,22 @@
                 width: 36px !important;
                 height: 150px !important;
                 box-shadow: none !important;
+                background: linear-gradient(to right, transparent 0%, rgba(12,12,14,0.3) 45%, rgba(10,10,13,0.75) 75%, #0a0a0d 100%) !important;
+                border: none !important;
+            }
+
+            .actualite-panel.actualite-panel--force-closed::before {
+                display: none !important;
             }
 
             .actualite-panel-label {
                 width: 36px;
                 font-size: 0.72rem;
                 letter-spacing: 0.2em;
+            }
+
+            .actualite-panel:not(.is-open) .actualite-panel-label {
+                border-right: none !important;
             }
 
             .actualite-panel-close {
