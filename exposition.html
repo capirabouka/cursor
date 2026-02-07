@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exposition - Anouche Lelong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
+    <style>
+        .exposition-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2.5rem 5rem;
+            line-height: 1.7;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin: 4rem 0 1.5rem 0;
+            color: var(--text-color);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .section-title--main {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            letter-spacing: 0.08em;
+        }
+
+        .exposition-container section:first-of-type .section-title--main {
+            margin-top: 0;
+        }
+
+        /* Bloc exposition en cours — images en grand */
+        .exposition-featured {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3.5rem;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .exposition-featured-info {
+            position: sticky;
+            top: 7rem;
+        }
+
+        .exposition-featured-title {
+            font-size: 2.15rem;
+            font-weight: 400;
+            color: var(--text-color);
+            letter-spacing: 0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .exposition-featured-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 1.05rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .exposition-featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exposition-featured-meta span::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: currentColor;
+            opacity: 0.5;
+            border-radius: 50%;
+        }
+
+        .exposition-featured-vernissage {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        .exposition-featured-note {
+            margin-top: 1.25rem;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            opacity: 0.88;
+            color: var(--text-color);
+        }
+
+        .exposition-featured-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            min-width: 0;
+        }
+
+        .exposition-hero-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .exposition-hero-img:hover {
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+        }
+
+        .exposition-featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .exposition-featured-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exposition-featured-grid img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Liste expositions à venir */
+        .exposition-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .exposition-item {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            padding: 1.25rem 1.5rem;
+            position: relative;
+            border-left: 3px solid rgba(255, 255, 255, 0.12);
+            padding-left: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0 10px 10px 0;
+            transition: border-left-color 0.25s ease, background 0.25s ease;
+        }
+
+        .exposition-item:hover {
+            border-left-color: rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .exposition-date {
+            font-weight: 500;
+            opacity: 0.95;
+            margin-bottom: 0.2rem;
+        }
+
+        .exposition-place {
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        .exposition-title {
+            font-size: 0.95rem;
+            font-style: italic;
+            opacity: 0.8;
+            margin-top: 0.3rem;
+        }
+
+        .exposition-item .exposition-title {
+            font-style: normal;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        .exposition-tba {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            margin-top: 0.35rem;
+            display: block;
+        }
+
+        .exposition-empty {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            font-style: italic;
+            padding: 1rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .exposition-featured {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .exposition-featured-info {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .exposition-container {
+                padding: 4rem 1.25rem 3rem !important;
+            }
+
+            .section-title--main {
+                font-size: 1.65rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .section-title {
+                font-size: 0.75rem !important;
+                margin: 3rem 0 1.25rem 0 !important;
+            }
+
+            .exposition-featured-title {
+                font-size: 1.6rem !important;
+                margin-bottom: 1.25rem !important;
+            }
+
+            .exposition-featured-meta {
+                font-size: 1rem !important;
+            }
+
+            .exposition-featured-note {
+                font-size: 0.92rem !important;
+            }
+
+            .exposition-featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exposition-item {
+                font-size: 0.9rem !important;
+                padding: 1rem 1.25rem !important;
+            }
+        }
+
+        /* Barre de navigation mobile */
+        @media (max-width: 768px) {
+            .main-nav {
+                padding: 0.3rem 1rem !important;
+                min-height: 40px !important;
+            }
+
+            .nav-links {
+                flex-direction: row !important;
+                gap: 0.3rem !important;
+                padding: 0.3rem 0 !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+            }
+
+            .nav-link {
+                font-size: 0.7rem !important;
+                padding: 0.2rem 0.5rem !important;
+                white-space: nowrap !important;
+            }
+
+            .home-circle {
+                width: 20px !important;
+                height: 20px !important;
+            }
+
+            .language-selector {
+                position: static !important;
+                margin-left: 0.5rem !important;
+            }
+
+            .language-button {
+                font-size: 0.6rem !important;
+                padding: 0.15rem 0.4rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-nav {
+                padding: 0.2rem 0.8rem !important;
+                min-height: 35px !important;
+            }
+
+            .nav-links {
+                gap: 0.2rem !important;
+                padding: 0.2rem 0 !important;
+            }
+
+            .nav-link {
+                font-size: 0.65rem !important;
+                padding: 0.15rem 0.4rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="index.html" class="home-circle"></a>
+            <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
+            <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
+            <a href="exposition.html" class="nav-link">Exposition</a>
+            <a href="bibliographie.html" class="nav-link" data-i18n="nav.bibliographie">Bibliographie</a>
+            <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
+            <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
+            <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+            <div class="language-selector">
+                <button class="language-button">FR</button>
+                <div class="language-dropdown">
+                    <a href="#" data-lang="fr">Français</a>
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="exposition-container">
+        <section>
+            <h2 class="section-title section-title--main">Expositions en cours</h2>
+            <div class="exposition-featured">
+                <div class="exposition-featured-info">
+                    <h3 class="exposition-featured-title">Echanges & change</h3>
+                    <div class="exposition-featured-meta">
+                        <span class="exposition-date">16 janvier — 26 février 2026</span>
+                        <span class="exposition-place">Cité des arts, Chambéry</span>
+                    </div>
+                    <div class="exposition-featured-vernissage">Vernissage le 16 janvier à 18h</div>
+                    <p class="exposition-featured-note">Carte blanche aux adolescents et anciens élèves des ateliers pluridisciplinaires de l'école municipale d'art, poursuivant un cursus en école supérieure ou récemment diplômés.<br><br>En résonance à cette exposition, l'espace Larith accueille aux mêmes dates une pépinière de jeunes artistes plasticiens, anciens élèves de l'EMA, au sein de l'exposition (Ré)génération.<br><br>Entrée libre</p>
+                </div>
+                <div class="exposition-featured-visual">
+                    <img src="exposition/echange.jpg" alt="Echanges & change - Cité des arts" class="exposition-hero-img">
+                    <div class="exposition-featured-grid">
+                        <img src="exposition/photo%20expo1.jpg" alt="Echanges & change - vue 1">
+                        <img src="exposition/photo%20expo2.jpg" alt="Echanges & change - vue 2">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title section-title--main">Expositions à venir</h2>
+            <ul class="exposition-list">
+                <li class="exposition-item">
+                    <div class="exposition-title">Mondes Fluides</div>
+                    <span class="exposition-tba">Date et lieu à préciser</span>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="translations.js"></script>
+    <script src="language-persistence.js"></script>
+</body>
+</html>

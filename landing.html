@@ -370,157 +370,173 @@
             50% { opacity: 1; }
         }
 
-        /* Bande actualité (popup dynamique) */
-        .actualite-band {
-            background: #000;
-            color: #fff;
-            padding: 1rem 2rem;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            transition: all 0.3s ease;
-            position: relative;
+        /* Panneau actualité : rectangle à droite, « actualité » à la verticale, s’agrandit au survol */
+        .actualite-panel {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 56px;
+            height: 260px;
+            background: linear-gradient(165deg, #0c0c0e 0%, #12121a 50%, #0a0a0d 100%);
+            color: #e8e8ea;
+            z-index: 9998;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-right: none;
+            border-radius: 16px 0 0 16px;
+            box-shadow: -12px 0 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
+            transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1), height 0.42s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
             overflow: hidden;
-            letter-spacing: 0.15em;
-            text-transform: lowercase;
-            font-size: 0.95rem;
-            font-weight: 300;
+            display: flex;
+            flex-direction: row;
         }
 
-        .actualite-band::before {
+        .actualite-panel::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .actualite-band:hover {
-            background: #1a1a1a;
-        }
-
-        .actualite-band:hover::before {
-            left: 100%;
-        }
-
-        .actualite-band-text {
-            animation: actualite-pulse 3s ease-in-out infinite;
-        }
-
-        .actualite-band-arrow {
-            opacity: 0.8;
-            transition: transform 0.3s ease;
-        }
-
-        .actualite-band:hover .actualite-band-arrow {
-            transform: translateX(4px);
-        }
-
-        @keyframes actualite-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.85; }
-        }
-
-        /* Modal actualité */
-        .actualite-modal-overlay {
-            position: fixed;
-            top: 0;
             left: 0;
-            width: 100%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, rgba(180,200,220,0.5) 0%, rgba(140,180,200,0.25) 50%, transparent 100%);
+            border-radius: 16px 0 0 0;
+            pointer-events: none;
+        }
+
+        .actualite-panel:hover,
+        .actualite-panel.is-open {
+            width: min(540px, 94vw);
+            max-width: 540px;
+            height: 95vh;
+            max-height: 900px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: -20px 0 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+        }
+
+        .actualite-panel-label {
+            flex-shrink: 0;
+            width: 56px;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 1.25rem 0;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.88);
+            user-select: none;
+            pointer-events: none;
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .actualite-panel-content {
+            flex: 1;
+            min-width: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
+            transition: opacity 0.32s ease 0.12s, visibility 0.32s ease 0.12s;
+            padding: 0;
+            width: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, transparent 8px);
         }
 
-        .actualite-modal-overlay.is-open {
+        .actualite-panel:hover .actualite-panel-content,
+        .actualite-panel.is-open .actualite-panel-content {
             opacity: 1;
             visibility: visible;
+            width: auto;
+            padding: 1.75rem 1.5rem 1.75rem 1rem;
         }
 
-        .actualite-modal {
-            background: #0a0a0a;
-            color: #fff;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.1);
-            transform: scale(0.95);
-            transition: transform 0.4s ease;
-        }
-
-        .actualite-modal-overlay.is-open .actualite-modal {
-            transform: scale(1);
-        }
-
-        .actualite-modal-close {
+        .actualite-panel-close {
+            display: none;
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 2rem;
+            top: 0.9rem;
+            right: 0.9rem;
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
             cursor: pointer;
-            line-height: 1;
-            padding: 0.25rem;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            align-items: center;
+            justify-content: center;
             z-index: 10;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
         }
 
-        .actualite-modal-close:hover {
-            opacity: 1;
+        .actualite-panel.is-open .actualite-panel-close {
+            display: flex;
         }
 
-        .actualite-modal-content {
-            padding: 2.5rem 2rem;
+        .actualite-panel-close:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.15);
+            transform: scale(1.05);
         }
 
-        .actualite-modal-title {
-            font-size: 1.8rem;
+        .actualite-panel-title {
+            font-size: 1.55rem;
             font-weight: 400;
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.05em;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.03em;
+            padding-right: 2.5rem;
+            color: #f0f0f2;
         }
 
-        .actualite-modal-description {
-            font-size: 1rem;
-            line-height: 1.6;
-            opacity: 0.9;
-            margin-bottom: 2rem;
+        .actualite-panel-title::after {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(180,200,220,0.6), transparent);
+            margin-top: 0.6rem;
+            border-radius: 1px;
         }
 
-        .actualite-modal-media {
+        .actualite-panel-description {
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.82);
+            margin-bottom: 1.35rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .actualite-panel-media {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.1rem;
         }
 
-        .actualite-video-wrap {
+        .actualite-panel .actualite-video-wrap {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
-            background: #111;
-            border-radius: 4px;
+            background: #0d0d10;
+            border-radius: 10px;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
         }
 
-        .actualite-video-wrap .actualite-video {
+        .actualite-panel .actualite-video-wrap:hover {
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+        }
+
+        .actualite-panel .actualite-video-wrap .actualite-video {
             position: absolute;
             top: 0;
             left: 0;
@@ -529,34 +545,74 @@
             object-fit: cover;
         }
 
-        .actualite-photos {
+        .actualite-panel .actualite-photos {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
-        .actualite-photo {
-            width: 100%;
+        .actualite-panel .actualite-photo-wrap {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
             aspect-ratio: 4/3;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+            transition: box-shadow 0.25s ease;
+        }
+
+        .actualite-panel .actualite-photo-wrap:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .actualite-panel .actualite-photo {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 10px;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .actualite-panel .actualite-photo-wrap:hover .actualite-photo {
+            transform: scale(1.06);
         }
 
         @media (max-width: 768px) {
-            .actualite-band {
-                padding: 0.9rem 1.5rem;
-                font-size: 0.9rem;
+            .actualite-panel {
+                width: 48px;
+                height: 220px;
             }
 
-            .actualite-modal-content {
-                padding: 2rem 1.25rem;
+            .actualite-panel::before {
+                width: 2px;
             }
 
-            .actualite-modal-title {
-                font-size: 1.5rem;
+            .actualite-panel:hover {
+                width: min(480px, 94vw);
+                height: 92vh;
             }
 
-            .actualite-photos {
+            .actualite-panel.is-open {
+                width: min(480px, 94vw);
+                height: 92vh;
+            }
+
+            .actualite-panel-label {
+                width: 48px;
+                font-size: 0.78rem;
+                letter-spacing: 0.22em;
+            }
+
+            .actualite-panel-close {
+                display: flex;
+            }
+
+            .actualite-panel:hover .actualite-panel-close,
+            .actualite-panel.is-open .actualite-panel-close {
+                display: flex;
+            }
+
+            .actualite-panel .actualite-photos {
                 grid-template-columns: 1fr;
             }
         }
@@ -1745,6 +1801,7 @@
             <a href="index.html" class="home-circle"></a>
             <a href="landing.html" class="nav-link" data-i18n="nav.projects">Projets</a>
             <a href="musique.html" class="nav-link" data-i18n="nav.music">Musiques</a>
+            <a href="exposition.html" class="nav-link">Exposition</a>
             <a href="bibliographie.html" class="nav-link" data-i18n="nav.bibliographie">Bibliographie</a>
             <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
             <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
@@ -1812,28 +1869,25 @@
             <div class="scroll-indicator">↓</div>
         </section>
 
-        <!-- Bande actualité (popup) -->
-        <div class="actualite-band" id="actualite-band" role="button" tabindex="0" aria-label="Ouvrir l'actualité">
-            <span class="actualite-band-text">actualité</span>
-            <span class="actualite-band-arrow">→</span>
-        </div>
-
-        <!-- Modal actualité - Mondes Fluides -->
-        <div class="actualite-modal-overlay" id="actualite-modal" aria-hidden="true">
-            <div class="actualite-modal">
-                <button class="actualite-modal-close" id="actualite-close" aria-label="Fermer">&times;</button>
-                <div class="actualite-modal-content">
-                    <h3 class="actualite-modal-title">Mondes Fluides</h3>
-                    <p class="actualite-modal-description">Un projet en cours sur la géopolitique de l'environnement.</p>
-                    <div class="actualite-modal-media">
-                        <div class="actualite-video-wrap">
-                            <video class="actualite-video" controls poster="actualité/moi1.jpg">
-                                <source src="actualité/Projet%20en%20cours.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la lecture vidéo.
-                            </video>
-                        </div>
-                        <div class="actualite-photos">
+        <!-- Panneau actualité (droite, s’agrandit au survol) -->
+        <div class="actualite-panel" id="actualite-panel">
+            <div class="actualite-panel-label">ACTUALITÉ</div>
+            <div class="actualite-panel-content">
+                <button class="actualite-panel-close" id="actualite-close" aria-label="Fermer">&times;</button>
+                <h3 class="actualite-panel-title">Mondes Fluides</h3>
+                <p class="actualite-panel-description">Le projet s’articule autour de la matière sonore et de la relation entre matériaux humains et matières naturelles. Il repose sur l’enregistrement, l’amplification et la rediffusion de sons issus de milieux naturels (glace, eau, vent, océans) ainsi que de dispositifs matériels conçus par l’homme. Ces pratiques interrogent la manière dont une société matérialiste tente de se fixer dans un monde fondamentalement fluide. Le travail se déploie à travers des installations et des actions in situ, pensées pour des espaces d’exposition comme pour des environnements extérieurs, parfois sans public direct. En croisant recherche artistique, collaborations scientifiques et enjeux géopolitiques de l’environnement, le projet cherche à rendre perceptibles des transformations invisibles et à constituer des formes d’archives sensibles du monde en mutation.</p>
+                <div class="actualite-panel-media">
+                    <div class="actualite-video-wrap">
+                        <video class="actualite-video" controls poster="actualité/moi1.jpg">
+                            <source src="actualité/Projet%20en%20cours.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture vidéo.
+                        </video>
+                    </div>
+                    <div class="actualite-photos">
+                        <div class="actualite-photo-wrap">
                             <img src="actualité/moi1.jpg" alt="Mondes Fluides - moi1" class="actualite-photo">
+                        </div>
+                        <div class="actualite-photo-wrap">
                             <img src="actualité/carrote.jpg" alt="Mondes Fluides - carrote" class="actualite-photo">
                         </div>
                     </div>
@@ -2112,45 +2166,50 @@
 
         // Le gestionnaire de langue est maintenant géré par language-persistence.js
 
-        // Modal actualité - Mondes Fluides
+        // Panneau actualité : survol = agrandir (desktop), clic = ouvrir/fermer (mobile)
         (function() {
-            var band = document.getElementById('actualite-band');
-            var modal = document.getElementById('actualite-modal');
+            var panel = document.getElementById('actualite-panel');
             var closeBtn = document.getElementById('actualite-close');
+            var label = panel ? panel.querySelector('.actualite-panel-label') : null;
 
-            function openModal() {
-                if (modal) {
-                    modal.classList.add('is-open');
-                    modal.setAttribute('aria-hidden', 'false');
-                    document.body.style.overflow = 'hidden';
-                }
+            function isTouch() {
+                return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             }
 
-            function closeModal() {
-                if (modal) {
-                    modal.classList.remove('is-open');
-                    modal.setAttribute('aria-hidden', 'true');
+            function togglePanel(e) {
+                if (!panel) return;
+                if (e) e.stopPropagation();
+                panel.classList.toggle('is-open');
+                if (panel.classList.contains('is-open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
                     document.body.style.overflow = '';
                 }
             }
 
-            if (band) {
-                band.addEventListener('click', openModal);
-                band.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openModal();
+            function closePanel(e) {
+                if (e) e.stopPropagation();
+                if (panel && panel.classList.contains('is-open')) {
+                    panel.classList.remove('is-open');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (panel && label) {
+                label.style.pointerEvents = 'auto';
+                label.addEventListener('click', function(e) {
+                    if (isTouch()) {
+                        togglePanel(e);
                     }
                 });
             }
-            if (closeBtn) closeBtn.addEventListener('click', closeModal);
-            if (modal) {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) closeModal();
-                });
-            }
+            if (closeBtn) closeBtn.addEventListener('click', closePanel);
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) closeModal();
+                if (e.key === 'Escape' && panel && panel.classList.contains('is-open')) closePanel();
+            });
+            document.addEventListener('click', function(e) {
+                if (!panel || !panel.classList.contains('is-open')) return;
+                if (isTouch() && !panel.contains(e.target)) closePanel();
             });
         })();
 
