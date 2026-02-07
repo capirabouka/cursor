@@ -60,6 +60,7 @@ Thumbs.db
 
 # Video files
 *.mp4
+!actualité/*.mp4
 *.mov
 *.avi
 *.mkv
