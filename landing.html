@@ -594,7 +594,10 @@
             .actualite-panel {
                 width: 44px;
                 height: 200px;
-                box-shadow: none;
+            }
+
+            .actualite-panel:not(.is-open) {
+                box-shadow: none !important;
             }
 
             .actualite-panel::before {
@@ -617,6 +620,7 @@
             .actualite-panel.actualite-panel--force-closed {
                 width: 44px !important;
                 height: 200px !important;
+                box-shadow: none !important;
             }
 
             .actualite-panel-label {
