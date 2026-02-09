@@ -3,6 +3,7 @@ const translations = {
         // Navigation
         "nav.projects": "Installation",
         "nav.music": "Composition",
+        "nav.exposition": "Exposition",
         "nav.bibliographie": "Bibliographie",
         "nav.engagement": "Engagement",
         "nav.partenariat": "Partenariat",
@@ -139,6 +140,21 @@ const translations = {
         "bibliographie.inspirations.title": "Inspirations",
         "bibliographie.inspirations.intro": "Un ensemble d'artistes, penseurs, chercheurs et créateurs dont les démarches pluridisciplinaires et engagées éclairent et inspirent le travail, entre art sonore, installation, écologie, sciences sociales et pratiques critiques :",
 
+        // Exposition
+        "exposition.title": "Exposition - Anouche Lelong",
+        "exposition.page_title": "Expositions",
+        "exposition.current": "Expositions en cours",
+        "exposition.upcoming": "Expositions à venir",
+        "exposition.tba": "Date et lieu à préciser",
+        "exposition.vernissage": "Vernissage le 16 janvier à 18h",
+        "exposition.featured_note": "Carte blanche aux adolescents et anciens élèves des ateliers pluridisciplinaires de l'école municipale d'art, poursuivant un cursus en école supérieure ou récemment diplômés.\n\nEn résonance à cette exposition, l'espace Larith accueille aux mêmes dates une pépinière de jeunes artistes plasticiens, anciens élèves de l'EMA, au sein de l'exposition (Ré)génération.",
+        "exposition.free_entry": "Entrée libre",
+
+        // Actualité / Mondes Fluides
+        "actualite.label": "Actualité",
+        "actualite.title": "Mondes Fluides",
+        "actualite.description": "Le projet interroge une société matérialiste face à un monde fluide, à travers des installations et actions in situ. En croisant art, science et enjeux environnementaux, il rend perceptibles des transformations invisibles et constitue des archives sensibles du monde en mutation.",
+
         // Engagement
         "engagement.title": "Engagement - Anouche Lelong",
         "engagement.page_title": "Engagement",
@@ -179,6 +195,7 @@ const translations = {
         // Navigation
         "nav.projects": "Installation",
         "nav.music": "Composition",
+        "nav.exposition": "Exhibitions",
         "nav.bibliographie": "Bibliography",
         "nav.engagement": "Engagement",
         "nav.partenariat": "Partnership",
@@ -315,6 +332,21 @@ const translations = {
         "bibliographie.inspirations.title": "Inspirations",
         "bibliographie.inspirations.intro": "A group of artists, thinkers, researchers and creators whose multidisciplinary and engaged approaches illuminate and inspire the work, between sound art, installation, ecology, social sciences and critical practices:",
 
+        // Exposition
+        "exposition.title": "Exhibitions - Anouche Lelong",
+        "exposition.page_title": "Exhibitions",
+        "exposition.current": "Current exhibitions",
+        "exposition.upcoming": "Upcoming exhibitions",
+        "exposition.tba": "Date and venue to be announced",
+        "exposition.vernissage": "Opening on January 16 at 6pm",
+        "exposition.featured_note": "Carte blanche to teenagers and former students of the multidisciplinary workshops of the municipal art school, pursuing a course in higher education or recently graduated.\n\nIn resonance with this exhibition, the Larith space hosts, on the same dates, a nursery of young visual artists, former EMA students, within the exhibition (Re)generation.",
+        "exposition.free_entry": "Free entry",
+
+        // Actualité / Mondes Fluides
+        "actualite.label": "News",
+        "actualite.title": "Mondes Fluides",
+        "actualite.description": "The project questions a materialist society facing a fluid world, through installations and in situ actions. By crossing art, science and environmental issues, it reveals invisible transformations and creates sensitive archives of a world in mutation.",
+
         // Engagement
         "engagement.title": "Engagement - Anouche Lelong",
         "engagement.page_title": "Engagement",
@@ -355,6 +387,7 @@ const translations = {
         // Navigation
         "nav.projects": "Instalación",
         "nav.music": "Composición",
+        "nav.exposition": "Exposiciones",
         "nav.bibliographie": "Bibliografía",
         "nav.engagement": "Compromiso",
         "nav.partenariat": "Asociación",
@@ -491,6 +524,21 @@ const translations = {
         "bibliographie.inspirations.title": "Inspiraciones",
         "bibliographie.inspirations.intro": "Un conjunto de artistas, pensadores, investigadores y creadores cuyos enfoques multidisciplinarios y comprometidos iluminan e inspiran el trabajo, entre arte sonoro, instalación, ecología, ciencias sociales y prácticas críticas:",
 
+        // Exposición
+        "exposition.title": "Exposiciones - Anouche Lelong",
+        "exposition.page_title": "Exposiciones",
+        "exposition.current": "Exposiciones en curso",
+        "exposition.upcoming": "Próximas exposiciones",
+        "exposition.tba": "Fecha y lugar por confirmar",
+        "exposition.vernissage": "Inauguración el 16 de enero a las 18h",
+        "exposition.featured_note": "Carta blanca para adolescentes y antiguos alumnos de los talleres multidisciplinares de la escuela municipal de arte, que siguen cursando estudios superiores o se han graduado recientemente.\n\nEn resonancia con esta exposición, el espacio Larith acoge en las mismas fechas un vivero de jóvenes artistas plásticos, antiguos alumnos de la EMA, dentro de la exposición (Re)generación.",
+        "exposition.free_entry": "Entrada libre",
+
+        // Actualidad / Mondes Fluides
+        "actualite.label": "Actualidad",
+        "actualite.title": "Mondes Fluides",
+        "actualite.description": "El proyecto interroga a una sociedad materialista frente a un mundo fluido, a través de instalaciones y acciones in situ. Al cruzar arte, ciencia y cuestiones medioambientales, hace perceptibles transformaciones invisibles y constituye archivos sensibles de un mundo en mutación.",
+
         // Compromiso
         "engagement.title": "Compromiso - Anouche Lelong",
         "engagement.page_title": "Compromiso",
@@ -531,6 +579,7 @@ const translations = {
         // Navigation
         "nav.projects": "Инсталляция",
         "nav.music": "Композиция",
+        "nav.exposition": "Выставки",
         "nav.bibliographie": "Библиография",
         "nav.engagement": "Вовлеченность",
         "nav.partenariat": "Партнерство",
@@ -666,6 +715,21 @@ const translations = {
         "bibliographie.intro": "Эта подборка произведений пересекает различные вселенные, смешивая художественную литературу, эссе, философию и современную поэзию, которые питают художественную и критическую рефлексию:",
         "bibliographie.inspirations.title": "Вдохновения",
         "bibliographie.inspirations.intro": "Группа художников, мыслителей, исследователей и создателей, чьи междисциплинарные и вовлеченные подходы освещают и вдохновляют работу, между звуковым искусством, инсталляцией, экологией, социальными науками и критическими практиками:",
+
+        // Выставки
+        "exposition.title": "Выставки - Ануш Леллонг",
+        "exposition.page_title": "Выставки",
+        "exposition.current": "Текущие выставки",
+        "exposition.upcoming": "Предстоящие выставки",
+        "exposition.tba": "Дата и место будут уточнены",
+        "exposition.vernissage": "Открытие 16 января в 18:00",
+        "exposition.featured_note": "Карта-бланш для подростков и бывших учеников многопрофильных мастерских муниципальной художественной школы, продолжающих обучение в высших учебных заведениях или недавно окончивших их.\n\nВ резонансе с этой выставкой пространство Ларит в те же даты принимает теплицу молодых художников-пластиков, бывших студентов EMA, в рамках выставки «(Ре)генерация».",
+        "exposition.free_entry": "Вход свободный",
+
+        // Актуальность / Mondes Fluides
+        "actualite.label": "Актуальное",
+        "actualite.title": "Mondes Fluides",
+        "actualite.description": "Проект ставит под вопрос материалистическое общество перед лицом текучего мира через инсталляции и акции in situ. Пересекая искусство, науку и экологические вызовы, он делает невидимые трансформации ощутимыми и создает чувственные архивы меняющегося мира.",
 
         // Вовлеченность
         "engagement.title": "Вовлеченность - Ануш Леллонг",
