@@ -1936,7 +1936,7 @@
             <div class="actualite-panel-content">
                 <button type="button" class="actualite-panel-close" id="actualite-close" aria-label="Fermer">&times;</button>
                 <h3 class="actualite-panel-title">Mondes Fluides</h3>
-                <p class="actualite-panel-description">Le projet s’articule autour de la matière sonore et de la relation entre matériaux humains et matières naturelles. Il repose sur l’enregistrement, l’amplification et la rediffusion de sons issus de milieux naturels (glace, eau, vent, océans) ainsi que de dispositifs matériels conçus par l’homme. Ces pratiques interrogent la manière dont une société matérialiste tente de se fixer dans un monde fondamentalement fluide. Le travail se déploie à travers des installations et des actions in situ, pensées pour des espaces d’exposition comme pour des environnements extérieurs, parfois sans public direct. En croisant recherche artistique, collaborations scientifiques et enjeux géopolitiques de l’environnement, le projet cherche à rendre perceptibles des transformations invisibles et à constituer des formes d’archives sensibles du monde en mutation.</p>
+                <p class="actualite-panel-description">Le projet interroge une société matérialiste face à un monde fluide, à travers des installations et actions in situ. En croisant art, science et enjeux environnementaux, il rend perceptibles des transformations invisibles et constitue des archives sensibles du monde en mutation.</p>
                 <div class="actualite-panel-media">
                     <div class="actualite-video-wrap">
                         <video class="actualite-video" controls poster="actualité/moi1.jpg">
@@ -2291,7 +2291,7 @@
                 if (isTouch() && !panel.contains(e.target)) closePanel();
             });
 
-            // Swipe droite pour fermer (mobile uniquement)
+            // Swipe droite pour fermer (mobile uniquement, panneau ouvert)
             if (panel && content && isTouch()) {
                 var touchStartX = 0;
                 var minSwipe = 60;
@@ -2303,6 +2303,22 @@
                     var touchEndX = e.changedTouches[0].clientX;
                     if (touchEndX - touchStartX > minSwipe) {
                         closePanel(e);
+                    }
+                }, { passive: true });
+            }
+
+            // Swipe gauche sur l’onglet pour ouvrir (mobile uniquement, panneau fermé)
+            if (panel && label && isTouch()) {
+                var openTouchStartX = 0;
+                var openMinSwipe = 60;
+                label.addEventListener('touchstart', function(e) {
+                    openTouchStartX = e.touches[0].clientX;
+                }, { passive: true });
+                label.addEventListener('touchend', function(e) {
+                    if (panel.classList.contains('is-open')) return;
+                    var touchEndX = e.changedTouches[0].clientX;
+                    if (openTouchStartX - touchEndX > openMinSwipe) {
+                        togglePanel(e);
                     }
                 }, { passive: true });
             }
