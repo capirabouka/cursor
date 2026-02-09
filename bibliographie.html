@@ -116,12 +116,20 @@
             }
         }
 
-        /* ===== BARRE DE NAVIGATION MOBILE UNIFORMISÉE ===== */
+        /* ===== BARRE DE NAVIGATION MOBILE UNIFORMISÉE (même que musique.html) ===== */
         @media (max-width: 768px) {
-            /* Barre de navigation mobile ultra-compacte */
+            body {
+                padding-top: 0;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+
             .main-nav {
                 padding: 0.3rem 1rem !important;
                 min-height: 40px !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
             }
 
             .nav-links {

@@ -53,50 +53,6 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* ===== RÈGLES MOBILE OPTIMISÉES ===== */
-@media (max-width: 768px) {
-    .main-nav {
-        padding: 0.3rem 1rem !important;
-        min-height: 40px !important;
-    }
-
-    .nav-links {
-        flex-direction: row !important;
-        gap: 0.3rem !important;
-        padding: 0.3rem 0 !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-    }
-
-    .nav-link {
-        font-size: 0.7rem !important;
-        padding: 0.2rem 0.5rem !important;
-        white-space: nowrap !important;
-    }
-
-    .home-circle {
-        width: 25px !important;
-        height: 25px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-nav {
-        padding: 0.2rem 0.8rem !important;
-        min-height: 35px !important;
-    }
-
-    .nav-links {
-        gap: 0.2rem !important;
-        padding: 0.2rem 0 !important;
-    }
-
-    .nav-link {
-        font-size: 0.65rem !important;
-        padding: 0.15rem 0.4rem !important;
-    }
-}
-
 .nav-links {
     display: flex;
     justify-content: center;
