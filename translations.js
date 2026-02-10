@@ -19,10 +19,10 @@ const translations = {
         // Présentation artiste
         "artist.name": "Anouche Lelong",
         "artist.title": "Installation sonore • Composition",
-        "artist.description1": "Artiste pluridisciplinaire, Anouche Lelong explore le son, la matière et le vide comme vecteurs de tension et de transformation.",
-        "artist.description2": "Ses installations interrogent les rapports de pouvoir, les mécanismes d'oppression et les mouvements d'exil tout en ouvrant des zones de passage, de bascule et de mutation sensible.",
-        "artist.description3": "Conçues comme des espaces d'écoute, de dérèglement et de résonance, ses pièces invitent à percevoir autrement.",
-        "artist.description4": "Ce site est une chambre d'écho. Un lieu de recherche et de friction où le réel se déplie, se trouble, se transforme.",
+        "artist.description1": "Artiste, Anouche Lelong développe un travail autour du son, de la matière et du matériel.",
+        "artist.description2": "Ses installations abordent les rapports de pouvoir, les mécanismes d’oppression, les phénomènes d’exil et les enjeux géopolitiques, à travers des dispositifs immersifs qui interrogent les modes de perception contemporains.",
+        "artist.description3": "Conçues comme des espaces d’écoute et de résonance, ses œuvres proposent différentes manières d’appréhender le réel et ouvrent des zones de passage et de transformation.",
+        "artist.description4": "Ce site est conçu comme une chambre d’écho, présentant ses recherches et ses projets en cours.",
 
         // Citation
         "quote.text": "Le monde change plus vite que notre capacité à en parler.",
@@ -45,7 +45,7 @@ const translations = {
         // Projets
         "projects.title": "Installation",
         "projects.resonances": "Résonances Disloquées",
-        "projects.resonances.description": "Ce travail artistique autour de la fin du monde mêle voix, sons, images et installations pour offrir des expériences sensorielles et réflexives. Chaque projet croise récits intimes, imaginaires et phénomènes physiques, entre contrôle et hasard, présence et disparition. De la cartographie vocale aux sons de la glace fondante, en passant par la déconstruction des illusions et la métaphore sonore du déclin, ces travaux invitent à une écoute attentive et à une contemplation sensible des transformations du monde et de notre rapport à elles, entre poésie, inquiétude et distanciation critique.",
+        "projects.resonances.description": "Résonances Disloquées est une série de travaux réunis autour de la fin du monde. Elle interroge l’origine de ce concept, la manière dont il se construit aujourd’hui : comment nous l’imaginons, comment nous l’entendons, comment il traverse nos corps.\n\nÀ travers des prises de son, des déambulations et des rencontres, le projet se densifie dans les voix de celles et ceux qui le portent. La fin du monde devient matière collective et fragmentée.",
         "projects.borders": "Le bruit des frontières",
 
         // Home Sweet Boom
@@ -168,6 +168,7 @@ const translations = {
         "partenariat.npak": "NPAK - Centre d'Art Contemporain de Erevan",
         "partenariat.elfe": "Elfe Editions - Compositions Musicales",
         "partenariat.ebabx": "EBABX - École Supérieure des Beaux-Arts de Bordeaux",
+        "partenariat.citedesarts": "Cité des Arts de Chambéry",
 
         // Contact
         "contact.title": "Contact - Anouche Lelong",
