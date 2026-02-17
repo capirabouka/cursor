@@ -58,6 +58,17 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Fichiers de traduction / langue : toujours revalider (évite ancienne version quand on ouvre depuis Instagram)
+[[headers]]
+  for = "/translations.js"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/language-persistence.js"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
 # Configuration pour les fichiers HTML
 [[headers]]
   for = "/*.html"
