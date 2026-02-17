@@ -153,7 +153,7 @@ const translations = {
         // Actualité / Mondes Fluides
         "actualite.label": "Actualité",
         "actualite.title": "Mondes Fluides",
-        "actualite.description": "Le projet interroge une société matérialiste face à un monde fluide, à travers des installations et actions in situ. En croisant art, science et enjeux environnementaux, il rend perceptibles des transformations invisibles et constitue des archives sensibles du monde en mutation.",
+        "actualite.description": "La démarche artistique de Mondes Fluides questionne notre système matérialiste face à un monde en mutation permanente. Par des installations sonores et performatives mêlant art et science, elle révèle et archive des phénomènes invisibles, mettant en tension le flux du réel avec notre volonté de le figer.",
 
         // Engagement
         "engagement.title": "Engagement - Anouche Lelong",
@@ -212,10 +212,10 @@ const translations = {
         // Artist presentation
         "artist.name": "Anouche Lelong",
         "artist.title": "Sound Installation • Composition",
-        "artist.description1": "Multidisciplinary artist, Anouche Lelong explores sound, matter, and emptiness as vectors of tension and transformation.",
-        "artist.description2": "Her installations question power relations, mechanisms of oppression, and movements of exile while opening zones of passage, tipping points, and sensitive mutation.",
-        "artist.description3": "Designed as spaces of listening, disruption, and resonance, her pieces invite us to perceive differently.",
-        "artist.description4": "This site is an echo chamber. A place of research and friction where reality unfolds, troubles, transforms.",
+        "artist.description1": "Artist Anouche Lelong develops a practice centered on sound, matter, and materiality.",
+        "artist.description2": "Her installations explore power relations, mechanisms of oppression, experiences of exile, and geopolitical issues through immersive dispositifs that question contemporary modes of perception.",
+        "artist.description3": "Conceived as spaces of listening and resonance, her works propose different ways of engaging with reality and open zones of passage and transformation.",
+        "artist.description4": "This website is conceived as an echo chamber, presenting her research and ongoing projects.",
 
         // Quote
         "quote.text": "The world changes faster than our ability to talk about it.",
@@ -346,7 +346,7 @@ const translations = {
         // Actualité / Mondes Fluides
         "actualite.label": "News",
         "actualite.title": "Mondes Fluides",
-        "actualite.description": "The project questions a materialist society facing a fluid world, through installations and in situ actions. By crossing art, science and environmental issues, it reveals invisible transformations and creates sensitive archives of a world in mutation.",
+        "actualite.description": "The artistic approach of Mondes Fluides questions our materialist system in the face of a world in permanent mutation. Through sound and performative installations combining art and science, it reveals and archives invisible phenomena, putting the flow of the real in tension with our desire to fix it.",
 
         // Engagement
         "engagement.title": "Engagement - Anouche Lelong",
@@ -404,10 +404,10 @@ const translations = {
         // Presentación del artista
         "artist.name": "Anouche Lelong",
         "artist.title": "Instalación Sonora • Composición",
-        "artist.description1": "Artista multidisciplinaria, Anouche Lelong explora el sonido, la materia y el vacío como vectores de tensión y transformación.",
-        "artist.description2": "Sus instalaciones cuestionan las relaciones de poder, los mecanismos de opresión y los movimientos de exilio mientras abren zonas de paso, puntos de inflexión y mutación sensible.",
-        "artist.description3": "Diseñadas como espacios de escucha, desregulación y resonancia, sus piezas invitan a percibir de otra manera.",
-        "artist.description4": "Este sitio es una cámara de eco. Un lugar de investigación y fricción donde lo real se despliega, se perturba, se transforma.",
+        "artist.description1": "La artista Anouche Lelong desarrolla una práctica centrada en el sonido, la materia y la materialidad.",
+        "artist.description2": "Sus instalaciones abordan las relaciones de poder, los mecanismos de opresión, las experiencias de exilio y los desafíos geopolíticos a través de dispositivos inmersivos que cuestionan los modos contemporáneos de percepción.",
+        "artist.description3": "Concebidas como espacios de escucha y resonancia, sus obras proponen distintas maneras de aproximarse a lo real y abren zonas de tránsito y transformación.",
+        "artist.description4": "Este sitio está concebido como una cámara de eco, donde se presentan sus investigaciones y proyectos en curso.",
 
         // Cita
         "quote.text": "El mundo cambia más rápido que nuestra capacidad para hablar de él.",
@@ -538,7 +538,7 @@ const translations = {
         // Actualidad / Mondes Fluides
         "actualite.label": "Actualidad",
         "actualite.title": "Mondes Fluides",
-        "actualite.description": "El proyecto interroga a una sociedad materialista frente a un mundo fluido, a través de instalaciones y acciones in situ. Al cruzar arte, ciencia y cuestiones medioambientales, hace perceptibles transformaciones invisibles y constituye archivos sensibles de un mundo en mutación.",
+        "actualite.description": "El enfoque artístico de Mondes Fluides cuestiona nuestro sistema materialista frente a un mundo en mutación permanente. Mediante instalaciones sonoras y performativas que combinan arte y ciencia, revela y archiva fenómenos invisibles, poniendo en tensión el flujo de lo real con nuestra voluntad de fijarlo.",
 
         // Compromiso
         "engagement.title": "Compromiso - Anouche Lelong",
@@ -596,14 +596,14 @@ const translations = {
         // Презентация художника
         "artist.name": "Ануш Леллонг",
         "artist.title": "Звуковая Инсталляция • Композиция",
-        "artist.description1": "Мультидисциплинарный художник, Ануш Леллонг исследует звук, материю и пустоту как векторы напряжения и трансформации.",
-        "artist.description2": "Ее инсталляции исследуют отношения власти, механизмы угнетения и движения изгнания, открывая зоны перехода, переломные моменты и чувственную мутацию.",
-        "artist.description3": "Созданные как пространства слушания, нарушения и резонанса, ее работы приглашают воспринимать по-другому.",
-        "artist.description4": "Этот сайт - эхо-камера. Место исследований и трения, где реальность разворачивается, нарушается, трансформируется.",
+        "artist.description1": "Художница Ануш Лелонг развивает художественную практику, сосредоточенную на звуке, материи и материальности.",
+        "artist.description2": "Её инсталляции исследуют отношения власти, механизмы угнетения, явления изгнания и геополитические процессы через иммерсивные художественные формы, ставящие под вопрос современные способы восприятия.",
+        "artist.description3": "Задуманные как пространства слушания и резонанса, её работы предлагают иные способы осмысления реальности и открывают зоны перехода и трансформации.",
+        "artist.description4": "Этот сайт задуман как эхо-камера, представляющая её исследования и текущие проекты.",
 
         // Цитата
         "quote.text": "Мир меняется быстрее, чем наша способность говорить о нем.",
-        "quote.author": "— Бруно Латур",
+        "quote.author": "— Bruno Latour",
 
         // Фрагменты
         "fragments.resonances.title": "Резонансы",
@@ -730,7 +730,7 @@ const translations = {
         // Актуальность / Mondes Fluides
         "actualite.label": "Актуальное",
         "actualite.title": "Mondes Fluides",
-        "actualite.description": "Проект ставит под вопрос материалистическое общество перед лицом текучего мира через инсталляции и акции in situ. Пересекая искусство, науку и экологические вызовы, он делает невидимые трансформации ощутимыми и создает чувственные архивы меняющегося мира.",
+        "actualite.description": "Художественный подход Mondes Fluides ставит под вопрос нашу материалистическую систему перед лицом мира в постоянной мутации. Через звуковые и перформативные инсталляции, сочетающие искусство и науку, он раскрывает и архивирует невидимые явления, противопоставляя поток реального нашему стремлению зафиксировать его.",
 
         // Вовлеченность
         "engagement.title": "Вовлеченность - Ануш Леллонг",
