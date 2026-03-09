@@ -678,23 +678,6 @@
             }
         }
 
-        /* Style pour l'accès admin discret */
-        .admin-access {
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0 0.5rem;
-            display: inline-block;
-        }
-
-        .admin-access:hover {
-            background: rgba(255, 255, 255, 0.6);
-            transform: scale(1.2);
-        }
-
         /* ===== VERSION MOBILE UNIQUEMENT ===== */
         @media (max-width: 768px) {
             /* Barre de navigation mobile ultra-compacte */
@@ -1928,7 +1911,6 @@
             <a href="engagement.html" class="nav-link" data-i18n="nav.engagement">Engagement</a>
             <a href="partenariat.html" class="nav-link" data-i18n="nav.partenariat">Partenariat</a>
             <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
-            <div class="admin-access" onclick="showAdminAccess()" title="Accès admin"></div>
             <div class="language-selector">
                 <button class="language-button">FR</button>
                 <div class="language-dropdown">
@@ -2520,16 +2502,6 @@
                 }, 500);
             }
         });
-
-        // Fonction pour afficher l'accès admin
-        function showAdminAccess() {
-            const code = prompt('Code d\'accès admin :');
-            if (code === 'NPK2024') {
-                window.location.href = 'admin-stats.html';
-            } else if (code !== null) {
-                alert('Code incorrect');
-            }
-        }
 
         // Gestion de l'audio pour La symphonie du Déclin
         document.addEventListener('DOMContentLoaded', function() {
