@@ -180,6 +180,7 @@ const translations = {
         "contact.page_title": "Pour toute collaboration",
         "contact.mail": "Mail",
         "contact.telegram": "Telegram",
+        "contact.instagram": "Instagram",
         "contact.whatsapp": "WhatsApp",
 
         music: {
@@ -377,6 +378,7 @@ const translations = {
         "contact.page_title": "For any collaboration",
         "contact.mail": "Mail",
         "contact.telegram": "Telegram",
+        "contact.instagram": "Instagram",
         "contact.whatsapp": "WhatsApp",
 
         music: {
@@ -574,6 +576,7 @@ const translations = {
         "contact.page_title": "Para cualquier colaboración",
         "contact.mail": "Correo",
         "contact.telegram": "Telegram",
+        "contact.instagram": "Instagram",
         "contact.whatsapp": "WhatsApp",
 
         music: {
@@ -771,6 +774,7 @@ const translations = {
         "contact.page_title": "Для любого сотрудничества",
         "contact.mail": "Почта",
         "contact.telegram": "Telegram",
+        "contact.instagram": "Instagram",
         "contact.whatsapp": "WhatsApp",
 
         music: {
