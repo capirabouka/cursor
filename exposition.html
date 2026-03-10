@@ -47,13 +47,23 @@
             margin-bottom: 1rem;
         }
 
+        /* Variante sans image pour les expositions à venir (Mondes Fluides) */
+        .exposition-featured--upcoming {
+            display: block;
+        }
+
+        .exposition-featured--upcoming .exposition-featured-info {
+            position: static;
+            max-width: 640px; /* bloc un peu plus étroit pour Mondes Fluides en version ordinateur */
+        }
+
         .exposition-featured-info {
             position: sticky;
             top: 7rem;
         }
 
         .exposition-featured-title {
-            font-size: 2.15rem;
+            font-size: 1.8rem;
             font-weight: 400;
             color: var(--text-color);
             letter-spacing: 0.02em;
@@ -148,6 +158,69 @@
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
         }
 
+        /* Expositions passées : visuels en petites vignettes déroulables */
+        .exposition-past {
+            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+            gap: 2rem;
+            opacity: 0.95;
+        }
+
+        .exposition-past .exposition-featured-title {
+            font-size: 1.8rem;
+        }
+
+        .exposition-past .exposition-featured-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            margin-top: 3.5rem; /* carrousel légèrement plus bas que le vernissage */
+        }
+
+        /* Bandeau de petites images, une seule visible à la fois */
+        .exposition-past .exposition-photos-track {
+            display: flex;
+            overflow: hidden;
+            scroll-behavior: smooth;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        /* Une image à la fois, sans la couper (lettrebox si besoin) */
+        .exposition-past .exposition-photos-track img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #000; /* pour éviter le fond derrière les bandes */
+        }
+
+        .exposition-past .exposition-arrow {
+            position: static;
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(0, 0, 0, 0.35);
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .exposition-past .exposition-arrow:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
         /* Liste expositions à venir */
         .exposition-list {
             list-style: none;
@@ -214,6 +287,11 @@
 
         @media (max-width: 900px) {
             .exposition-featured {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .exposition-past {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
@@ -350,7 +428,33 @@
     <main class="exposition-container">
         <section>
             <h2 class="section-title section-title--main" data-i18n="exposition.current">Expositions en cours</h2>
-            <div class="exposition-featured">
+            <p class="exposition-empty" data-i18n="exposition.none_current">Aucune exposition en cours pour le moment.</p>
+        </section>
+
+        <section>
+            <h2 class="section-title section-title--main" data-i18n="exposition.upcoming">Expositions à venir</h2>
+            <div class="exposition-featured exposition-featured--upcoming">
+                <div class="exposition-featured-info">
+                    <h3 class="exposition-featured-title">Mondes Fluides</h3>
+                    <div class="exposition-featured-meta">
+                        <span class="exposition-date" data-i18n="exposition.mondesfluides.dates">24 — 25 avril 2026</span>
+                        <span class="exposition-place" data-i18n="exposition.mondesfluides.place">La MADRE, Grenoble</span>
+                    </div>
+                    <p class="exposition-featured-note" data-i18n="exposition.mondesfluides.note">
+                        La démarche artistique de Mondes Fluides questionne notre système matérialiste face à un monde en mutation permanente.
+
+                        Par des installations sonores et performatives mêlant art et science, elle révèle et archive des phénomènes invisibles, mettant en tension le flux du réel avec notre volonté de le figer.
+                    </p>
+                    <p class="exposition-featured-note exposition-featured-note--free" data-i18n="exposition.free_entry">
+                        Entrée libre
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title section-title--main" data-i18n="exposition.past">Expositions passées</h2>
+            <div class="exposition-past">
                 <div class="exposition-featured-info">
                     <h3 class="exposition-featured-title">Echanges & change</h3>
                     <div class="exposition-featured-meta">
@@ -367,28 +471,51 @@
                     </p>
                 </div>
                 <div class="exposition-featured-visual">
-                    <img src="exposition/echange.jpg" alt="Echanges & change - Cité des arts" class="exposition-hero-img">
-                    <div class="exposition-featured-grid">
+                    <div class="exposition-photos-track">
+                        <img src="exposition/echange.jpg" alt="Echanges & change - Cité des arts">
                         <img src="exposition/photo%20expo1.jpg" alt="Echanges & change - vue 1">
                         <img src="exposition/photo%20expo2.jpg" alt="Echanges & change - vue 2">
                     </div>
+                    <button class="exposition-arrow exposition-arrow--next" type="button" aria-label="Photos suivantes">→</button>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <h2 class="section-title section-title--main" data-i18n="exposition.upcoming">Expositions à venir</h2>
-            <ul class="exposition-list">
-                <li class="exposition-item">
-                    <div class="exposition-title">Mondes Fluides</div>
-                    <span class="exposition-tba" data-i18n="exposition.tba">Date et lieu à préciser</span>
-                </li>
-            </ul>
         </section>
     </main>
 
     <script src="script.js"></script>
     <script src="translations.js?v=2"></script>
     <script src="language-persistence.js?v=2"></script>
+    <script>
+        // Défilement horizontal des photos d'expositions passées
+        document.addEventListener('DOMContentLoaded', function () {
+            const pastSection = document.querySelector('.exposition-past');
+            if (!pastSection) return;
+
+            const track = pastSection.querySelector('.exposition-photos-track');
+            const next = pastSection.querySelector('.exposition-arrow--next');
+            if (!track || !next) return;
+
+            const photos = Array.from(track.querySelectorAll('img'));
+            if (!photos.length) return;
+
+            let currentIndex = 0;
+
+            function showPhoto(index) {
+                const width = track.clientWidth;
+                track.scrollTo({
+                    left: width * index,
+                    behavior: 'smooth'
+                });
+            }
+
+            next.addEventListener('click', function () {
+                currentIndex = (currentIndex + 1) % photos.length;
+                showPhoto(currentIndex);
+            });
+
+            // S'assurer que la première image est bien alignée
+            showPhoto(0);
+        });
+    </script>
 </body>
 </html>
