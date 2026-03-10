@@ -1,7 +1,7 @@
 const translations = {
     fr: {
         // Navigation
-        "nav.projects": "Installation",
+        "nav.projects": "Projets",
         "nav.music": "Composition",
         "nav.exposition": "Exposition",
         "nav.bibliographie": "Bibliographie",
@@ -18,9 +18,9 @@ const translations = {
 
         // Présentation artiste
         "artist.name": "Anouche Lelong",
-        "artist.title": "Installation sonore • Composition",
-        "artist.description1": "Artiste, Anouche Lelong développe un travail autour du son, de la matière et du matériel.",
-        "artist.description2": "Ses installations abordent les rapports de pouvoir, les mécanismes d’oppression, les phénomènes d’exil et les enjeux géopolitiques, à travers des dispositifs immersifs qui interrogent les modes de perception contemporains.",
+        "artist.title": "Artiste",
+        "artist.description1": "Anouche Lelong développe un travail aux thématiques variées, en choisissant pour chaque sujet une forme plastique adaptée : son, matières naturelles, matériaux, vidéo ou installation. Le médium importe peu, tant qu’il permet de traiter pleinement le sujet.",
+        "artist.description2": "Sa démarche artistique explore les mécanismes d’oppression, les phénomènes d’exil et les enjeux géopolitiques liés à l’environnement, à travers des dispositifs qui interrogent nos modes de perception contemporains.",
         "artist.description3": "Conçues comme des espaces d’écoute et de résonance, ses œuvres proposent différentes manières d’appréhender le réel et ouvrent des zones de passage et de transformation.",
         "artist.description4": "Ce site est conçu comme une chambre d’écho, présentant ses recherches et ses projets en cours.",
 
@@ -43,7 +43,7 @@ const translations = {
         "button.listen_see": "écoutez-voir",
 
         // Projets
-        "projects.title": "Installation",
+        "projects.title": "Projets",
         "projects.resonances": "Résonances Disloquées",
         "projects.resonances.description": "Résonances Disloquées est une série de travaux réunis autour de la fin du monde. Elle interroge l’origine de ce concept, la manière dont il se construit aujourd’hui : comment nous l’imaginons, comment nous l’entendons, comment il traverse nos corps.\n\nÀ travers des prises de son, des déambulations et des rencontres, le projet se densifie dans les voix de celles et ceux qui le portent. La fin du monde devient matière collective et fragmentée.",
         "projects.borders": "Le bruit des frontières",
@@ -194,7 +194,7 @@ const translations = {
     },
     en: {
         // Navigation
-        "nav.projects": "Installation",
+        "nav.projects": "Works",
         "nav.music": "Composition",
         "nav.exposition": "Exhibitions",
         "nav.bibliographie": "Bibliography",
@@ -211,9 +211,9 @@ const translations = {
 
         // Artist presentation
         "artist.name": "Anouche Lelong",
-        "artist.title": "Sound Installation • Composition",
-        "artist.description1": "Artist Anouche Lelong develops a practice centered on sound, matter, and materiality.",
-        "artist.description2": "Her installations explore power relations, mechanisms of oppression, experiences of exile, and geopolitical issues through immersive dispositifs that question contemporary modes of perception.",
+        "artist.title": "Artist",
+        "artist.description1": "Anouche Lelong develops a practice exploring varied themes, choosing for each subject an appropriate artistic form: sound, natural matter, materials, video, or installation. The medium matters little, as long as it allows the subject to be fully explored.",
+        "artist.description2": "Her artistic practice explores mechanisms of oppression, experiences of exile, and the geopolitical issues surrounding the environment through artistic devices that question our contemporary modes of perception.",
         "artist.description3": "Conceived as spaces of listening and resonance, her works propose different ways of engaging with reality and open zones of passage and transformation.",
         "artist.description4": "This website is conceived as an echo chamber, presenting her research and ongoing projects.",
 
@@ -236,7 +236,7 @@ const translations = {
         "button.listen_see": "listen-see",
 
         // Projects
-        "projects.title": "Installation",
+        "projects.title": "Works",
         "projects.resonances": "Dislocated Resonances",
         "projects.resonances.description": "This artistic work around the end of the world mixes voices, sounds, images, and installations to offer sensory and reflective experiences. Each project crosses intimate narratives, imaginaries, and physical phenomena, between control and chance, presence and disappearance. From vocal cartography to the sounds of melting ice, through the deconstruction of illusions and the sonic metaphor of decline, these works invite attentive listening and sensitive contemplation of the world's transformations and our relationship to them, between poetry, concern, and critical distance.",
         "projects.borders": "The Noise of Borders",
@@ -386,7 +386,7 @@ const translations = {
     },
     es: {
         // Navigation
-        "nav.projects": "Instalación",
+        "nav.projects": "Obras",
         "nav.music": "Composición",
         "nav.exposition": "Exposiciones",
         "nav.bibliographie": "Bibliografía",
@@ -403,9 +403,9 @@ const translations = {
 
         // Presentación del artista
         "artist.name": "Anouche Lelong",
-        "artist.title": "Instalación Sonora • Composición",
-        "artist.description1": "La artista Anouche Lelong desarrolla una práctica centrada en el sonido, la materia y la materialidad.",
-        "artist.description2": "Sus instalaciones abordan las relaciones de poder, los mecanismos de opresión, las experiencias de exilio y los desafíos geopolíticos a través de dispositivos inmersivos que cuestionan los modos contemporáneos de percepción.",
+        "artist.title": "Artista",
+        "artist.description1": "Anouche Lelong desarrolla un trabajo con temáticas variadas, eligiendo para cada tema una forma plástica adecuada: sonido, materias naturales, materiales, vídeo o instalación. El medio importa poco, siempre que permita abordar plenamente el tema.",
+        "artist.description2": "Su práctica artística explora los mecanismos de opresión, los fenómenos de exilio y los desafíos geopolíticos vinculados al medio ambiente, a través de dispositivos que cuestionan nuestros modos de percepción contemporáneos.",
         "artist.description3": "Concebidas como espacios de escucha y resonancia, sus obras proponen distintas maneras de aproximarse a lo real y abren zonas de tránsito y transformación.",
         "artist.description4": "Este sitio está concebido como una cámara de eco, donde se presentan sus investigaciones y proyectos en curso.",
 
@@ -428,7 +428,7 @@ const translations = {
         "button.listen_see": "escucha-ve",
 
         // Proyectos
-        "projects.title": "Proyectos",
+        "projects.title": "Obras",
         "projects.resonances": "Resonancias Dislocadas",
         "projects.resonances.description": "Este trabajo artístico alrededor del fin del mundo mezcla voces, sonidos, imágenes e instalaciones para ofrecer experiencias sensoriales y reflexivas. Cada proyecto cruza narrativas íntimas, imaginarios y fenómenos físicos, entre control y azar, presencia y desaparición. Desde la cartografía vocal hasta los sonidos del hielo derritiéndose, pasando por la deconstrucción de las ilusiones y la metáfora sonora del declive, estos trabajos invitan a una escucha atenta y a una contemplación sensible de las transformaciones del mundo y de nuestra relación con ellas, entre poesía, inquietud y distanciamiento crítico.",
         "projects.borders": "El ruido de las fronteras",
@@ -578,7 +578,7 @@ const translations = {
     },
     ru: {
         // Navigation
-        "nav.projects": "Инсталляция",
+        "nav.projects": "Работы",
         "nav.music": "Композиция",
         "nav.exposition": "Выставки",
         "nav.bibliographie": "Библиография",
@@ -595,9 +595,9 @@ const translations = {
 
         // Презентация художника
         "artist.name": "Ануш Леллонг",
-        "artist.title": "Звуковая Инсталляция • Композиция",
-        "artist.description1": "Художница Ануш Лелонг развивает художественную практику, сосредоточенную на звуке, материи и материальности.",
-        "artist.description2": "Её инсталляции исследуют отношения власти, механизмы угнетения, явления изгнания и геополитические процессы через иммерсивные художественные формы, ставящие под вопрос современные способы восприятия.",
+        "artist.title": "Художница",
+        "artist.description1": "Ану́ш Лелонг развивает художественную практику с разнообразными тематиками, выбирая для каждой из них подходящую пластическую форму: звук, природные материалы, различные материи, видео или инсталляцию. Медиа не имеет решающего значения, если оно позволяет полностью раскрыть тему.",
+        "artist.description2": "Её художественная практика исследует механизмы угнетения, феномены изгнания и геополитические вопросы, связанные с окружающей средой, через художественные устройства, которые ставят под вопрос наши современные способы восприятия.",
         "artist.description3": "Задуманные как пространства слушания и резонанса, её работы предлагают иные способы осмысления реальности и открывают зоны перехода и трансформации.",
         "artist.description4": "Этот сайт задуман как эхо-камера, представляющая её исследования и текущие проекты.",
 
@@ -620,7 +620,7 @@ const translations = {
         "button.listen_see": "слушай-смотри",
 
         // Проекты
-        "projects.title": "Инсталляция",
+        "projects.title": "Работы",
         "projects.resonances": "Разъединенные Резонансы",
         "projects.resonances.description": "Эта художественная работа вокруг конца света смешивает голоса, звуки, образы и инсталляции, чтобы предложить сенсорные и рефлексивные переживания. Каждый проект пересекает интимные повествования, воображаемые миры и физические явления, между контролем и случаем, присутствием и исчезновением. От вокальной картографии до звуков тающего льда, через деконструкцию иллюзий и звуковую метафору упадка, эти работы приглашают к внимательному слушанию и чувственному созерцанию трансформаций мира и нашего отношения к ним, между поэзией, беспокойством и критической дистанцией.",
         "projects.borders": "Шум границ",

@@ -1,0 +1,417 @@
+/* --- Reset & base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #1a1a1a;
+  font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- Header --- */
+.header {
+  text-align: center;
+  padding: 2rem 1rem 1.5rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.tagline {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+  color: #888;
+}
+
+/* --- Grille 4 × 4, vidéos bien plus petites --- */
+.video-wall {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: 0.75rem;
+  max-width: 2200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.video-screen {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.video-screen__glitch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+/* --- Style caméras de surveillance --- */
+.cctv {
+  border: 1px solid #111;
+  box-shadow: inset 0 0 30px rgba(0, 30, 0, 0.05);
+}
+
+.cctv .video-screen__video {
+  filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg);
+}
+
+.cctv__label,
+.cctv__rec,
+.cctv__time {
+  position: absolute;
+  z-index: 2;
+  font-family: "Courier New", "Consolas", monospace;
+  font-size: clamp(8px, 1.2vw, 11px);
+  font-weight: 700;
+  color: #00ff41;
+  text-shadow: 0 0 4px rgba(0, 255, 65, 0.8);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+.cctv__label {
+  top: 3px;
+  left: 4px;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+.cctv__rec {
+  top: 3px;
+  right: 4px;
+  color: #ff3333;
+  text-shadow: 0 0 6px rgba(255, 50, 50, 0.9);
+  animation: cctv-blink 1s step-end infinite;
+}
+
+.cctv__rec::before {
+  content: "● ";
+  font-size: 0.85em;
+}
+
+.cctv__time {
+  bottom: 3px;
+  left: 4px;
+  font-size: clamp(7px, 1vw, 9px);
+  opacity: 0.95;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+.cctv__caption {
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  z-index: 2;
+  font-family: "Courier New", "Consolas", monospace;
+  font-size: clamp(7px, 1vw, 9px);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+@keyframes cctv-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.4; }
+}
+
+.video-screen__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Chaque vidéo a son propre effet glitch et un délai différent */
+.video-wall .video-screen:nth-child(1) .video-screen__video {
+  animation: glitch-video-1 9s ease-in-out infinite;
+  animation-delay: 0s;
+}
+.video-wall .video-screen:nth-child(2) .video-screen__video {
+  animation: glitch-video-4 8s ease-in-out infinite;
+  animation-delay: 0.7s;
+}
+.video-wall .video-screen:nth-child(3) .video-screen__video {
+  animation: glitch-video-2 10s ease-in-out infinite;
+  animation-delay: 1.4s;
+}
+.video-wall .video-screen:nth-child(4) .video-screen__video {
+  animation: glitch-video-5 9.5s ease-in-out infinite;
+  animation-delay: 2.1s;
+}
+.video-wall .video-screen:nth-child(5) .video-screen__video {
+  animation: glitch-video-3 8.5s ease-in-out infinite;
+  animation-delay: 2.8s;
+}
+.video-wall .video-screen:nth-child(6) .video-screen__video {
+  animation: glitch-video-6 10.5s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+.video-wall .video-screen:nth-child(7) .video-screen__video {
+  animation: glitch-video-4 11s ease-in-out infinite;
+  animation-delay: 1s;
+}
+.video-wall .video-screen:nth-child(8) .video-screen__video {
+  animation: glitch-video-1 7.5s ease-in-out infinite;
+  animation-delay: 1.8s;
+}
+.video-wall .video-screen:nth-child(9) .video-screen__video {
+  animation: glitch-video-5 9.2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+/* Scanlines — décalées par écran */
+.video-wall .video-screen:nth-child(1) .video-screen__scanlines { animation: scanline-drift 8s linear infinite; animation-delay: 0s; }
+.video-wall .video-screen:nth-child(2) .video-screen__scanlines { animation: scanline-drift 7.5s linear infinite; animation-delay: 1.2s; }
+.video-wall .video-screen:nth-child(3) .video-screen__scanlines { animation: scanline-drift 9s linear infinite; animation-delay: 2.5s; }
+.video-wall .video-screen:nth-child(4) .video-screen__scanlines { animation: scanline-drift 7s linear infinite; animation-delay: 0.4s; }
+.video-wall .video-screen:nth-child(5) .video-screen__scanlines { animation: scanline-drift 8.5s linear infinite; animation-delay: 1.8s; }
+.video-wall .video-screen:nth-child(6) .video-screen__scanlines { animation: scanline-drift 6.5s linear infinite; animation-delay: 3s; }
+.video-wall .video-screen:nth-child(7) .video-screen__scanlines { animation: scanline-drift 7.8s linear infinite; animation-delay: 0.8s; }
+.video-wall .video-screen:nth-child(8) .video-screen__scanlines { animation: scanline-drift 8.2s linear infinite; animation-delay: 2.2s; }
+.video-wall .video-screen:nth-child(9) .video-screen__scanlines { animation: scanline-drift 7.3s linear infinite; animation-delay: 1.5s; }
+.video-wall .video-screen:nth-child(10) .video-screen__scanlines { animation: scanline-drift 8s linear infinite; animation-delay: 0.6s; }
+
+.video-screen__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  border-radius: 8px;
+}
+
+/* Flicker — décalé par écran */
+.video-wall .video-screen:nth-child(1) .video-screen__flicker { animation: flicker 0.12s infinite; animation-delay: 0s; }
+.video-wall .video-screen:nth-child(2) .video-screen__flicker { animation: flicker 0.15s infinite; animation-delay: 0.04s; }
+.video-wall .video-screen:nth-child(3) .video-screen__flicker { animation: flicker 0.11s infinite; animation-delay: 0.08s; }
+.video-wall .video-screen:nth-child(4) .video-screen__flicker { animation: flicker 0.13s infinite; animation-delay: 0.02s; }
+.video-wall .video-screen:nth-child(5) .video-screen__flicker { animation: flicker 0.14s infinite; animation-delay: 0.06s; }
+.video-wall .video-screen:nth-child(6) .video-screen__flicker { animation: flicker 0.1s infinite; animation-delay: 0.1s; }
+.video-wall .video-screen:nth-child(7) .video-screen__flicker { animation: flicker 0.16s infinite; animation-delay: 0.03s; }
+.video-wall .video-screen:nth-child(8) .video-screen__flicker { animation: flicker 0.12s infinite; animation-delay: 0.07s; }
+.video-wall .video-screen:nth-child(9) .video-screen__flicker { animation: flicker 0.13s infinite; animation-delay: 0.05s; }
+
+.video-screen__flicker {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 8px;
+}
+
+/* Bruit — décalé par écran */
+.video-wall .video-screen:nth-child(1) .video-screen__noise { animation: noise 0.25s steps(1) infinite; animation-delay: 0s; }
+.video-wall .video-screen:nth-child(2) .video-screen__noise { animation: noise 0.35s steps(1) infinite; animation-delay: 0.1s; }
+.video-wall .video-screen:nth-child(3) .video-screen__noise { animation: noise 0.28s steps(1) infinite; animation-delay: 0.2s; }
+.video-wall .video-screen:nth-child(4) .video-screen__noise { animation: noise 0.31s steps(1) infinite; animation-delay: 0.05s; }
+.video-wall .video-screen:nth-child(5) .video-screen__noise { animation: noise 0.22s steps(1) infinite; animation-delay: 0.15s; }
+.video-wall .video-screen:nth-child(6) .video-screen__noise { animation: noise 0.4s steps(1) infinite; animation-delay: 0.25s; }
+.video-wall .video-screen:nth-child(7) .video-screen__noise { animation: noise 0.27s steps(1) infinite; animation-delay: 0.08s; }
+.video-wall .video-screen:nth-child(8) .video-screen__noise { animation: noise 0.33s steps(1) infinite; animation-delay: 0.18s; }
+.video-wall .video-screen:nth-child(9) .video-screen__noise { animation: noise 0.29s steps(1) infinite; animation-delay: 0.12s; }
+.video-wall .video-screen:nth-child(10) .video-screen__noise { animation: noise 0.26s steps(1) infinite; animation-delay: 0.22s; }
+
+.video-screen__noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  border-radius: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes glitch-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 2px); }
+  80% { transform: translate(1px, -2px); }
+}
+
+/* Teinte CCTV de base (reprise dans chaque keyframe "repos") */
+/* Variante 1 — glitch coupure + teinte verte */
+@keyframes glitch-video-1 {
+  0%, 88%, 100% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+  89% { filter: hue-rotate(90deg) contrast(1.3); clip-path: inset(15% 0 55% 10%); }
+  91% { filter: hue-rotate(-20deg) saturate(1.5); clip-path: inset(35% 25% 5% 15%); }
+  93% { filter: contrast(1.4); clip-path: inset(0 40% 45% 0); }
+  95% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+}
+
+/* Variante 2 — glitch décalage horizontal + bleu/rouge */
+@keyframes glitch-video-2 {
+  0%, 85%, 100% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+  86% { filter: hue-rotate(180deg) brightness(1.1); clip-path: inset(5% 20% 60% 0); }
+  88% { filter: hue-rotate(-90deg) saturate(1.8); clip-path: inset(50% 0 0 30%); }
+  90% { filter: contrast(1.2); clip-path: inset(10% 35% 30% 5%); }
+  92% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+}
+
+/* Variante 3 — glitch saccade + saturation */
+@keyframes glitch-video-3 {
+  0%, 92%, 100% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+  93% { filter: saturate(2.5) hue-rotate(45deg); clip-path: inset(20% 10% 50% 20%); }
+  95% { filter: hue-rotate(-60deg) contrast(1.3); clip-path: inset(0 30% 40% 10%); }
+  97% { filter: saturate(1.2); clip-path: inset(40% 0 15% 25%); }
+  99% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+}
+
+/* Variante 4 — tranche horizontale (bande du milieu qui saute) */
+@keyframes glitch-video-4 {
+  0%, 90%, 100% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+  91% { filter: brightness(1.2) contrast(1.2); clip-path: inset(30% 5% 30% 5%); }
+  92% { filter: hue-rotate(120deg); clip-path: inset(0 15% 0 15%); }
+  94% { filter: saturate(0.5); clip-path: inset(45% 0 45% 0); }
+  96% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+}
+
+/* Variante 5 — flash + décalage brutal */
+@keyframes glitch-video-5 {
+  0%, 87%, 100% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+  88% { filter: brightness(1.8) contrast(1.4); clip-path: inset(0 0 0 0); }
+  89% { filter: hue-rotate(270deg) saturate(2); clip-path: inset(0 50% 0 0); }
+  91% { filter: invert(0.3) contrast(1.2); clip-path: inset(20% 0 20% 30%); }
+  93% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+}
+
+/* Variante 6 — effet "tracking" VHS (bandes qui dérivent) */
+@keyframes glitch-video-6 {
+  0%, 93%, 100% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+  94% { filter: hue-rotate(-45deg) saturate(1.6); clip-path: inset(0 0 0 40%); }
+  95% { filter: hue-rotate(90deg); clip-path: inset(0 25% 0 25%); }
+  97% { filter: contrast(1.3) brightness(0.9); clip-path: inset(15% 10% 15% 10%); }
+  99% { filter: contrast(1.05) saturate(0.85) brightness(0.98) hue-rotate(8deg); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    background: rgba(0, 0, 0, 0);
+  }
+  20%, 24%, 55% {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+@keyframes scanline-drift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(8px); }
+}
+
+@keyframes noise {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.12; }
+}
+
+/* --- Grid 3 × 3 --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+/* --- Une télé --- */
+.tv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Cadre / bezel de la télé (style rétro, à l’ancienne) */
+.tv__bezel {
+  width: 100%;
+  max-width: 260px;
+  background: linear-gradient(145deg, #2c2c2c 0%, #1a1a1a 100%);
+  border-radius: 16px 16px 20px 20px;
+  padding: 14px 14px 18px;
+  box-shadow:
+    0 0 0 3px #333,
+    0 0 0 6px #222,
+    0 12px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Zone écran carrée, style CRT à l’ancienne */
+.tv__screen {
+  aspect-ratio: 1 / 1;
+  background: #0a0a0a;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Placeholder quand il n’y a pas encore de vidéo */
+.tv__screen:empty::after {
+  content: "vidéo";
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: lowercase;
+}
+
+/* Vidéo à l’intérieur du cadre : plein écran dans la TV */
+.tv__screen video,
+.tv__screen iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Pied de la télé à l’ancienne */
+.tv__stand {
+  width: 50%;
+  max-width: 120px;
+  height: 16px;
+  background: linear-gradient(180deg, #333 0%, #1f1f1f 100%);
+  border-radius: 0 0 8px 8px;
+  margin-top: -4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .video-wall {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .tv__bezel {
+    max-width: 100%;
+  }
+}
